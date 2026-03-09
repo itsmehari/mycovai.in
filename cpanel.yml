@@ -1,0 +1,8 @@
+---
+# cPanel Git deploy – copies repo to document root
+# Repository path: /home3/metapBok/repositories/mycovai.in
+# Adjust target path if your domain uses a different document root (e.g. subdomain folder)
+deployment:
+  tasks:
+    - export /home3/metapBok/repositories/mycovai.in
+    - /bin/cp -R * /home3/metapBok/public_html/
