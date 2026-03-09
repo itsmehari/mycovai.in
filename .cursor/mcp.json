@@ -1,0 +1,61 @@
+{
+    "mcpServers": {
+      "filesystem": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-filesystem"]
+      },
+      "github": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-github"]
+      },
+      "supabase": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-supabase"]
+      },
+      "firecrawl": {
+        "command": "npx",
+        "args": ["-y", "@firecrawl/mcp"]
+      },
+      "browserbase": {
+        "command": "npx",
+        "args": ["-y", "@browserbase/mcp"]
+      },
+      "apidog": {
+        "command": "npx",
+        "args": ["-y", "@apidogdev/mcp"]
+      },
+      "tavily": {
+        "command": "npx",
+        "args": ["-y", "@tavily/mcp"]
+      },
+      "duckduckgo": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-duckduckgo"]
+      },
+      "magic": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-magic"]
+      },
+      "markdownify": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-markdownify"]
+      },
+      "pandoc": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-pandoc"]
+      },
+      "excel": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-excel"]
+      },
+      "figma": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-figma"]
+      },
+      "mindmap": {
+        "command": "npx",
+        "args": ["-y", "@cursor-ai/mcp-mindmap"]
+      }
+    }
+  }
+  

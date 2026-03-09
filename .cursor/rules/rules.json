@@ -1,0 +1,31 @@
+{
+  "name": "MyOMR Cursor AI Ruleset",
+  "version": "1.0",
+  "tech_stack": [
+    "HTML5",
+    "CSS3",
+    "Bootstrap 5",
+    "PHP",
+    "MySQL"
+  ],
+  "environment": "VS Code, phpMyAdmin, cPanel Shared Hosting",
+  "components": [
+    "main-nav.php",
+    "footer.php",
+    "myomr-news-bulletin.php",
+    "social-icons.php",
+    "admin-breadcrumbs.php"
+  ],
+  "cursor_directives": [
+    "paginate omr_schools table (9 per page) using mysqli",
+    "create SEO schema for NewsArticle using og tags and structured data",
+    "generate responsive card for event using Bootstrap",
+    "write contact form logic to send email + save in database",
+    "create admin dashboard table for restaurants with edit/delete",
+    "add form validation for event submission with client-side checks",
+    "inject responsive map iframe based on Perungudi coordinates",
+    "generate dynamic news list using LIMIT, OFFSET, and date DESC",
+    "create login session logic and protect /admin/ folder",
+    "refactor /components/nav-footer-styles.css into base-footer.css"
+  ]
+}

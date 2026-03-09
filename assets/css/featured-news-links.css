@@ -1,0 +1,102 @@
+/**
+ * Featured News Links – Editor's picks card grid
+ * MyCovai / MyOMR
+ */
+
+.featured-news-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.featured-news-heading {
+  font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #0d7a42;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.featured-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.featured-news-card {
+  display: block;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid #e8eef2;
+}
+
+.featured-news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(13, 122, 66, 0.15);
+  border-color: rgba(13, 122, 66, 0.3);
+}
+
+.featured-news-card-image {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #f0f4f8;
+}
+
+.featured-news-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.featured-news-card:hover .featured-news-card-image img {
+  transform: scale(1.05);
+}
+
+.featured-news-card-body {
+  padding: 1.25rem;
+}
+
+.featured-news-card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.35;
+  color: #102a43;
+  transition: color 0.2s ease;
+}
+
+.featured-news-card:hover .featured-news-card-title {
+  color: #0d7a42;
+}
+
+.featured-news-card-summary {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.featured-news-card-date {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.featured-news-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #94a3b8;
+  padding: 2rem;
+}
+
+@media (max-width: 640px) {
+  .featured-news-grid {
+    grid-template-columns: 1fr;
+  }
+}

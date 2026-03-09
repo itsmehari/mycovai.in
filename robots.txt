@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /local-events/admin/
+Disallow: /dev-tools/
+Disallow: /weblog/
+Disallow: /backups/
+Disallow: /cgi-bin/
+
+# Sitemap (Phase 5.3: MyCovai domain)
+Sitemap: https://mycovai.in/sitemap.xml
+

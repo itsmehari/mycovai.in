@@ -1,0 +1,220 @@
+# MyCovai root .htaccess – central routing and sitemap management
+
+RewriteEngine On
+
+# Force HTTPS - Redirect HTTP to HTTPS (must be first)
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirect www to non-www (canonical domain) - ensures HTTPS
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Security: disable indexes
+Options -Indexes
+
+# Phase 6: 301 redirects from old path names to new (keep bookmarks/backlinks working)
+RewriteRule ^about-myomr-omr-community-portal\.php$ /about.php [R=301,L]
+RewriteRule ^contact-my-omr-team\.php$ /contact.php [R=301,L]
+RewriteRule ^webmaster-contact-my-omr\.php$ /webmaster-contact.php [R=301,L]
+RewriteRule ^terms-and-conditions-my-omr\.php$ /terms-and-conditions.php [R=301,L]
+RewriteRule ^website-privacy-policy-of-my-omr\.php$ /privacy-policy.php [R=301,L]
+RewriteRule ^general-data-policy-of-my-omr\.php$ /data-policy.php [R=301,L]
+RewriteRule ^info/website-privacy-policy-of-my-omr\.php$ /privacy-policy.php [R=301,L]
+RewriteRule ^omr-listings(/.*)?$ /directory$1 [R=301,L]
+RewriteRule ^omr-local-job-listings(/.*)?$ /jobs$1 [R=301,L]
+RewriteRule ^omr-local-events(/.*)?$ /local-events$1 [R=301,L]
+RewriteRule ^omr-hostels-pgs(/.*)?$ /hostels-pgs$1 [R=301,L]
+RewriteRule ^omr-coworking-spaces(/.*)?$ /coworking-spaces$1 [R=301,L]
+RewriteRule ^discover-myomr(/.*)?$ /discover$1 [R=301,L]
+
+# Root sitemap index
+RewriteRule ^sitemap\.xml$ weblog/generate-sitemap-index.php [L]
+
+# Module: Events – clean routes (Phase 6: local-events/ to avoid clash with existing events/)
+RewriteRule ^local-events/sitemap\.xml$ local-events/generate-events-sitemap.php [L]
+RewriteRule ^local-events/event/([^/]+)/?$ local-events/event-detail-omr.php?slug=$1 [L,QSA]
+RewriteRule ^local-events/category/([^/]+)/?$ local-events/category.php?slug=$1 [L,QSA]
+RewriteRule ^local-events/locality/([^/]+)/?$ local-events/locality.php?slug=$1 [L,QSA]
+RewriteRule ^local-events/venue/([^/]+)/?$ local-events/venue.php?slug=$1 [L,QSA]
+RewriteRule ^local-events/today/?$ local-events/today.php [L,QSA]
+RewriteRule ^local-events/weekend/?$ local-events/weekend.php [L,QSA]
+RewriteRule ^local-events/month/?$ local-events/month.php [L,QSA]
+RewriteRule ^local-events/post/?$ local-events/post-event-omr.php [L,QSA]
+
+# Module: Directory – sitemap (Phase 6: directory/ to avoid clash with existing listings/)
+RewriteRule ^directory/sitemap\.xml$ directory/generate-listings-sitemap.php [L]
+
+# Module: Job Portal – sitemap (Phase 6: jobs/)
+RewriteRule ^jobs/sitemap\.xml$ jobs/generate-sitemap.php [L]
+
+# Module: Hostels & PGs – sitemap (Phase 6: hostels-pgs/)
+RewriteRule ^hostels-pgs/sitemap\.xml$ hostels-pgs/generate-sitemap.php [L]
+
+# Module: Coworking Spaces – sitemap (Phase 6: coworking-spaces/)
+RewriteRule ^coworking-spaces/sitemap\.xml$ coworking-spaces/generate-sitemap.php [L]
+
+# Module: Pentahive – sitemap
+RewriteRule ^pentahive/sitemap\.xml$ pentahive/generate-sitemap.php [L]
+
+# Module: Election BLO Details – sitemap
+RewriteRule ^election-blo-details/sitemap\.xml$ election-blo-details/generate-blo-sitemap.php [L]
+
+# Add more modules here when ready (news) with similar patterns
+
+# Legacy jobs page redirect (obsolete)
+RewriteRule ^listings/search-and-post-jobs-job-vacancy-employment-platform-for-omr-chennai\.php$ jobs/index.php [R=301,L]
+
+# Coimbatore directory list – canonical covai-directory-list (replaces omr-road-database-list)
+RewriteRule ^covai-directory-list\.php$ core/covai-directory-list.php [L]
+RewriteRule ^omr-road-database-list\.php$ /covai-directory-list.php [R=301,L]
+RewriteRule ^core/omr-road-database-list\.php$ /covai-directory-list.php [R=301,L]
+
+# Security headers (safe defaults)
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  # Content-Security-Policy can be tightened later after CDN audit
+  # Header set Content-Security-Policy "default-src 'self' https: 'unsafe-inline' 'unsafe-eval'"
+</IfModule>
+
+# Static asset caching
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType image/webp "access plus 90 days"
+  ExpiresByType image/jpeg "access plus 90 days"
+  ExpiresByType image/png "access plus 90 days"
+  ExpiresByType image/svg+xml "access plus 90 days"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType application/x-javascript "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/gif "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 30 days"
+  ExpiresByType font/woff "access plus 30 days"
+  ExpiresByType font/ttf "access plus 30 days"
+  ExpiresDefault "access plus 5 minutes"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=604800, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpg|jpeg|gif|svg|woff2|woff|ttf)$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|php)$">
+    Header set Cache-Control "public, max-age=300"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Environment and bootstrap
+SetEnv MYCOVAI_ENV production
+<IfModule mod_php7.c>
+  php_value auto_prepend_file core/error-handler.php
+</IfModule>
+<IfModule mod_php8.c>
+  php_value auto_prepend_file core/error-handler.php
+</IfModule>
+
+# Clean URLs for directories
+RewriteEngine On
+
+# Banks list and details (Phase 6: directory/)
+RewriteRule ^banks/?$ directory/banks.php [L]
+RewriteRule ^banks/([A-Za-z0-9\-]+)$ directory/bank.php?slug=$1 [L,QSA]
+
+# Hospitals list and details
+RewriteRule ^hospitals/?$ directory/hospitals.php [L]
+RewriteRule ^hospitals/([A-Za-z0-9\-]+)$ directory/hospital.php?slug=$1 [L,QSA]
+
+# Schools list and details
+RewriteRule ^schools/?$ directory/schools.php [L]
+RewriteRule ^schools/([A-Za-z0-9\-]+)$ directory/school.php?slug=$1 [L,QSA]
+
+# Parks list and details
+RewriteRule ^parks/?$ directory/parks.php [L]
+RewriteRule ^parks/([A-Za-z0-9\-]+)$ directory/park.php?slug=$1 [L,QSA]
+
+# Industries list and details
+RewriteRule ^industries/?$ directory/industries.php [L]
+RewriteRule ^industries/([A-Za-z0-9\-]+)$ directory/industry.php?slug=$1 [L,QSA]
+
+# Government offices list and details
+RewriteRule ^government-offices/?$ directory/government-offices.php [L]
+RewriteRule ^government-offices/([A-Za-z0-9\-]+)$ directory/government-office.php?slug=$1 [L,QSA]
+
+# ATMs list and details
+RewriteRule ^atms/?$ directory/atms.php [L]
+RewriteRule ^atms/([A-Za-z0-9\-]+)$ directory/atm.php?slug=$1 [L,QSA]
+
+RewriteEngine On
+
+# Pretty URL for IT companies listing (Phase 6: directory/)
+RewriteRule ^it-companies$ /directory/it-companies.php [L,NC]
+RewriteRule ^it-companies/([A-Za-z0-9-]+)$ /directory/it-company.php?slug=$1 [L,NC,QSA]
+
+# Pretty URL for IT parks listing
+RewriteRule ^it-parks$ /directory/it-parks-in-omr.php [L,NC]
+RewriteRule ^it-parks/([A-Za-z0-9-]+)$ /directory/it-park.php?slug=$1 [L,NC,QSA]
+RewriteRule ^it-parks/sitemap\.xml$ /directory/generate-it-parks-sitemap.php [L]
+
+# Pretty URL for Hospitals listing
+RewriteRule ^hospitals$ /directory/hospitals.php [L,NC]
+RewriteRule ^hospitals/([A-Za-z0-9-]+)$ /directory/hospital.php?slug=$1 [L,NC,QSA]
+
+# Pretty URL for Banks listing
+RewriteRule ^banks$ /directory/banks.php [L,NC]
+RewriteRule ^banks/([A-Za-z0-9-]+)$ /directory/bank.php?slug=$1 [L,NC,QSA]
+
+# Pretty URL for Schools listing
+RewriteRule ^schools$ /directory/schools.php [L,NC]
+RewriteRule ^schools/([A-Za-z0-9-]+)$ /directory/school.php?slug=$1 [L,NC,QSA]
+
+# Pretty URL for Restaurants listing
+RewriteRule ^restaurants$ /directory/restaurants.php [L,NC]
+RewriteRule ^restaurants/([A-Za-z0-9-]+)$ /directory/restaurant.php?slug=$1 [L,NC,QSA]
+
+# Pretty URL for Industries listing
+RewriteRule ^industries$ /directory/industries.php [L,NC]
+RewriteRule ^industries/([A-Za-z0-9-]+)$ /directory/industry.php?slug=$1 [L,NC,QSA]
+
+# Pretty URL for Parks listing
+RewriteRule ^parks$ /directory/parks.php [L,NC]
+RewriteRule ^parks/([A-Za-z0-9-]+)$ /directory/park.php?slug=$1 [L,NC,QSA]
+
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the "ea-php82" package as the default "PHP" programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
+
+# Enable Rewrite Engine for Clean URLs
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# Clean URLs for articles: /local-news/article-slug -> article.php?slug=article-slug
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/local-news/([^/]+)/?$
+RewriteRule ^local-news/([^/]+)/?$ local-news/article.php?slug=$1 [L,QSA]
+
+# Note: www to non-www redirect is handled at the top of this file
+</IfModule>

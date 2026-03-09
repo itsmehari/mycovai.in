@@ -1,0 +1,84 @@
+/* Ensuring styles apply only to this section */
+.myomr-news-bulletin {
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.bulletin-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.news-card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.news-card img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.news-card h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.news-card p {
+  font-size: 14px;
+  color: #333;
+}
+
+.news-card a {
+  color: #008037;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  margin-top: 8px;
+}
+
+.view-more {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #008037;
+  text-decoration: none;
+}
+
+.news-tags {
+  font-size: 14px;
+  color: #008037; /* Greenish highlight for tags */
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Style for the "Tags" label */
+.news-tags strong {
+  color: #005522; /* Darker shade for 'Tags' label */
+  text-transform: uppercase;
+}
+
+/* Optional: Add spacing for uniform alignment */
+.news-card p {
+  line-height: 1.5;
+}

@@ -1,0 +1,45 @@
+================================================================================
+MYCOVAI DATABASE - OPTION B: FULL IMPORT, THEN CLEAR DATA AND SEED
+================================================================================
+Target database: metap8ok_mycovai
+User: metap8ok_myomr_admin
+
+--------------------------------------------------------------------------------
+STEP 1: Full import
+--------------------------------------------------------------------------------
+1. Open phpMyAdmin and select the database: metap8ok_mycovai
+2. Click "Import"
+3. Choose file: metap8ok_myomr.sql
+4. Leave default options (full import = structure + data)
+5. Click "Go" and wait for the import to finish
+
+--------------------------------------------------------------------------------
+STEP 2: Truncate all tables and seed Coimbatore areas
+--------------------------------------------------------------------------------
+1. Stay in phpMyAdmin, with metap8ok_mycovai selected
+2. Click the "SQL" tab
+3. Open the file: 02-option-b-truncate-then-seed-mycovai.sql
+4. Copy its entire contents and paste into the SQL box
+5. Click "Go"
+
+This will:
+   - Empty all 51 tables (remove Chennai/OMR data)
+   - Insert 25 Coimbatore localities into "List of Areas"
+
+--------------------------------------------------------------------------------
+FILES YOU NEED (Option B)
+--------------------------------------------------------------------------------
+  (1) metap8ok_myomr.sql                    <- use in Step 1 (Import)
+  (2) 02-option-b-truncate-then-seed-mycovai.sql   <- use in Step 2 (SQL tab)
+  (3) OPTION-B-INSTRUCTIONS.txt             <- this file
+
+--------------------------------------------------------------------------------
+DONE
+--------------------------------------------------------------------------------
+After Step 2, metap8ok_mycovai will have:
+  - All 51 tables (same structure as MyOMR)
+  - All tables empty except "List of Areas" (filled with Coimbatore areas)
+  - omr_election_blo empty (add Coimbatore BLO data later when you have it)
+
+When ready to go live, set in core/omr-connect.php:
+  $database = "metap8ok_mycovai";

@@ -1,0 +1,42 @@
+/**
+ * Directory list pages – MyCovai design overrides
+ * Use terracotta palette for listing rows, heroes, and cards
+ */
+
+/* Override OMR blue with MyCovai terracotta */
+.bg-primary-omr { background: var(--mycovai-primary, #B8522E) !important; color: #fff; }
+.bg-secondary-omr { background: var(--mycovai-primary-dark, #8B3D24) !important; color: #fff; }
+.text-primary-omr { color: var(--mycovai-primary, #B8522E) !important; }
+
+/* Directory page hero/title */
+.directory-list-hero {
+  font-family: 'Fraunces', 'Georgia', serif;
+  font-weight: 600;
+  color: var(--mycovai-text, #2C2825);
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+/* Listing row styling */
+.directory-content .row-item {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px rgba(44,40,37,0.06);
+}
+.directory-content .row-item a {
+  color: #fff !important;
+}
+.directory-content .muted-note {
+  color: rgba(255,255,255,0.9);
+  font-weight: 400;
+}
+
+/* Hover for listing rows */
+.directory-content .row-item:hover,
+.directory-content .hover-me:hover {
+  opacity: 0.95;
+}
+
+/* Max width container */
+.maxw-1280 { max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }

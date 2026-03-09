@@ -1,0 +1,8 @@
+# Block PHP execution in upload directory
+<FilesMatch "\.(php|phtml|php3|php4|php5|phps)$">
+    Require all denied
+</FilesMatch>
+# Alternative: php_flag engine off (if supported)
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
