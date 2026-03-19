@@ -20,8 +20,14 @@ if (count($headings) < 2) {
     return;
 }
 ?>
-<div class="article-toc">
-    <h3 class="article-toc__title"><i class="fas fa-list"></i> In this article</h3>
+<div class="article-toc" id="article-toc">
+    <div class="article-toc__header">
+        <h3 class="article-toc__title"><i class="fas fa-list"></i> In this article</h3>
+        <button type="button" class="article-toc__toggle" id="article-toc-toggle" aria-label="Collapse table of contents" title="Collapse">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </div>
+    <div class="article-toc__body">
     <ul class="article-toc__list">
         <?php foreach ($headings as $h): ?>
         <li class="article-toc__item article-toc__item--h<?php echo $h['level']; ?>">
@@ -29,4 +35,5 @@ if (count($headings) < 2) {
         </li>
         <?php endforeach; ?>
     </ul>
+    </div>
 </div>

@@ -155,4 +155,59 @@
       el.id = 'section-' + (idx + 1);
     }
   });
+
+  // ToC collapse/expand (desktop only)
+  var layout = document.getElementById('article-page-layout');
+  var tocToggle = document.getElementById('article-toc-toggle');
+  var tocExpandTab = document.getElementById('article-toc-expand-tab');
+  var tocExpandBtn = tocExpandTab && tocExpandTab.querySelector('button');
+
+  function isTocCollapsed() {
+    return layout && layout.classList.contains('article-toc-collapsed');
+  }
+
+  function setTocCollapsed(collapsed) {
+    if (!layout) return;
+    if (collapsed) {
+      layout.classList.add('article-toc-collapsed');
+      if (tocExpandTab) { tocExpandTab.classList.add('is-visible'); tocExpandTab.setAttribute('aria-hidden', 'false'); }
+      if (tocToggle && tocToggle.querySelector('i')) {
+        tocToggle.querySelector('i').className = 'fas fa-chevron-right';
+      }
+      if (tocToggle) {
+        tocToggle.setAttribute('aria-label', 'Expand table of contents');
+        tocToggle.setAttribute('title', 'Expand');
+      }
+      try { localStorage.setItem('article-toc-collapsed', '1'); } catch (e) {}
+    } else {
+      layout.classList.remove('article-toc-collapsed');
+      if (tocExpandTab) { tocExpandTab.classList.remove('is-visible'); tocExpandTab.setAttribute('aria-hidden', 'true'); }
+      if (tocToggle && tocToggle.querySelector('i')) {
+        tocToggle.querySelector('i').className = 'fas fa-chevron-left';
+      }
+      if (tocToggle) {
+        tocToggle.setAttribute('aria-label', 'Collapse table of contents');
+        tocToggle.setAttribute('title', 'Collapse');
+      }
+      try { localStorage.removeItem('article-toc-collapsed'); } catch (e) {}
+    }
+  }
+
+  if (layout && tocToggle && window.innerWidth > 991) {
+    var wasCollapsed = localStorage.getItem('article-toc-collapsed') === '1';
+    if (wasCollapsed) {
+      setTocCollapsed(true);
+    } else if (tocExpandTab) {
+      tocExpandTab.classList.remove('is-visible');
+    }
+    tocToggle.addEventListener('click', function() {
+      setTocCollapsed(!isTocCollapsed());
+    });
+  }
+
+  if (tocExpandBtn && layout && window.innerWidth > 991) {
+    tocExpandBtn.addEventListener('click', function() {
+      setTocCollapsed(false);
+    });
+  }
 })();

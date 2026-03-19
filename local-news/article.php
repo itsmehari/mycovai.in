@@ -319,7 +319,7 @@ $size = '728x90';
 require_once __DIR__ . '/../components/article-ad-banner.php';
 ?>
 
-<div class="article-page-layout">
+<div class="article-page-layout" id="article-page-layout">
     <aside class="article-sidebar" id="article-sidebar">
         <?php require_once __DIR__ . '/../components/article-toc.php'; ?>
     </aside>
@@ -647,6 +647,9 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
 <?php require_once '../components/footer.php'; ?>
 <link rel="stylesheet" href="../components/footer.css">
 
+<div class="article-toc-expand-tab" id="article-toc-expand-tab" aria-hidden="true" title="Show table of contents" style="display:none;">
+    <button type="button" aria-label="Expand table of contents"><i class="fas fa-list"></i></button>
+</div>
 <button type="button" class="article-back-to-top" id="article-back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
 
 <script>
