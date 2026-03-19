@@ -1,6 +1,6 @@
 /**
  * Banner ad styles for mycovai.in
- * Slot/zone layout and per-size, per-design variants.
+ * Designed layouts: card-row = visual banner cards; IAB sizes for single slots.
  *
  * @see core/ad-registry.php
  * @see components/ad-banner-slot.php
@@ -17,24 +17,48 @@
   max-width: var(--covai-ad-max-width);
 }
 
+/* Row of banner cards: responsive grid */
 .covai-ad-zone--row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4, 16px);
-  justify-content: center;
+  align-items: stretch;
 }
 
-/* "Ad" label spans full width above the row of banners */
+@media (max-width: 991px) {
+  .covai-ad-zone--row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .covai-ad-zone--row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* "Ad" / "Sponsored" label above the row */
 .covai-ad-zone--row > .covai-ad-slot__label {
-  flex-basis: 100%;
+  grid-column: 1 / -1;
+  font-size: 0.8125rem;
+  color: var(--color-muted, #6b7280);
+  margin-bottom: var(--space-2, 8px);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
 }
 
-/* Single slot container */
+/* Single slot container (fills grid cell) */
+.covai-ad-zone--row .covai-ad-slot {
+  display: block;
+  min-width: 0;
+}
+
 .covai-ad-slot {
   display: inline-block;
 }
 
-/* "Ad" label above slot */
+/* "Ad" label above single slot */
 .covai-ad-slot__label {
   display: block;
   font-size: 0.75rem;
@@ -57,7 +81,7 @@
   border-radius: var(--radius-md, 8px);
   color: var(--color-text, #1f2937);
   text-decoration: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
   box-sizing: border-box;
 }
 
@@ -118,19 +142,112 @@
   min-height: 50px;
 }
 
-/* --- card-row: horizontal row of compact cards (4–5 per row) --- */
+/* --- card-row: designed banner cards (visual layout) --- */
 .covai-ad-banner--card-row {
-  flex: 1 1 200px;
-  min-width: 180px;
-  max-width: 240px;
-  min-height: 120px;
+  display: flex;
   flex-direction: column;
-  text-align: center;
+  align-items: stretch;
+  text-align: left;
+  min-height: 160px;
+  padding: var(--space-5, 20px);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* --- Design variants --- */
+.covai-ad-banner--card-row:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.covai-ad-banner--card-row .covai-ad-banner__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: var(--space-3, 12px);
+  flex-shrink: 0;
+}
+
+.covai-ad-banner--card-row .covai-ad-banner__headline {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: var(--space-1, 4px);
+}
+
+.covai-ad-banner--card-row .covai-ad-banner__tagline {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  margin-bottom: var(--space-3, 12px);
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.covai-ad-banner--card-row .covai-ad-banner__cta {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: var(--space-1, 4px) var(--space-2, 8px);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--color-text, #1f2937);
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.covai-ad-banner--card-row:hover .covai-ad-banner__cta {
+  background: var(--color-primary, #0583D2);
+  color: #fff;
+}
+
+/* Optional image at top of card-row banner */
+.covai-ad-banner--card-row.covai-ad-banner--has-image {
+  padding: 0;
+  overflow: hidden;
+}
+
+.covai-ad-banner--card-row .covai-ad-banner__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.covai-ad-banner--card-row .covai-ad-banner__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.covai-ad-banner--card-row.covai-ad-banner--has-image .covai-ad-banner__icon,
+.covai-ad-banner--card-row.covai-ad-banner--has-image .covai-ad-banner__headline,
+.covai-ad-banner--card-row.covai-ad-banner--has-image .covai-ad-banner__tagline,
+.covai-ad-banner--card-row.covai-ad-banner--has-image .covai-ad-banner__cta {
+  margin-left: var(--space-5, 20px);
+  margin-right: var(--space-5, 20px);
+}
+
+.covai-ad-banner--card-row.covai-ad-banner--has-image .covai-ad-banner__icon {
+  margin-top: var(--space-3, 12px);
+  margin-bottom: var(--space-2, 8px);
+}
+
+.covai-ad-banner--card-row.covai-ad-banner--has-image .covai-ad-banner__cta {
+  margin-bottom: var(--space-4, 16px);
+}
+
+/* --- Design variants (card backgrounds + icon box for card-row) --- */
 .covai-ad-banner--mycovai {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  background: linear-gradient(160deg, #f0f9ff 0%, #e0f2fe 100%);
   border-color: #bae6fd;
 }
 
@@ -138,36 +255,96 @@
   border-color: var(--color-primary, #0583D2);
 }
 
+.covai-ad-banner--mycovai.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(6, 182, 212, 0.2);
+  color: #0891b2;
+}
+
 .covai-ad-banner--default {
   background: #f8f9fa;
 }
 
+.covai-ad-banner--default.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--color-primary, #0583D2);
+}
+
 .covai-ad-banner--resumedoctor {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  border-color: #fcd34d;
+  background: linear-gradient(160deg, #fef9e7 0%, #fef3c7 100%);
+  border-color: #fde68a;
+}
+
+.covai-ad-banner--resumedoctor:hover {
+  border-color: #f59e0b;
+}
+
+.covai-ad-banner--resumedoctor.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(245, 158, 11, 0.25);
+  color: #b45309;
 }
 
 .covai-ad-banner--colourchemist {
-  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+  background: linear-gradient(160deg, #fdf2f8 0%, #fce7f3 100%);
   border-color: #f9a8d4;
 }
 
+.covai-ad-banner--colourchemist:hover {
+  border-color: #db2777;
+}
+
+.covai-ad-banner--colourchemist.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(219, 39, 119, 0.2);
+  color: #be185d;
+}
+
 .covai-ad-banner--bseri {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  background: linear-gradient(160deg, #ecfdf5 0%, #d1fae5 100%);
   border-color: #6ee7b7;
 }
 
+.covai-ad-banner--bseri.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(16, 185, 129, 0.25);
+  color: #047857;
+}
+
 .covai-ad-banner--edmasters {
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  background: linear-gradient(160deg, #eff6ff 0%, #dbeafe 100%);
   border-color: #93c5fd;
 }
 
+.covai-ad-banner--edmasters:hover {
+  border-color: #2563eb;
+}
+
+.covai-ad-banner--edmasters.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(59, 130, 246, 0.25);
+  color: #1d4ed8;
+}
+
 .covai-ad-banner--myomr {
-  background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+  background: linear-gradient(160deg, #f0fdfa 0%, #ccfbf1 100%);
   border-color: #5eead4;
 }
 
+.covai-ad-banner--myomr:hover {
+  border-color: #0d9488;
+}
+
+.covai-ad-banner--myomr.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(20, 184, 166, 0.25);
+  color: #0f766e;
+}
+
 .covai-ad-banner--akshayam {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  background: linear-gradient(160deg, #fffbeb 0%, #fef3c7 100%);
   border-color: #fcd34d;
+}
+
+.covai-ad-banner--akshayam:hover {
+  border-color: #d97706;
+}
+
+.covai-ad-banner--akshayam.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(217, 119, 6, 0.25);
+  color: #b45309;
 }

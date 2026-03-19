@@ -1,0 +1,445 @@
+/**
+ * Fat Footer – MyCovai light theme
+ * Scoped to .fat-footer so the dark footer.css is not affected.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* -------------------------------------------------------------------------
+   Variables & base
+------------------------------------------------------------------------- */
+.fat-footer {
+  --fat-bg: #FAF9F6;
+  --fat-heading: #1a1a1a;
+  --fat-text: #444;
+  --fat-link: #2563eb;
+  --fat-link-hover: #1d4ed8;
+  --fat-accent: #B8522E;
+  --fat-accent-hover: #9a4527;
+  --fat-border: rgba(0, 0, 0, 0.08);
+  --fat-input-bg: #fff;
+  --fat-spacing: 1rem;
+  --fat-spacing-lg: 2.5rem;
+  --fat-spacing-xl: 3.5rem;
+  font-family: 'Poppins', sans-serif;
+  background: var(--fat-bg);
+  color: var(--fat-text);
+  position: relative;
+}
+
+.fat-footer .container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* -------------------------------------------------------------------------
+   Pre-footer subscribe band
+------------------------------------------------------------------------- */
+.fat-footer-prefooter {
+  padding: var(--fat-spacing-xl) 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--fat-border);
+}
+
+.fat-footer-prefooter .fat-footer-prefooter-inner {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.fat-footer-prefooter h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--fat-heading);
+  margin-bottom: 0.75rem;
+}
+
+.fat-footer-prefooter p {
+  font-size: 0.9375rem;
+  color: var(--fat-text);
+  margin-bottom: 1.25rem;
+}
+
+.fat-footer-prefooter .subscribe-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.fat-footer-prefooter .subscribe-form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--fat-border);
+  border-radius: 8px;
+  background: var(--fat-input-bg);
+  color: var(--fat-heading);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.fat-footer-prefooter .subscribe-form input::placeholder {
+  color: #64748b;
+}
+
+.fat-footer-prefooter .subscribe-form button {
+  padding: 0.75rem 1.5rem;
+  background: var(--fat-accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.fat-footer-prefooter .subscribe-form button:hover {
+  background: var(--fat-accent-hover);
+  transform: translateY(-1px);
+}
+
+/* -------------------------------------------------------------------------
+   Contact row (Find us, Call us, Mail us)
+------------------------------------------------------------------------- */
+.fat-footer .footer-cta {
+  padding: var(--fat-spacing-lg) 0;
+  border-bottom: 1px solid var(--fat-border);
+}
+
+.fat-footer .single-cta {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.fat-footer .single-cta i {
+  color: var(--fat-accent);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.fat-footer .cta-text h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fat-heading);
+  margin: 0 0 0.25rem 0;
+}
+
+.fat-footer .cta-text span {
+  font-size: 0.9375rem;
+  color: var(--fat-text);
+}
+
+/* -------------------------------------------------------------------------
+   Main four-column content
+------------------------------------------------------------------------- */
+.fat-footer .footer-content {
+  padding: var(--fat-spacing-xl) 0;
+}
+
+.fat-footer .footer-widget {
+  margin-bottom: var(--fat-spacing-lg);
+}
+
+/* Column 1: Logo, description, socials, subscribe */
+.fat-footer .footer-logo {
+  margin-bottom: 1rem;
+}
+
+.fat-footer .footer-logo a {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--fat-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.fat-footer .footer-logo a:hover {
+  color: var(--fat-accent-hover);
+}
+
+.fat-footer .footer-text p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--fat-text);
+  margin: 0 0 1.25rem 0;
+}
+
+.fat-footer .footer-social-icon {
+  margin-bottom: 1.5rem;
+}
+
+.fat-footer .footer-social-icon span {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--fat-heading);
+  margin-bottom: 0.75rem;
+}
+
+.fat-footer .footer-social-icon a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-right: 0.5rem;
+  color: var(--fat-link);
+  border-radius: 50%;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.fat-footer .footer-social-icon a:hover {
+  color: var(--fat-link-hover);
+  transform: translateY(-2px);
+}
+
+.fat-footer .footer-social-icon i {
+  font-size: 1.125rem;
+}
+
+/* Override legacy footer.css social backgrounds in fat context */
+.fat-footer .footer-social-icon .facebook-bg,
+.fat-footer .footer-social-icon .twitter-bg,
+.fat-footer .footer-social-icon .instagram-bg {
+  background: transparent;
+}
+
+/* Subscribe block inside column 1 */
+.fat-footer .footer-widget .footer-widget-heading h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fat-heading);
+  margin: 0 0 0.5rem 0;
+}
+
+.fat-footer .footer-widget-heading h3::before {
+  display: none;
+}
+
+.fat-footer .footer-widget .footer-text.mb-25 p {
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.fat-footer .subscribe-form {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid var(--fat-border);
+  background: var(--fat-input-bg);
+}
+
+.fat-footer .subscribe-form input {
+  flex: 1;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--fat-heading);
+  font-size: 0.9375rem;
+  font-family: inherit;
+}
+
+.fat-footer .subscribe-form input::placeholder {
+  color: #64748b;
+}
+
+.fat-footer .subscribe-form button {
+  flex-shrink: 0;
+  width: 48px;
+  padding: 0.65rem;
+  background: var(--fat-accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.fat-footer .subscribe-form button:hover {
+  background: var(--fat-accent-hover);
+}
+
+.fat-footer .subscribe-form button i {
+  color: #fff;
+  font-size: 1.125rem;
+  transform: none;
+}
+
+/* Columns 2–4: Link lists (vertical stack) */
+.fat-footer .footer-widget ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fat-footer .footer-widget ul li {
+  display: block;
+  float: none;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.fat-footer .footer-widget ul li a {
+  font-size: 0.9375rem;
+  color: var(--fat-link);
+  text-decoration: none;
+  text-transform: none;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.fat-footer .footer-widget ul li a:hover {
+  color: var(--fat-link-hover);
+  padding-left: 4px;
+}
+
+.fat-footer .footer-widget-heading h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fat-heading);
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--fat-accent);
+}
+
+/* -------------------------------------------------------------------------
+   Copyright bar
+------------------------------------------------------------------------- */
+.fat-footer .copyright-area {
+  background: transparent;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--fat-border);
+}
+
+.fat-footer .copyright-text p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--fat-text);
+}
+
+.fat-footer .copyright-text p a {
+  color: var(--fat-link);
+  text-decoration: none;
+}
+
+.fat-footer .copyright-text p a:hover {
+  color: var(--fat-link-hover);
+  text-decoration: underline;
+}
+
+.fat-footer .footer-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0 1rem;
+}
+
+.fat-footer .footer-menu li {
+  display: inline-block;
+  margin-left: 0;
+}
+
+.fat-footer .footer-menu li:not(:last-child)::after {
+  content: '\2022';
+  margin-left: 1rem;
+  color: var(--fat-text);
+  font-weight: 400;
+}
+
+.fat-footer .footer-menu li a {
+  font-size: 0.875rem;
+  color: var(--fat-link);
+  text-decoration: none;
+}
+
+.fat-footer .footer-menu li a:hover {
+  color: var(--fat-link-hover);
+  text-decoration: underline;
+}
+
+/* -------------------------------------------------------------------------
+   Responsive
+------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .fat-footer .footer-cta .row > [class*="col-"] {
+    margin-bottom: 1.25rem;
+  }
+
+  .fat-footer .footer-content .row > [class*="col-"] {
+    margin-bottom: 1.5rem;
+  }
+
+  .fat-footer .footer-menu ul {
+    justify-content: center;
+  }
+
+  .fat-footer .copyright-area .text-lg-left,
+  .fat-footer .copyright-area .text-right {
+    text-align: center !important;
+  }
+
+  .fat-footer .copyright-area .row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .fat-footer-prefooter .subscribe-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fat-footer-prefooter .subscribe-form input {
+    min-width: 100%;
+  }
+
+  .fat-footer .footer-content {
+    padding: var(--fat-spacing-lg) 0;
+  }
+}
+
+/* WhatsApp FAB (when fat footer is used without main.css) */
+.fat-footer + .float,
+body .float[aria-label="Chat on WhatsApp"] {
+  position: fixed;
+  width: 56px;
+  height: 56px;
+  bottom: 24px;
+  right: 24px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fat-footer + .float:hover,
+body .float[aria-label="Chat on WhatsApp"]:hover {
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.fat-footer + .float .my-float,
+body .float[aria-label="Chat on WhatsApp"] .my-float {
+  margin-top: 0;
+}

@@ -81,6 +81,7 @@ if (!function_exists('covai_ad_slot')) {
         $headline = isset($ad['headline']) ? $ad['headline'] : 'Ad';
         $tagline = isset($ad['tagline']) ? $ad['tagline'] : '';
         $icon = _covai_ad_icon($design);
+        $image_url = isset($ad['image_url']) ? trim($ad['image_url']) : '';
 
         // Inject ad CSS once per page
         if (!defined('COVAI_AD_BANNERS_CSS_LOADED')) {
@@ -91,7 +92,10 @@ if (!function_exists('covai_ad_slot')) {
         <div class="covai-ad-zone" aria-label="Sponsored content">
             <span class="covai-ad-slot__label">Ad</span>
             <div class="covai-ad-slot">
-                <a class="covai-ad-banner covai-ad-banner--<?php echo htmlspecialchars($size); ?> covai-ad-banner--<?php echo htmlspecialchars($design); ?>" href="<?php echo htmlspecialchars($url); ?>" rel="sponsored noopener noreferrer" target="_blank">
+                <a class="covai-ad-banner covai-ad-banner--<?php echo htmlspecialchars($size); ?> covai-ad-banner--<?php echo htmlspecialchars($design); ?><?php echo $image_url !== '' ? ' covai-ad-banner--has-image' : ''; ?>" href="<?php echo htmlspecialchars($url); ?>" rel="sponsored noopener noreferrer" target="_blank">
+                    <?php if ($image_url !== ''): ?>
+                        <span class="covai-ad-banner__image"><img src="<?php echo htmlspecialchars($image_url); ?>" alt="" loading="lazy" width="320" height="120"></span>
+                    <?php endif; ?>
                     <span class="covai-ad-banner__icon"><i class="<?php echo htmlspecialchars($icon); ?>" aria-hidden="true"></i></span>
                     <span class="covai-ad-banner__headline"><?php echo htmlspecialchars($headline); ?></span>
                     <?php if ($tagline !== ''): ?>
@@ -178,7 +182,7 @@ if (!function_exists('covai_ad_banner_row')) {
         }
         ?>
         <div class="covai-ad-zone covai-ad-zone--row" aria-label="Sponsored content">
-            <span class="covai-ad-slot__label">Ad</span>
+            <span class="covai-ad-slot__label">Sponsored</span>
             <?php foreach ($selected as $ad): ?>
                 <?php
                 $url = isset($ad['url']) ? $ad['url'] : '#';
@@ -186,9 +190,13 @@ if (!function_exists('covai_ad_banner_row')) {
                 $headline = isset($ad['headline']) ? $ad['headline'] : 'Ad';
                 $tagline = isset($ad['tagline']) ? $ad['tagline'] : '';
                 $icon = _covai_ad_icon($design);
+                $image_url = isset($ad['image_url']) ? trim($ad['image_url']) : '';
                 ?>
                 <div class="covai-ad-slot">
-                    <a class="covai-ad-banner covai-ad-banner--<?php echo htmlspecialchars($size); ?> covai-ad-banner--<?php echo htmlspecialchars($design); ?>" href="<?php echo htmlspecialchars($url); ?>" rel="sponsored noopener noreferrer" target="_blank">
+                    <a class="covai-ad-banner covai-ad-banner--<?php echo htmlspecialchars($size); ?> covai-ad-banner--<?php echo htmlspecialchars($design); ?><?php echo $image_url !== '' ? ' covai-ad-banner--has-image' : ''; ?>" href="<?php echo htmlspecialchars($url); ?>" rel="sponsored noopener noreferrer" target="_blank">
+                        <?php if ($image_url !== ''): ?>
+                            <span class="covai-ad-banner__image"><img src="<?php echo htmlspecialchars($image_url); ?>" alt="" loading="lazy" width="320" height="120"></span>
+                        <?php endif; ?>
                         <span class="covai-ad-banner__icon"><i class="<?php echo htmlspecialchars($icon); ?>" aria-hidden="true"></i></span>
                         <span class="covai-ad-banner__headline"><?php echo htmlspecialchars($headline); ?></span>
                         <?php if ($tagline !== ''): ?>
