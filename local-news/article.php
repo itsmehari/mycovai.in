@@ -226,6 +226,7 @@ if (!$article) {
     <?php endif; ?>
     
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/article-components.css">
     <style>
         :root {
             --myomr-green: #14532d;
@@ -238,6 +239,12 @@ if (!$article) {
             padding: 2rem 1rem; 
             font-family: 'Roboto', sans-serif;
             line-height: 1.8;
+            overflow-x: hidden;
+        }
+        @media (max-width: 576px) {
+            .article-container { padding: 1rem 0.75rem; }
+            .article-content h2 { font-size: 1.5rem; }
+            .article-content h3 { font-size: 1.25rem; }
         }
         
         .article-header img { 
@@ -300,10 +307,14 @@ if (!$article) {
 
 <?php require_once '../components/main-nav.php'; ?>
 
-<!-- Banner ad: article-top -->
-<div class="container py-2">
-    <?php covai_ad_slot('article-top', '728x90'); ?>
-</div>
+<!-- Progress bar -->
+<div class="article-progress-bar" id="article-progress-bar" aria-hidden="true"></div>
+
+<?php
+$slot_id = 'article-top';
+$size = '728x90';
+require_once __DIR__ . '/../components/article-ad-banner.php';
+?>
 
 <div class="container article-container">
     <article>
@@ -315,16 +326,23 @@ if (!$article) {
                     | By <?php echo htmlspecialchars($article['author']); ?>
                 <?php endif; ?>
             </p>
+            <?php
+            $word_count = str_word_count(strip_tags($article['content']));
+            $read_min = max(1, (int) ceil($word_count / 200));
+            ?>
+            <div class="article-meta-extras">
+                <span class="article-read-time"><?php echo $read_min; ?> min read</span>
+            </div>
+            <?php require_once __DIR__ . '/../components/article-tags.php'; ?>
             <?php if (!empty($article['image_path'])): ?>
-                <img src="<?php echo htmlspecialchars($article['image_path']); ?>" alt="<?php echo htmlspecialchars($article['title']); ?>" class="img-fluid">
+                <img src="<?php echo htmlspecialchars($article['image_path']); ?>" alt="<?php echo htmlspecialchars($article['title']); ?>" class="img-fluid" loading="lazy">
             <?php endif; ?>
         </header>
 
-        <!-- Banner ad: article-mid -->
-        <div class="py-3">
-            <?php covai_ad_slot('article-mid', '336x280'); ?>
-        </div>
-        
+        <?php $article_summary = $article['summary'] ?? ''; require_once __DIR__ . '/../components/article-share-buttons.php'; ?>
+
+        <?php $slot_id = 'article-mid'; $size = '336x280'; require_once __DIR__ . '/../components/article-ad-banner.php'; ?>
+
         <!-- Language Switch Link (if Tamil version exists) -->
         <?php
         // Check if Tamil version exists (slug ends with -tamil)
@@ -394,11 +412,30 @@ if (!$article) {
             endif;
         endif; 
         ?>
+
+        <?php require_once __DIR__ . '/../components/article-toc.php'; ?>
+        <?php require_once __DIR__ . '/../components/article-author-bio.php'; ?>
+        <?php require_once __DIR__ . '/../components/article-actions.php'; ?>
         
         <section class="article-content">
-            <?php echo $article['content']; ?>
+            <?php
+            $content = $article['content'];
+            $section_idx = 0;
+            $content = preg_replace_callback('/<h([23])([^>]*)>/i', function($m) use (&$section_idx) {
+                $section_idx++;
+                $tag = $m[1];
+                $attrs = $m[2];
+                if (preg_match('/\bid\s*=/i', $attrs)) return $m[0];
+                return '<h' . $tag . $attrs . ' id="section-' . $section_idx . '">';
+            }, $content);
+            echo $content;
+            ?>
         </section>
-        
+
+        <?php $slot_id = 'article-bottom'; $size = '728x90'; require_once __DIR__ . '/../components/article-ad-banner.php'; ?>
+
+        <?php require_once __DIR__ . '/../components/article-share-buttons.php'; ?>
+
         <!-- Related Articles Section -->
         <div style="margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 8px;">
             <h3 style="color: var(--myomr-green); margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; font-size: 1.75rem;">More Articles</h3>
@@ -424,7 +461,7 @@ if (!$article) {
                         
                         // Article image
                         if (!empty($related['image_path'])) {
-                            echo '<img src="' . htmlspecialchars($related['image_path']) . '" alt="' . htmlspecialchars($related['title']) . '" style="width: 100%; height: 180px; object-fit: cover; border-radius: 5px; margin-bottom: 0.75rem;">';
+                            echo '<img src="' . htmlspecialchars($related['image_path']) . '" alt="' . htmlspecialchars($related['title']) . '" loading="lazy" style="width: 100%; height: 180px; object-fit: cover; border-radius: 5px; margin-bottom: 0.75rem;">';
                         }
                         
                         // Article title
@@ -463,11 +500,13 @@ if (!$article) {
             </div>
             <?php if ($article_count > 0): ?>
             <div style="text-align: center; margin-top: 1.5rem;">
-                <a href="/local-news/" style="display: inline-block; padding: 0.75rem 2rem; background: var(--myomr-green); color: white; text-decoration: none; border-radius: 5px; font-weight: 600; transition: background 0.3s;" onmouseover="this.style.background='#22c55e';" onmouseout="this.style.background='var(--myomr-green)';">View All Articles</a>
+                <a href="/coimbatore-news.php" style="display: inline-block; padding: 0.75rem 2rem; background: var(--myomr-green); color: white; text-decoration: none; border-radius: 5px; font-weight: 600; transition: background 0.3s;" onmouseover="this.style.background='#22c55e';" onmouseout="this.style.background='var(--myomr-green)';">View All Articles</a>
             </div>
             <?php endif; ?>
         </div>
-        
+
+        <?php require_once __DIR__ . '/../components/article-report-form.php'; ?>
+
         <?php if ($show_community_section): ?>
         <!-- MyCovai Community Awareness Section (All Articles) -->
         <div class="community-awareness-section" style="background: linear-gradient(135deg, #14532d 0%, #22c55e 100%); padding: 3rem 2rem; border-radius: 12px; margin: 3rem 0; color: white; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
@@ -600,6 +639,14 @@ if (!$article) {
 
 <?php require_once '../components/footer.php'; ?>
 <link rel="stylesheet" href="../components/footer.css">
+
+<button type="button" class="article-back-to-top" id="article-back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+window.ARTICLE_URL = <?php echo json_encode($article_url); ?>;
+window.ARTICLE_TITLE = <?php echo json_encode($article['title']); ?>;
+</script>
+<script src="/assets/js/article-page.js"></script>
 </body>
 </html>
 

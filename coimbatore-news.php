@@ -18,12 +18,16 @@ $page_keywords = 'Coimbatore news, Covai news, local news Coimbatore, RS Puram, 
 $og_site_name = defined('SITE_OG_SITE_NAME') ? SITE_OG_SITE_NAME : 'MyCovai – Coimbatore Directory';
 
 // Articles: same query as home-page-news-cards, then split into lead + grid (Option B)
+$tag_filter = isset($_GET['tag']) ? trim($_GET['tag']) : '';
 $sql = "SELECT id, title, slug, summary, published_date, image_path 
         FROM articles 
         WHERE status = 'published' 
-        AND slug NOT LIKE '%-tamil' 
-        ORDER BY published_date DESC 
-        LIMIT 21";
+        AND slug NOT LIKE '%-tamil' ";
+if ($tag_filter !== '') {
+    $tag_escaped = $conn->real_escape_string($tag_filter);
+    $sql .= "AND (tags LIKE '%" . $tag_escaped . "%' OR category LIKE '%" . $tag_escaped . "%') ";
+}
+$sql .= "ORDER BY published_date DESC LIMIT 21";
 $articles_result = $conn->query($sql);
 $lead_article = null;
 $grid_articles = [];
@@ -77,7 +81,7 @@ function article_image_url($image_path) {
             <span class="sep">→</span>
             <span>Covai News</span>
         </nav>
-        <h1 class="covai-news-title">Covai News</h1>
+        <h1 class="covai-news-title">Covai News<?php if ($tag_filter !== ''): ?> — <?php echo htmlspecialchars($tag_filter); ?><?php endif; ?></h1>
         <p class="covai-news-tagline">Local updates, events and stories from Coimbatore.</p>
     </div>
 </section>
