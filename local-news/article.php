@@ -300,6 +300,11 @@ if (!$article) {
 
 <?php require_once '../components/main-nav.php'; ?>
 
+<!-- Banner ad: article-top -->
+<div class="container py-2">
+    <?php omr_ad_slot('article-top', '728x90'); ?>
+</div>
+
 <div class="container article-container">
     <article>
         <header class="article-header">
@@ -314,6 +319,11 @@ if (!$article) {
                 <img src="<?php echo htmlspecialchars($article['image_path']); ?>" alt="<?php echo htmlspecialchars($article['title']); ?>" class="img-fluid">
             <?php endif; ?>
         </header>
+
+        <!-- Banner ad: article-mid -->
+        <div class="py-3">
+            <?php omr_ad_slot('article-mid', '336x280'); ?>
+        </div>
         
         <!-- Language Switch Link (if Tamil version exists) -->
         <?php

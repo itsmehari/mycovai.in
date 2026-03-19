@@ -248,6 +248,11 @@ color: #4c516D;
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v14.0" nonce="brAi0ji4"></script>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-header.php'; ?>
 
+<!-- Banner ad: listing-top -->
+<div class="container maxw-1280 py-3">
+    <?php omr_ad_slot('listing-top', '336x280'); ?>
+</div>
+
 <div class="container maxw-1280" id="main-content" role="main">
   <h1 style="text-align:center; color:#0583D2;">Schools in Coimbatore</h1>
   
@@ -292,6 +297,13 @@ color: #4c516D;
     </div>
   </div>
   <!-- SDG Education Initiative Callout End -->
+
+  <!-- Banner ad: listing-mid -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-auto">
+      <?php omr_ad_slot('listing-mid', '336x280'); ?>
+    </div>
+  </div>
   
 
 <?php

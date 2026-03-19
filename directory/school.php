@@ -71,6 +71,11 @@ $canonical = 'https://mycovai.in/schools/' . $slug;
     </ol>
   </nav>
 
+  <!-- Banner ad: detail-mid -->
+  <div class="py-3">
+    <?php omr_ad_slot('detail-mid', '336x280'); ?>
+  </div>
+
   <h1 style="color:#0583D2;"><?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>
     <?php if ($isVerified): ?>
       <span class="badge bg-success" style="font-size:0.6em; vertical-align:middle;">Verified</span>

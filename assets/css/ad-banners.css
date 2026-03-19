@@ -1,0 +1,143 @@
+/**
+ * Banner ad styles for mycovai.in
+ * Slot/zone layout and per-size, per-design variants.
+ *
+ * @see core/ad-registry.php
+ * @see components/ad-banner-slot.php
+ */
+
+/* Fallback if tokens not loaded */
+:root {
+  --omr-ad-max-width: 1280px;
+}
+
+/* Zone: wrapper for one or more slots */
+.omr-ad-zone {
+  margin: var(--space-6, 24px) 0;
+  max-width: var(--omr-ad-max-width);
+}
+
+.omr-ad-zone--row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4, 16px);
+  justify-content: center;
+}
+
+/* Single slot container */
+.omr-ad-slot {
+  display: inline-block;
+}
+
+/* "Ad" label above slot */
+.omr-ad-slot__label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-muted, #6b7280);
+  margin-bottom: var(--space-1, 4px);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Banner link: base */
+.omr-ad-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px);
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: var(--radius-md, 8px);
+  color: var(--color-text, #1f2937);
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.omr-ad-banner:hover {
+  border-color: var(--color-primary, #0583D2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  color: var(--color-text, #1f2937);
+}
+
+.omr-ad-banner__icon {
+  color: var(--color-primary, #0583D2);
+  font-size: 1.25rem;
+}
+
+.omr-ad-banner__headline {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.omr-ad-banner__tagline {
+  font-size: 0.875rem;
+  color: var(--color-muted, #6b7280);
+  width: 100%;
+}
+
+.omr-ad-banner__cta {
+  font-size: 0.8125rem;
+  color: var(--color-primary, #0583D2);
+  font-weight: 500;
+}
+
+/* --- Size classes (IAB standard dimensions) --- */
+.omr-ad-banner--728x90 {
+  width: 728px;
+  max-width: 100%;
+  min-height: 90px;
+}
+
+.omr-ad-banner--336x280 {
+  width: 336px;
+  max-width: 100%;
+  min-height: 280px;
+  flex-direction: column;
+  text-align: center;
+}
+
+.omr-ad-banner--300x250 {
+  width: 300px;
+  max-width: 100%;
+  min-height: 250px;
+  flex-direction: column;
+  text-align: center;
+}
+
+.omr-ad-banner--320x50 {
+  width: 320px;
+  max-width: 100%;
+  min-height: 50px;
+}
+
+/* --- Design variants --- */
+.omr-ad-banner--mycovai {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-color: #bae6fd;
+}
+
+.omr-ad-banner--mycovai:hover {
+  border-color: var(--color-primary, #0583D2);
+}
+
+.omr-ad-banner--default {
+  background: #f8f9fa;
+}
+
+.omr-ad-banner--resumedoctor {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-color: #fcd34d;
+}
+
+.omr-ad-banner--colourchemist {
+  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+  border-color: #f9a8d4;
+}
+
+.omr-ad-banner--bseri {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-color: #6ee7b7;
+}

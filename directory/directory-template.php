@@ -163,6 +163,11 @@ $result = $conn->query($sql);
         </div>
     </section>
 
+    <!-- Banner ad: listing-top -->
+    <div class="container py-3">
+        <?php omr_ad_slot('listing-top', '336x280'); ?>
+    </div>
+
     <!-- Search Section -->
     <section class="container py-4">
         <div class="search-section">
@@ -194,6 +199,13 @@ $result = $conn->query($sql);
 
         <!-- Directory Items -->
         <h2 class="text-center mb-4"><?php echo ucfirst($directory_type); ?> in Coimbatore</h2>
+
+        <!-- Banner ad: listing-mid -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-auto">
+                <?php omr_ad_slot('listing-mid', '336x280'); ?>
+            </div>
+        </div>
         
         <?php if ($result->num_rows > 0): ?>
             <div class="row">

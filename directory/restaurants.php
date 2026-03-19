@@ -141,6 +141,11 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
         </div>
     </section>
 
+    <!-- Banner ad: listing-top -->
+    <div class="container maxw-1280 py-3">
+        <?php omr_ad_slot('listing-top', '336x280'); ?>
+    </div>
+
     <!-- Filter Section -->
     <section class="container maxw-1280 py-4" id="filters">
         <div class="filter-section">
@@ -194,6 +199,11 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
             </form>
         </div>
     </section>
+
+    <!-- Banner ad: listing-mid -->
+    <div class="container maxw-1280 py-3 d-flex justify-content-center">
+        <?php omr_ad_slot('listing-mid', '336x280'); ?>
+    </div>
 
     <!-- Restaurant Cards -->
     <section class="container maxw-1280 py-4">

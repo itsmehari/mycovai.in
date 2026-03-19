@@ -158,6 +158,12 @@ $home_categories = [
     </div>
 </section>
 
+<?php if (!function_exists('omr_ad_slot')) { require_once __DIR__ . '/components/ad-banner-slot.php'; } ?>
+<!-- Banner ad: homepage-top -->
+<div class="container-xl py-3">
+    <?php omr_ad_slot('homepage-top', '336x280'); ?>
+</div>
+
 <!-- Elections 2026 -->
 <section class="homepage-section-block" style="background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%); color: #fff;">
     <div class="container text-center">
@@ -187,6 +193,11 @@ $home_categories = [
         <?php include 'weblog/home-page-news-cards.php'; ?>
     </div>
 </section>
+
+<!-- Banner ad: homepage-mid -->
+<div class="container-xl py-3">
+    <?php omr_ad_slot('homepage-mid', '336x280'); ?>
+</div>
 
 <!-- Subscribe -->
 <section class="homepage-section-block" id="subscribe">
