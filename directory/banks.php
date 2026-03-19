@@ -15,7 +15,7 @@ $sql = "SELECT slno, bankname, address, contact, landmark, website FROM `$t`";
 $result = $conn->query($sql);
 
 ?>
-<?php include 'weblog/log.php' ?>
+<?php include __DIR__ . '/../weblog/log.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

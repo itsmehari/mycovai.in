@@ -51,6 +51,37 @@
 | Site-wide | .htaccess, weblog/generate-sitemap-index.php, components/main-nav.php, components/footer-covai.php, index.php (homepage) |
 | dev-tools | create-election-2026-tables.sql, seed-election-2026.sql, run-election-2026-migration.php, verify-election-tables-live.php |
 
+## Deployment layout (required for pages to load)
+
+The elections subsite **depends on the full site layout**. The **document root** (or the directory that contains `core/` and `components/`) must be the **parent** of `coimbatore-elections-2026/`.
+
+Required filesystem layout:
+
+- `(document root)/core/omr-connect.php`, `mycovai-config.php`, `url-helpers.php`
+- `(document root)/components/meta.php`, `main-nav.php`, `footer.php`, etc.
+- `(document root)/coimbatore-elections-2026/index.php`, `includes/bootstrap.php`, and all other subsite files
+
+If only `coimbatore-elections-2026/` is uploaded (e.g. to a subdomain or a folder with no parent `core/` and `components/`), the pages will not load. Either:
+
+1. **Deploy the full repo** so the parent of `coimbatore-elections-2026/` is the app root (recommended), or
+2. Add a standalone bootstrap and bring `core/` and `components/` into the elections subtree (copy/symlink); see plan for optional step 5.
+
+**Diagnostic:** Run `https://your-domain/coimbatore-elections-2026/check-env.php` to see whether ROOT_PATH, core files, and DB connection are OK. Remove or restrict `check-env.php` after fixing the site.
+
+### Required files (second-level and deep pages)
+
+For the hub, second-level pages, and constituency pages to load, **all** of these must be present under `coimbatore-elections-2026/` on the server:
+
+| Level | File(s) | URL path |
+|-------|---------|----------|
+| Hub | `index.php`, `index-tamil.php` | `/coimbatore-elections-2026/`, `…/index-tamil.php` |
+| Second-level | `dates.php`, `know-your-constituency.php`, `find-blo.php`, `candidates.php`, `how-to-vote.php`, `faq.php`, `news.php`, `newsletter.php`, `quiz.php`, `results-2026.php`, `announcements.php`, `dates-2026.ics.php` | `/coimbatore-elections-2026/<file>.php` |
+| Includes | `includes/bootstrap.php`, `includes/constituency-data.php`, `includes/constituency-template.php` | (loaded by PHP, not requested directly) |
+| Deep (constituency) | `constituency/palladam.php`, `constituency/sulur.php`, `constituency/kavundampalayam.php`, `constituency/coimbatore-north.php`, `constituency/coimbatore-south.php`, `constituency/singanallur.php` | `/coimbatore-elections-2026/constituency/<slug>.php` |
+| Config | `.htaccess` (DirectoryIndex index.php) | (ensures hub and subdir PHP work) |
+
+If any of these are missing or not uploaded, the corresponding links will 404 or fail. After deployment, verify with the [Quick verification checklist (live)](ELECTIONS-2026-GAP-ANALYSIS.md#3-quick-verification-checklist-live) in ELECTIONS-2026-GAP-ANALYSIS.md.
+
 ## Remote DB
 
 To run migration against live: set `DB_HOST=mycovai.in` (and DB_USER, DB_PASS, DB_NAME if needed); ensure cPanel Remote MySQL allows your IP. See AGENTS.md and docs/data-backend/LOCAL_TO_REMOTE_DATABASE_SETUP.md. Get explicit user confirmation before running against live.

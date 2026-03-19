@@ -1,0 +1,8 @@
+# Coimbatore Elections 2026 – ensure hub and all second-level/deep pages load
+# Ensure directory requests (e.g. /coimbatore-elections-2026/) serve the hub
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /coimbatore-elections-2026/
+</IfModule>
