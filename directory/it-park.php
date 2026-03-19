@@ -37,20 +37,20 @@ if (!$park) {
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
-
+<link rel="stylesheet" href="/assets/css/homepage-directone.css">
 <?php $title = $park ? ($park['name'].' | IT Parks in Coimbatore') : 'IT Park not found | MyCovai'; ?>
 <title><?php echo htmlspecialchars($title, ENT_QUOTES, 'UTF-8'); ?></title>
 <link rel="canonical" href="https://mycovai.in/it-parks/<?php echo htmlspecialchars($slug, ENT_QUOTES, 'UTF-8'); ?>" />
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="<?php echo htmlspecialchars($park['name'] ?? 'IT Park not found', ENT_QUOTES, 'UTF-8'); ?> — details, location, map, and key tenants along OMR, Chennai." />
+<meta name="description" content="<?php echo htmlspecialchars($park['name'] ?? 'IT Park not found', ENT_QUOTES, 'UTF-8'); ?> — details, location, map, and key tenants in Coimbatore." />
 
 <meta property="og:type" content="article" />
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="<?php echo htmlspecialchars($title, ENT_QUOTES, 'UTF-8'); ?>" />
 <meta property="og:description" content="Explore <?php echo htmlspecialchars($park['name'] ?? 'IT Park', ENT_QUOTES, 'UTF-8'); ?> in Coimbatore — location, map, contact, and tenants." />
-<meta property="og:image" content="<?php echo htmlspecialchars(($park['image'] ?? '/My-OMR-Logo.jpg'), ENT_QUOTES, 'UTF-8'); ?>" />
+<meta property="og:image" content="https://mycovai.in<?php $img = $park['image'] ?? (defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'); echo htmlspecialchars($img[0] === '/' ? $img : '/' . $img, ENT_QUOTES, 'UTF-8'); ?>" />
 <meta property="og:url" content="https://mycovai.in/it-parks/<?php echo htmlspecialchars($slug, ENT_QUOTES, 'UTF-8'); ?>" />
 
 <style>
@@ -70,7 +70,7 @@ echo json_encode([
   'address' => [
     '@type' => 'PostalAddress',
     'streetAddress' => $park['address'] ?? '',
-    'addressLocality' => ($park['locality'] ?? $park['location'] ?? 'OMR, Chennai'),
+    'addressLocality' => ($park['locality'] ?? $park['location'] ?? 'Coimbatore'),
     'addressRegion' => 'TN',
     'addressCountry' => 'IN'
   ],
@@ -88,7 +88,7 @@ echo json_encode([
 </head>
 <body>
 <?php include '../components/skip-link.php'; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/components/omr-listings-nav.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-header.php'; ?>
 
 <div class="container maxw-1280 py-3">
   <?php if (!$park): ?>

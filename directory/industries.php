@@ -30,8 +30,9 @@ $result = $conn->query($sql);
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
+<link rel="stylesheet" href="/assets/css/homepage-directone.css">
 
-<title>Industries in OMR, Chennai | MyOMR</title>
+<title>Industries in Coimbatore | MyCovai</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,18 +42,18 @@ $result = $conn->query($sql);
 
 <meta property="og:type" content="article" />
 <meta name=”robots” content=”index, follow”>
-<meta property="og:title" content="Industries in OMR, Chennai | MyOMR" />
-<meta property="og:description" content="Explore major industries along Coimbatore. Find industry names, addresses, types, and contact details for business and networking." />
-<meta property="og:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta property="og:title" content="Industries in Coimbatore | MyCovai" />
+<meta property="og:description" content="Explore major industries in Coimbatore (Covai). Find industry names, addresses, types, and contact details for business and networking." />
+<meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta property="og:url" content="https://mycovai.in/industries" />
-<meta property="og:site_name" content="MyCovai Old Mahabalipuram Road." />
+<meta property="og:site_name" content="MyCovai – Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="ta_IN" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Industries in OMR, Chennai | MyOMR" />
-<meta name="twitter:description" content="Explore major industries along Coimbatore. Find industry names, addresses, types, and contact details for business and networking." />
-<meta name="twitter:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta name="twitter:title" content="Industries in Coimbatore | MyCovai" />
+<meta name="twitter:description" content="Explore major industries in Coimbatore (Covai). Find industry names, addresses, types, and contact details for business and networking." />
+<meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta name="twitter:site" content="@MyCovai">
 <meta name="twitter:creator" content="@MyCovai">
 <link rel="stylesheet" href="footer.css">
@@ -215,7 +216,8 @@ color: #4c516D;
 
 </style>
 <body>
-<?php include '../components/skip-link.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/skip-link.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-header.php'; ?>
     <a href="https://chat.whatsapp.com/Eixz1mmURuFLvnNZzCfGDi" class="float" target="_blank">
  <i class="fa fa-whatsapp my-float"></i>
 </a>
@@ -265,14 +267,13 @@ color: #4c516D;
 </div>
 </div>
 
-<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-nav.php'; ?>
 
 <div class="container maxw-1280">
-  <h1 class="text-center text-primary-omr">OMR Industries List - in and around OMR neighbourhood</h1>
+  <h1 class="text-center text-primary-omr">Industries in Coimbatore – Directory</h1>
   <?php
 if ($result->num_rows > 0) {
     echo "<div class='container'>";
-    echo "<h2 style='text-align:center; margin-bottom:20px;'>Industries Along OMR Road, Chennai</h2>";
+    echo "<h2 style='text-align:center; margin-bottom:20px;'>Industries in Coimbatore (Covai)</h2>";
 
     // Output data for each row
     while ($row = $result->fetch_assoc()) {
@@ -308,7 +309,7 @@ if ($result->num_rows > 0) {
 
     echo "</div>"; // Close container
 } else {
-    echo "<p style='text-align:center;'>No industries found along OMR Road, Chennai.</p>";
+    echo "<p style='text-align:center;'>No industries found in Coimbatore.</p>";
 }
 
 // Close connection

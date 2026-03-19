@@ -39,7 +39,7 @@ $canonical = 'https://mycovai.in/government-offices/' . $slug;
 <?php include '../components/head-resources.php'; ?>
 <title><?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?> | Government Office in Coimbatore | MyCovai</title>
 <link rel="canonical" href="<?php echo htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8'); ?>" />
-<meta name="description" content="<?php echo htmlspecialchars($name . ' - Government office on Chennai OMR. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
+<meta name="description" content="<?php echo htmlspecialchars($name . ' - Government office in Coimbatore. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
 <meta name="robots" content="index, follow">
 </head>
 <body>

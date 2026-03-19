@@ -136,7 +136,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
     <section class="hero-section">
         <div class="container maxw-1280">
             <h1>Vegetarian Restaurants in Coimbatore</h1>
-            <p class="lead">Discover the best vegetarian dining options along Old Mahabalipuram Road (OMR). From South Indian to North Indian cuisines, find your perfect meal today!</p>
+            <p class="lead">Discover the best vegetarian dining options in Coimbatore (Covai). From South Indian to North Indian cuisines, find your perfect meal today!</p>
             <a href="#filters" class="btn btn-lg btn-warning font-weight-bold mt-3">Explore Now</a>
         </div>
     </section>
@@ -197,7 +197,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
 
     <!-- Restaurant Cards -->
     <section class="container maxw-1280 py-4">
-        <h2 class="text-center mb-4">Restaurants Along OMR Road</h2>
+        <h2 class="text-center mb-4">Restaurants in Coimbatore</h2>
         <div class="row">
             <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
@@ -211,7 +211,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
                             "@type": "PostalAddress",
                             "streetAddress": "<?php echo htmlspecialchars($row['address']); ?>",
                             "addressLocality": "<?php echo htmlspecialchars($row['locality']); ?>",
-                            "addressRegion": "Chennai",
+                            "addressRegion": "Tamil Nadu",
                             "postalCode": "600097",
                             "addressCountry": "IN"
                         },
@@ -317,8 +317,8 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card border-success shadow-sm text-center p-4" style="background: linear-gradient(90deg, #FDBB2D 0%, #3A1C71 100%); color: #fff;">
-                    <h2 class="mb-3">Join the OMR Dining Community!</h2>
-                    <p class="lead">Share your dining experiences, rate restaurants, or suggest new vegetarian spots along OMR.</p>
+                    <h2 class="mb-3">Join the Coimbatore dining community!</h2>
+                    <p class="lead">Share your dining experiences, rate restaurants, or suggest new vegetarian spots in Coimbatore.</p>
                     <p>Email us at <a href="mailto:myomrnews@gmail.com" class="text-white font-weight-bold">myomrnews@gmail.com</a></p>
                     <div class="mt-3">
                         <?php include $_SERVER['DOCUMENT_ROOT'].'/components/social-icons.php'; ?>

@@ -68,6 +68,24 @@ $home_categories = [
 
     <link rel="stylesheet" href="/assets/css/homepage-directone.css">
     <?php include 'components/analytics.php'; ?>
+    <script type="application/ld+json"><?php
+    $base = defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https://mycovai.in';
+    $name = defined('SITE_NAME') ? SITE_NAME : 'MyCovai';
+    $desc = defined('SITE_DEFAULT_DESCRIPTION') ? SITE_DEFAULT_DESCRIPTION : 'Your local directory for Coimbatore. Find schools, restaurants, jobs, events and more in Covai.';
+    echo json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => $name,
+        'url' => $base . '/',
+        'description' => $desc,
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => $name,
+            'url' => $base,
+            'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Coimbatore', 'addressRegion' => 'Tamil Nadu', 'addressCountry' => 'IN']
+        ]
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    ?></script>
 </head>
 <body style="background-color: #FAF8F5;">
 
@@ -137,6 +155,15 @@ $home_categories = [
             </a>
             <?php endforeach; ?>
         </div>
+    </div>
+</section>
+
+<!-- Elections 2026 -->
+<section class="homepage-section-block" style="background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%); color: #fff;">
+    <div class="container text-center">
+        <h2 class="homepage-section-title" style="color: #fff;">Elections 2026</h2>
+        <p class="homepage-section-subtitle" style="color: rgba(255,255,255,0.9);">Tamil Nadu Assembly election guide for Coimbatore. Key dates, constituencies, how to vote, BLO and more.</p>
+        <a href="/coimbatore-elections-2026/" class="btn btn-light btn-lg mt-2">View guide</a>
     </div>
 </section>
 

@@ -16,6 +16,7 @@ $sitemaps = [
   $base . '/coworking-spaces/sitemap.xml',
   $base . '/pentahive/sitemap.xml',
   $base . '/election-blo-details/sitemap.xml',
+  $base . '/coimbatore-elections-2026/sitemap.xml',
   // Add more module sitemaps as they come online:
   // $base . '/local-news/sitemap.xml',
 ];

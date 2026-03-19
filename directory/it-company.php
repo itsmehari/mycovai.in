@@ -65,7 +65,7 @@ $canonical = 'https://mycovai.in/it-companies/' . $slug;
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="<?php echo htmlspecialchars($companyName, ENT_QUOTES, 'UTF-8'); ?> | Coimbatore IT Company" />
 <meta property="og:description" content="<?php echo htmlspecialchars($address, ENT_QUOTES, 'UTF-8'); ?>" />
-<meta property="og:image" content="/My-OMR-Logo.jpg" />
+<meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta property="og:url" content="<?php echo htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8'); ?>" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>body { font-family: 'Poppins', sans-serif; }</style>

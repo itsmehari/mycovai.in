@@ -10,10 +10,10 @@ This guide explains how to connect your **local Windows development environment*
 
 **Live Database Details:**
 
-- **Server:** myomr.in (cPanel hosting)
-- **Database:** `metap8ok_myomr`
+- **Server:** mycovai.in (cPanel hosting)
+- **Database:** `metap8ok_mycovai`
 - **Username:** `metap8ok_myomr_admin`
-- **Password:** `myomr@123`
+- **Password:** (from _myomr.in repository: `core/omr-connect.php` — e.g. `myomr@123`)
 - **Port:** 3306 (default MySQL)
 
 **Current File:** `core/omr-connect.php`
@@ -50,7 +50,7 @@ This guide explains how to connect your **local Windows development environment*
 From your hosting provider, you need:
 
 - **SSH Username:** Usually your cPanel username
-- **SSH Host:** myomr.in (or server IP)
+- **SSH Host:** mycovai.in (or server IP)
 - **SSH Port:** Usually 22 (or check with hosting provider)
 
 #### **Step 2: Enable SSH in cPanel (if not enabled)**
@@ -69,13 +69,13 @@ Press `Win + X` → Select "Windows PowerShell" or "Command Prompt"
 Run this command (replace USERNAME with your cPanel username):
 
 ```bash
-ssh -L 3307:localhost:3306 USERNAME@myomr.in
+ssh -L 3307:localhost:3306 USERNAME@mycovai.in
 ```
 
 **What this does:**
 
 - `-L 3307:localhost:3306` = Forward local port 3307 to remote port 3306
-- `USERNAME@myomr.in` = Connect to your server
+- `USERNAME@mycovai.in` = Connect to your server
 
 **You'll be prompted for:**
 
@@ -105,8 +105,8 @@ Edit `core/omr-connect.php`:
 ```php
 $servername = "localhost:3307"; // Changed from 3306 to 3307
 $username = "metap8ok_myomr_admin";
-$password = "myomr@123";
-$database = "metap8ok_myomr";
+$password = "myomr@123";  // same as _myomr.in repository
+$database = "metap8ok_mycovai";
 ```
 
 #### **Step 6: Test Connection**
@@ -141,7 +141,7 @@ This is **less secure** than SSH tunnel but easier to set up.
 
 2. **Log into cPanel**
 
-   - URL: https://myomr.in:2083/
+   - URL: https://mycovai.in:2083/
    - Username: Your cPanel username
    - Password: Your cPanel password
 
@@ -161,10 +161,10 @@ This is **less secure** than SSH tunnel but easier to set up.
 Edit `core/omr-connect.php`:
 
 ```php
-$servername = "myomr.in:3306"; // Use domain or server IP
+$servername = "mycovai.in:3306"; // Use domain or server IP
 $username = "metap8ok_myomr_admin";
-$password = "myomr@123";
-$database = "metap8ok_myomr";
+$password = "myomr@123";  // same as _myomr.in repository
+$database = "metap8ok_mycovai";
 ```
 
 #### **Step 3: Test Connection**
@@ -214,13 +214,13 @@ Same as Option 1, Step 6
    - User: metap8ok_myomr_admin
    - Password: myomr@123
    - Port: 3307
-   - Database: metap8ok_myomr
+   - Database: metap8ok_mycovai
 
 4. **SSH tunnel settings:**
 
    - Click "SSH tunnel" tab
    - Check "Use SSH tunnel"
-   - SSH host: myomr.in
+   - SSH host: mycovai.in
    - SSH port: 22
    - Username: [Your cPanel username]
    - Password: [Your cPanel password]
@@ -295,7 +295,7 @@ For fastest setup, run this in PowerShell:
 
 ```powershell
 # Create SSH tunnel (replace USERNAME)
-ssh -L 3307:localhost:3306 USERNAME@myomr.in
+ssh -L 3307:localhost:3306 USERNAME@mycovai.in
 
 # Keep this window open and test your PHP files
 ```
@@ -326,7 +326,7 @@ Then update your database connection to use port 3307.
 
 **Solution:**
 
-- Verify database name: `metap8ok_myomr`
+- Verify database name: `metap8ok_mycovai`
 - Check database exists in cPanel → MySQL Databases
 
 ### Error: "Can't connect to MySQL server"
@@ -382,14 +382,14 @@ if ($is_local) {
     // Local development with SSH tunnel
     $servername = "localhost:3307";
     $username = "metap8ok_myomr_admin";
-    $password = "myomr@123";
-    $database = "metap8ok_myomr";
+    $password = "myomr@123";  // same as _myomr.in repository
+    $database = "metap8ok_mycovai";
 } else {
     // Production server
     $servername = "localhost:3306";
     $username = "metap8ok_myomr_admin";
     $password = "myomr@123";
-    $database = "metap8ok_myomr";
+    $database = "metap8ok_mycovai";
 }
 
 $conn = new mysqli($servername, $username, $password, $database);

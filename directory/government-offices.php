@@ -30,8 +30,9 @@ $result = $conn->query($sql);
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
+<link rel="stylesheet" href="/assets/css/homepage-directone.css">
 
-<title>Government Offices in OMR, Chennai | MyOMR</title>
+<title>Government Offices in Coimbatore | MyCovai</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,18 +42,18 @@ $result = $conn->query($sql);
 
 <meta property="og:type" content="article" />
 <meta name=”robots” content=”index, follow”>
-<meta property="og:title" content="Government Offices in OMR, Chennai | MyOMR" />
-<meta property="og:description" content="Find government offices along Coimbatore. Get office names, addresses, contacts, and landmarks for public services." />
-<meta property="og:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta property="og:title" content="Government Offices in Coimbatore | MyCovai" />
+<meta property="og:description" content="Find government offices in Coimbatore (Covai). Get office names, addresses, contacts, and landmarks for public services." />
+<meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta property="og:url" content="https://mycovai.in/government-offices" />
-<meta property="og:site_name" content="MyCovai Old Mahabalipuram Road." />
+<meta property="og:site_name" content="MyCovai – Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="ta_IN" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Government Offices in OMR, Chennai | MyOMR" />
-<meta name="twitter:description" content="Find government offices along Coimbatore. Get office names, addresses, contacts, and landmarks for public services." />
-<meta name="twitter:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta name="twitter:title" content="Government Offices in Coimbatore | MyCovai" />
+<meta name="twitter:description" content="Find government offices in Coimbatore (Covai). Get office names, addresses, contacts, and landmarks for public services." />
+<meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta name="twitter:site" content="@MyCovai">
 <meta name="twitter:creator" content="@MyCovai">
 <link rel="stylesheet" href="footer.css">
@@ -215,8 +216,8 @@ color: #4c516D;
 
 </style>
 <body>
-<?php include '../components/skip-link.php'; ?>
-<?php include '../components/skip-link.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/skip-link.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-header.php'; ?>
     <a href="https://chat.whatsapp.com/Eixz1mmURuFLvnNZzCfGDi" class="float" target="_blank">
  <i class="fa fa-whatsapp my-float"></i>
 </a>
@@ -224,56 +225,12 @@ color: #4c516D;
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v14.0" nonce="brAi0ji4"></script>
 
-    <div class ="container maxw-1280">
-<div class ="row">
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets</span></a> by TradingView</div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-  {
-  "symbols": [
-    {
-      "proName": "FOREXCOM:SPXUSD",
-      "title": "S&P 500"
-    },
-    {
-      "proName": "FOREXCOM:NSXUSD",
-      "title": "US 100"
-    },
-    {
-      "proName": "FX_IDC:EURUSD",
-      "title": "EUR/USD"
-    },
-    {
-      "proName": "BITSTAMP:BTCUSD",
-      "title": "Bitcoin"
-    },
-    {
-      "proName": "BITSTAMP:ETHUSD",
-      "title": "Ethereum"
-    }
-  ],
-  "showSymbolLogo": true,
-  "colorTheme": "light",
-  "isTransparent": false,
-  "displayMode": "adaptive",
-  "locale": "in"
-}
-  </script>
-</div>
-<!-- TradingView Widget END -->
-</div>
-</div>
-
-<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-nav.php'; ?>
-
 <div class="container maxw-1280" id="main-content" role="main">
-  <h1 class="text-center text-primary-omr">Government Offices in OMR, Chennai</h1>
+  <h1 class="text-center text-primary-omr">Government Offices in Coimbatore</h1>
   <?php
 if ($result->num_rows > 0) {
     echo "<div class='container'>";
-    echo "<h2 style='text-align:center; margin-bottom:20px;'>Government Offices Along OMR Road, Chennai</h2>";
+    echo "<h2 style='text-align:center; margin-bottom:20px;'>Government Offices in Coimbatore (Covai)</h2>";
 
     // Output data for each row
     while ($row = $result->fetch_assoc()) {
@@ -309,7 +266,7 @@ if ($result->num_rows > 0) {
 
     echo "</div>"; // Close container
 } else {
-    echo "<p style='text-align:center;'>No government offices found along OMR Road, Chennai.</p>";
+    echo "<p style='text-align:center;'>No government offices found in Coimbatore.</p>";
 }
 
 // Close connection

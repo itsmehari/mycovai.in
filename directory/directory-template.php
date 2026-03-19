@@ -66,7 +66,7 @@ $result = $conn->query($sql);
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php echo htmlspecialchars($config['title']); ?> | <?php echo defined('SITE_NAME') ? htmlspecialchars(SITE_NAME) : 'MyCovai'; ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($config['description']); ?>">
-    <meta property="og:image" content="https://mycovai.in/My-OMR-Logo.jpg">
+    <meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>">
     <meta property="og:url" content="https://mycovai.in/directory/<?php echo $directory_type; ?>.php">
     <meta property="og:site_name" content="<?php echo defined('SITE_OG_SITE_NAME') ? htmlspecialchars(SITE_OG_SITE_NAME) : 'MyCovai – Coimbatore Directory'; ?>">
     
@@ -74,7 +74,7 @@ $result = $conn->query($sql);
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?php echo htmlspecialchars($config['title']); ?> | <?php echo defined('SITE_NAME') ? htmlspecialchars(SITE_NAME) : 'MyCovai'; ?>">
     <meta name="twitter:description" content="<?php echo htmlspecialchars($config['description']); ?>">
-    <meta name="twitter:image" content="https://mycovai.in/My-OMR-Logo.jpg">
+    <meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>">
     <meta name="twitter:site" content="@MyCovai">
     
     <!-- Canonical URL -->
@@ -193,7 +193,7 @@ $result = $conn->query($sql);
         </div>
 
         <!-- Directory Items -->
-        <h2 class="text-center mb-4"><?php echo ucfirst($directory_type); ?> Along OMR Road</h2>
+        <h2 class="text-center mb-4"><?php echo ucfirst($directory_type); ?> in Coimbatore</h2>
         
         <?php if ($result->num_rows > 0): ?>
             <div class="row">
@@ -260,7 +260,7 @@ $result = $conn->query($sql);
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card border-success shadow-sm text-center p-4" style="background: linear-gradient(90deg, #FDBB2D 0%, #3A1C71 100%); color: #fff;">
-                    <h2 class="mb-3">Join the OMR Community!</h2>
+                    <h2 class="mb-3">Join the Coimbatore directory community!</h2>
                     <p class="lead">Share your experiences, suggest new listings, or get involved in community initiatives.</p>
                     <p>Email us at <a href="mailto:<?php echo defined('CONTACT_EMAIL') ? htmlspecialchars(CONTACT_EMAIL) : 'mycovai@gmail.com'; ?>" class="text-white font-weight-bold"><?php echo defined('CONTACT_EMAIL') ? htmlspecialchars(CONTACT_EMAIL) : 'mycovai@gmail.com'; ?></a></p>
                     <div class="mt-3">

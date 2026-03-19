@@ -75,7 +75,7 @@ $fees = $conn->query("SELECT DISTINCT fee_range FROM schools WHERE status = 'Act
     <meta property="og:type" content="website">
     <meta property="og:title" content="Schools in Coimbatore | MyCovai">
     <meta property="og:description" content="Explore top schools along Coimbatore. Find school names, addresses, curricula, ratings, and more at MyCovai.">
-    <meta property="og:image" content="https://mycovai.in/My-OMR-Idhu-Namma-OMR-Logo.jpg">
+    <meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>">
     <meta property="og:url" content="https://mycovai.in/directory/schools-list.php">
     <meta property="og:site_name" content="MyCovai - Coimbatore Directory">
     <meta property="og:locale" content="en_US">
@@ -83,9 +83,9 @@ $fees = $conn->query("SELECT DISTINCT fee_range FROM schools WHERE status = 'Act
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Schools in OMR, Chennai | MyOMR">
+    <meta name="twitter:title" content="Schools in Coimbatore | MyCovai">
     <meta name="twitter:description" content="Explore top schools along Coimbatore. Find school names, addresses, curricula, ratings, and more at MyCovai.">
-    <meta name="twitter:image" content="https://mycovai.in/My-OMR-Idhu-Namma-OMR-Logo.jpg">
+    <meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>">
     <meta name="twitter:site" content="@MyCovai">
     <meta name="twitter:creator" content="@MyCovai">
 
@@ -95,7 +95,7 @@ $fees = $conn->query("SELECT DISTINCT fee_range FROM schools WHERE status = 'Act
     <?php include __DIR__ . '/../components/analytics.php'; ?>
 
     <!-- Title -->
-    <title>Schools in OMR, Chennai | MyOMR</title>
+    <title>Schools in Coimbatore | MyCovai</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -146,8 +146,8 @@ $fees = $conn->query("SELECT DISTINCT fee_range FROM schools WHERE status = 'Act
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
-            <h1>Schools in OMR, Chennai</h1>
-            <p class="lead">Discover top schools along Old Mahabalipuram Road (OMR). From CBSE to IB, find the perfect school for your child today!</p>
+            <h1>Schools in Coimbatore</h1>
+            <p class="lead">Discover top schools in Coimbatore (Covai). From CBSE to IB, find the perfect school for your child today!</p>
             <a href="#filters" class="btn btn-lg btn-warning font-weight-bold mt-3">Explore Now</a>
         </div>
     </section>
@@ -209,7 +209,7 @@ $fees = $conn->query("SELECT DISTINCT fee_range FROM schools WHERE status = 'Act
 
     <!-- School Cards -->
     <section class="container py-4">
-        <h2 class="text-center mb-4">Schools Along OMR Road</h2>
+        <h2 class="text-center mb-4">Schools in Coimbatore</h2>
         <div class="row">
             <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
@@ -223,7 +223,7 @@ $fees = $conn->query("SELECT DISTINCT fee_range FROM schools WHERE status = 'Act
                             "@type": "PostalAddress",
                             "streetAddress": "<?php echo htmlspecialchars($row['address']); ?>",
                             "addressLocality": "<?php echo htmlspecialchars($row['area']); ?>",
-                            "addressRegion": "Chennai",
+                            "addressRegion": "Tamil Nadu",
                             "postalCode": "<?php echo htmlspecialchars($row['pin_code'] ?? '600097'); ?>",
                             "addressCountry": "IN"
                         },

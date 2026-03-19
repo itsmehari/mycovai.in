@@ -145,9 +145,12 @@ Welcome to the complete documentation for MyOMR.in! This README will guide you t
 **Key Documentation Files for AI Systems:**
 - `ARCHITECTURE.md` - System structure and conventions
 - `data-backend/DATABASE_STRUCTURE.md` - Complete database reference
+- `data-backend/MYCOVAI-DATABASE-SUMMARY.md` - Live DB table/row summary (refresh with `dev-tools/db-summary-cli.php`)
 - `operations-deployment/ONBOARDING.md` - Development environment setup
 - `worklogs/worklog-*.md` - Recent development history
+- `RECENT-UPDATES.md` - Short log of notable updates
 - `LEARNINGS.md` (root level) - Project learnings and best practices
+- Root `AGENTS.md` - Agent instructions (e.g. database update workflow)
 
 ---
 

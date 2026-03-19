@@ -1,6 +1,7 @@
 # MyCovai root .htaccess – central routing and sitemap management
-
+<IfModule mod_rewrite.c>
 RewriteEngine On
+RewriteBase /
 
 # Force HTTPS - Redirect HTTP to HTTPS (must be first)
 RewriteCond %{HTTPS} !=on
@@ -10,8 +11,10 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-# Security: disable indexes
-Options -Indexes
+# Security: disable indexes (may not work on all shared hosts)
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
 
 # Phase 6: 301 redirects from old path names to new (keep bookmarks/backlinks working)
 RewriteRule ^about-myomr-omr-community-portal\.php$ /about.php [R=301,L]
@@ -59,6 +62,9 @@ RewriteRule ^pentahive/sitemap\.xml$ pentahive/generate-sitemap.php [L]
 
 # Module: Election BLO Details – sitemap
 RewriteRule ^election-blo-details/sitemap\.xml$ election-blo-details/generate-blo-sitemap.php [L]
+
+# Module: Coimbatore Elections 2026 – sitemap
+RewriteRule ^coimbatore-elections-2026/sitemap\.xml$ coimbatore-elections-2026/generate-sitemap.php [L]
 
 # Add more modules here when ready (news) with similar patterns
 
@@ -122,18 +128,20 @@ RewriteRule ^core/omr-road-database-list\.php$ /covai-directory-list.php [R=301,
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
 </IfModule>
 
-# Environment and bootstrap
-SetEnv MYCOVAI_ENV production
-<IfModule mod_php7.c>
-  php_value auto_prepend_file core/error-handler.php
+# Environment
+<IfModule mod_env.c>
+  SetEnv MYCOVAI_ENV production
 </IfModule>
-<IfModule mod_php8.c>
-  php_value auto_prepend_file core/error-handler.php
-</IfModule>
+# PHP error handler – disabled by default; some shared hosts block php_value in .htaccess
+# Uncomment if your host allows it:
+# <IfModule mod_php7.c>
+#   php_value auto_prepend_file core/error-handler.php
+# </IfModule>
+# <IfModule mod_php8.c>
+#   php_value auto_prepend_file core/error-handler.php
+# </IfModule>
 
 # Clean URLs for directories
-RewriteEngine On
-
 # Banks list and details (Phase 6: directory/)
 RewriteRule ^banks/?$ directory/banks.php [L]
 RewriteRule ^banks/([A-Za-z0-9\-]+)$ directory/bank.php?slug=$1 [L,QSA]
@@ -161,8 +169,6 @@ RewriteRule ^government-offices/([A-Za-z0-9\-]+)$ directory/government-office.ph
 # ATMs list and details
 RewriteRule ^atms/?$ directory/atms.php [L]
 RewriteRule ^atms/([A-Za-z0-9\-]+)$ directory/atm.php?slug=$1 [L,QSA]
-
-RewriteEngine On
 
 # Pretty URL for IT companies listing (Phase 6: directory/)
 RewriteRule ^it-companies$ /directory/it-companies.php [L,NC]
@@ -205,16 +211,10 @@ RewriteRule ^parks/([A-Za-z0-9-]+)$ /directory/park.php?slug=$1 [L,NC,QSA]
 </IfModule>
 # php -- END cPanel-generated handler, do not edit
 
-# Enable Rewrite Engine for Clean URLs
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-
 # Clean URLs for articles: /local-news/article-slug -> article.php?slug=article-slug
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} ^/local-news/([^/]+)/?$
 RewriteRule ^local-news/([^/]+)/?$ local-news/article.php?slug=$1 [L,QSA]
 
-# Note: www to non-www redirect is handled at the top of this file
 </IfModule>

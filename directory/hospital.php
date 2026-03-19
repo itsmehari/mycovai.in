@@ -58,7 +58,7 @@ $canonical = 'https://mycovai.in/hospitals/' . $slug;
 <?php include '../components/head-resources.php'; ?>
 <title><?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?> | Hospital in Coimbatore | MyCovai</title>
 <link rel="canonical" href="<?php echo htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8'); ?>" />
-<meta name="description" content="<?php echo htmlspecialchars($name . ' - hospital on Chennai OMR. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
+<meta name="description" content="<?php echo htmlspecialchars($name . ' - hospital in Coimbatore. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
 </head>
 <body>
 <div class="container maxw-1280">
@@ -200,7 +200,7 @@ $canonical = 'https://mycovai.in/hospitals/' . $slug;
 <?php include '../components/head-resources.php'; ?>
 <title><?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?> | Hospital in Coimbatore | MyCovai</title>
 <link rel="canonical" href="<?php echo htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8'); ?>" />
-<meta name="description" content="<?php echo htmlspecialchars($name . ' - Hospital on Chennai OMR. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
+<meta name="description" content="<?php echo htmlspecialchars($name . ' - Hospital in Coimbatore. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
 <meta name="robots" content="index, follow">
 </head>
 <body>

@@ -24,14 +24,13 @@ if (!$is_local) {
     die('Development tools only accessible from localhost');
 }
 
-// Database configuration
-// Local: Uses SSH tunnel port 3307
-// Remote: Uses standard port 3306
+// Database configuration (password from _myomr.in repository)
+// SSH tunnel: ssh -L 3307:localhost:3306 USERNAME@mycovai.in
 $dev_db_config = [
     'host' => '127.0.0.1:3307',  // SSH tunnel endpoint
     'username' => 'metap8ok_myomr_admin',
     'password' => 'myomr@123',
-    'database' => 'metap8ok_myomr',
+    'database' => 'metap8ok_mycovai',
     'charset' => 'utf8mb4'
 ];
 
@@ -58,7 +57,7 @@ if ($dev_conn->connect_error) {
             <li>Is SSH tunnel running? Run: <code>start-tunnel.ps1</code></li>
             <li>Check if port 3307 is forwarding correctly</li>
             <li>Verify credentials in config-remote.php</li>
-            <li>See: <a href='../docs/LOCAL_TO_REMOTE_DATABASE_SETUP.md'>Setup Guide</a></li>
+            <li>See: <a href='../docs/data-backend/LOCAL_TO_REMOTE_DATABASE_SETUP.md'>Setup Guide</a></li>
         </ul>
     </div>
     ");

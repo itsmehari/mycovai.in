@@ -13,6 +13,7 @@ $navItems = [
     ['Restaurants', '/directory/restaurants.php'],
     ['Industries', '/directory/industries.php'],
     ['IT Companies', '/directory/it-companies.php'],
+    ['IT Parks', '/directory/it-parks.php'],
     ['Government Offices', '/directory/government-offices.php'],
 ];
 $current_path = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '';

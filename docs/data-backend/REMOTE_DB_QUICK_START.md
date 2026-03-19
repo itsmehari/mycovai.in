@@ -47,7 +47,7 @@ http://localhost/test-remote-db-connection.php
 You should see:
 
 - ✅ Connection successful!
-- ✅ Database: metap8ok_myomr
+- ✅ Database: metap8ok_mycovai
 - ✅ All tables showing counts
 
 ---
@@ -104,7 +104,7 @@ $servername = "localhost:3307"; // SSH tunnel port
 You should see something like:
 
 ```
-Welcome to myomr.in
+Welcome to mycovai.in
 Last login: ...
 ```
 
@@ -251,8 +251,8 @@ http://localhost/test-remote-db-connection.php
 Add this to `C:\Users\YOUR_USERNAME\.ssh\config`:
 
 ```
-Host myomr
-    HostName myomr.in
+Host mycovai
+    HostName mycovai.in
     User YOUR_CPANEL_USERNAME
     LocalForward 3307 localhost:3306
     ServerAliveInterval 60
@@ -262,7 +262,7 @@ Host myomr
 Then connect with just:
 
 ```bash
-ssh myomr
+ssh mycovai
 ```
 
 ---
@@ -276,11 +276,11 @@ localhost:3307 (SSH Tunnel)
      ↓
 SSH Connection (Encrypted)
      ↓
-myomr.in Server
+mycovai.in Server
      ↓
 localhost:3306 (MySQL)
      ↓
-metap8ok_myomr Database
+metap8ok_mycovai Database
 ```
 
 ---
@@ -305,7 +305,7 @@ metap8ok_myomr Database
 3. **Check SSH Connection:**
 
    ```powershell
-   ssh YOUR_USERNAME@myomr.in
+   ssh YOUR_USERNAME@mycovai.in
    ```
 
 4. **Contact Hosting Support:**

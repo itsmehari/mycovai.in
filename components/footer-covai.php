@@ -61,6 +61,7 @@ if (!isset($baseUrl)) {
                         <ul>
                             <li><a href="<?php echo $baseUrl; ?>index.php">Home</a></li>
                             <li><a href="<?php echo $baseUrl; ?>directory/index.php">Explore Covai</a></li>
+                            <li><a href="<?php echo $baseUrl; ?>coimbatore-elections-2026/">Elections 2026</a></li>
                             <li><a href="<?php echo $baseUrl; ?>contact.php">Contact us</a></li>
                             <li><a href="<?php echo $baseUrl; ?>local-news/">Latest News</a></li>
                         </ul>
@@ -74,6 +75,7 @@ if (!isset($baseUrl)) {
                             <li><a href="<?php echo $baseUrl; ?>local-events/">Events</a></li>
                             <li><a href="<?php echo $baseUrl; ?>hostels-pgs/">Hostels &amp; PGs</a></li>
                             <li><a href="<?php echo $baseUrl; ?>coworking-spaces/">Coworking Spaces</a></li>
+                            <li><a href="<?php echo $baseUrl; ?>coimbatore-elections-2026/">Elections 2026</a></li>
                         </ul>
                     </div>
                 </div>

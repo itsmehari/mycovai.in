@@ -29,8 +29,8 @@ $result = $conn->query($sql);
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
-
-<title>Parks in OMR, Chennai | MyOMR</title>
+<link rel="stylesheet" href="/assets/css/homepage-directone.css">
+<title>Parks in Coimbatore | MyCovai</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,21 +40,21 @@ $result = $conn->query($sql);
 
 <meta property="og:type" content="article" />
 <meta name=”robots” content=”index, follow”>
-<meta property="og:title" content="Parks in OMR, Chennai | MyOMR" />
-<meta property="og:description" content="Explore parks and green spaces along Coimbatore. Find park names, locations, features, and timings for recreation." />
-<meta property="og:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta property="og:title" content="Parks in Coimbatore | MyCovai" />
+<meta property="og:description" content="Explore parks and green spaces in Coimbatore (Covai). Find park names, locations, features, and timings for recreation." />
+<meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta property="og:url" content="https://mycovai.in/parks" />
-<meta property="og:site_name" content="MyCovai Old Mahabalipuram Road." />
+<meta property="og:site_name" content="MyCovai – Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="ta_IN" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Parks in OMR, Chennai | MyOMR" />
-<meta name="twitter:description" content="Explore parks and green spaces along Coimbatore. Find park names, locations, features, and timings for recreation." />
-<meta name="twitter:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta name="twitter:title" content="Parks in Coimbatore | MyCovai" />
+<meta name="twitter:description" content="Explore parks and green spaces in Coimbatore (Covai). Find park names, locations, features, and timings for recreation." />
+<meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta name="twitter:site" content="@MyCovai">
 <meta name="twitter:creator" content="@MyCovai">
-<link rel="stylesheet" href="footer.css">
+<link rel="stylesheet" href="/directory/footer.css">
 <style>
 .hover-me:hover
 {
@@ -216,8 +216,7 @@ color: #4c516D;
 <link rel="canonical" href="https://mycovai.in/parks" />
 </head>
 <body>
-<?php include '../components/skip-link.php'; ?>
-<?php include '../components/skip-link.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/skip-link.php'; ?>
     <a href="https://chat.whatsapp.com/Eixz1mmURuFLvnNZzCfGDi" class="float" target="_blank">
  <i class="fa fa-whatsapp my-float"></i>
 </a>
@@ -225,52 +224,10 @@ color: #4c516D;
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v14.0" nonce="brAi0ji4"></script>
 
-    <div class ="container maxw-1280" id="main-content" role="main">
-<div class ="row">
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets</span></a> by TradingView</div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-  {
-  "symbols": [
-    {
-      "proName": "FOREXCOM:SPXUSD",
-      "title": "S&P 500"
-    },
-    {
-      "proName": "FOREXCOM:NSXUSD",
-      "title": "US 100"
-    },
-    {
-      "proName": "FX_IDC:EURUSD",
-      "title": "EUR/USD"
-    },
-    {
-      "proName": "BITSTAMP:BTCUSD",
-      "title": "Bitcoin"
-    },
-    {
-      "proName": "BITSTAMP:ETHUSD",
-      "title": "Ethereum"
-    }
-  ],
-  "showSymbolLogo": true,
-  "colorTheme": "light",
-  "isTransparent": false,
-  "displayMode": "adaptive",
-  "locale": "in"
-}
-  </script>
-</div>
-<!-- TradingView Widget END -->
-</div>
-</div>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-header.php'; ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'].'/components/omr-listings-nav.php'; ?>
-
-<div class="container maxw-1280" id="main-content">
-  <h1 class="text-center text-primary-omr">OMR Parks List - in and around OMR neighbourhood</h1>
+<div class="container maxw-1280" id="main-content" role="main">
+  <h1 class="text-center text-primary-omr">Parks in Coimbatore – Directory</h1>
   <form class="form-inline my-3" method="get" action="">
     <select name="locality" class="form-control mr-2">
       <option value="">All localities</option>
@@ -284,7 +241,7 @@ color: #4c516D;
 
 if ($result->num_rows > 0) {
     echo "<div class='container'>";
-    echo "<h2 style='text-align:center; margin-bottom:20px;'>Parks Along OMR Road, Chennai</h2>";
+    echo "<h2 style='text-align:center; margin-bottom:20px;'>Parks in Coimbatore (Covai)</h2>";
     $itemList = [];
 
     // Output data for each row
@@ -335,12 +292,12 @@ if ($result->num_rows > 0) {
     echo json_encode([
       '@context' => 'https://schema.org',
       '@type' => 'ItemList',
-      'name' => 'Parks on OMR, Chennai',
+      'name' => 'Parks in Coimbatore',
       'itemListElement' => $itemList,
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     echo "</script>";
 } else {
-    echo "<p style='text-align:center;'>No parks found along OMR Road, Chennai.</p>";
+    echo "<p style='text-align:center;'>No parks found in Coimbatore.</p>";
 }
 
 // Close connection

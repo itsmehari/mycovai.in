@@ -23,7 +23,7 @@ $result = $conn->query($sql);
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
-
+<link rel="stylesheet" href="/assets/css/homepage-directone.css">
 <title>Hospitals in Coimbatore | MyCovai</title>
 
 <meta charset="utf-8">
@@ -36,7 +36,7 @@ $result = $conn->query($sql);
 <meta name=”robots” content=”index, follow”>
 <meta property="og:title" content="Hospitals in Coimbatore | MyCovai" />
 <meta property="og:description" content="Find hospitals along Coimbatore. Get hospital names, addresses, contacts, and landmarks for healthcare services." />
-<meta property="og:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta property="og:url" content="https://mycovai.in/directory/hospitals.php" />
 <meta property="og:site_name" content="MyCovai - Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
@@ -45,7 +45,7 @@ $result = $conn->query($sql);
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Hospitals in Coimbatore | MyCovai" />
 <meta name="twitter:description" content="Find hospitals along Coimbatore. Get hospital names, addresses, contacts, and landmarks for healthcare services." />
-<meta name="twitter:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta name="twitter:site" content="@MyCovai">
 <meta name="twitter:creator" content="@MyCovai">
 <link rel="stylesheet" href="footer.css">
@@ -207,59 +207,13 @@ color: #4c516D;
 
 </style>
 <body>
-<?php include '../components/skip-link.php'; ?>
-    <a href="https://chat.whatsapp.com/Eixz1mmURuFLvnNZzCfGDi" class="float" target="_blank">
- <i class="fa fa-whatsapp my-float"></i>
-</a>
-
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/skip-link.php'; ?>
+<a href="https://wa.me/919445088028" class="float" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa fa-whatsapp my-float"></i></a>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v14.0" nonce="brAi0ji4"></script>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-header.php'; ?>
 
-<div class ="container maxw-1280">
-<div class ="row">
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets</span></a> by TradingView</div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-  {
-  "symbols": [
-    {
-      "proName": "FOREXCOM:SPXUSD",
-      "title": "S&P 500"
-    },
-    {
-      "proName": "FOREXCOM:NSXUSD",
-      "title": "US 100"
-    },
-    {
-      "proName": "FX_IDC:EURUSD",
-      "title": "EUR/USD"
-    },
-    {
-      "proName": "BITSTAMP:BTCUSD",
-      "title": "Bitcoin"
-    },
-    {
-      "proName": "BITSTAMP:ETHUSD",
-      "title": "Ethereum"
-    }
-  ],
-  "showSymbolLogo": true,
-  "colorTheme": "light",
-  "isTransparent": false,
-  "displayMode": "adaptive",
-  "locale": "in"
-}
-  </script>
-</div>
-<!-- TradingView Widget END -->
-</div>
-</div>
-
-<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-nav.php'; ?>
-
-<div class="container maxw-1280">
+<div class="container maxw-1280" id="main-content" role="main">
   <h1 class="text-center text-primary-omr">Hospitals in Coimbatore</h1>
   <?php
 

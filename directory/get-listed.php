@@ -109,9 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
-<title>Get Listed | IT Companies on OMR, Chennai | MyOMR</title>
+<title>Get Listed | IT Companies in Coimbatore | MyCovai</title>
 <link rel="canonical" href="https://mycovai.in/directory/get-listed.php" />
-<meta name="description" content="Get your IT company listed on MyOMR's OMR tech directory. Submit your details for verification and optional featured placement." />
+<meta name="description" content="Get your IT company listed on MyCovai's Coimbatore tech directory. Submit your details for verification and optional featured placement." />
 <meta name="robots" content="index, follow">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -122,7 +122,7 @@ body { font-family: 'Poppins', sans-serif; }
 <?php include '../components/main-nav.php'; ?>
 <div class="container" style="max-width:1280px;">
   <h1 class="mt-4" style="color:#0583D2;">Get Your IT Company Listed</h1>
-  <p>Submit your details to appear in the OMR IT directory. We verify every entry. Featured placement is available.</p>
+  <p>Submit your details to appear in the Coimbatore IT directory. We verify every entry. Featured placement is available.</p>
 
   <?php if ($success): ?>
     <div class="alert alert-success"><?php echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></div>

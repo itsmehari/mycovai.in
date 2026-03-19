@@ -22,18 +22,18 @@ $result = $conn->query($sql);
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
-<title>Best Schools in OMR, Chennai | MyOMR</title>
+<title>Best Schools in Coimbatore | MyCovai</title>
 <meta name="description" content="Discover the best schools along Coimbatore. Find top-rated institutions, addresses, contact details, and more for your child's education.">
 <link rel="canonical" href="https://mycovai.in/directory/best-schools.php" />
-<meta property="og:title" content="Best Schools in OMR, Chennai | MyOMR" />
+<meta property="og:title" content="Best Schools in Coimbatore | MyCovai" />
 <meta property="og:description" content="Discover the best schools along Coimbatore. Find top-rated institutions, addresses, contact details, and more for your child's education." />
 <meta property="og:url" content="https://mycovai.in/directory/best-schools.php" />
 <meta property="og:type" content="article" />
-<meta property="og:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Best Schools in OMR, Chennai | MyOMR" />
+<meta name="twitter:title" content="Best Schools in Coimbatore | MyCovai" />
 <meta name="twitter:description" content="Discover the best schools along Coimbatore. Find top-rated institutions, addresses, contact details, and more for your child's education." />
-<meta name="twitter:image" content="/My-OMR-Idhu-Namma-OMR-Logo.jpg" />
+<meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
@@ -131,19 +131,19 @@ li a:hover:not(.active) {
 <?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-nav.php'; ?>
 
 <div class="container">
-  <h1 style="text-align:center; color:#0583D2;">OMR Schools List - in and around OMR neighbourhood</h1>
+  <h1 style="text-align:center; color:#0583D2;">Best Schools in Coimbatore – Directory</h1>
   
   <!-- Introductory Content Start -->
   <div class="row">
     <div class="col-12">
       <p class="mt-4" style="text-align:justify;">
-        Old Mahabalipuram Road (OMR), often referred to as the educational hub of Tamil Nadu, has experienced significant growth over the past decade, evolving into a vibrant hub that seamlessly blends technological advancement with residential serenity. This rapid development has led to the establishment of numerous esteemed educational institutions, catering to the diverse needs of the community.
+        Coimbatore (Covai) is often referred to as the educational hub of Tamil Nadu, with significant growth over the past decade and a vibrant mix of technological advancement and residential serenity. This has led to numerous esteemed educational institutions catering to the diverse needs of the community.
       </p>
       <p style="text-align:justify;">
-        The schools along OMR are renowned for their commitment to academic excellence, holistic development, and state-of-the-art facilities. They offer a variety of curricula, including CBSE, ICSE, and international programs, ensuring that parents have a wide array of choices to best suit their children's educational requirements.
+        The schools in Coimbatore are renowned for their commitment to academic excellence, holistic development, and state-of-the-art facilities. They offer a variety of curricula, including CBSE, ICSE, and international programs, ensuring that parents have a wide array of choices to best suit their children's educational requirements.
       </p>
       <p style="text-align:justify;">
-        Whether you're seeking institutions with a strong emphasis on traditional values or those that incorporate innovative teaching methodologies, the schools in the OMR region provide an ideal environment for nurturing young minds.
+        Whether you're seeking institutions with a strong emphasis on traditional values or those that incorporate innovative teaching methodologies, the schools in Coimbatore provide an ideal environment for nurturing young minds.
       </p>
     </div>
   </div>

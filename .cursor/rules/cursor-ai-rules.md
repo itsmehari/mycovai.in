@@ -75,3 +75,13 @@ Refer to the complete structure inside `/docs` for details on page-wise function
 - Use `NewsArticle` schema for news.
 - Canonical URL tag.
 - Log warnings in `weblog/logfile.txt`
+
+## 🗄️ Database updates and live
+
+When the user asks to **update the database** (migrations, schema, data fixes):
+
+1. **Confirm:** Ask if the change is for **live** (mycovai.in / metap8ok_mycovai) or local only.
+2. **If live:** Do not run against live until the user explicitly confirms (e.g. “Run this on live? Reply yes to proceed.”).
+3. **After confirmation:** Run with `DB_HOST=mycovai.in`, report result, suggest committing changes.
+
+See root `AGENTS.md` and `LEARNINGS.md` for full workflow.

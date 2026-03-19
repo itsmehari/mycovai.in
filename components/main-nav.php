@@ -503,7 +503,10 @@ function is_active($link, $current_uri) {
     if ($link_path === '/directory/index.php') {
         return in_array($current_path, ['/directory/schools-list.php', '/directory/restaurants.php', '/directory/index.php']);
     }
-    
+    // Elections 2026 subsite: active when on hub or any page under /coimbatore-elections-2026/
+    if ($link_path === '/coimbatore-elections-2026/' || $link_path === '/coimbatore-elections-2026') {
+        return $current_path === '/coimbatore-elections-2026/' || strpos($current_path, '/coimbatore-elections-2026/') === 0;
+    }
     // General case: match the path exactly
     return $current_path === $link_path;
 }
@@ -534,6 +537,12 @@ function is_active($link, $current_uri) {
       <a href="/coworking-spaces/" class="<?php echo is_active('/coworking-spaces/', $current_uri) ? 'active' : ''; ?>">
         <i class="fas fa-building"></i>
         <span>Coworking Spaces</span>
+      </a>
+    </li>
+    <li>
+      <a href="/coimbatore-elections-2026/" class="<?php echo is_active('/coimbatore-elections-2026/', $current_uri) ? 'active' : ''; ?>">
+        <i class="fas fa-vote-yea"></i>
+        <span>Elections 2026</span>
       </a>
     </li>
   </ul>

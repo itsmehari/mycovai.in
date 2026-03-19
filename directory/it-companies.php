@@ -124,7 +124,7 @@ if ($dataStmt) {
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="IT Companies in Coimbatore | MyCovai" />
 <meta property="og:description" content="Find top IT companies along Coimbatore. Explore company names, addresses, industry types, and contact details for your business needs." />
-<meta property="og:image" content="/My-OMR-Logo.jpg" />
+<meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta property="og:url" content="https://mycovai.in/directory/it-companies.php" />
 <meta property="og:site_name" content="MyCovai - Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
@@ -133,10 +133,11 @@ if ($dataStmt) {
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="IT Companies in Coimbatore | MyCovai" />
 <meta name="twitter:description" content="Find top IT companies along Coimbatore. Explore company names, addresses, industry types, and contact details for your business needs." />
-<meta name="twitter:image" content="/My-OMR-Logo.jpg" />
+<meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta name="twitter:site" content="@MyCovai">
 <meta name="twitter:creator" content="@MyCovai">
-<link rel="stylesheet" href="footer.css">
+<link rel="stylesheet" href="/assets/css/homepage-directone.css">
+<link rel="stylesheet" href="/directory/footer.css">
 <style>
 .hover-me:hover
 {
@@ -297,64 +298,18 @@ body { font-family: 'Poppins', sans-serif; }
 
 </style>
 <body>
-<?php include '../components/skip-link.php'; ?>
-    <a href="https://chat.whatsapp.com/Eixz1mmURuFLvnNZzCfGDi" class="float" target="_blank">
- <i class="fa fa-whatsapp my-float"></i>
-</a>
-
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/skip-link.php'; ?>
+<a href="https://wa.me/919445088028" class="float" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa fa-whatsapp my-float"></i></a>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v14.0" nonce="brAi0ji4"></script>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-header.php'; ?>
 
-    <div class ="container">
-<div class ="row">
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets</span></a> by TradingView</div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-  {
-  "symbols": [
-    {
-      "proName": "FOREXCOM:SPXUSD",
-      "title": "S&P 500"
-    },
-    {
-      "proName": "FOREXCOM:NSXUSD",
-      "title": "US 100"
-    },
-    {
-      "proName": "FX_IDC:EURUSD",
-      "title": "EUR/USD"
-    },
-    {
-      "proName": "BITSTAMP:BTCUSD",
-      "title": "Bitcoin"
-    },
-    {
-      "proName": "BITSTAMP:ETHUSD",
-      "title": "Ethereum"
-    }
-  ],
-  "showSymbolLogo": true,
-  "colorTheme": "light",
-  "isTransparent": false,
-  "displayMode": "adaptive",
-  "locale": "in"
-}
-  </script>
-</div>
-<!-- TradingView Widget END -->
-</div>
-</div>
-
-<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-nav.php'; ?>
-
-<div class="container maxw-1280">
+<div class="container maxw-1280" id="main-content" role="main">
   <h1 class="text-center text-primary-omr">IT Companies in Coimbatore</h1>
   <p style="text-align:center; margin-bottom:18px;">Discover IT firms in Coimbatore. Search, filter and connect.</p>
   <?php if (!empty($locality)): ?>
     <div class="text-center mb-2">
-      <small>Nearby IT Parks: <a href="/directory/it-parks-in-omr.php?locality=<?php echo urlencode($locality); ?>">Browse parks in <?php echo htmlspecialchars($locality, ENT_QUOTES, 'UTF-8'); ?></a> or <a href="/it-parks">see all</a>.</small>
+      <small>Nearby IT Parks: <a href="/directory/it-parks.php?locality=<?php echo urlencode($locality); ?>">Browse parks in <?php echo htmlspecialchars($locality, ENT_QUOTES, 'UTF-8'); ?></a> or <a href="/directory/it-parks.php">see all</a>.</small>
     </div>
   <?php endif; ?>
 

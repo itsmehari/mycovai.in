@@ -131,7 +131,7 @@ if (!isset($localitiesList) || !is_array($localitiesList)) {
     <section class="mb-4">
       <h4>Careers</h4>
       <p>Looking for opportunities at <?php echo htmlspecialchars($entityName, ENT_QUOTES, 'UTF-8'); ?>?</p>
-      <?php $careerQuery = urlencode($entityName . ' careers Chennai'); ?>
+      <?php $careerQuery = urlencode($entityName . ' careers Coimbatore'); ?>
       <?php if (is_string($careersUrlDb) && preg_match('#^https?://#i', trim($careersUrlDb))): ?>
         <a class="btn btn-outline-primary" href="<?php echo htmlspecialchars(trim($careersUrlDb), ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener">Visit Careers Page</a>
       <?php else: ?>
@@ -157,9 +157,9 @@ if (!isset($localitiesList) || !is_array($localitiesList)) {
           $nearby = '';
           foreach ($localitiesList as $lc) { if (stripos($address, $lc) !== false) { $nearby = $lc; break; } }
           if ($nearby !== '') {
-            echo 'This listing is in or near ' . htmlspecialchars($nearby, ENT_QUOTES, 'UTF-8') . ' along OMR.';
+            echo 'This listing is in or near ' . htmlspecialchars($nearby, ENT_QUOTES, 'UTF-8') . ' in Coimbatore.';
           } else {
-            echo 'Located along OMR, accessible by local buses, cabs, and metro feeder routes.';
+            echo 'Located in Coimbatore, accessible by local buses and cabs.';
           }
         ?>
       </p>

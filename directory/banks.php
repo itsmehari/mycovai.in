@@ -23,6 +23,7 @@ $result = $conn->query($sql);
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
+<link rel="stylesheet" href="/assets/css/homepage-directone.css">
 <title>Banks in Coimbatore | MyCovai</title>
 <link rel="canonical" href="https://mycovai.in/banks" />
 <style>
@@ -182,59 +183,13 @@ color: #4c516D;
 
 </style>
 <body>
-<?php include '../components/skip-link.php'; ?>
-    <a href="https://chat.whatsapp.com/Eixz1mmURuFLvnNZzCfGDi" class="float" target="_blank">
- <i class="fa fa-whatsapp my-float"></i>
-</a>
-
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/skip-link.php'; ?>
+<a href="https://wa.me/919445088028" class="float" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa fa-whatsapp my-float"></i></a>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v14.0" nonce="brAi0ji4"></script>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-header.php'; ?>
 
-<div class ="container maxw-1280">
-<div class ="row">
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets</span></a> by TradingView</div>
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-  {
-  "symbols": [
-    {
-      "proName": "FOREXCOM:SPXUSD",
-      "title": "S&P 500"
-    },
-    {
-      "proName": "FOREXCOM:NSXUSD",
-      "title": "US 100"
-    },
-    {
-      "proName": "FX_IDC:EURUSD",
-      "title": "EUR/USD"
-    },
-    {
-      "proName": "BITSTAMP:BTCUSD",
-      "title": "Bitcoin"
-    },
-    {
-      "proName": "BITSTAMP:ETHUSD",
-      "title": "Ethereum"
-    }
-  ],
-  "showSymbolLogo": true,
-  "colorTheme": "light",
-  "isTransparent": false,
-  "displayMode": "adaptive",
-  "locale": "in"
-}
-  </script>
-</div>
-<!-- TradingView Widget END -->
-</div>
-</div>
-
-<?php include $_SERVER['DOCUMENT_ROOT'].'/components/directory-nav.php'; ?>
-
-<div class="container maxw-1280">
+<div class="container maxw-1280" id="main-content" role="main">
   <h1 class="mt-4" style="color:#0583D2;">Banks in Coimbatore</h1>
   <?php $cfg = get_directory_config('banks'); $q = isset($_GET['q']) ? trim($_GET['q']) : ''; $locality = isset($_GET['locality']) ? trim($_GET['locality']) : ''; $sort = isset($_GET['sort']) && $_GET['sort']==='newest' ? 'newest' : 'az'; $page = isset($_GET['page']) ? max(1,(int)$_GET['page']) : 1; $res = render_directory_list($cfg, ['q'=>$q,'locality'=>$locality,'sort'=>$sort], $page, 12); ?>
   <form class="form-inline my-3" method="get" action="">

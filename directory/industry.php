@@ -58,7 +58,7 @@ $canonical = 'https://mycovai.in/industries/' . $slug;
 <?php include '../components/head-resources.php'; ?>
 <title><?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?> | Industry in Coimbatore | MyCovai</title>
 <link rel="canonical" href="<?php echo htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8'); ?>" />
-<meta name="description" content="<?php echo htmlspecialchars($name . ' - industry on Chennai OMR. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
+<meta name="description" content="<?php echo htmlspecialchars($name . ' - industry in Coimbatore. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
 </head>
 <body>
 <?php include '../components/main-nav.php'; ?>
@@ -201,7 +201,7 @@ $canonical = 'https://mycovai.in/industries/' . $slug;
 <?php include '../components/head-resources.php'; ?>
 <title><?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?> | Industry in Coimbatore | MyCovai</title>
 <link rel="canonical" href="<?php echo htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8'); ?>" />
-<meta name="description" content="<?php echo htmlspecialchars($name . ' - Industry on Chennai OMR. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
+<meta name="description" content="<?php echo htmlspecialchars($name . ' - Industry in Coimbatore. Address: ' . $address, ENT_QUOTES, 'UTF-8'); ?>" />
 <meta name="robots" content="index, follow">
 </head>
 <body>

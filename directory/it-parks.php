@@ -49,7 +49,7 @@ if ($conn) {
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="IT Parks in Coimbatore | MyCovai" />
 <meta property="og:description" content="Explore major IT Parks along Coimbatore — locations, addresses, websites, inauguration year, owners, built-up areas, and key companies." />
-<meta property="og:image" content="/My-OMR-Logo.jpg" />
+<meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta property="og:url" content="https://mycovai.in/it-parks" />
 <meta property="og:site_name" content="MyCovai - Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
@@ -58,7 +58,7 @@ if ($conn) {
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="IT Parks in Coimbatore | MyCovai" />
 <meta name="twitter:description" content="Explore major IT Parks along Coimbatore." />
-<meta name="twitter:image" content="/My-OMR-Logo.jpg" />
+<meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta name="twitter:site" content="@MyCovai">
 <meta name="twitter:creator" content="@MyCovai">
 
@@ -75,7 +75,7 @@ body { font-family: 'Poppins', sans-serif; }
 <body>
 <?php include '../components/skip-link.php'; ?>
 <?php include __DIR__ . '/../components/homepage-header.php'; ?>
-<?php include __DIR__ . '/../components/omr-listings-nav.php'; ?>
+<?php include __DIR__ . '/../components/directory-header.php'; ?>
 
 <?php
 // Static dataset curated from public sources; please keep fields short and factual.
