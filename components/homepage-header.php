@@ -19,8 +19,9 @@ $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
             <ul class="homepage-nav">
                 <li><a href="/"<?php echo ($current_path === '/' || $current_path === '/index.php') ? ' class="active"' : ''; ?>>Home</a></li>
                 <li><a href="/about.php"<?php echo strpos($current_path, '/about') !== false ? ' class="active"' : ''; ?>>About</a></li>
-                <li><a href="/directory/index.php"<?php echo strpos($current_path, '/directory') !== false ? ' class="active"' : ''; ?>>Listing</a></li>
-                <li><a href="/local-news/news-highlights.php"<?php echo strpos($current_path, '/local-news') !== false ? ' class="active"' : ''; ?>>Blog</a></li>
+                <li><a href="/directory/index.php"<?php echo strpos($current_path, '/directory') !== false ? ' class="active"' : ''; ?>>Explore Covai</a></li>
+                <li><a href="/coimbatore-news.php"<?php echo $current_path === '/coimbatore-news.php' ? ' class="active"' : ''; ?>>Covai News</a></li>
+                <li><a href="/local-news/news-highlights.php"<?php echo strpos($current_path, '/local-news/news-highlights') !== false ? ' class="active"' : ''; ?>>Blog</a></li>
                 <li><a href="/contact.php"<?php echo strpos($current_path, '/contact') !== false ? ' class="active"' : ''; ?>>Contact</a></li>
             </ul>
             <a href="/jobs/employer-landing-omr.php" class="homepage-cta">

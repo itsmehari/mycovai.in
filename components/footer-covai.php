@@ -11,8 +11,9 @@ $siteRoot = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 
         <!-- Pre-footer subscribe band -->
         <section class="fat-footer-prefooter" aria-label="Newsletter signup">
             <div class="fat-footer-prefooter-inner">
-                <h3>Subscribe</h3>
-                <p>Get Coimbatore updates, events and listings in your inbox.</p>
+                <span class="prefooter-label">Newsletter</span>
+                <h3>Get the latest from Covai</h3>
+                <p>Events, listings and local updates—once in a while, in your inbox.</p>
                 <form class="subscribe-form" action="<?php echo htmlspecialchars($siteRoot . 'core/subscribe.php'); ?>" method="POST">
                     <input type="email" name="email" placeholder="you@email.com" required aria-label="Email address">
                     <button type="submit">Subscribe</button>
@@ -69,9 +70,9 @@ $siteRoot = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 
                             <a href="<?php echo (defined('SOCIAL_TWITTER') && SOCIAL_TWITTER !== '') ? htmlspecialchars(SOCIAL_TWITTER) : '#'; ?>" aria-label="Twitter"><i class="fab fa-twitter twitter-bg"></i></a>
                             <a href="#" aria-label="Instagram"><i class="fab fa-instagram instagram-bg"></i></a>
                         </div>
-                        <div class="footer-widget-heading"><h3>Subscribe</h3></div>
+                        <div class="footer-widget-heading"><h3>Stay updated</h3></div>
                         <div class="footer-text mb-25">
-                            <p>Get Covai updates in your inbox.</p>
+                            <p>Optional: get updates here too.</p>
                         </div>
                         <div class="subscribe-form">
                             <form action="<?php echo htmlspecialchars($siteRoot . 'core/subscribe.php'); ?>" method="POST">
@@ -88,6 +89,7 @@ $siteRoot = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 
                         <ul>
                             <li><a href="<?php echo $baseUrl; ?>index.php">Home</a></li>
                             <li><a href="<?php echo $baseUrl; ?>directory/index.php">Explore Covai</a></li>
+                            <li><a href="<?php echo $baseUrl; ?>coimbatore-news.php">Covai News</a></li>
                             <li><a href="<?php echo $baseUrl; ?>coimbatore-elections-2026/">Elections 2026</a></li>
                             <li><a href="<?php echo $baseUrl; ?>contact.php">Contact us</a></li>
                             <li><a href="<?php echo $baseUrl; ?>local-news/">Latest News</a></li>

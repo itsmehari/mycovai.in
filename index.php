@@ -90,29 +90,7 @@ $home_categories = [
 <body style="background-color: #FAF8F5;">
 
 <!-- Header -->
-<header class="homepage-header">
-    <div class="container-xl">
-        <div class="homepage-header-inner">
-            <a href="/" class="homepage-logo">
-                <span class="logo-text">MyCovai</span>
-                <span class="logo-tagline">Coimbatore Directory &amp; Listing</span>
-            </a>
-            <button type="button" class="homepage-menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('.homepage-nav').classList.toggle('active')">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="homepage-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about.php">About</a></li>
-                <li><a href="/directory/index.php">Listing</a></li>
-                <li><a href="/local-news/news-highlights-from-omr-road.php">Blog</a></li>
-                <li><a href="/contact.php">Contact</a></li>
-            </ul>
-            <a href="/jobs/employer-landing-omr.php" class="homepage-cta">
-                <i class="fas fa-plus"></i> Add Listing
-            </a>
-        </div>
-    </div>
-</header>
+<?php require_once __DIR__ . '/components/homepage-header.php'; ?>
 
 <!-- Hero with search -->
 <section class="homepage-hero">

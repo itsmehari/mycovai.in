@@ -590,6 +590,7 @@ function is_active($link, $current_uri) {
   <ul id="main-menu">
     <li class="nav-item"><a class="nav-link <?php echo is_active('/directory/index.php', $current_uri) ? 'active' : ''; ?>" href="/directory/index.php"><i class="fas fa-home mr-1"></i><?php echo defined('MYCOVAI_CONFIG_LOADED') ? 'Explore Covai' : 'Explore Places'; ?></a></li>
     <li><a href="/about.php" class="<?php echo is_active('/about.php', $current_uri) ? 'active' : ''; ?>">About</a></li>
+    <li><a href="/coimbatore-news.php" class="<?php echo is_active('/coimbatore-news.php', $current_uri) ? 'active' : ''; ?>"><i class="fas fa-newspaper mr-1"></i>Covai News</a></li>
     <li><a href="/local-news/news-highlights-from-omr-road.php" class="<?php echo is_active('/local-news/news-highlights-from-omr-road.php', $current_uri) ? 'active' : ''; ?>">News Highlights</a></li>
     <li><a href="/local-news/image-video-gallery-old-mahabalipuram-road-news.php" class="<?php echo is_active('/local-news/image-video-gallery-old-mahabalipuram-road-news.php', $current_uri) ? 'active' : ''; ?>">Gallery</a></li>
     <li class="dropdown">
