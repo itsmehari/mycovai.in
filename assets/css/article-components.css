@@ -7,12 +7,73 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ========== Ad wrapper: max 1024px ========== */
+/* ========== Ad wrapper: max 1024px, proper banner styling ========== */
 .article-ad-wrapper {
   max-width: 1024px;
   margin: 0 auto;
   padding: 1rem;
   overflow: hidden;
+}
+
+.article-ad-wrapper .covai-ad-zone {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 90px;
+}
+
+.article-ad-wrapper .covai-ad-banner {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.5rem !important;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
+  border: 2px solid #bae6fd !important;
+  border-radius: 10px !important;
+  min-height: 70px;
+  text-decoration: none !important;
+}
+
+.article-ad-wrapper .covai-ad-banner:hover {
+  border-color: #0ea5e9 !important;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2) !important;
+}
+
+.article-ad-wrapper .covai-ad-banner__icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 165, 233, 0.2);
+  border-radius: 10px;
+  color: #0891b2 !important;
+  font-size: 1.25rem !important;
+}
+
+.article-ad-wrapper .covai-ad-banner__headline {
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  color: #0c4a6e !important;
+}
+
+.article-ad-wrapper .covai-ad-banner__tagline {
+  font-size: 0.9rem !important;
+  color: #64748b !important;
+  width: auto !important;
+}
+
+.article-ad-wrapper .covai-ad-banner__cta {
+  flex-shrink: 0;
+  padding: 0.4rem 1rem;
+  background: #0ea5e9;
+  color: #fff !important;
+  border-radius: 6px;
+  font-weight: 600 !important;
 }
 
 .article-ad-wrapper__mobile {
@@ -258,20 +319,65 @@ html {
   margin-right: 0.35rem;
 }
 
-/* ========== Table of contents ========== */
+/* ========== Article page layout: sidebar + main ========== */
+.article-page-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  align-items: start;
+}
+
+.article-sidebar {
+  position: sticky;
+  top: 80px;
+}
+
+.article-sidebar:empty {
+  display: none;
+}
+
+.article-main {
+  min-width: 0;
+}
+
+.article-main .article-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+  .article-page-layout {
+    grid-template-columns: 1fr;
+    padding: 1rem 0.75rem;
+  }
+
+  .article-sidebar {
+    position: static;
+    order: 1;
+  }
+}
+
+/* ========== Table of contents (in sidebar on desktop) ========== */
 .article-toc {
-  margin: 2rem 0;
-  padding: 1.5rem;
+  margin: 0;
+  padding: 1.25rem;
   background: #f8fafc;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
 }
 
+.article-sidebar .article-toc {
+  margin: 0;
+}
+
 .article-toc__title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #14532d;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.75rem 0;
 }
 
 .article-toc__list {
@@ -281,16 +387,17 @@ html {
 }
 
 .article-toc__item {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .article-toc__link {
   color: #374151;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   display: block;
   padding: 0.25rem 0;
   transition: color 0.2s;
+  line-height: 1.4;
 }
 
 .article-toc__link:hover {
@@ -299,12 +406,13 @@ html {
 
 .article-toc__item--h3 .article-toc__link {
   padding-left: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 @media (max-width: 991px) {
   .article-toc {
     margin: 1.5rem 0;
+    padding: 1.25rem;
   }
 }
 
@@ -450,15 +558,22 @@ html {
 }
 
 /* ========== Progress bar ========== */
-.article-progress-bar {
+.article-progress-bar-track {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  z-index: 10001;
+  pointer-events: none;
+}
+
+.article-progress-bar {
+  height: 100%;
   width: 0%;
-  height: 3px;
   background: #22c55e;
-  z-index: 1000;
-  transition: width 0.1s linear;
+  transition: width 0.08s ease-out;
 }
 
 /* ========== Print styles ========== */
@@ -468,9 +583,15 @@ html {
   .article-ad-wrapper,
   .article-share-sticky,
   .article-back-to-top,
+  .article-progress-bar-track,
   .article-progress-bar,
   .community-awareness-section,
-  .article-actions {
+  .article-actions,
+  .article-sidebar {
     display: none !important;
+  }
+
+  .article-page-layout {
+    display: block;
   }
 }

@@ -226,6 +226,7 @@ if (!$article) {
     <?php endif; ?>
     
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/ad-banners.css">
     <link rel="stylesheet" href="/assets/css/article-components.css">
     <style>
         :root {
@@ -307,8 +308,10 @@ if (!$article) {
 
 <?php require_once '../components/main-nav.php'; ?>
 
-<!-- Progress bar -->
-<div class="article-progress-bar" id="article-progress-bar" aria-hidden="true"></div>
+<!-- Progress bar - fixed at top, above nav -->
+<div class="article-progress-bar-track" aria-hidden="true">
+  <div class="article-progress-bar" id="article-progress-bar"></div>
+</div>
 
 <?php
 $slot_id = 'article-top';
@@ -316,8 +319,12 @@ $size = '728x90';
 require_once __DIR__ . '/../components/article-ad-banner.php';
 ?>
 
-<div class="container article-container">
-    <article>
+<div class="article-page-layout">
+    <aside class="article-sidebar" id="article-sidebar">
+        <?php require_once __DIR__ . '/../components/article-toc.php'; ?>
+    </aside>
+    <div class="article-main">
+    <article class="article-container">
         <header class="article-header">
             <h1><?php echo htmlspecialchars($article['title']); ?></h1>
             <p class="article-meta">
@@ -413,7 +420,6 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
         endif; 
         ?>
 
-        <?php require_once __DIR__ . '/../components/article-toc.php'; ?>
         <?php require_once __DIR__ . '/../components/article-author-bio.php'; ?>
         <?php require_once __DIR__ . '/../components/article-actions.php'; ?>
         
@@ -635,6 +641,7 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
         </div>
         <?php endif; ?>
     </article>
+    </div>
 </div>
 
 <?php require_once '../components/footer.php'; ?>
