@@ -1,0 +1,386 @@
+/**
+ * Covai News page – lead article + grid (Option B), reuses mycovai tokens from homepage.
+ * Max container 1280px; Fraunces + Poppins.
+ */
+.covai-news-page {
+  background: var(--mycovai-bg, #FAF8F5);
+}
+
+.covai-news-page .container-xl {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* ---- 1. Hero strip ---- */
+.covai-news-hero {
+  padding: 1.5rem 0 2rem;
+  border-bottom: 1px solid var(--mycovai-border, #E8E0D8);
+}
+
+.covai-news-breadcrumb {
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.covai-news-breadcrumb a {
+  color: var(--mycovai-primary, #B8522E);
+  text-decoration: none;
+}
+
+.covai-news-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.covai-news-breadcrumb .sep {
+  color: var(--mycovai-text-muted, #6B5B52);
+  margin: 0 0.5rem;
+}
+
+.covai-news-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--mycovai-primary, #B8522E);
+  margin: 0 0 0.25rem 0;
+}
+
+.covai-news-tagline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: var(--mycovai-text-muted, #6B5B52);
+  margin: 0;
+}
+
+/* ---- 2. Section heading ---- */
+.covai-news-section-heading {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--mycovai-text, #2C2825);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--mycovai-primary, #B8522E);
+}
+
+/* ---- Lead article (Option B) ---- */
+.covai-news-articles {
+  padding: 2rem 0;
+}
+
+.covai-news-lead {
+  margin-bottom: 2rem;
+}
+
+.covai-news-lead-link {
+  display: block;
+  background: var(--mycovai-white, #fff);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--mycovai-shadow, 0 2px 12px rgba(44, 40, 37, 0.08));
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.covai-news-lead-link:hover {
+  box-shadow: var(--mycovai-shadow-hover, 0 8px 28px rgba(184, 82, 46, 0.15));
+  transform: translateY(-2px);
+}
+
+.covai-news-lead-link:hover .covai-news-read-more {
+  color: var(--mycovai-primary, #B8522E);
+}
+
+.covai-news-lead-image-wrap {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+  background: var(--mycovai-bg-alt, #F5F1EC);
+}
+
+.covai-news-lead-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.covai-news-lead-body {
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+
+.covai-news-date {
+  font-size: 0.8125rem;
+  color: var(--mycovai-text-muted, #6B5B52);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.covai-news-lead-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--mycovai-text, #2C2825);
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+}
+
+.covai-news-lead-summary {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--mycovai-text, #2C2825);
+  margin: 0 0 1rem 0;
+}
+
+.covai-news-read-more {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--mycovai-primary, #B8522E);
+  transition: color 0.2s ease;
+}
+
+/* ---- Article grid ---- */
+.covai-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.covai-news-card {
+  margin: 0;
+}
+
+.covai-news-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--mycovai-white, #fff);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--mycovai-shadow, 0 2px 12px rgba(44, 40, 37, 0.08));
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.covai-news-card-link:hover {
+  box-shadow: var(--mycovai-shadow-hover, 0 8px 28px rgba(184, 82, 46, 0.15));
+  transform: translateY(-2px);
+}
+
+.covai-news-card-link:hover .covai-news-read-more {
+  color: var(--mycovai-primary, #B8522E);
+}
+
+.covai-news-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--mycovai-bg-alt, #F5F1EC);
+}
+
+.covai-news-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.covai-news-card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.covai-news-card-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  color: var(--mycovai-text, #2C2825);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.35;
+}
+
+.covai-news-card-summary {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--mycovai-text-muted, #6B5B52);
+  margin: 0 0 0.75rem 0;
+  flex: 1;
+}
+
+.covai-news-empty {
+  color: var(--mycovai-text-muted, #6B5B52);
+  text-align: center;
+  padding: 2rem;
+}
+
+/* ---- 3. Quick links CTAs ---- */
+.covai-news-ctas {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--mycovai-border, #E8E0D8);
+}
+
+.covai-news-ctas-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.covai-news-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1.25rem;
+  background: var(--mycovai-white, #fff);
+  border: 1px solid var(--mycovai-border, #E8E0D8);
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--mycovai-text, #2C2825);
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.covai-news-cta-btn:hover {
+  background: var(--mycovai-primary, #B8522E);
+  border-color: var(--mycovai-primary, #B8522E);
+  color: #fff;
+}
+
+/* ---- 4. Featured events ---- */
+.covai-news-events {
+  padding: 2rem 0;
+  border-top: 1px solid var(--mycovai-border, #E8E0D8);
+}
+
+.covai-news-events .card-modern {
+  border: 1px solid var(--mycovai-border, #E8E0D8);
+  border-radius: 8px;
+  box-shadow: var(--mycovai-shadow, 0 2px 12px rgba(44, 40, 37, 0.08));
+}
+
+.covai-news-btn {
+  background: var(--mycovai-primary, #B8522E);
+  border-color: var(--mycovai-primary, #B8522E);
+}
+
+.covai-news-btn:hover {
+  background: var(--mycovai-primary-dark, #8B3D24);
+  border-color: var(--mycovai-primary-dark, #8B3D24);
+}
+
+/* ---- 5. Subscribe ---- */
+.covai-news-subscribe {
+  padding: 2.5rem 0;
+  background: var(--mycovai-bg-alt, #F5F1EC);
+  border-top: 1px solid var(--mycovai-border, #E8E0D8);
+}
+
+.covai-news-subscribe-inner {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.covai-news-subscribe-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mycovai-primary, #B8522E);
+  margin-bottom: 0.5rem;
+}
+
+.covai-news-subscribe-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--mycovai-text, #2C2825);
+  margin: 0 0 0.5rem 0;
+}
+
+.covai-news-subscribe-text {
+  font-size: 0.9375rem;
+  color: var(--mycovai-text-muted, #6B5B52);
+  margin-bottom: 1.25rem;
+}
+
+.covai-news-subscribe-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.covai-news-subscribe-form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--mycovai-border, #E8E0D8);
+  border-radius: 999px;
+  background: var(--mycovai-white, #fff);
+  font-size: 0.9375rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.covai-news-subscribe-form input:focus {
+  outline: none;
+  border-color: var(--mycovai-primary, #B8522E);
+  box-shadow: 0 0 0 3px rgba(184, 82, 46, 0.15);
+}
+
+.covai-news-subscribe-form button {
+  padding: 0.75rem 1.5rem;
+  background: var(--mycovai-primary, #B8522E);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.covai-news-subscribe-form button:hover {
+  background: var(--mycovai-primary-dark, #8B3D24);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .covai-news-title {
+    font-size: 1.5rem;
+  }
+
+  .covai-news-lead-image-wrap {
+    aspect-ratio: 16 / 10;
+  }
+
+  .covai-news-lead-body {
+    padding: 1.25rem 1rem;
+  }
+
+  .covai-news-lead-title {
+    font-size: 1.25rem;
+  }
+
+  .covai-news-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .covai-news-subscribe-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .covai-news-subscribe-form input {
+    min-width: 0;
+  }
+}

@@ -2,6 +2,12 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+// Canonical Covai News URL is /coimbatore-news.php
+if (php_sapi_name() !== 'cli') {
+    header('Location: https://mycovai.in/coimbatore-news.php', true, 301);
+    exit;
+}
 ?>
 <?php 
 include '../weblog/log.php';
