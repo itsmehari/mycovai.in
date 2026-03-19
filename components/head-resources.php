@@ -1,4 +1,4 @@
-<?php if (!function_exists('omr_ad_slot')) { require_once __DIR__ . '/ad-banner-slot.php'; } ?>
+<?php if (!function_exists('covai_ad_slot')) { require_once __DIR__ . '/ad-banner-slot.php'; } ?>
 <!-- Head Resources: CSS & JS Includes -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <!-- Consolidated Font Awesome (v6) only -->

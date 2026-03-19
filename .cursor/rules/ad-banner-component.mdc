@@ -8,8 +8,8 @@ globs:
 
 # Banner ads (mycovai.in)
 
-- **Registry:** `core/ad-registry.php` — `$omr_ad_slot_ids`, `$omr_ads` (id, advertiser, url, slot_ids, sizes, design, headline, tagline, active).
-- **Component:** `components/ad-banner-slot.php` — `omr_ad_slot($slot_id, $size)`, `omr_ad_slot_row($slot_id, $count)`, `_omr_ad_icon($design)`. Injects `ad-banners.css` once per page.
-- **Styles:** `assets/css/ad-banners.css` — `.omr-ad-zone`, `.omr-ad-slot`, `.omr-ad-banner`, size classes (728x90, 336x280, 300x250, 320x50), design classes (e.g. `.omr-ad-banner--mycovai`).
+- **Registry:** `core/ad-registry.php` — `$covai_ad_slot_ids`, `$covai_ads` (id, advertiser, url, slot_ids, sizes, design, headline, tagline, active).
+- **Component:** `components/ad-banner-slot.php` — `covai_ad_slot($slot_id, $size)`, `covai_ad_slot_row($slot_id, $count)`, `covai_ad_banner_row($slot_id, $size, $max)`, `_covai_ad_icon($design)`. Injects `ad-banners.css` once per page.
+- **Styles:** `assets/css/ad-banners.css` — `.covai-ad-zone`, `.covai-ad-slot`, `.covai-ad-banner`, size classes (728x90, 336x280, 300x250, 320x50, card-row), design classes (e.g. `.covai-ad-banner--mycovai`).
 
-**To add a new advertiser:** (1) Add entry to `$omr_ads` in registry. (2) Add `_omr_ad_icon` case in ad-banner-slot.php if new design. (3) Add design class in ad-banners.css if needed. See `docs/ads.md` for full steps.
+**To add a new advertiser:** (1) Add entry to `$covai_ads` in registry. (2) Add `_covai_ad_icon` case in ad-banner-slot.php if new design. (3) Add design class in ad-banners.css if needed. See `docs/ads.md` for full steps.

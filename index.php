@@ -158,10 +158,10 @@ $home_categories = [
     </div>
 </section>
 
-<?php if (!function_exists('omr_ad_slot')) { require_once __DIR__ . '/components/ad-banner-slot.php'; } ?>
-<!-- Banner ad: homepage-top -->
+<?php if (!function_exists('covai_ad_banner_row')) { require_once __DIR__ . '/components/ad-banner-slot.php'; } ?>
+<!-- Banner ad: homepage-top (row of 4–6 distinct ads) -->
 <div class="container-xl py-3">
-    <?php omr_ad_slot('homepage-top', '336x280'); ?>
+    <?php covai_ad_banner_row('homepage-top', 'card-row', 6); ?>
 </div>
 
 <!-- Elections 2026 -->
@@ -196,7 +196,7 @@ $home_categories = [
 
 <!-- Banner ad: homepage-mid -->
 <div class="container-xl py-3">
-    <?php omr_ad_slot('homepage-mid', '336x280'); ?>
+    <?php covai_ad_slot('homepage-mid', '336x280'); ?>
 </div>
 
 <!-- Subscribe -->

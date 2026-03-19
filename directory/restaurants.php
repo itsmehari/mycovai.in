@@ -143,7 +143,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
 
     <!-- Banner ad: listing-top -->
     <div class="container maxw-1280 py-3">
-        <?php omr_ad_slot('listing-top', '336x280'); ?>
+        <?php covai_ad_slot('listing-top', '336x280'); ?>
     </div>
 
     <!-- Filter Section -->
@@ -202,7 +202,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
 
     <!-- Banner ad: listing-mid -->
     <div class="container maxw-1280 py-3 d-flex justify-content-center">
-        <?php omr_ad_slot('listing-mid', '336x280'); ?>
+        <?php covai_ad_slot('listing-mid', '336x280'); ?>
     </div>
 
     <!-- Restaurant Cards -->

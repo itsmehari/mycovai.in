@@ -302,7 +302,7 @@ if (!$article) {
 
 <!-- Banner ad: article-top -->
 <div class="container py-2">
-    <?php omr_ad_slot('article-top', '728x90'); ?>
+    <?php covai_ad_slot('article-top', '728x90'); ?>
 </div>
 
 <div class="container article-container">
@@ -322,7 +322,7 @@ if (!$article) {
 
         <!-- Banner ad: article-mid -->
         <div class="py-3">
-            <?php omr_ad_slot('article-mid', '336x280'); ?>
+            <?php covai_ad_slot('article-mid', '336x280'); ?>
         </div>
         
         <!-- Language Switch Link (if Tamil version exists) -->

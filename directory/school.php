@@ -73,7 +73,7 @@ $canonical = 'https://mycovai.in/schools/' . $slug;
 
   <!-- Banner ad: detail-mid -->
   <div class="py-3">
-    <?php omr_ad_slot('detail-mid', '336x280'); ?>
+    <?php covai_ad_slot('detail-mid', '336x280'); ?>
   </div>
 
   <h1 style="color:#0583D2;"><?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>

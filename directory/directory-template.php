@@ -165,7 +165,7 @@ $result = $conn->query($sql);
 
     <!-- Banner ad: listing-top -->
     <div class="container py-3">
-        <?php omr_ad_slot('listing-top', '336x280'); ?>
+        <?php covai_ad_slot('listing-top', '336x280'); ?>
     </div>
 
     <!-- Search Section -->
@@ -203,7 +203,7 @@ $result = $conn->query($sql);
         <!-- Banner ad: listing-mid -->
         <div class="row justify-content-center mb-4">
             <div class="col-auto">
-                <?php omr_ad_slot('listing-mid', '336x280'); ?>
+                <?php covai_ad_slot('listing-mid', '336x280'); ?>
             </div>
         </div>
         
