@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/error-reporting.php';
 require_once __DIR__ . '/../core/omr-connect.php';
-require_once __DIR__ . '/includes/event-functions-omr.php';
+require_once __DIR__ . '/includes/event-functions-covai.php';
 include __DIR__ . '/includes/dev-diagnostics.php';
 
 // Simple CSRF token
@@ -11,6 +11,7 @@ if (empty($_SESSION['csrf_token'])) {
 }
 
 $categories = getEventCategories();
+$localityOpts = function_exists('getCoimbatoreLocalitySelectOptions') ? getCoimbatoreLocalitySelectOptions() : [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,12 +19,12 @@ $categories = getEventCategories();
   <?php $breadcrumbs = [
     ['https://mycovai.in/','Home'],
     ['https://mycovai.in/local-events/','Events'],
-    ['https://mycovai.in/local-events/post-event-omr.php','List an Event']
+    ['https://mycovai.in/local-events/post/','List an Event']
   ]; ?>
   <?php include __DIR__ . '/../components/meta.php'; ?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>List an Event in <?php echo htmlspecialchars(defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'OMR'); ?> – <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyOMR'); ?></title>
+  <title>List an Event in <?php echo htmlspecialchars(defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'Coimbatore'); ?> – <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?></title>
   <meta name="description" content="Submit your local event to reach <?php echo htmlspecialchars(defined('SITE_REGION') ? SITE_REGION : 'OMR'); ?> residents. Community, workshops, sports, arts, business and more." />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -53,7 +54,7 @@ $categories = getEventCategories();
 
 <main class="py-5">
   <div class="container">
-    <form method="POST" action="process-event-omr.php" class="needs-validation dashboard-card" novalidate enctype="multipart/form-data">
+    <form method="POST" action="process-event-covai.php" class="needs-validation dashboard-card" novalidate enctype="multipart/form-data">
       <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>" />
       <!-- Honeypot field -->
       <div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
@@ -97,8 +98,14 @@ $categories = getEventCategories();
             </div>
             <div class="col-md-6">
               <div class="form-group-modern">
-                <label class="form-label-modern">Locality (Optional)</label>
-                <input type="text" class="form-control-modern" name="locality" placeholder="e.g., Sholinganallur" />
+                <label class="form-label-modern">Area / locality (optional)</label>
+                <select name="locality" class="form-select-modern">
+                  <option value="">Select area (optional)</option>
+                  <?php foreach ($localityOpts as $loc): ?>
+                    <option value="<?php echo htmlspecialchars($loc); ?>"><?php echo htmlspecialchars($loc); ?></option>
+                  <?php endforeach; ?>
+                </select>
+                <div class="help-text-modern"><i class="fas fa-info-circle"></i> Pick the nearest Coimbatore area for better discovery.</div>
               </div>
             </div>
             <div class="col-md-6">
@@ -192,7 +199,7 @@ $categories = getEventCategories();
           <h5><i class="fas fa-info-circle"></i> Guidelines</h5>
           <ul>
             <li>Submissions are reviewed within 24–48 hours.</li>
-            <li>Only OMR-relevant events are approved.</li>
+            <li>Only <?php echo htmlspecialchars(defined('SITE_REGION') ? SITE_REGION : 'Coimbatore'); ?>-relevant events are approved.</li>
             <li>We may edit titles/descriptions for clarity and SEO.</li>
           </ul>
         </div>
@@ -219,10 +226,12 @@ $categories = getEventCategories();
     form.addEventListener('submit', e => {
       if (!form.checkValidity()) { e.preventDefault(); e.stopPropagation(); }
       form.classList.add('was-validated');
-      if (window.MyOMREventsAnalytics) { window.MyOMREventsAnalytics.submissionSubmit(); }
+      var ev = window.MyCovaiEventsAnalytics || window.MyOMREventsAnalytics;
+      if (ev) { ev.submissionSubmit(); }
     });
   });
-  if (window.MyOMREventsAnalytics) { window.MyOMREventsAnalytics.submissionStart(); }
+  var evStart = window.MyCovaiEventsAnalytics || window.MyOMREventsAnalytics;
+  if (evStart) { evStart.submissionStart(); }
 })();
 </script>
 <script src="assets/events-analytics.js"></script>

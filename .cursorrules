@@ -145,7 +145,7 @@
 When the user asks to **update the database** (schema changes, migrations, data fixes):
 
 1. **Confirm target:** Ask whether the change should be applied to the **live** database (mycovai.in / metap8ok_mycovai) or only local/sandbox.
-2. **If live:** Do not run SQL or migrations against live automatically. Tell the user what will be run and ask for explicit confirmation (e.g. “Run this against live? Reply yes to proceed.”).
+2. **If live:** When user asks to update live or apply to live, execute directly. Otherwise ask for confirmation. Tell the user what will be run and ask for explicit confirmation (e.g. “Run this against live? Reply yes to proceed.”).
 3. **After confirmation:** Run the migration/script against live (e.g. using `DB_HOST=mycovai.in`), report the outcome, and suggest committing any changed files (migrations, config) to version control.
 
 See `LEARNINGS.md` and `AGENTS.md` for the full database-update workflow.

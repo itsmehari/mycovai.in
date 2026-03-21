@@ -18,7 +18,7 @@ Hello {{FirstName}}/Team,
 We curate local events for the OMR community. You can list your events for free and get featured in our weekly roundup.
 
 Add the MyOMR Events badge to your site (copy-paste) and share your events:
-https://myomr.in/omr-local-events/post-event-omr.php
+https://myomr.in/omr-local-events/post-event-covai.php
 
 Roundup link for this week:
 https://myomr.in/local-news/this-weekend-in-omr.php?utm_source=outreach&utm_medium=email&utm_campaign=events_partners

@@ -5,7 +5,7 @@ if (empty($_SESSION['events_newsletter_csrf'])) { $_SESSION['events_newsletter_c
 ?>
 <form class="card-modern p-3" method="post" action="/local-events/process-newsletter-signup.php" style="max-width:480px;">
   <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['events_newsletter_csrf']); ?>">
-  <div class="mb-2"><strong>Get OMR events in your inbox</strong></div>
+  <div class="mb-2"><strong>Get <?php echo htmlspecialchars(defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'Covai'); ?> events in your inbox</strong></div>
   <div class="row g-2">
     <div class="col-12 col-md-8">
       <input type="email" class="form-control" name="email" placeholder="you@example.com" required>

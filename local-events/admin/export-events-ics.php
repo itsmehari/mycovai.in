@@ -11,7 +11,7 @@ function escIcs($s){ return addcslashes(preg_replace('/[\r\n]+/',' ', (string)$s
 
 echo "BEGIN:VCALENDAR\r\n";
 echo "VERSION:2.0\r\n";
-echo "PRODID:-//MyOMR//Events Export//EN\r\n";
+echo "PRODID:-//MyCovai//Events Export//EN\r\n";
 
 try {
   global $conn;
@@ -19,11 +19,11 @@ try {
           FROM event_listings WHERE status IN ('scheduled','ongoing') ORDER BY start_datetime ASC";
   $res = $conn->query($sql);
   while ($row = $res->fetch_assoc()) {
-    $uid = uniqid('myomr-') . '@myomr.in';
+    $uid = uniqid('mycovai-') . '@mycovai.in';
     $dtStart = gmdate('Ymd\THis\Z', strtotime($row['start_datetime']));
     $dtEnd = gmdate('Ymd\THis\Z', strtotime($row['end_datetime'] ?: $row['start_datetime'] . ' +1 hour'));
     $summary = escIcs($row['title']);
-    $loc = escIcs(trim(($row['location'] ?: '') . ' ' . ($row['locality'] ?: 'OMR Chennai')));
+    $loc = escIcs(trim(($row['location'] ?: '') . ' ' . ($row['locality'] ?: (defined('SITE_REGION') ? SITE_REGION : 'Coimbatore'))));
     $desc = escIcs(strip_tags($row['description'] ?? ''));
     echo "BEGIN:VEVENT\r\n";
     echo "UID:$uid\r\n";

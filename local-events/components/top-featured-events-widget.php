@@ -2,12 +2,13 @@
 // Reusable widget: Top Featured Events (limit 3)
 require_once __DIR__ . '/../includes/error-reporting.php';
 require_once __DIR__ . '/../../core/omr-connect.php';
+require_once __DIR__ . '/../includes/event-functions-covai.php';
 
 $items = [];
 try {
   global $conn;
   if ($conn && !$conn->connect_error) {
-    $res = $conn->query("SELECT title, slug, start_datetime, location FROM event_listings WHERE featured = 1 AND status IN ('scheduled','ongoing') ORDER BY start_datetime ASC LIMIT 3");
+    $res = $conn->query("SELECT title, slug, start_datetime, location FROM event_listings WHERE featured = 1 AND status IN ('scheduled','ongoing') ORDER BY start_datetime DESC LIMIT 3");
     while ($row = $res->fetch_assoc()) { $items[] = $row; }
   }
 } catch (Throwable $e) {
@@ -15,6 +16,8 @@ try {
 }
 
 if (empty($items)) { return; }
+
+$evBase = function_exists('eventsCanonicalBaseUrl') ? eventsCanonicalBaseUrl() : 'https://mycovai.in';
 ?>
 <div class="card-modern mb-4">
   <div class="p-4">
@@ -25,7 +28,7 @@ if (empty($items)) { return; }
     <ul class="list-unstyled mb-0">
       <?php foreach ($items as $ev): ?>
         <li class="mb-2">
-          <a href="/local-events/event-detail-omr.php?slug=<?php echo urlencode($ev['slug']); ?>" class="text-decoration-none">
+          <a href="<?php echo htmlspecialchars($evBase . '/local-events/event/' . rawurlencode($ev['slug'])); ?>" class="text-decoration-none">
             <strong><?php echo htmlspecialchars($ev['title']); ?></strong>
           </a>
           <div class="small text-muted">

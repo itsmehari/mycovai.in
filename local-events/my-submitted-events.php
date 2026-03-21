@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/error-reporting.php';
 require_once __DIR__ . '/../core/omr-connect.php';
-require_once __DIR__ . '/includes/event-functions-omr.php';
+require_once __DIR__ . '/includes/event-functions-covai.php';
 include __DIR__ . '/includes/dev-diagnostics.php';
 
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Submitted Events – MyOMR</title>
-  <meta name="description" content="Check the status of events you submitted to MyOMR." />
+  <title>My Submitted Events – <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?></title>
+  <meta name="description" content="Check the status of events you submitted to <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?>." />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../jobs/assets/omr-jobs-unified-design.css" />
   <link rel="stylesheet" href="assets/events-dashboard.css" />
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="small opacity-90">View the status of events you submitted</div>
     </div>
     <div class="dashboard-actions">
-      <a href="post-event-omr.php" class="btn-modern btn-modern-primary"><i class="fas fa-plus"></i><span>List an Event</span></a>
+      <a href="post-event-covai.php" class="btn-modern btn-modern-primary"><i class="fas fa-plus"></i><span>List an Event</span></a>
       <a href="index.php" class="btn-modern btn-modern-secondary"><i class="fas fa-globe"></i><span>All Events</span></a>
     </div>
   </div>

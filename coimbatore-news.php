@@ -67,6 +67,7 @@ function article_image_url($image_path) {
 
     <link rel="stylesheet" href="/assets/css/homepage-directone.css">
     <link rel="stylesheet" href="/assets/css/coimbatore-news.css">
+    <link rel="stylesheet" href="/assets/css/events-covai.css">
     <?php include __DIR__ . '/components/analytics.php'; ?>
 </head>
 <body class="covai-news-page">
@@ -147,7 +148,15 @@ function article_image_url($image_path) {
     </div>
 </section>
 
-<!-- 4. Featured events -->
+<!-- 4a. This week (upcoming, next 7 days) -->
+<section class="covai-news-events-this-week py-4 border-top border-bottom">
+    <div class="container-xl">
+        <h2 class="covai-news-section-heading">Happening this week</h2>
+        <?php include __DIR__ . '/local-events/components/events-this-week-strip.php'; ?>
+    </div>
+</section>
+
+<!-- 4b. Featured events -->
 <section class="covai-news-events">
     <div class="container-xl">
         <h2 class="covai-news-section-heading">Featured events in Coimbatore</h2>

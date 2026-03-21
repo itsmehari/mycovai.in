@@ -68,7 +68,7 @@ $result = $conn->query($sql);
     </div>
     <div class="d-flex gap-2">
       <a class="btn btn-success" href="/local-news/this-weekend-in-omr.php?utm_source=news&utm_medium=internal&utm_campaign=weekend_roundup">Read Roundup</a>
-      <a class="btn btn-outline-success" href="/local-events/post-event-omr.php?utm_source=news&utm_medium=internal&utm_campaign=list_event">List your event</a>
+      <a class="btn btn-outline-success" href="/local-events/post-event-covai.php?utm_source=news&utm_medium=internal&utm_campaign=list_event">List your event</a>
     </div>
   </div>
   <div class="d-flex gap-2 flex-wrap">
@@ -83,7 +83,7 @@ $result = $conn->query($sql);
   <?php include __DIR__ . '/../local-events/components/top-featured-events-widget.php'; ?>
   <div class="text-center mt-3">
     <a class="btn btn-success" href="/local-events/">Browse all events</a>
-    <a class="btn btn-outline-success" href="/local-events/post-event-omr.php">List your event</a>
+    <a class="btn btn-outline-success" href="/local-events/post-event-covai.php">List your event</a>
   </div>
 </section>
 

@@ -2,7 +2,7 @@
 
 - **Last updated:** 12 November 2025
 - **Owner:** Events Operations Team
-- **Applies to:** `/omr-local-events/` module, `event_submissions` & `event_listings` tables, admin moderation dashboard
+- **Applies to:** `/local-events/` module, `event_submissions` & `event_listings` tables, admin moderation dashboard
 - **Prerequisites:** Organizer support email, admin login, database access, calendar export credentials
 
 ## 1. Overview
@@ -15,17 +15,17 @@
 
 ```mermaid
 flowchart TD
-    A[Organizer submits event form] --> B[`process-event-omr.php` stores submission]
+    A[Organizer submits event form] --> B[`process-event-covai.php` stores submission]
     B --> C{Validation passed?}
     C -- No --> C1[Show errors to organizer<br/>Encourage resubmit] --> A
     C -- Yes --> D[Status = submitted]
-    D --> E[Admin reviews in manage-events-omr.php]
+    D --> E[Admin reviews in manage-events-covai.php]
     E --> F{Approve event?}
     F -- Reject --> F1[Send rejection email<br/>Log reason] --> END1[Submission closed]
     F -- Approve --> G[Promote to event_listings]
     G --> H{Schedule conflicts / duplicates?}
     H -- Yes --> H1[Update schedule or merge<br/>Re-review] --> E
-    H -- No --> I[Event published to /omr-local-events/]
+    H -- No --> I[Event published to /local-events/]
     I --> J{QA pass (detail, ICS, filters)?}
     J -- No --> J1[Fix metadata / assets<br/>Re-test] --> I
     J -- Yes --> K[Marketing add-ons (newsletter, share playbook)]
@@ -37,22 +37,22 @@ flowchart TD
 
 1. **Intake**
 
-   - Organizer uses `/omr-local-events/post-event-omr.php` (multi-step form, includes photos, dates, location, categories).
-   - `process-event-omr.php` validates input, stores entry in `event_submissions` with `status='submitted'`.
-   - Organizer receives confirmation at `event-submitted-success-omr.php`.
+   - Organizer uses `/local-events/post-event-covai.php` or `/local-events/post/` (multi-step form, includes photos, dates, location, categories).
+   - `process-event-covai.php` validates input, stores entry in `event_submissions` with `status='submitted'`.
+   - Organizer receives confirmation at `event-submitted-success-covai.php` (or clean URL equivalent).
 
 2. **Admin moderation**
 
-   - Admin logs into `/omr-local-events/admin/index.php` (dashboard summarises pending/approved/scheduled/ongoing).
-   - Reviews submission via `admin/manage-events-omr.php`, edits details, attaches hero image if needed.
+   - Admin logs into `/local-events/admin/index.php` (dashboard summarises pending/approved/scheduled/ongoing).
+   - Reviews submission via `admin/manage-events-covai.php`, edits details, attaches hero image if needed.
    - Approves event using `admin/process-approve-event.php` (moves record to `event_listings` with scheduling metadata) or rejects with reason (`process-reject-event.php`).
    - For time-sensitive listings, set status `scheduled` / `ongoing`; use `process-pause-listing.php` or `process-unapprove-listing.php` for maintenance.
 
 3. **Public publishing**
 
-   - Approved events appear on `/omr-local-events/index.php`, filtered views (`/today.php`, `/weekend.php`, `/month.php`, `/category.php`, `/venue.php`, `/locality.php`).
-   - Detail pages served by `event-detail-omr.php`, offering ICS download (`event-ics.php`).
-   - Generate sitemap via `/omr-local-events/generate-events-sitemap.php` post batch approval.
+   - Approved events appear on `/local-events/index.php`, filtered views (`/today.php`, `/weekend.php`, `/month.php`, `/category.php`, `/venue.php`, `/locality.php`).
+   - Detail pages served by `event-detail-covai.php`, offering ICS download (`event-ics.php`).
+   - Generate sitemap via `/local-events/generate-events-sitemap.php` post batch approval.
 
 4. **Marketing add-ons**
 
@@ -91,13 +91,13 @@ flowchart TD
 ## 5. Edge Cases & Recovery
 
 - **Duplicate submission:** Use email + datetime check in admin view; merge manually by editing description and deleting duplicate.
-- **Spam / low quality:** Reject with reason via moderation panel; template stored in `admin/manage-events-omr.php`.
-- **Time zone offsets:** `process-event-omr.php` normalizes to IST; confirm time conversion for multi-day events.
+- **Spam / low quality:** Reject with reason via moderation panel; template stored in `admin/manage-events-covai.php`.
+- **Time zone offsets:** `process-event-covai.php` normalizes to IST; confirm time conversion for multi-day events.
 - **Attachment issues:** If image upload fails, request organizer to resend; admin can manually attach file via FTP and update listing.
 
 ## 6. References
 
-- Public entry points: `post-event-omr.php`, `process-event-omr.php`, `event-detail-omr.php`, `generate-events-sitemap.php`
-- Admin utilities: `admin/index.php`, `admin/manage-events-omr.php`, `process-approve-event.php`, `process-reject-event.php`, `calendar-export.php`, `share-playbook.php`
+- Public entry points: `post-event-covai.php`, `process-event-covai.php`, `event-detail-covai.php`, `generate-events-sitemap.php`
+- Admin utilities: `admin/index.php`, `admin/manage-events-covai.php`, `process-approve-event.php`, `process-reject-event.php`, `calendar-export.php`, `share-playbook.php`
 - Documentation: `EVENTS-FLOW-MATRIX.md`, `EVENTS-FEATURE-WORK-BREAKDOWN-31-10-2025.md`, `docs/product-prd/PRD-Events-Growth-MyOMR.md`
 - Worklogs & checklists: `docs/worklogs/*` for events sessions, `docs/operations-deployment/EVENTS-DEPLOYMENT-CHECKLIST.md`

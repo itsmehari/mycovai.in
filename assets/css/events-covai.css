@@ -1,0 +1,19 @@
+/* MyCovai local-events – light overrides (Bootstrap-compatible) */
+.events-filter-toggle {
+  border-radius: 8px;
+}
+
+.covai-events-date-range {
+  font-weight: 600;
+  color: #14532d;
+}
+
+.events-this-week-strip {
+  border-radius: 12px;
+  border: 1px solid rgba(20, 83, 45, 0.12);
+  background: linear-gradient(180deg, #f8faf8 0%, #fff 100%);
+}
+
+.events-this-week-strip .list-group-item {
+  border-color: rgba(20, 83, 45, 0.08);
+}

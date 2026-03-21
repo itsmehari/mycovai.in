@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/error-reporting.php';
 require_once __DIR__ . '/../../core/omr-connect.php';
-require_once __DIR__ . '/../includes/event-functions-omr.php';
+require_once __DIR__ . '/../includes/event-functions-covai.php';
 require_once __DIR__ . '/../../core/admin-auth.php';
 requireAdmin();
 
@@ -19,11 +19,11 @@ try {
   $reason = isset($_POST['reason']) ? trim((string)$_POST['reason']) : '';
 
   if (rejectSubmission($id, $reason)) {
-    header('Location: manage-events-omr.php?rejected=1');
+    header('Location: manage-events-covai.php?rejected=1');
     exit;
   }
 
-  header('Location: manage-events-omr.php?error=reject_failed');
+  header('Location: manage-events-covai.php?error=reject_failed');
   exit;
 } catch (Throwable $e) {
   http_response_code(500);

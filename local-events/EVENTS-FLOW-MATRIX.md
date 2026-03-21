@@ -8,7 +8,7 @@ This document enumerates user flows, failure modes, expected user-facing message
 
 Happy path:
 
-1. Open `/omr-local-events/post-event-omr.php`
+1. Open `/local-events/post-event-covai.php`
 2. Fill form → client validation passes
 3. POST → CSRF verified; honeypot empty; rate-limit ok
 4. Server validation ok; optional poster validated and stored
@@ -38,7 +38,7 @@ Observability
 
 Happy path:
 
-1. Open `/admin/manage-events-omr.php`
+1. Open `/local-events/admin/manage-events-covai.php`
 2. Review submission → Approve
 3. Copy to `event_listings` (status: scheduled) with unique slug
 4. Update submission to `approved`
@@ -61,7 +61,7 @@ Observability
 
 Happy path:
 
-1. Open `/omr-local-events/` → filters/pagination
+1. Open `/local-events/` → filters/pagination
 2. Click event → detail page with share, map, calendar, ICS
 
 Failure modes → message → log
@@ -128,7 +128,7 @@ User messages
 - PHP: all errors to `/weblog/events-errors.log`; dev mode prints panels
 - Weekly log review; extract recurring issues into backlog
 - GA dashboards: events funnel and hubs performance
- - Search Console: weekly coverage/indexing review for `/omr-local-events/` paths
+ - Search Console: weekly coverage/indexing review for `/local-events/` paths
 
 ---
 
@@ -136,7 +136,7 @@ User messages
 
 Happy path:
 
-1. Open hub (e.g., `/omr-local-events/category.php?slug={slug}`)
+1. Open hub (e.g., `/local-events/category.php?slug={slug}`)
 2. Page renders intro copy (100–150 words) + 2–3 FAQ items
 3. Paginated event list with internal links to related hubs
 
@@ -156,7 +156,7 @@ Observability
 
 Happy path:
 
-1. Open `/omr-local-events/venue.php?slug={slug}`
+1. Open `/local-events/venue.php?slug={slug}`
 2. Page shows venue intro copy, map embed, upcoming events at venue
 3. Cross-links to related hubs and event details
 
@@ -193,9 +193,9 @@ Observability
 ### 12) Clean URLs & Canonicals
 
 - Preferred routes:
-  - Listing: `/omr-local-events/`
-  - Detail: `/omr-local-events/{slug}` (fallback: `event-detail-omr.php?slug={slug}`)
-  - Hubs: `/omr-local-events/{category|locality|today|weekend|month}` (fallback: `*.php?slug=` forms)
+  - Listing: `/local-events/`
+  - Detail: `/local-events/{slug}` (fallback: `event-detail-covai.php?slug={slug}`)
+  - Hubs: `/local-events/{category|locality|today|weekend|month}` (fallback: `*.php?slug=` forms)
 - All pages emit canonical to the preferred route; sitemaps list only canonical URLs
 - Deep filter combinations receive `noindex,follow` while hubs and details are indexable
 

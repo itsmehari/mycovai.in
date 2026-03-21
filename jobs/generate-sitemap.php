@@ -20,6 +20,8 @@ $pages = [
     ['loc' => '/jobs/', 'priority' => '1.0', 'changefreq' => 'daily'],
     ['loc' => '/jobs/post-job-omr.php', 'priority' => '0.8', 'changefreq' => 'weekly'],
     ['loc' => '/jobs/employer-register-omr.php', 'priority' => '0.8', 'changefreq' => 'weekly'],
+    // Coimbatore employer landing (SEO, geo, AEO)
+    ['loc' => '/post-your-jobs-coimbatore.html', 'priority' => '0.9', 'changefreq' => 'weekly'],
     // Primary landing page
     ['loc' => '/jobs-in-omr-chennai.php', 'priority' => '1.0', 'changefreq' => 'daily'],
     // Location-specific landing pages

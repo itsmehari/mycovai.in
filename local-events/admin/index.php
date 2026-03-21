@@ -46,7 +46,7 @@ try {
         <div class="small opacity-90">Moderate submissions and manage published events</div>
       </div>
       <div class="dashboard-actions">
-        <a href="manage-events-omr.php" class="btn-modern btn-modern-primary"><i class="fas fa-inbox"></i><span>Manage Submissions</span></a>
+        <a href="manage-events-covai.php" class="btn-modern btn-modern-primary"><i class="fas fa-inbox"></i><span>Manage Submissions</span></a>
         <a href="../generate-events-sitemap.php" class="btn-modern btn-modern-secondary"><i class="fas fa-sitemap"></i><span>Generate Sitemap</span></a>
         <a href="../index.php" class="btn-modern btn-modern-secondary"><i class="fas fa-globe"></i><span>View Public Listing</span></a>
       </div>
@@ -96,7 +96,7 @@ try {
             <h5 class="mb-0">Quick Links</h5>
           </div>
           <div class="row g-3">
-            <div class="col-md-3"><a class="btn btn-outline-primary w-100" href="manage-events-omr.php"><i class="fas fa-inbox me-2"></i>Manage Submissions</a></div>
+            <div class="col-md-3"><a class="btn btn-outline-primary w-100" href="manage-events-covai.php"><i class="fas fa-inbox me-2"></i>Manage Submissions</a></div>
             <div class="col-md-3"><a class="btn btn-outline-primary w-100" href="view-listings.php"><i class="fas fa-list me-2"></i>Approved Listings</a></div>
             <div class="col-md-3"><a class="btn btn-outline-primary w-100" href="calendar-export.php"><i class="far fa-calendar me-2"></i>Calendar & Export</a></div>
             <div class="col-md-3"><a class="btn btn-outline-secondary w-100" href="../generate-events-sitemap.php" target="_blank"><i class="fas fa-sitemap me-2"></i>Generate Sitemap</a></div>

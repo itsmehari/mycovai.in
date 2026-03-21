@@ -86,7 +86,7 @@ try {
                 <td><span class="badge bg-secondary text-uppercase"><?php echo htmlspecialchars($r['status']); ?></span></td>
                 <td>
                   <div class="btn-group btn-group-sm">
-                    <a class="btn btn-outline-secondary" target="_blank" href="../event-detail-omr.php?slug=<?php echo urlencode($r['slug']); ?>">View</a>
+                    <a class="btn btn-outline-secondary" target="_blank" href="../event-detail-covai.php?slug=<?php echo urlencode($r['slug']); ?>">View</a>
                     <?php if ($r['status'] !== 'archived'): ?>
                       <form method="post" action="process-pause-listing.php" class="d-inline">
                         <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['admin_csrf']); ?>">

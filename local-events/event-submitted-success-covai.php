@@ -11,7 +11,7 @@ $t = isset($_GET['t']) ? $_GET['t'] : '';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Event Submitted – MyOMR</title>
+  <title>Event Submitted – <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../jobs/assets/omr-jobs-unified-design.css" />
@@ -37,7 +37,7 @@ $t = isset($_GET['t']) ? $_GET['t'] : '';
       <p>We typically review events within 24–48 hours. You'll be notified if provided an email.</p>
       <div class="d-flex gap-3 justify-content-center mt-3 flex-wrap">
         <a href="index.php" class="btn-modern btn-modern-primary"><i class="fas fa-calendar"></i><span>Browse Events</span></a>
-        <a href="post-event-omr.php" class="btn-modern btn-modern-secondary"><i class="fas fa-plus"></i><span>Submit Another</span></a>
+        <a href="post-event-covai.php" class="btn-modern btn-modern-secondary"><i class="fas fa-plus"></i><span>Submit Another</span></a>
         <a href="my-submitted-events.php" class="btn-modern btn-modern-secondary"><i class="fas fa-user"></i><span>My Submitted Events</span></a>
         <?php if ($t && $submission_id): ?>
           <a href="manage-submission.php?id=<?php echo (int)$submission_id; ?>&t=<?php echo urlencode($t); ?>" class="btn-modern btn-modern-secondary"><i class="fas fa-edit"></i><span>Manage this Submission</span></a>
@@ -51,7 +51,8 @@ $t = isset($_GET['t']) ? $_GET['t'] : '';
 <script src="assets/events-analytics.js"></script>
 <script>
   (function(){
-    if (window.MyOMREventsAnalytics) { window.MyOMREventsAnalytics.submissionSuccess(<?php echo (int)$submission_id; ?>); }
+    var evS = window.MyCovaiEventsAnalytics || window.MyOMREventsAnalytics;
+    if (evS) { evS.submissionSuccess(<?php echo (int)$submission_id; ?>); }
   })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

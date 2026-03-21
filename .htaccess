@@ -30,23 +30,34 @@ RewriteRule ^omr-local-events(/.*)?$ /local-events$1 [R=301,L]
 RewriteRule ^omr-hostels-pgs(/.*)?$ /hostels-pgs$1 [R=301,L]
 RewriteRule ^omr-coworking-spaces(/.*)?$ /coworking-spaces$1 [R=301,L]
 RewriteRule ^discover-myomr(/.*)?$ /discover$1 [R=301,L]
+# Legacy MyOMR /events/ folder → canonical MyCovai /local-events/
+RewriteRule ^events/?$ /local-events/ [R=301,L]
+RewriteRule ^events/(.+)$ /local-events/$1 [R=301,L]
 
 # Root sitemap index
 RewriteRule ^sitemap\.xml$ weblog/generate-sitemap-index.php [L]
 
 # Module: Events – clean routes (Phase 6: local-events/ to avoid clash with existing events/)
 RewriteRule ^local-events/sitemap\.xml$ local-events/generate-events-sitemap.php [L]
-RewriteRule ^local-events/event/([^/]+)/?$ local-events/event-detail-omr.php?slug=$1 [L,QSA]
+RewriteRule ^local-events/event/([^/]+)/?$ local-events/event-detail-covai.php?slug=$1 [L,QSA]
 RewriteRule ^local-events/category/([^/]+)/?$ local-events/category.php?slug=$1 [L,QSA]
 RewriteRule ^local-events/locality/([^/]+)/?$ local-events/locality.php?slug=$1 [L,QSA]
 RewriteRule ^local-events/venue/([^/]+)/?$ local-events/venue.php?slug=$1 [L,QSA]
 RewriteRule ^local-events/today/?$ local-events/today.php [L,QSA]
 RewriteRule ^local-events/weekend/?$ local-events/weekend.php [L,QSA]
 RewriteRule ^local-events/month/?$ local-events/month.php [L,QSA]
-RewriteRule ^local-events/post/?$ local-events/post-event-omr.php [L,QSA]
+RewriteRule ^local-events/post/?$ local-events/post-event-covai.php [L,QSA]
+# Events: legacy *-omr.php filenames → *-covai.php (bookmarks, old links)
+RewriteRule ^local-events/post-event-omr\.php$ /local-events/post-event-covai.php [R=301,L,QSA]
+RewriteRule ^local-events/event-detail-omr\.php$ /local-events/event-detail-covai.php [R=301,L,QSA]
+RewriteRule ^local-events/process-event-omr\.php$ /local-events/process-event-covai.php [R=301,L,QSA]
+RewriteRule ^local-events/event-submitted-success-omr\.php$ /local-events/event-submitted-success-covai.php [R=301,L,QSA]
+RewriteRule ^local-events/admin/manage-events-omr\.php$ /local-events/admin/manage-events-covai.php [R=301,L,QSA]
 
 # Module: Directory – sitemap (Phase 6: directory/ to avoid clash with existing listings/)
 RewriteRule ^directory/sitemap\.xml$ directory/generate-listings-sitemap.php [L]
+# Emergency & Civic Directory – pretty URL
+RewriteRule ^emergency-civic-directory$ /directory/emergency-civic-directory.php [L,NC]
 
 # Module: Job Portal – sitemap (Phase 6: jobs/)
 RewriteRule ^jobs/sitemap\.xml$ jobs/generate-sitemap.php [L]

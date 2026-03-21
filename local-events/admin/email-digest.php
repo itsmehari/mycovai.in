@@ -2,8 +2,11 @@
 require_once __DIR__ . '/../includes/error-reporting.php';
 require_once __DIR__ . '/../../core/omr-connect.php';
 require_once __DIR__ . '/../../core/admin-auth.php';
-require_once __DIR__ . '/../includes/event-functions-omr.php';
+require_once __DIR__ . '/../includes/event-functions-covai.php';
 requireAdmin();
+
+$digest_region = defined('SITE_REGION') ? SITE_REGION : 'Coimbatore';
+$digest_site = defined('SITE_NAME') ? SITE_NAME : 'MyCovai';
 
 $today = new DateTime('today');
 $startParam = $_GET['start'] ?? '';
@@ -39,7 +42,7 @@ function emailUrl(string $slug): string {
 }
 
 // Suggested subject
-$subject = 'This Week in OMR: ' . max(1, count($events)) . ' events to check out';
+$subject = 'This week in ' . $digest_region . ': ' . max(1, count($events)) . ' events to check out';
 
 // Build basic email HTML (inline styles for compatibility)
 ob_start();
@@ -55,7 +58,7 @@ ob_start();
               <td style="padding:16px 20px;background:#0583D2;color:#ffffff;">
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td align="left" style="font-weight:bold;font-size:18px;">MyOMR – Weekly Events Digest</td>
+                    <td align="left" style="font-weight:bold;font-size:18px;"><?php echo htmlspecialchars($digest_site); ?> – Weekly events digest</td>
                     <td align="right" style="font-size:12px;opacity:.9;"><?php echo htmlspecialchars($start->format('M j')); ?> – <?php echo htmlspecialchars($end->format('M j, Y')); ?></td>
                   </tr>
                 </table>
@@ -63,7 +66,7 @@ ob_start();
             </tr>
             <tr>
               <td style="padding:18px 20px;">
-                <p style="margin:0 0 12px 0;color:#111827;font-size:16px;">Here are upcoming events in and around OMR.</p>
+                <p style="margin:0 0 12px 0;color:#111827;font-size:16px;">Here are upcoming events in and around <?php echo htmlspecialchars($digest_region); ?>.</p>
                 <?php if (empty($events)): ?>
                   <p style="margin:0;color:#6b7280;">No events found for this window.</p>
                 <?php else: ?>
@@ -126,7 +129,7 @@ $htmlEmail = ob_get_clean();
 
 // Build plaintext
 $textLines = [];
-$textLines[] = 'MyOMR – Weekly Events Digest (' . $start->format('M j') . ' – ' . $end->format('M j, Y') . ')';
+$textLines[] = $digest_site . ' – Weekly events digest (' . $start->format('M j') . ' – ' . $end->format('M j, Y') . ')';
 $textLines[] = '';
 foreach ($events as $e) {
   $when = date('D, M j g:ia', strtotime($e['start_datetime']));

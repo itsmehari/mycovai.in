@@ -1,8 +1,8 @@
 <?php
-// Events Listing - MyOMR
+// Events listing – MyCovai /local-events
 require_once __DIR__ . '/includes/error-reporting.php';
 require_once __DIR__ . '/../core/omr-connect.php';
-require_once __DIR__ . '/includes/event-functions-omr.php';
+require_once __DIR__ . '/includes/event-functions-covai.php';
 include __DIR__ . '/includes/dev-diagnostics.php';
 
 $filters = [
@@ -24,12 +24,15 @@ $total = getEventCount($filters);
 $pages = max(1, (int)ceil($total / $per_page));
 
 // SEO (Phase 4: Covai when config loaded)
-$site_name = defined('SITE_NAME') ? SITE_NAME : 'MyOMR';
-$region_short = defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'OMR';
-$region_full = defined('SITE_REGION') ? SITE_REGION : 'OMR Chennai';
-$page_title = defined('MYCOVAI_CONFIG_LOADED') ? 'Events in ' . $region_short . ' – Local Community & Happenings | ' . $site_name : 'Events in OMR Chennai – Local Community & Happenings | MyOMR';
-$page_description = defined('MYCOVAI_CONFIG_LOADED') ? 'Discover upcoming events in ' . $region_full . ': community, education, sports, arts, networking and more. Submit your event and reach local residents.' : 'Discover upcoming events across OMR: community, education, sports, arts, networking and more. Submit your event and reach local residents.';
+$site_name = defined('SITE_NAME') ? SITE_NAME : 'MyCovai';
+$region_short = defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'Coimbatore';
+$region_full = defined('SITE_REGION') ? SITE_REGION : 'Coimbatore';
+$page_title = 'Events in ' . $region_short . ' – Local Community & Happenings | ' . $site_name;
+$page_description = 'Discover upcoming events in ' . $region_full . ': community, education, sports, arts, networking and more. Submit your event and reach local residents.';
 $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https://mycovai.in') . '/local-events/';
+$og_image_url = function_exists('eventsDefaultOgImageUrl') ? eventsDefaultOgImageUrl() : 'https://mycovai.in/My-OMR-Logo.jpg';
+$map_region_suffix = defined('SITE_REGION') ? SITE_REGION : 'Coimbatore';
+$locOptions = function_exists('getCoimbatoreLocalitySelectOptions') ? getCoimbatoreLocalitySelectOptions() : [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,17 +55,18 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
   <meta property="og:description" content="<?php echo htmlspecialchars($page_description); ?>" />
   <meta property="og:url" content="<?php echo htmlspecialchars($canonical_url); ?>" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://mycovai.in/My-OMR-Logo.jpg" />
+  <meta property="og:image" content="<?php echo htmlspecialchars($og_image_url); ?>" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="<?php echo htmlspecialchars($page_title); ?>" />
   <meta name="twitter:description" content="<?php echo htmlspecialchars($page_description); ?>" />
-  <meta name="twitter:image" content="https://mycovai.in/My-OMR-Logo.jpg" />
+  <meta name="twitter:image" content="<?php echo htmlspecialchars($og_image_url); ?>" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/css/tabler.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../jobs/assets/omr-jobs-unified-design.css" />
   <link rel="stylesheet" href="../jobs/assets/post-job-form-modern.css" />
   <link rel="stylesheet" href="assets/events-dashboard.css" />
+  <link rel="stylesheet" href="../assets/css/events-covai.css" />
   <?php include __DIR__ . '/../components/analytics.php'; ?>
   <?php $orgSchema = __DIR__ . '/../components/organization-schema.php'; if (file_exists($orgSchema)) { include $orgSchema; } ?>
 </head>
@@ -77,7 +81,7 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
       <div class="small opacity-90">Find and share happenings in <?php echo htmlspecialchars($region_full); ?></div>
     </div>
     <div class="dashboard-actions">
-      <a href="post-event-omr.php" class="btn-modern btn-modern-primary">
+      <a href="post-event-covai.php" class="btn-modern btn-modern-primary">
         <i class="fas fa-plus"></i><span>List an Event</span>
       </a>
       <a href="index.php" class="btn-modern btn-modern-secondary">
@@ -89,9 +93,12 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
 
 <main class="py-5">
   <div class="container">
-    <!-- Filters -->
+    <!-- Filters (collapsible on small screens) -->
     <form class="card-modern mb-4 dashboard-toolbar" method="get">
-      <div class="">
+      <button class="btn btn-outline-secondary events-filter-toggle d-md-none mb-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#eventsFilterPanel" aria-expanded="false" aria-controls="eventsFilterPanel">
+        <i class="fas fa-sliders-h me-2"></i>Filters
+      </button>
+      <div class="collapse d-md-block" id="eventsFilterPanel">
         <div class="row g-3">
           <div class="col-md-4">
             <label class="form-label-modern">Search</label>
@@ -109,8 +116,13 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
             </select>
           </div>
           <div class="col-md-3">
-            <label class="form-label-modern">Locality</label>
-            <input type="text" class="form-control-modern" name="locality" value="<?php echo htmlspecialchars($filters['locality']); ?>" placeholder="e.g., Sholinganallur" />
+            <label class="form-label-modern">Area</label>
+            <select name="locality" class="form-select-modern">
+              <option value="">Any area</option>
+              <?php foreach ($locOptions as $loc): ?>
+                <option value="<?php echo htmlspecialchars($loc); ?>" <?php echo ($filters['locality'] === $loc) ? 'selected' : ''; ?>><?php echo htmlspecialchars($loc); ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
           <div class="col-md-2">
             <label class="form-label-modern">Free</label>
@@ -133,7 +145,8 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
           <button class="btn-modern btn-modern-primary" type="submit"><i class="fas fa-filter"></i><span>Apply Filters</span></button>
           <a class="btn-modern btn-modern-secondary" href="index.php"><i class="fas fa-rotate-left"></i><span>Reset</span></a>
         </div>
-        <div class="mt-2 d-flex gap-2 flex-wrap">
+      </div>
+        <div class="mt-2 d-flex gap-2 flex-wrap covai-events-pill-row">
           <?php
             // Quick pills for ranges
             $base = $_GET; unset($base['page']);
@@ -153,16 +166,15 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
           <a class="btn btn-sm btn-outline-secondary" href="<?php echo pillUrl($today, $today, $base); ?>">Today</a>
           <a class="btn btn-sm btn-outline-secondary" href="<?php echo pillUrl($weekend_start, $weekend_end, $base); ?>">This Weekend</a>
           <a class="btn btn-sm btn-outline-secondary" href="<?php echo pillUrl($month_start, $month_end, $base); ?>">This Month</a>
-          <a class="btn btn-sm btn-link text-decoration-underline" href="/local-news/this-weekend-in-omr.php?utm_source=events&utm_medium=internal&utm_campaign=weekend_roundup_link">Weekend Roundup</a>
+          <a class="btn btn-sm btn-link text-decoration-underline" href="/coimbatore-news.php?utm_source=events&utm_medium=internal&utm_campaign=weekend_covai_news">Covai News</a>
         </div>
-      </div>
     </form>
 
     <!-- Results -->
     <div class="row">
       <?php if (count($events) === 0): ?>
         <div class="col-12">
-          <div class="alert-modern">No events found. Try different filters or <a href="post-event-omr.php">list an event</a>.</div>
+          <div class="alert-modern">No events found. Try different filters or <a href="post-event-covai.php">list an event</a>.</div>
         </div>
       <?php else: ?>
         <?php foreach ($events as $ev): ?>
@@ -172,7 +184,7 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
                 <div class="job-title"><?php echo htmlspecialchars($ev['title']); ?></div>
                 <div class="company-name"><?php echo htmlspecialchars($ev['location']); ?><?php echo $ev['locality'] ? ' • ' . htmlspecialchars($ev['locality']) : ''; ?></div>
                 <div class="job-meta">
-                  <span class="badge-modern badge-modern-success"><i class="far fa-calendar"></i><?php echo date('M d, Y g:i a', strtotime($ev['start_datetime'])); ?></span>
+                  <span class="badge-modern badge-modern-success"><i class="far fa-calendar"></i><?php echo htmlspecialchars(function_exists('formatEventDateRangeDisplay') ? formatEventDateRangeDisplay($ev['start_datetime'], $ev['end_datetime'] ?? null) : date('M d, Y g:i a', strtotime($ev['start_datetime']))); ?></span>
                   <?php if (!empty($ev['featured'])): ?>
                     <span class="badge-modern badge-featured"><i class="fas fa-star"></i> Featured</span>
                   <?php endif; ?>
@@ -185,8 +197,8 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <a href="event/<?php echo urlencode($ev['slug']); ?>" class="btn-modern btn-modern-secondary" data-analytics="viewClicked" data-analytics-label="<?php echo htmlspecialchars($ev['slug']); ?>"><i class="fas fa-eye"></i><span>View</span></a>
-                <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($ev['location'] . ' ' . ($ev['locality'] ?? 'OMR Chennai')); ?>" target="_blank" class="btn-modern btn-modern-secondary" data-analytics="mapClicked" data-analytics-label="<?php echo htmlspecialchars($ev['slug']); ?>"><i class="fas fa-map-marker-alt"></i><span>Map</span></a>
-                <a href="post-event-omr.php" class="btn-modern btn-modern-primary"><i class="fas fa-plus"></i><span>List Event</span></a>
+                <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($ev['location'] . ' ' . ($ev['locality'] ?? $map_region_suffix)); ?>" target="_blank" class="btn-modern btn-modern-secondary" data-analytics="mapClicked" data-analytics-label="<?php echo htmlspecialchars($ev['slug']); ?>"><i class="fas fa-map-marker-alt"></i><span>Map</span></a>
+                <a href="post-event-covai.php" class="btn-modern btn-modern-primary"><i class="fas fa-plus"></i><span>List Event</span></a>
               </div>
             </div>
           </div>
@@ -225,6 +237,8 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
 if (!empty($events)) {
   $ld = [];
   foreach ($events as $ev) {
+    $evUrl = function_exists('eventsPublicEventUrl') ? eventsPublicEventUrl($ev['slug']) : ('https://mycovai.in/local-events/event/' . rawurlencode($ev['slug']));
+    $imgAbs = function_exists('eventsListingImageAbsolute') ? eventsListingImageAbsolute($ev['image_url'] ?? null) : ($ev['image_url'] ?? '');
     $event = [
       '@context' => 'https://schema.org',
       '@type' => 'Event',
@@ -237,25 +251,25 @@ if (!empty($events)) {
         'name' => $ev['location'],
         'address' => [
           '@type' => 'PostalAddress',
-          'addressLocality' => $ev['locality'] ?: 'OMR, Chennai',
+          'addressLocality' => $ev['locality'] ?: $region_full,
           'addressRegion' => 'Tamil Nadu',
           'addressCountry' => 'IN'
         ]
       ],
-      'url' => 'https://mycovai.in/local-events/event-detail-omr.php?slug=' . urlencode($ev['slug'])
+      'url' => $evUrl
     ];
     if (!empty($ev['end_datetime'])) {
       $event['endDate'] = date('c', strtotime($ev['end_datetime']));
     }
     if (!empty($ev['image_url'])) {
-      $event['image'] = $ev['image_url'];
+      $event['image'] = $imgAbs;
     }
     if (!$ev['is_free'] && !empty($ev['price'])) {
       $event['offers'] = [
         '@type' => 'Offer',
         'price' => $ev['price'],
         'priceCurrency' => 'INR',
-        'url' => 'https://mycovai.in/local-events/event-detail-omr.php?slug=' . urlencode($ev['slug'])
+        'url' => $evUrl
       ];
     }
     $ld[] = $event;

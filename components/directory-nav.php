@@ -4,6 +4,7 @@
  * Used on list pages: schools, hospitals, banks, etc.
  */
 $navItems = [
+    ['Emergency & Civic', '/directory/emergency-civic-directory.php'],
     ['Schools', '/directory/schools.php'],
     ['Best Schools', '/directory/best-schools.php'],
     ['Hospitals', '/directory/hospitals.php'],

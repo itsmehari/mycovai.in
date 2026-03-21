@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/error-reporting.php';
 require_once __DIR__ . '/../core/omr-connect.php';
-require_once __DIR__ . '/includes/event-functions-omr.php';
+require_once __DIR__ . '/includes/event-functions-covai.php';
 require_once __DIR__ . '/includes/organizer-manage.php';
 
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
@@ -65,7 +65,7 @@ if (!$error && $sub && $sub['status'] === 'submitted' && $_SERVER['REQUEST_METHO
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manage Submission – MyOMR</title>
+  <title>Manage Submission – <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="modern-page">

@@ -637,7 +637,7 @@ function is_active($link, $current_uri) {
         <span>List a Job</span>
       </div>
     </a>
-    <a href="/local-events/post-event-omr.php" class="action-pill pill-event">
+    <a href="/local-events/post/" class="action-pill pill-event">
       <div class="pill-accent"></div>
       <div class="pill-content">
         <i class="fas fa-calendar-plus"></i>

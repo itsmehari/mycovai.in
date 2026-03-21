@@ -1,6 +1,6 @@
 <?php
 /**
- * Event Helper Functions - MyOMR Events Module
+ * Event helper functions – MyCovai /local-events module
  */
 
 // Ensure DB connection
@@ -113,8 +113,8 @@ function getEvents(array $filters, int $limit, int $offset): array {
             $params[] = $filters['date_to'] . (strlen($filters['date_to']) === 10 ? ' 23:59:59' : '');
             $types .= 's';
         }
-        // Upcoming by start time
-        $order = "ORDER BY start_datetime ASC";
+        // Furthest start first (latest upcoming at top; nearest / past toward bottom)
+        $order = "ORDER BY start_datetime DESC";
         $whereSql = 'WHERE ' . implode(' AND ', $where);
 
         $sql = "SELECT id, title, slug, category_id, location, locality, start_datetime, end_datetime, is_free, price, image_url, featured
@@ -252,7 +252,7 @@ function getEventsByVenue(string $venueLabel, int $limit, int $offset): array {
         if (!isset($conn) || !$conn || $conn->connect_error) { return []; }
         $sql = "SELECT id, title, slug, category_id, location, locality, start_datetime, end_datetime, is_free, price, image_url, featured
                 FROM event_listings WHERE status IN ('scheduled','ongoing') AND location = ?
-                ORDER BY start_datetime ASC LIMIT ? OFFSET ?";
+                ORDER BY start_datetime DESC LIMIT ? OFFSET ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sii', $venueLabel, $limit, $offset);
         $stmt->execute();
@@ -381,6 +381,143 @@ function rejectSubmission(int $submissionId, string $reason = ''): bool {
         error_log('Events: rejectSubmission failed: ' . $e->getMessage());
         return false;
     }
+}
+
+function eventsCanonicalBaseUrl(): string {
+    return rtrim(defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https://mycovai.in', '/');
+}
+
+function eventsDefaultOgImageUrl(): string {
+    $base = eventsCanonicalBaseUrl();
+    $path = defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg';
+    if (preg_match('#^https?://#i', $path)) {
+        return $path;
+    }
+    return $base . '/' . ltrim($path, '/');
+}
+
+function eventsListingImageAbsolute(?string $image_url): string {
+    if (empty($image_url)) {
+        return eventsDefaultOgImageUrl();
+    }
+    if (preg_match('#^https?://#i', $image_url)) {
+        return $image_url;
+    }
+    return eventsCanonicalBaseUrl() . '/' . ltrim($image_url, '/');
+}
+
+function eventsPublicEventUrl(string $slug): string {
+    return eventsCanonicalBaseUrl() . '/local-events/event/' . rawurlencode($slug);
+}
+
+/** @return string[] */
+function getCoimbatoreLocalitySelectOptions(): array {
+    if (defined('COIMBATORE_LOCALITIES') && is_array(COIMBATORE_LOCALITIES)) {
+        return COIMBATORE_LOCALITIES;
+    }
+    return [];
+}
+
+function normalizeSubmittedLocality(string $raw): string {
+    $raw = trim($raw);
+    if ($raw === '') {
+        return '';
+    }
+    foreach (getCoimbatoreLocalitySelectOptions() as $loc) {
+        if (strcasecmp($loc, $raw) === 0) {
+            return $loc;
+        }
+    }
+    return $raw;
+}
+
+/**
+ * Listings that may duplicate this submission (same venue + overlapping time window).
+ * @return array<int, array<string,mixed>>
+ */
+function getDuplicateListingsForSubmission(int $submissionId): array {
+    try {
+        global $conn;
+        if (!isset($conn) || !$conn || $conn->connect_error) {
+            return [];
+        }
+        $s = $conn->prepare('SELECT id, title, location, start_datetime, end_datetime FROM event_submissions WHERE id = ? LIMIT 1');
+        $s->bind_param('i', $submissionId);
+        $s->execute();
+        $sub = $s->get_result()->fetch_assoc();
+        if (!$sub) {
+            return [];
+        }
+        $loc = trim((string)$sub['location']);
+        if ($loc === '') {
+            return [];
+        }
+        $subStart = $sub['start_datetime'];
+        $subEnd = !empty($sub['end_datetime'])
+            ? $sub['end_datetime']
+            : date('Y-m-d H:i:s', strtotime($sub['start_datetime'] . ' +3 hours'));
+
+        $sql = "SELECT id, title, slug, start_datetime, end_datetime, location
+                FROM event_listings
+                WHERE status IN ('scheduled','ongoing')
+                AND LOWER(TRIM(location)) = LOWER(?)
+                AND start_datetime < ?
+                AND COALESCE(end_datetime, DATE_ADD(start_datetime, INTERVAL 3 HOUR)) > ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('sss', $loc, $subEnd, $subStart);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $out = [];
+        $subTitle = strtolower(preg_replace('/\s+/', ' ', trim((string)$sub['title'])));
+        while ($row = $res->fetch_assoc()) {
+            if (strlen($subTitle) < 4) {
+                $out[] = $row;
+                continue;
+            }
+            $lt = strtolower(preg_replace('/\s+/', ' ', trim((string)$row['title'])));
+            similar_text($subTitle, $lt, $pct);
+            $prefix = substr($subTitle, 0, min(12, strlen($subTitle)));
+            if ($pct >= 35.0 || ($prefix !== '' && strpos($lt, $prefix) !== false)) {
+                $out[] = $row;
+            }
+        }
+        return $out;
+    } catch (Throwable $e) {
+        error_log('Events: getDuplicateListingsForSubmission: ' . $e->getMessage());
+        return [];
+    }
+}
+
+/** Mark past listings as archived. Returns rows affected. */
+function archivePastEventListings(): int {
+    try {
+        global $conn;
+        if (!isset($conn) || !$conn || $conn->connect_error) {
+            return 0;
+        }
+        $sql = "UPDATE event_listings SET status = 'archived'
+                WHERE status IN ('scheduled','ongoing')
+                AND COALESCE(end_datetime, DATE_ADD(start_datetime, INTERVAL 2 HOUR)) < NOW()";
+        if ($conn->query($sql)) {
+            return (int)$conn->affected_rows;
+        }
+        return 0;
+    } catch (Throwable $e) {
+        error_log('Events: archivePastEventListings: ' . $e->getMessage());
+        return 0;
+    }
+}
+
+function formatEventDateRangeDisplay(string $start, ?string $end): string {
+    $ts = strtotime($start);
+    if (empty($end)) {
+        return date('M j, Y g:i a', $ts);
+    }
+    $te = strtotime($end);
+    if (date('Y-m-d', $ts) === date('Y-m-d', $te)) {
+        return date('M j, Y', $ts) . ', ' . date('g:i a', $ts) . ' – ' . date('g:i a', $te);
+    }
+    return date('M j, Y g:i a', $ts) . ' – ' . date('M j, Y g:i a', $te);
 }
 
 

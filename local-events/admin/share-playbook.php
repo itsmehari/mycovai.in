@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/error-reporting.php';
 require_once __DIR__ . '/../../core/omr-connect.php';
 require_once __DIR__ . '/../../core/admin-auth.php';
-require_once __DIR__ . '/../includes/event-functions-omr.php';
+require_once __DIR__ . '/../includes/event-functions-covai.php';
 requireAdmin();
 
 $today = new DateTime('today');
@@ -42,7 +42,7 @@ function shareUrl(string $slug, string $source): string {
 
 // Build messages
 $lines = [];
-$lines[] = 'This Weekend in OMR – top events you shouldn\'t miss:';
+$lines[] = 'This weekend in ' . (defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'Covai') . ' – top events you shouldn\'t miss:';
 foreach ($events as $e) {
   $when = date('D, M j g:ia', strtotime($e['start_datetime']));
   $lines[] = '• ' . $e['title'] . ' – ' . $when . ' @ ' . ($e['location'] ?: $e['locality']);
@@ -54,7 +54,7 @@ $whatsappMsg = implode("\n", $lines);
 
 // Telegram version (different utm_source)
 $tLines = [];
-$tLines[] = 'This Weekend in OMR – top events you shouldn\'t miss:';
+$tLines[] = 'This weekend in ' . (defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'Covai') . ' – top events you shouldn\'t miss:';
 foreach ($events as $e) {
   $when = date('D, M j g:ia', strtotime($e['start_datetime']));
   $tLines[] = '• ' . $e['title'] . ' – ' . $when . ' @ ' . ($e['location'] ?: $e['locality']);
@@ -69,7 +69,7 @@ $telegramMsg = implode("\n", $tLines);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Friday Share Playbook – MyOMR Events</title>
+  <title>Friday share playbook – <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?> events</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">

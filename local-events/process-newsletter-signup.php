@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/error-reporting.php';
+require_once __DIR__ . '/../core/omr-connect.php';
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
 function endWith($msg) {
@@ -27,6 +28,6 @@ $row = date('c') . ',' . str_replace(["\n","\r",","], ' ', $email) . "\n";
 @file_put_contents($file, $row, FILE_APPEND | LOCK_EX);
 
 unset($_SESSION['events_newsletter_csrf']);
-endWith('Subscribed! You will receive weekly OMR events.');
+endWith('Subscribed! You will receive occasional ' . (defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'Covai') . ' events updates.');
 
 

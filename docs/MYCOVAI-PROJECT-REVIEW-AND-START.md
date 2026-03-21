@@ -105,7 +105,7 @@ _Root/
 - **Explore Places (directory hub):** `/omr-listings/index.php`  
   → Schools, Best Schools, IT Companies, Industries, Restaurants, Government Offices, ATMs, Parks, Banks, Hospitals
 - **Jobs:** `/omr-local-job-listings/` (browse), `/jobs-in-omr-chennai.php` and location/industry landing pages (e.g. `jobs-in-perungudi-omr.php`, `it-jobs-omr-chennai.php`)
-- **Events:** `/omr-local-events/`, post event: `/omr-local-events/post-event-omr.php`
+- **Events:** `/omr-local-events/`, post event: `/omr-local-events/post-event-covai.php`
 - **Hostels & PGs:** `/omr-hostels-pgs/`, owner: `/omr-hostels-pgs/owner-login.php`
 - **Coworking:** `/omr-coworking-spaces/`
 - **About:** `/about-myomr-omr-community-portal.php`

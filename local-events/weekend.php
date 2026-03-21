@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/error-reporting.php';
 require_once __DIR__ . '/../core/omr-connect.php';
-require_once __DIR__ . '/includes/event-functions-omr.php';
+require_once __DIR__ . '/includes/event-functions-covai.php';
 include __DIR__ . '/includes/dev-diagnostics.php';
 
 $sat = date('Y-m-d', strtotime('saturday this week'));
@@ -16,9 +16,12 @@ $per_page = 12; $offset = ($page - 1) * $per_page;
 $events = getEvents($filters, $per_page, $offset);
 $total = getEventCount($filters); $pages = max(1, (int)ceil($total / $per_page));
 
-$page_title = 'This Weekend in OMR – Events | MyOMR';
-$page_description = 'Top events this weekend across OMR: workshops, sports, community meetups and more.';
-$canonical_url = 'https://mycovai.in/local-events/weekend';
+$base = function_exists('eventsCanonicalBaseUrl') ? eventsCanonicalBaseUrl() : 'https://mycovai.in';
+$sn = defined('SITE_NAME') ? SITE_NAME : 'MyCovai';
+$rf = defined('SITE_REGION') ? SITE_REGION : 'Coimbatore';
+$page_title = 'This Weekend in ' . $rf . ' – Events | ' . $sn;
+$page_description = 'Top events this weekend in ' . $rf . ': workshops, sports, community meetups and more.';
+$canonical_url = $base . '/local-events/weekend';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +31,9 @@ $canonical_url = 'https://mycovai.in/local-events/weekend';
   <title><?php echo htmlspecialchars($page_title); ?></title>
   <meta name="description" content="<?php echo htmlspecialchars($page_description); ?>" />
   <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>" />
+  <?php if (!empty(array_diff(array_keys($_GET), ['page']))): ?>
+  <meta name="robots" content="noindex, follow" />
+  <?php endif; ?>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../jobs/assets/omr-jobs-unified-design.css" />
@@ -42,13 +48,13 @@ $canonical_url = 'https://mycovai.in/local-events/weekend';
   <div class="container d-flex flex-wrap justify-content-between align-items-center">
     <div class="mb-2 mb-md-0">
       <div class="title h1 mb-0">This Weekend</div>
-      <div class="small opacity-90">Events for Saturday & Sunday on OMR</div>
+      <div class="small opacity-90">Events for Saturday & Sunday in <?php echo htmlspecialchars($rf); ?></div>
       <div class="small mt-1">
-        <a href="/local-news/this-weekend-in-omr.php?utm_source=events&utm_medium=internal&utm_campaign=weekend_roundup_link" class="text-decoration-underline">Read our Weekend Roundup</a>
+        <a href="/coimbatore-news.php?utm_source=events&utm_medium=internal&utm_campaign=weekend_covai_news" class="text-decoration-underline">Covai News &amp; updates</a>
       </div>
     </div>
     <div class="dashboard-actions">
-      <a href="post-event-omr.php" class="btn-modern btn-modern-primary"><i class="fas fa-plus"></i><span>List an Event</span></a>
+      <a href="post-event-covai.php" class="btn-modern btn-modern-primary"><i class="fas fa-plus"></i><span>List an Event</span></a>
       <a href="index.php" class="btn-modern btn-modern-secondary"><i class="fas fa-globe"></i><span>All Events</span></a>
     </div>
   </div>
@@ -71,8 +77,8 @@ $canonical_url = 'https://mycovai.in/local-events/weekend';
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <a href="event-detail-omr.php?slug=<?php echo urlencode($ev['slug']); ?>" class="btn-modern btn-modern-secondary"><i class="fas fa-eye"></i><span>View</span></a>
-              <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($ev['location'] . ' ' . ($ev['locality'] ?? 'OMR Chennai')); ?>" target="_blank" class="btn-modern btn-modern-secondary"><i class="fas fa-map-marker-alt"></i><span>Map</span></a>
+              <a href="event-detail-covai.php?slug=<?php echo urlencode($ev['slug']); ?>" class="btn-modern btn-modern-secondary"><i class="fas fa-eye"></i><span>View</span></a>
+              <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($ev['location'] . ' ' . ($ev['locality'] ?? $rf)); ?>" target="_blank" class="btn-modern btn-modern-secondary"><i class="fas fa-map-marker-alt"></i><span>Map</span></a>
             </div>
           </div>
         </div>

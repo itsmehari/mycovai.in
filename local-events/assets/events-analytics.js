@@ -1,4 +1,4 @@
-// MyOMR Events - Google Analytics Event Helpers
+// MyCovai Events - Google Analytics Event Helpers (MyOMREventsAnalytics kept as alias)
 (function(){
   function send(action, params){
     if (typeof window.gtag === 'function') {
@@ -19,6 +19,8 @@
     submissionSubmit: function(){ send('event_submit_attempt', { event_category: 'Events' }); },
     submissionSuccess: function(id){ send('event_submit_success', { event_category: 'Events', value: id||0 }); }
   };
+
+  window.MyCovaiEventsAnalytics = window.MyOMREventsAnalytics;
 
   // Auto-bind common hooks
   document.addEventListener('DOMContentLoaded', function(){

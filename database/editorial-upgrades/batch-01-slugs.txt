@@ -1,0 +1,9 @@
+# Batch 01: First 5 articles for editorial upgrade
+# Add corresponding {slug}.html and {slug}.summary.txt to batch-01/ when content is ready.
+# Run: php dev-tools/generate-article-update-sql.php database/editorial-upgrades/batch-01
+
+multi-level-car-parking-kg-theatre-road-coimbatore
+ukkadam-bus-terminus-metro-rail-coimbatore
+noyyal-river-front-development-coimbatore-202-crore
+rs-puram-flower-market-operations-rent-hike-coimbatore
+e-permits-quarries-coimbatore-district-taluks

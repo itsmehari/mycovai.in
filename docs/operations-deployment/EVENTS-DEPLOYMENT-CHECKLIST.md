@@ -7,14 +7,15 @@ Pre‑deploy
 - [ ] Confirm `robots.txt` points to root `sitemap.xml`
 
 Deploy
-- [ ] Upload/overwrite changed files under `omr-local-events/`, `components/`, root `.htaccess`, `robots.txt`, `generate-sitemap-index.php`
+- [ ] Upload/overwrite changed files under `local-events/`, `components/`, root `.htaccess`, `robots.txt`, `weblog/generate-sitemap-index.php`
 - [ ] Invalidate PHP opcache (touch files or via cPanel)
 
 Post‑deploy
-- [ ] Visit `/omr-local-events/` (listing) and an event detail URL to smoke test
-- [ ] Check `/omr-local-events/sitemap.xml` and root `/sitemap.xml`
+- [ ] Visit `/local-events/` (listing) and `/local-events/event/{slug}` (detail) — see [QA-SMOKE-TESTS-EVENTS.md](QA-SMOKE-TESTS-EVENTS.md)
+- [ ] Run `php dev-tools/check-live-events-ga-jsonld.php` and [EVENTS-GA-AND-RICH-RESULTS-QA.md](EVENTS-GA-AND-RICH-RESULTS-QA.md) (GA + Event JSON-LD)
+- [ ] Check `/local-events/sitemap.xml` and root `/sitemap.xml`
 - [ ] Submit `/sitemap.xml` in Search Console (if not already)
-- [ ] Create GA dashboard per `docs/GA-DASHBOARD-EVENTS.md`
+- [ ] Create GA dashboard per `docs/analytics-seo/GA-DASHBOARD-EVENTS.md` (if used)
 - [ ] Verify header CTA and homepage/news widgets render
 
 Rollout

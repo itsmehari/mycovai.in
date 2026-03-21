@@ -51,11 +51,11 @@ See: `omr-local-events/EVENTS-FLOW-MATRIX.md`
 
 - [x] Spin up folder skeleton:
   - `omr-local-events/index.php`
-  - `omr-local-events/event-detail-omr.php`
-  - `omr-local-events/post-event-omr.php`
-  - `omr-local-events/process-event-omr.php`
+  - `omr-local-events/event-detail-covai.php`
+  - `omr-local-events/post-event-covai.php`
+  - `omr-local-events/process-event-covai.php`
   - `omr-local-events/admin/…`
-  - `omr-local-events/includes/event-functions-omr.php`
+  - `omr-local-events/includes/event-functions-covai.php`
   - `omr-local-events/assets/…`
 - [x] Port `includes/error-reporting.php` for dev visibility
 - [x] Implement database connection guards & helper bootstrap similar to jobs module
@@ -79,11 +79,11 @@ See: `omr-local-events/EVENTS-FLOW-MATRIX.md`
 
 ### Phase 4 · Event Submission Workflow
 
-- [x] Build multi-step form (`post-event-omr.php`) aligned with glassmorphism UI components
+- [x] Build multi-step form (`post-event-covai.php`) aligned with glassmorphism UI components
 - [x] Implement client-side validation (dates, contact info, rich descriptions)
 - [x] Add server-side validation, CSRF tokens, and spam mitigation (CSRF + honeypot + rate limit)
 - [x] Handle optional media uploads (poster image) with type/size checks
-- [x] Create confirmation screen (`event-submitted-success-omr.php`) mirroring job success UX
+- [x] Create confirmation screen (`event-submitted-success-covai.php`) mirroring job success UX
 
 **Deliverable:** Secure submission pipeline storing data in `event_submissions` with pending status.
 
@@ -91,7 +91,7 @@ See: `omr-local-events/EVENTS-FLOW-MATRIX.md`
 
 ### Phase 5 · Admin & Moderation Tools
 
-- [x] Develop admin dashboard (`admin/manage-events-omr.php`) showing queues, filters, bulk actions (initial queue ✅; actions wired)
+- [x] Develop admin dashboard (`admin/manage-events-covai.php`) showing queues, filters, bulk actions (initial queue ✅; actions wired)
 - [x] Allow approval/rejection (basic). Editing and email notifications pending
 - [ ] Provide calendar view/export (ICS or CSV)
 - [ ] Implement audit logging (who approved, timestamps)

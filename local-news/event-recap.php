@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../local-events/includes/error-reporting.php';
 require_once __DIR__ . '/../core/omr-connect.php';
-require_once __DIR__ . '/../local-events/includes/event-functions-omr.php';
+require_once __DIR__ . '/../local-events/includes/event-functions-covai.php';
 
 $slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 $event = $slug ? getEventBySlug($slug) : null;
@@ -61,7 +61,7 @@ if (is_dir($recapDir)) {
 
     <hr class="my-5" />
     <div class="text-center">
-      <a class="btn btn-outline-secondary" href="/local-events/event-detail-omr.php?slug=<?php echo urlencode($slug); ?>">Back to event</a>
+      <a class="btn btn-outline-secondary" href="/local-events/event-detail-covai.php?slug=<?php echo urlencode($slug); ?>">Back to event</a>
       <a class="btn btn-success" href="/local-events/">Browse more events</a>
     </div>
   </div>

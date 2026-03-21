@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../local-events/includes/error-reporting.php';
 require_once __DIR__ . '/../core/omr-connect.php';
-require_once __DIR__ . '/../local-events/includes/event-functions-omr.php';
+require_once __DIR__ . '/../local-events/includes/event-functions-covai.php';
 
 $sat = date('Y-m-d', strtotime('saturday this week'));
 $sun = date('Y-m-d', strtotime('sunday this week'));
@@ -46,14 +46,14 @@ $canonical_url = 'https://mycovai.in/local-news/this-weekend-in-omr.php';
 <main class="py-5">
   <div class="container">
     <?php if (empty($events)): ?>
-      <div class="alert alert-info">We’re compiling this weekend’s picks. Check again soon or <a href="/local-events/post-event-omr.php">list your event</a>.</div>
+      <div class="alert alert-info">We’re compiling this weekend’s picks. Check again soon or <a href="/local-events/post-event-covai.php">list your event</a>.</div>
     <?php else: ?>
       <div class="row g-4">
         <?php foreach ($events as $ev): ?>
           <div class="col-md-6">
             <div class="card h-100 shadow-sm">
               <div class="card-body">
-                <h3 class="h5 mb-1"><a class="text-decoration-none" href="/local-events/event-detail-omr.php?slug=<?php echo urlencode($ev['slug']); ?>"><?php echo htmlspecialchars($ev['title']); ?></a></h3>
+                <h3 class="h5 mb-1"><a class="text-decoration-none" href="/local-events/event-detail-covai.php?slug=<?php echo urlencode($ev['slug']); ?>"><?php echo htmlspecialchars($ev['title']); ?></a></h3>
                 <div class="text-muted mb-2">
                   <i class="far fa-calendar"></i>
                   <?php echo date('D, M d, g:i a', strtotime($ev['start_datetime'])); ?>
@@ -61,7 +61,7 @@ $canonical_url = 'https://mycovai.in/local-news/this-weekend-in-omr.php';
                 </div>
                 <div class="mb-2"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($ev['location']); ?><?php echo $ev['locality'] ? ' • ' . htmlspecialchars($ev['locality']) : ''; ?></div>
                 <div class="d-flex gap-2 flex-wrap">
-                  <a class="btn btn-sm btn-outline-secondary" href="/local-events/event-detail-omr.php?slug=<?php echo urlencode($ev['slug']); ?>">View details</a>
+                  <a class="btn btn-sm btn-outline-secondary" href="/local-events/event-detail-covai.php?slug=<?php echo urlencode($ev['slug']); ?>">View details</a>
                   <a class="btn btn-sm btn-outline-secondary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode(($ev['location'] ?: '').' '.($ev['locality'] ?: 'OMR Chennai')); ?>">Map</a>
                 </div>
               </div>
@@ -74,7 +74,7 @@ $canonical_url = 'https://mycovai.in/local-news/this-weekend-in-omr.php';
     <hr class="my-5" />
     <div class="text-center">
       <p class="mb-2">Are you hosting something this weekend?</p>
-      <a class="btn btn-success" href="/local-events/post-event-omr.php">List your event (Free)</a>
+      <a class="btn btn-success" href="/local-events/post-event-covai.php">List your event (Free)</a>
     </div>
   </div>
 </main>

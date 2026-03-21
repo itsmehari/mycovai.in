@@ -6,15 +6,18 @@ Guidance for AI agents working in this repo.
 
 ## Database updates and live
 
-When the user (or a task) asks to **update the database** (e.g. run a migration, change schema, fix data):
+When the user asks to **update the live database** ("update live", "apply to live"): Execute directly. Do not ask for confirmation. User has remote connectivity.
+
+When the user asks to **update the database** without specifying live:
 
 1. **Confirm target**
    - Ask: “Should this be applied to the **live** database (mycovai.in / metap8ok_mycovai) or only to a local/sandbox?”
 
 2. **If the user says live**
-   - Describe exactly what will be run (e.g. which migration file or SQL).
-   - Ask for explicit confirmation: e.g. “Run this against live? Reply **yes** to proceed.”
-   - Do **not** execute against live until the user confirms.
+   - Execute directly. Set DB_HOST=mycovai.in and run the script.
+   - Report success or errors; suggest committing changed files.
+   - (Removed: Ask for explicit confirmation: e.g. “Run this against live? Reply **yes** to proceed.”
+   - **Seamless live updates:** When user asks to "update live" or "apply to live", execute directly without asking again. User has remote connectivity.
 
 3. **After the user confirms (e.g. “yes”)**
    - Run the migration/script against the live DB (e.g. set `DB_HOST=mycovai.in` and run the PHP migration or SQL).

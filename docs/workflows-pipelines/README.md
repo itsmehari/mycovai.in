@@ -46,6 +46,7 @@ docs/workflows-pipelines/
 ├── job-portal-workflow.md         # Employer onboarding, moderation, public listings
 ├── events-workflow.md             # Community event submission → publishing
 ├── news-publication-workflow.md   # Editorial planning → article deployment
+├── longform-editorial-workflow.md # 2000+ word editorial standard & upgrade process
 ├── directory-ops-workflow.md      # Banks/schools/parks/etc. directory updates
 ├── coworking-spaces-workflow.md   # Partner onboarding and pricing updates
 ├── free-ads-workflow.md           # Classifieds submission → moderation
@@ -72,7 +73,7 @@ Naming follows our kebab-case convention. Each document covers one major workflo
 | Hostels & PGs imports | `hostels-pgs-workflow.md`    | `dev-tools/sql/hostel-*-manual.sql`, `omr-hostels-pgs/admin/manage-properties.php`, `docs/worklogs/`          |
 | Job marketplace       | `job-portal-workflow.md`     | `/omr-local-job-listings/` module files, employer admin tools, `LEARNINGS.md` (10 Nov)                        |
 | Events submissions    | `events-workflow.md`         | `/omr-local-events/` module, `EVENTS-FLOW-MATRIX.md`, admin quick links                                      |
-| News articles         | `news-publication-workflow.md` | `/local-news/` templates, editorial plans in `docs/content-projects/`, sitemap documentation                   |
+| News articles         | `news-publication-workflow.md`, `longform-editorial-workflow.md` | `/local-news/`, 2000+ word standard, editorial rubric, batch upgrades |
 | Public directories    | `directory-ops-workflow.md`  | `/admin/manage-*.php`, `/omr-listings/`, relevant SQL templates                                              |
 | Coworking partners    | `coworking-spaces-workflow.md` | `/omr-coworking-spaces/`, assets, pricing tables, CRM forms                                                  |
 | Free ads & classifieds| `free-ads-workflow.md`       | `/free-ads-chennai/` module, moderation policies                                                             |

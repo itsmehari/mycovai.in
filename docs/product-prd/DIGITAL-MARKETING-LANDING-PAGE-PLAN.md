@@ -602,7 +602,7 @@ Based on reference screenshot, the page includes:
 | **Jobs** | `/omr-local-job-listings/` | Job portal homepage |
 | **Post Job** | `/omr-local-job-listings/post-job-omr.php` | Employer job posting |
 | **Events** | `/omr-local-events/` | Events portal homepage |
-| **Post Event** | `/omr-local-events/post-event-omr.php` | Event submission |
+| **Post Event** | `/omr-local-events/post-event-covai.php` | Event submission |
 | **Business Directory** | `/omr-listings/` | Main directory page |
 | **Hostels & PGs** | `/omr-hostels-pgs/` | Accommodation portal |
 | **Coworking Spaces** | `/omr-coworking-spaces/` | Workspace portal |

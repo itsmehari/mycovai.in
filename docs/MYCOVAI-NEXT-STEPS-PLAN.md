@@ -68,7 +68,7 @@ This plan picks up after the **homepage** is fully Covai (branding, design, foot
 | Task | Status | What was done |
 |------|--------|----------------|
 | 4.1 Jobs | ✅ | `omr-local-job-listings/index.php`: config-aware title, description, H1, placeholder, CTA, schema. `post-job-omr.php`, `employer-landing-omr.php`, `job-detail-omr.php`: SITE_NAME / SITE_REGION in titles and copy. `includes/seo-helper.php`: og:site_name from config. |
-| 4.2 Events | ✅ | `omr-local-events/index.php`: “Events in Covai”, Coimbatore SEO and header. `post-event-omr.php`, `event-detail-omr.php`: titles and subtitles from config; event schema addressLocality uses region. |
+| 4.2 Events | ✅ | `omr-local-events/index.php`: “Events in Covai”, Coimbatore SEO and header. `post-event-covai.php`, `event-detail-covai.php`: titles and subtitles from config; event schema addressLocality uses region. |
 | 4.3 Hostels & PGs | ✅ | `omr-hostels-pgs/index.php`: config-aware title, description, H1, subtitle, CTA, schema; localities dropdown shows Coimbatore areas when MYCOVAI_CONFIG_LOADED. |
 | 4.4 Coworking | ✅ | `omr-coworking-spaces/index.php`: same pattern as hostels; Covai titles, intro, localities, CTA. |
 | 4.5 Discover | ✅ | `discover-myomr/overview.php`, `features.php`, `pricing.php`, `getting-started.php`: load omr-connect; titles and body copy use SITE_NAME, SITE_REGION_SHORT, SITE_REGION; “Discover MyCovai” when config loaded. |

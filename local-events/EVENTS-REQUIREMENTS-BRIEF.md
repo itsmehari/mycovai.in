@@ -11,9 +11,9 @@
 
 ### Scope & Routes
 - Public listing: `/omr-local-events/`
-- Submit event: `/omr-local-events/post-event-omr.php`
-- Event detail: `/omr-local-events/event-detail-omr.php?slug={slug}` (clean URLs next)
-- Admin moderation: `/omr-local-events/admin/manage-events-omr.php`
+- Submit event: `/omr-local-events/post-event-covai.php`
+- Event detail: `/omr-local-events/event-detail-covai.php?slug={slug}` (clean URLs next)
+- Admin moderation: `/omr-local-events/admin/manage-events-covai.php`
 - Sitemap: `/omr-local-events/generate-events-sitemap.php`
 
 ### Compliance & Policies

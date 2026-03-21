@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/error-reporting.php';
 require_once __DIR__ . '/../core/omr-connect.php';
-require_once __DIR__ . '/includes/event-functions-omr.php';
+require_once __DIR__ . '/includes/event-functions-covai.php';
 require_once __DIR__ . '/includes/organizer-manage.php';
 require_once __DIR__ . '/../core/mailer.php';
 
@@ -38,6 +38,8 @@ $data = [
   'price' => sanitizeInput($_POST['price'] ?? ''),
 ];
 
+$data['locality'] = normalizeSubmittedLocality($data['locality']);
+
 $errors = validateEventSubmission($data);
 if (!empty($errors)) {
   deny('Please correct the form and resubmit.');
@@ -64,7 +66,7 @@ if (!empty($_FILES['poster']['name']) && is_uploaded_file($_FILES['poster']['tmp
   if (!move_uploaded_file($_FILES['poster']['tmp_name'], $dest)) {
     deny('Failed to store poster.');
   }
-  $image_url = '/local-events/uploads/events/' . $fname;
+  $image_url = '/uploads/events/' . $fname;
 }
 
 try {
@@ -104,27 +106,24 @@ try {
   }
 
   $newId = $conn->insert_id;
-  // TEMP: auto-approve to listings to unblock testing
-  if (!function_exists('approveSubmissionToListing')) {
-    require_once __DIR__ . '/includes/event-functions-omr.php';
-  }
-  @approveSubmissionToListing((int)$newId);
   $_SESSION['last_event_submit'] = time();
   $token = eventsGenerateManageToken((int)$newId, $data['organizer_email']);
 
   // Email organizer with manage link (best-effort)
   if (!empty($data['organizer_email']) && filter_var($data['organizer_email'], FILTER_VALIDATE_EMAIL)) {
-    $manageUrl = 'https://mycovai.in/local-events/manage-submission.php?id=' . (int)$newId . '&t=' . urlencode($token);
-    $subject = 'Your event submission to MyOMR';
+    $base = function_exists('eventsCanonicalBaseUrl') ? eventsCanonicalBaseUrl() : 'https://mycovai.in';
+    $manageUrl = $base . '/local-events/manage-submission.php?id=' . (int)$newId . '&t=' . urlencode($token);
+    $site = defined('SITE_NAME') ? SITE_NAME : 'MyCovai';
+    $subject = 'Your event submission to ' . $site;
     $html = '<p>Hi ' . htmlspecialchars($data['organizer_name'] ?: 'Organizer') . ',</p>' .
-            '<p>Thank you for submitting <strong>' . htmlspecialchars($data['title']) . '</strong> to MyOMR.</p>' .
-            '<p>You can review or edit your submission (until approved) using this secure link:</p>' .
+            '<p>Thank you for submitting <strong>' . htmlspecialchars($data['title']) . '</strong> to ' . htmlspecialchars($site) . '.</p>' .
+            '<p>We will review your event within 24–48 hours. You can review or edit your submission (until approved) using this secure link:</p>' .
             '<p><a href="' . htmlspecialchars($manageUrl) . '">' . htmlspecialchars($manageUrl) . '</a></p>' .
-            '<p>— MyOMR Team</p>';
+            '<p>— ' . htmlspecialchars($site) . '</p>';
     @myomrSendMail($data['organizer_email'], $subject, $html);
   }
 
-  header('Location: event-submitted-success-omr.php?id=' . (int)$newId . '&t=' . urlencode($token));
+  header('Location: event-submitted-success-covai.php?id=' . (int)$newId . '&t=' . urlencode($token));
   exit;
 } catch (Throwable $e) {
   error_log('Events: submission insert failed: ' . $e->getMessage());

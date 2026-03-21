@@ -149,7 +149,7 @@ omr-local-job-listings/
 omr-local-events/
 ├── admin/                      # Admin moderation
 │   ├── index.php              # Admin dashboard
-│   ├── manage-events-omr.php  # Approve/reject events
+│   ├── manage-events-covai.php  # Approve/reject events
 │   ├── calendar-export.php
 │   ├── email-digest.php
 │   ├── export-events-csv.php
@@ -158,7 +158,7 @@ omr-local-events/
 │   ├── events-dashboard.css
 │   └── events-analytics.js
 ├── includes/                  # Shared helpers
-│   ├── event-functions-omr.php
+│   ├── event-functions-covai.php
 │   ├── admin-audit.php
 │   ├── dev-diagnostics.php
 │   ├── error-reporting.php
@@ -167,9 +167,9 @@ omr-local-events/
 │   ├── newsletter-signup.php
 │   └── top-featured-events-widget.php
 ├── index.php                  # Main listings
-├── event-detail-omr.php       # Individual event
-├── post-event-omr.php         # Event submission
-├── process-event-omr.php      # Form handler
+├── event-detail-covai.php       # Individual event
+├── post-event-covai.php         # Event submission
+├── process-event-covai.php      # Form handler
 ├── category.php               # Events by category
 ├── locality.php               # Events by area
 ├── month.php                  # Events by month

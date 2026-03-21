@@ -222,6 +222,7 @@ Welcome to the complete documentation for MyOMR.in! This README will guide you t
 | **[product-prd/ADDITIONAL_FEATURES_TODO.md](product-prd/ADDITIONAL_FEATURES_TODO.md)**             | Feature roadmap          | Future planning      |
 | **[product-prd/PRD-Directory-Platform-MyOMR.md](product-prd/PRD-Directory-Platform-MyOMR.md)**     | Directory platform PRD   | Feature planning     |
 | **[product-prd/PRD-Events-Growth-MyOMR.md](product-prd/PRD-Events-Growth-MyOMR.md)**               | Events feature PRD       | Events feature       |
+| **[product-prd/MYCOVAI-LOCAL-EVENTS-PRD-WBS-PAGE-SPECS.md](product-prd/MYCOVAI-LOCAL-EVENTS-PRD-WBS-PAGE-SPECS.md)** | MyCovai `/local-events` PRD + WBS + page specs | Coimbatore events module |
 | **[product-prd/JOB-FEATURE-PROBLEM-STATEMENTS.md](product-prd/JOB-FEATURE-PROBLEM-STATEMENTS.md)** | Job feature requirements | Job listings feature |
 | **[product-prd/PRD-Pentahive-Website-Maintenance-Service.md](product-prd/PRD-Pentahive-Website-Maintenance-Service.md)** | Pentahive service PRD | Service planning |
 

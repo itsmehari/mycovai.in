@@ -11,7 +11,7 @@ require_once __DIR__ . '/../includes/error-reporting.php';
 require_once __DIR__ . '/../includes/admin-audit.php';
 require_once __DIR__ . '/../../core/admin-auth.php';
 requireAdmin();
-require_once __DIR__ . '/../includes/event-functions-omr.php';
+require_once __DIR__ . '/../includes/event-functions-covai.php';
 
 // if (empty($_SESSION['admin_logged_in'])) { die('Unauthorized'); }
 
@@ -23,10 +23,19 @@ try {
   $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
   if ($id <= 0) { throw new Exception('Invalid ID'); }
 
+  $dupAck = !empty($_POST['duplicate_ack']);
+  if (!$dupAck && function_exists('getDuplicateListingsForSubmission')) {
+    $dups = getDuplicateListingsForSubmission($id);
+    if (!empty($dups)) {
+      header('Location: manage-events-covai.php?blocked_dup=' . $id);
+      exit;
+    }
+  }
+
   global $conn;
   if (approveSubmissionToListing($id)) {
     eventAdminAudit('approve_submission', ['submission_id' => (int)$id]);
-    header('Location: manage-events-omr.php?approved=1');
+    header('Location: manage-events-covai.php?approved=1');
     exit;
   }
 
@@ -41,7 +50,7 @@ try {
   } else {
     echo "<p>Something went wrong. Please try again later.</p>";
   }
-  echo "<p><a href='manage-events-omr.php' style='color:#b91c1c'>Back to Manage Events</a></p>";
+  echo "<p><a href='manage-events-covai.php' style='color:#b91c1c'>Back to Manage Events</a></p>";
   echo "</div>";
   exit;
 } catch (Throwable $e) {
@@ -52,7 +61,7 @@ try {
   echo "<p><strong>File:</strong> " . htmlspecialchars($e->getFile()) . "</p>";
   echo "<p><strong>Line:</strong> " . (int)$e->getLine() . "</p>";
   echo "<pre style='white-space:pre-wrap'>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
-  echo "<p><a href='manage-events-omr.php' style='color:#b91c1c'>Back to Manage Events</a></p>";
+  echo "<p><a href='manage-events-covai.php' style='color:#b91c1c'>Back to Manage Events</a></p>";
   echo "</div>";
   exit;
 }

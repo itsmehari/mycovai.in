@@ -1,10 +1,11 @@
 # Local News Article Workflow
 
-- **Last updated:** January 10, 2025  
-- **Owner:** Editorial Team  
-- **Applies to:** `/local-news/` module, database-driven article system (`articles` table), SQL/HTML publication pipeline  
+- **Last updated:** March 19, 2026
+- **Owner:** Editorial Team
+- **Applies to:** `/local-news/` module, database-driven article system (`articles` table), SQL/HTML publication pipeline
 - **Prerequisites:** Editorial brief, access to database (phpMyAdmin), SQL insert permissions, image assets repository
-- **⚠️ IMPORTANT:** All articles are now stored in the database (`articles` table) and displayed dynamically via `local-news/article.php` router. Static PHP files are deprecated.
+- **Long-form standard:** All articles must meet the 2000+ word editorial standard. See [longform-editorial-workflow.md](longform-editorial-workflow.md).
+- **Important:** All articles are stored in the database (`articles` table) and displayed dynamically via `local-news/article.php` router. Static PHP files are deprecated.
 
 ## 1. Overview
 
@@ -43,7 +44,7 @@ flowchart TD
    - Capture keywords, target audience, required visuals, sources.
 
 2. **Drafting**
-   - Write content using Markdown/HTML templates (often crafted in docs first).
+   - Write content using the long-form template; minimum 2,000 words. See [longform-editorial-workflow.md](longform-editorial-workflow.md) and `docs/inbox/EDITORIAL-RUBRIC-LONGFORM-NEWS.md`.
    - Prepare hero images (1200x630 for OG) and inline media; store under `/local-news/omr-news-images/`.
 
 3. **Publication prep (Database-Driven System)**
@@ -99,6 +100,7 @@ flowchart TD
 
 **Pre-publish**
 - [ ] Editorial brief approved.
+- [ ] Long-form content: minimum 2,000 words, neutral tone, required sections. Run `php dev-tools/qa-editorial-article.php`.
 - [ ] Hero image + inline media ready.
 - [ ] Structured data validated (NewsArticle + Breadcrumb).
 - [ ] Links & CTA (newsletter signup, related articles) tested.
@@ -160,6 +162,6 @@ CREATE TABLE `articles` (
   - `docs/data-backend/DATABASE_STRUCTURE.md` - Database schema reference
   - `LEARNINGS.md` - Development patterns and best practices
   - `analytics-seo/SITEMAP-IMPLEMENTATION-SUMMARY.md` - Sitemap integration
-- **Workflows:** `docs/worklogs/`, `docs/strategy-marketing/LANDING-PAGE-STRATEGY-Job-Feature.md` for promotional tie-ins
+- **Workflows:** `docs/workflows-pipelines/longform-editorial-workflow.md` (2000+ word standard), `docs/worklogs/`, `docs/strategy-marketing/LANDING-PAGE-STRATEGY-Job-Feature.md` for promotional tie-ins
 
 

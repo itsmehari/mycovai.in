@@ -89,6 +89,7 @@ $siteRoot = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 
                         <ul>
                             <li><a href="<?php echo $baseUrl; ?>index.php">Home</a></li>
                             <li><a href="<?php echo $baseUrl; ?>directory/index.php">Explore Covai</a></li>
+                            <li><a href="<?php echo $baseUrl; ?>directory/emergency-civic-directory.php">Emergency Directory</a></li>
                             <li><a href="<?php echo $baseUrl; ?>coimbatore-news.php">Covai News</a></li>
                             <li><a href="<?php echo $baseUrl; ?>coimbatore-elections-2026/">Elections 2026</a></li>
                             <li><a href="<?php echo $baseUrl; ?>contact.php">Contact us</a></li>
