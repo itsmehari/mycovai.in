@@ -250,6 +250,17 @@ if (!function_exists('covai_ad_banner_row')) {
             return;
         }
 
+        // Prioritize higher-weight campaigns in row layouts (homepage-top card-row),
+        // so DB-managed affiliate rows can outrank low-priority defaults.
+        usort($eligible, function ($a, $b) {
+            $wa = isset($a['weight']) ? (int) $a['weight'] : 100;
+            $wb = isset($b['weight']) ? (int) $b['weight'] : 100;
+            if ($wa === $wb) {
+                return 0;
+            }
+            return ($wa > $wb) ? -1 : 1;
+        });
+
         $max = max(1, min(10, (int) $max));
         $selected = array_slice($eligible, 0, $max);
         $has_affiliate = false;
