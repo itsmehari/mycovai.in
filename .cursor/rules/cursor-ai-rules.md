@@ -85,3 +85,9 @@ When the user asks to **update the database** (migrations, schema, data fixes):
 3. **After confirmation:** Run with `DB_HOST=mycovai.in`, report result, suggest committing changes.
 
 See root `AGENTS.md` and `LEARNINGS.md` for full workflow.
+
+## Affiliate and banner ads (MyCovai / mycovai.in)
+
+- Slot-based ads: `core/ad-registry.php`, `components/ad-banner-slot.php`, `docs/ads.md`.
+- Extended plan (governance, rotation, DB path): `docs/inbox/AMAZON-AFFILIATE-INTEGRATION-PLAN.md`.
+- For agent behavior on scaling affiliate data and live DB changes, see `AGENTS.md` (Affiliate section) and `LEARNINGS.md`.

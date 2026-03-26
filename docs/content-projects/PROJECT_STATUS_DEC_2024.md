@@ -4,6 +4,8 @@
 **Version:** 2.0.0  
 **Status:** ✅ Production Ready with Complete Development Infrastructure
 
+> **Pointer (latest updates):** This file is a Dec 2024 snapshot. For current work (2026+), see `docs/RECENT-UPDATES.md` and `docs/worklogs/worklog-26-03-2026.md`.
+
 ---
 
 ## 📊 Executive Summary

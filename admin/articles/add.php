@@ -94,6 +94,7 @@ include __DIR__ . '/../layout/header.php';
                 <div class="mb-3">
                     <label for="slug">Slug <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="slug" name="slug" value="<?php echo htmlspecialchars($_POST['slug'] ?? ''); ?>" placeholder="auto-generated from title if empty">
+                    <small class="form-text text-muted">Tamil version: use the <strong>same</strong> slug as English plus <code>-tamil</code> (e.g. <code>coimbatore-metro-update-2026-tamil</code>). Publish both as <code>published</code>; the English article page shows a “தமிழில் படிக்க” link automatically.</small>
                 </div>
                 <div class="mb-3">
                     <label for="summary">Summary <span class="text-danger">*</span></label>
@@ -105,6 +106,12 @@ include __DIR__ . '/../layout/header.php';
                 </div>
             </div>
             <div class="col-md-4">
+                <div class="alert alert-info small mb-3" role="status">
+                    <strong>English + Tamil pairing</strong><br>
+                    English: base slug.<br>
+                    Tamil: <code>{base}-tamil</code>.<br>
+                    Homepage and grids hide <code>*-tamil</code> so Tamil is reached from the English article (or direct URL).
+                </div>
                 <div class="mb-3">
                     <label for="published_date">Published Date</label>
                     <input type="date" class="form-control" id="published_date" name="published_date" value="<?php echo htmlspecialchars($_POST['published_date'] ?? date('Y-m-d')); ?>">

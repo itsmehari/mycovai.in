@@ -68,6 +68,17 @@
   letter-spacing: 0.05em;
 }
 
+.covai-ad-slot__disclosure {
+  margin: var(--space-2, 8px) 0 0;
+  font-size: 0.75rem;
+  color: var(--color-muted, #6b7280);
+  line-height: 1.5;
+}
+
+.covai-ad-slot__disclosure--row {
+  grid-column: 1 / -1;
+}
+
 /* Banner link: base */
 .covai-ad-banner {
   display: flex;
@@ -347,4 +358,18 @@
 .covai-ad-banner--akshayam.covai-ad-banner--card-row .covai-ad-banner__icon {
   background: rgba(217, 119, 6, 0.25);
   color: #b45309;
+}
+
+.covai-ad-banner--amazon {
+  background: linear-gradient(160deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: #fdba74;
+}
+
+.covai-ad-banner--amazon:hover {
+  border-color: #ea580c;
+}
+
+.covai-ad-banner--amazon.covai-ad-banner--card-row .covai-ad-banner__icon {
+  background: rgba(234, 88, 12, 0.2);
+  color: #c2410c;
 }

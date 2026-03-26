@@ -663,6 +663,76 @@ html {
   }
 }
 
+/* ========== EN/TA language banner (article-language-banner.php) ========== */
+.article-lang-banner {
+  margin: 0 0 1.5rem;
+}
+
+.article-lang-banner__panel {
+  text-align: center;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.article-lang-banner__panel--tamil {
+  background: #f0fdf4;
+  border-color: #22c55e;
+}
+
+.article-lang-banner__panel--english {
+  background: #eff6ff;
+  border-color: #3b82f6;
+}
+
+.article-lang-banner__text {
+  margin: 0 0 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.article-lang-banner__panel--tamil .article-lang-banner__text {
+  color: #14532d;
+}
+
+.article-lang-banner__panel--english .article-lang-banner__text {
+  color: #1e40af;
+}
+
+.article-lang-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none !important;
+  color: #fff !important;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.article-lang-banner__btn:hover {
+  opacity: 0.92;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+.article-lang-banner__btn--tamil {
+  background: #14532d;
+}
+
+.article-lang-banner__btn--english {
+  background: #1e40af;
+}
+
+@media (max-width: 576px) {
+  .article-lang-banner__panel {
+    padding: 1rem;
+  }
+}
+
 /* ========== Progress bar ========== */
 .article-progress-bar-track {
   position: fixed;
@@ -693,7 +763,8 @@ html {
   .article-progress-bar,
   .community-awareness-section,
   .article-actions,
-  .article-sidebar {
+  .article-sidebar,
+  .article-lang-banner {
     display: none !important;
   }
 

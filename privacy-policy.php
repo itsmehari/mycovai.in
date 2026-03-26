@@ -42,6 +42,7 @@ $site_name = defined('SITE_NAME') ? SITE_NAME : 'MyCovai';
             <li>Enhance user experience by remembering preferences.</li>
             <li>Measure website performance and user engagement (e.g., Google Analytics).</li>
         </ul>
+        <p>Some pages may include affiliate links (for example, Amazon affiliate links). If you click these links and visit a third-party site, that site may set its own cookies and tracking technologies according to its own privacy policy.</p>
         <p>You can manage cookie preferences via your browser settings.</p>
         <h2>5. Data Sharing and Disclosure</h2>
         <p>We do not sell or rent your personal information. We may share it with:</p>

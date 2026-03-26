@@ -93,3 +93,16 @@ $covai_ads = [
         'active'     => true,
     ],
 ];
+
+// Merge Amazon affiliate entries when enabled and configured.
+$amazon_registry = __DIR__ . '/amazon-affiliate-registry.php';
+if (is_file($amazon_registry)) {
+    require_once $amazon_registry;
+}
+
+if (is_file(__DIR__ . '/covai-affiliate-links-db.php')) {
+    require_once __DIR__ . '/covai-affiliate-links-db.php';
+    if (function_exists('covai_merge_affiliate_links_from_db')) {
+        covai_merge_affiliate_links_from_db($covai_ads);
+    }
+}

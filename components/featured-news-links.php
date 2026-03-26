@@ -11,7 +11,9 @@ if (file_exists(__DIR__ . '/../core/omr-connect.php')) {
     require_once __DIR__ . '/../core/omr-connect.php';
     $sql = "SELECT id, title, slug, summary, image_path, published_date 
             FROM articles 
-            WHERE status = 'published' AND (is_featured = 1 OR is_featured = true) 
+            WHERE status = 'published' 
+            AND slug NOT LIKE '%-tamil' 
+            AND (is_featured = 1 OR is_featured = true) 
             ORDER BY published_date DESC 
             LIMIT 6";
     $res = isset($conn) ? $conn->query($sql) : null;

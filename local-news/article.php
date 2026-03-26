@@ -34,9 +34,26 @@ if (!$article) {
     echo "<p>The article you were looking for could not be found.</p>";
     exit;
 }
+
+require_once __DIR__ . '/../core/article-i18n-helpers.php';
+
+$article_is_tamil = covai_article_slug_is_tamil($slug);
+$article_html_lang = $article_is_tamil ? 'ta' : 'en';
+$en_slug = covai_article_english_base_slug($slug);
+$tamil_slug = covai_article_tamil_counterpart_slug($slug);
+
+$href_pair = covai_article_resolve_hreflang_urls($conn, $slug);
+$article_hreflang_en = $href_pair['en'];
+$article_hreflang_ta = $href_pair['ta'];
+$article_hreflang_loaded = true;
+
+$covai_show_tamil_link = (!$article_is_tamil && $article_hreflang_ta !== null);
+$covai_show_english_link = ($article_is_tamil && $article_hreflang_en !== null);
+$covai_pair_english_slug = $en_slug;
+$covai_pair_tamil_slug = $tamil_slug;
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo htmlspecialchars($article_html_lang, ENT_QUOTES, 'UTF-8'); ?>">
 <head>
     <?php require_once '../components/head-resources.php'; ?>
     <?php 
@@ -346,79 +363,11 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
             <?php endif; ?>
         </header>
 
+        <?php require_once __DIR__ . '/../components/article-language-banner.php'; ?>
+
         <?php $article_summary = $article['summary'] ?? ''; require_once __DIR__ . '/../components/article-share-buttons.php'; ?>
 
         <?php $slot_id = 'article-mid'; $size = '336x280'; require_once __DIR__ . '/../components/article-ad-banner.php'; ?>
-
-        <!-- Language Switch Link (if Tamil version exists) -->
-        <?php
-        // Check if Tamil version exists (slug ends with -tamil)
-        $tamil_slug = $slug . '-tamil';
-        $tamil_check_sql = "SELECT slug, title FROM articles WHERE slug = ? AND status = 'published' LIMIT 1";
-        $tamil_check_stmt = $conn->prepare($tamil_check_sql);
-        $tamil_version_exists = false;
-        $tamil_article = null;
-        
-        if ($tamil_check_stmt) {
-            $tamil_check_stmt->bind_param("s", $tamil_slug);
-            $tamil_check_stmt->execute();
-            $tamil_result = $tamil_check_stmt->get_result();
-            $tamil_article = $tamil_result->fetch_assoc();
-            $tamil_check_stmt->close();
-            
-            if ($tamil_article) {
-                $tamil_version_exists = true;
-            }
-        }
-        
-        // Also check if current article is English version (not ending in -tamil)
-        $is_english = (substr($slug, -6) !== '-tamil');
-        $english_slug = str_replace('-tamil', '', $slug);
-        
-        if ($is_english && $tamil_version_exists):
-        ?>
-            <div style="background: #f0fdf4; border: 2px solid #22c55e; padding: 1.5rem; margin: 2rem 0; border-radius: 8px; text-align: center;">
-                <p style="margin: 0 0 1rem 0; font-weight: 600; color: #14532d;">
-                    <i class="fas fa-language"></i> This article is also available in Tamil
-                </p>
-                <a href="/local-news/article.php?slug=<?php echo htmlspecialchars($tamil_slug); ?>" 
-                   style="display: inline-block; background: #14532d; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600;">
-                    <i class="fas fa-book"></i> தமிழில் படிக்க
-                </a>
-            </div>
-        <?php elseif (!$is_english): 
-            // Check if English version exists
-            $english_check_sql = "SELECT slug, title FROM articles WHERE slug = ? AND status = 'published' LIMIT 1";
-            $english_check_stmt = $conn->prepare($english_check_sql);
-            $english_version_exists = false;
-            
-            if ($english_check_stmt) {
-                $english_check_stmt->bind_param("s", $english_slug);
-                $english_check_stmt->execute();
-                $english_result = $english_check_stmt->get_result();
-                $english_article = $english_result->fetch_assoc();
-                $english_check_stmt->close();
-                
-                if ($english_article) {
-                    $english_version_exists = true;
-                }
-            }
-            
-            if ($english_version_exists):
-        ?>
-            <div style="background: #eff6ff; border: 2px solid #3b82f6; padding: 1.5rem; margin: 2rem 0; border-radius: 8px; text-align: center;">
-                <p style="margin: 0 0 1rem 0; font-weight: 600; color: #1e40af;">
-                    <i class="fas fa-language"></i> This article is also available in English
-                </p>
-                <a href="/local-news/article.php?slug=<?php echo htmlspecialchars($english_slug); ?>" 
-                   style="display: inline-block; background: #1e40af; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600;">
-                    <i class="fas fa-book"></i> Read in English
-                </a>
-            </div>
-        <?php 
-            endif;
-        endif; 
-        ?>
 
         <?php require_once __DIR__ . '/../components/article-author-bio.php'; ?>
         <?php require_once __DIR__ . '/../components/article-actions.php'; ?>

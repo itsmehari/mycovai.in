@@ -43,6 +43,8 @@ $image_path_val = $article['image_path'];
 $is_featured_val = (int)($article['is_featured'] ?? 0);
 $status_val = $article['status'] ?? 'draft';
 
+require_once __DIR__ . '/../../core/article-i18n-helpers.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title_val = trim($_POST['title'] ?? '');
     $slug_val = trim($_POST['slug'] ?? '');
@@ -113,6 +115,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$slug_for_pair = $_SERVER['REQUEST_METHOD'] === 'POST' ? trim($_POST['slug'] ?? '') : ($article['slug'] ?? '');
+$edit_pair_slug = $slug_for_pair !== ''
+    ? (covai_article_slug_is_tamil($slug_for_pair)
+        ? covai_article_english_base_slug($slug_for_pair)
+        : covai_article_tamil_counterpart_slug($slug_for_pair))
+    : '';
+$edit_pair_article = null;
+if ($edit_pair_slug !== '') {
+    $ps = $conn->prepare('SELECT id, title, status, slug FROM articles WHERE slug = ? LIMIT 1');
+    if ($ps) {
+        $ps->bind_param('s', $edit_pair_slug);
+        $ps->execute();
+        $edit_pair_article = $ps->get_result()->fetch_assoc();
+        $ps->close();
+    }
+}
+
 include __DIR__ . '/../layout/header.php';
 ?>
 
@@ -129,6 +148,7 @@ include __DIR__ . '/../layout/header.php';
                 <div class="mb-3">
                     <label for="slug">Slug <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="slug" name="slug" required value="<?php echo htmlspecialchars($slug_val); ?>">
+                    <small class="form-text text-muted">Tamil pairing: English uses the base slug; Tamil uses <code>{base}-tamil</code>. Both must be <code>published</code> for the language banner on the article page.</small>
                 </div>
                 <div class="mb-3">
                     <label for="summary">Summary <span class="text-danger">*</span></label>
@@ -140,6 +160,22 @@ include __DIR__ . '/../layout/header.php';
                 </div>
             </div>
             <div class="col-md-4">
+                <?php if ($edit_pair_slug !== ''): ?>
+                <div class="alert <?php echo $edit_pair_article ? 'alert-success' : 'alert-warning'; ?> small mb-3" role="status">
+                    <strong>Language pair</strong><br>
+                    <?php if (covai_article_slug_is_tamil($slug_for_pair)): ?>
+                        English counterpart: <code><?php echo htmlspecialchars($edit_pair_slug); ?></code>
+                    <?php else: ?>
+                        Tamil counterpart: <code><?php echo htmlspecialchars($edit_pair_slug); ?></code>
+                    <?php endif; ?>
+                    <?php if ($edit_pair_article): ?>
+                        <br><a href="/admin/articles/edit.php?id=<?php echo (int)$edit_pair_article['id']; ?>">Edit paired article</a>
+                        (<?php echo htmlspecialchars($edit_pair_article['status']); ?>)
+                    <?php else: ?>
+                        <br>No row yet with that slug — add a second article for the other language.
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
                 <div class="mb-3">
                     <label for="published_date">Published Date</label>
                     <input type="date" class="form-control" id="published_date" name="published_date" value="<?php echo htmlspecialchars($published_date_val); ?>">

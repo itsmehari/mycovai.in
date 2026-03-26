@@ -45,6 +45,22 @@ if (!defined('MYCOVAI_CONFIG_LOADED')) {
     // --- Analytics (Phase 2) ---
     define('GA_MEASUREMENT_ID', 'G-2FZCJC1JZH');
 
+    /**
+     * Amazon India Associates (affiliate-program.amazon.in)
+     * 1. Apply and get approved; obtain your Associate Store ID (tracking tag).
+     * 2. Set AMAZON_ASSOCIATE_STORE_ID below (e.g. yourstore-21). Leave empty until approved — affiliate banners stay off.
+     * 3. Confirm required disclosure wording in Associates Central; update AMAZON_ASSOCIATE_DISCLOSURE_TEXT if Amazon asks.
+     */
+    define('AMAZON_ASSOCIATE_STORE_ID', '');
+    define('COVAI_AMAZON_AFFILIATE_ENABLED', true);
+    define(
+        'AMAZON_ASSOCIATE_DISCLOSURE_TEXT',
+        'As an Amazon Associate, I earn from qualifying purchases.'
+    );
+
+    /** Merge banner rows from table covai_affiliate_links (requires migration). */
+    define('COVAI_AFFILIATE_LINKS_DB_ENABLED', true);
+
     // --- MyCovai directory table names (covai_* only, no omr_*) ---
     define('COVAI_TABLES', [
         'schools'            => 'covai_schools',

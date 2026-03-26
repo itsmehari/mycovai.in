@@ -138,6 +138,7 @@ $siteRoot = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 
                             <ul>
                                 <li><a href="<?php echo $baseUrl; ?>terms-and-conditions.php">Terms</a></li>
                                 <li><a href="<?php echo $baseUrl; ?>privacy-policy.php">Privacy</a></li>
+                                <li><a href="<?php echo $baseUrl; ?>affiliate-disclosure.php">Affiliate Disclosure</a></li>
                                 <li><a href="<?php echo $baseUrl; ?>webmaster-contact.php">Contact Webmaster</a></li>
                             </ul>
                         </div>

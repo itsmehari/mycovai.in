@@ -43,3 +43,12 @@ When the user asks to **update the database** without specifying live:
 - Worklogs: `docs/worklogs/worklog-dd-mm-yyyy.md`.
 - Recent changes: `docs/RECENT-UPDATES.md`.
 - Learnings: `LEARNINGS.md`.
+
+---
+
+## Banner ads and Amazon affiliate (mycovai.in)
+
+- **Slots:** Commercial and affiliate units use the registry in `core/ad-registry.php` (and optional `core/amazon-affiliate-registry.php`) plus `components/ad-banner-slot.php`. See `docs/ads.md`.
+- **Decisions:** Treat **slot + optional category/page rules** as the source of “which link can appear,” not implicit AI. Prefer explicit `active` flags and documented pools (homepage vs article vs directory).
+- **Scaling:** If the user adds **many** affiliate links or needs non-dev editing, plan a **DB table** and small admin UI; do not keep growing huge PHP arrays without a migration path. Confirm schema with the user before applying live DB changes (see database section above).
+- **Compliance:** Affiliate disclosure page, footer link, Amazon Associates wording from Central, `rel="sponsored"` on paid/affiliate links. Reference `docs/inbox/AMAZON-AFFILIATE-INTEGRATION-PLAN.md` for governance, rotation logic, and storage evolution.

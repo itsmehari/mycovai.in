@@ -222,6 +222,9 @@ RewriteRule ^parks/([A-Za-z0-9-]+)$ /directory/park.php?slug=$1 [L,NC,QSA]
 </IfModule>
 # php -- END cPanel-generated handler, do not edit
 
+# Local news – article sitemap (must be before slug catch-all)
+RewriteRule ^local-news/sitemap\.xml$ local-news/generate-sitemap.php [L]
+
 # Clean URLs for articles: /local-news/article-slug -> article.php?slug=article-slug
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

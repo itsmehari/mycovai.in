@@ -21,6 +21,13 @@ if (!isset($article)) {
     $stmt->close();
 }
 
+require_once __DIR__ . '/article-i18n-helpers.php';
+if (empty($article_hreflang_loaded) && !empty($article['slug']) && isset($conn) && $conn instanceof mysqli) {
+    $href_pair = covai_article_resolve_hreflang_urls($conn, $article['slug']);
+    $article_hreflang_en = $href_pair['en'];
+    $article_hreflang_ta = $href_pair['ta'];
+}
+
 // Get article data
 $article_title = htmlspecialchars($article['title']);
 $article_desc = htmlspecialchars($article['summary']);
@@ -35,6 +42,11 @@ $article_date = $article['published_date'];
 $article_author = htmlspecialchars($article['author'] ?? 'MyCovai Editorial Team');
 $article_category = htmlspecialchars($article['category'] ?? 'Local News');
 $article_tags = !empty($article['tags']) ? explode(',', $article['tags']) : [];
+
+$article_seo_is_ta = covai_article_slug_is_tamil($article['slug'] ?? '');
+$article_seo_meta_language = $article_seo_is_ta ? 'Tamil' : 'English';
+$article_seo_og_locale = $article_seo_is_ta ? 'ta_IN' : 'en_IN';
+$article_seo_schema_inlang = $article_seo_is_ta ? 'ta-IN' : 'en-IN';
 ?>
 
 <!-- Primary SEO Meta Tags -->
@@ -43,11 +55,16 @@ $article_tags = !empty($article['tags']) ? explode(',', $article['tags']) : [];
 <meta name="keywords" content="<?php echo htmlspecialchars($article['tags'] ?? 'Coimbatore, Covai news'); ?>">
 <meta name="author" content="<?php echo $article_author; ?>">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="language" content="English">
+<meta name="language" content="<?php echo htmlspecialchars($article_seo_meta_language); ?>">
 <meta name="revisit-after" content="7 days">
 
 <!-- Canonical URL -->
 <link rel="canonical" href="<?php echo $article_url; ?>">
+<?php if (!empty($article_hreflang_en) && !empty($article_hreflang_ta)) : ?>
+<link rel="alternate" hreflang="en" href="<?php echo htmlspecialchars($article_hreflang_en, ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="alternate" hreflang="ta" href="<?php echo htmlspecialchars($article_hreflang_ta, ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="alternate" hreflang="x-default" href="<?php echo htmlspecialchars($article_hreflang_en, ENT_QUOTES, 'UTF-8'); ?>">
+<?php endif; ?>
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="article">
@@ -59,7 +76,14 @@ $article_tags = !empty($article['tags']) ? explode(',', $article['tags']) : [];
 <meta property="og:image:alt" content="<?php echo $article_title; ?>">
 <meta property="og:url" content="<?php echo $article_url; ?>">
 <meta property="og:site_name" content="MyCovai">
-<meta property="og:locale" content="en_IN">
+<meta property="og:locale" content="<?php echo htmlspecialchars($article_seo_og_locale); ?>">
+<?php if (!empty($article_hreflang_en) && !empty($article_hreflang_ta)) : ?>
+<?php if ($article_seo_is_ta) : ?>
+<meta property="og:locale:alternate" content="en_IN">
+<?php else : ?>
+<meta property="og:locale:alternate" content="ta_IN">
+<?php endif; ?>
+<?php endif; ?>
 <meta property="article:published_time" content="<?php echo date('c', strtotime($article_date)); ?>">
 <meta property="article:modified_time" content="<?php echo isset($article['updated_at']) ? date('c', strtotime($article['updated_at'])) : date('c', strtotime($article_date)); ?>">
 <meta property="article:author" content="<?php echo $article_author; ?>">
@@ -122,7 +146,7 @@ $article_tags = !empty($article['tags']) ? explode(',', $article['tags']) : [];
   "articleSection": "<?php echo addslashes($article_category); ?>",
   "keywords": "<?php echo !empty($article['tags']) ? addslashes($article['tags']) : 'Coimbatore, Covai news'; ?>",
   "articleBody": "<?php echo addslashes(substr($article_content, 0, 500)); ?>",
-  "inLanguage": "en-IN",
+  "inLanguage": "<?php echo $article_seo_schema_inlang; ?>",
   "copyrightYear": "<?php echo date('Y', strtotime($article_date)); ?>",
   "copyrightHolder": {
     "@type": "Organization",
