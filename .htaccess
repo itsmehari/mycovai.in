@@ -11,6 +11,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
+# Browsers request /favicon.ico by default; map to site logo (HTTPS only after redirects above)
+RewriteRule ^favicon\.ico$ My-OMR-Logo.jpg [L]
+
 # Security: disable indexes (may not work on all shared hosts)
 <IfModule mod_autoindex.c>
   Options -Indexes

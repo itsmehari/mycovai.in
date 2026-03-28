@@ -46,6 +46,11 @@ $home_categories = [
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php
+    $home_favicon_href = get_canonical_base() . (defined('SITE_LOGO_URL') && SITE_LOGO_URL !== '' ? SITE_LOGO_URL : '/My-OMR-Logo.jpg');
+    ?>
+    <link rel="icon" href="<?php echo htmlspecialchars($home_favicon_href, ENT_QUOTES, 'UTF-8'); ?>" type="image/jpeg">
+    <link rel="shortcut icon" href="<?php echo htmlspecialchars($home_favicon_href, ENT_QUOTES, 'UTF-8'); ?>">
     <title><?php echo htmlspecialchars($page_title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($page_description); ?>">
     <meta name="keywords" content="<?php echo htmlspecialchars($page_keywords); ?>">

@@ -2,6 +2,10 @@
 /**
  * Google Analytics – uses GA_MEASUREMENT_ID from config when set (Phase 2).
  * Include after core/omr-connect.php (or core/mycovai-config.php) to use MyCovai property.
+ *
+ * Do not add http:// third-party script tags here (mixed content on HTTPS).
+ * If you see cdn.jsinit.directfwd.com in DevTools, it is not from this file — search the server
+ * (cPanel File Manager, .user.ini, auto_prepend, GTM) and remove it.
  */
 $ga_id = defined('GA_MEASUREMENT_ID') && GA_MEASUREMENT_ID !== '' ? GA_MEASUREMENT_ID : 'G-2FZCJC1JZH';
 ?>
