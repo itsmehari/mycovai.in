@@ -207,8 +207,9 @@ function createSlug($text) {
  * Normal listings store facilities as a JSON array of strings, e.g. ["WiFi","Food"].
  * CSV imports may store an object with import_source / social_raw — do not show that as amenity chips.
  *
- * @return list<string>
+ * @return string[]
  */
+if (!function_exists('hostelsFacilitiesListForDisplay')) {
 function hostelsFacilitiesListForDisplay($facilitiesJson) {
     if ($facilitiesJson === null || $facilitiesJson === '') {
         return [];
@@ -231,6 +232,7 @@ function hostelsFacilitiesListForDisplay($facilitiesJson) {
         }
     }
     return $out;
+}
 }
 
 /**

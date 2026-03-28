@@ -4,7 +4,9 @@
  * Centralized SEO functions for Hostels & PGs portal
  */
 
-require_once __DIR__ . '/property-functions.php';
+if (!function_exists('hostelsFacilitiesListForDisplay')) {
+    require_once __DIR__ . '/property-functions.php';
+}
 
 /**
  * Generate comprehensive meta tags for property pages
