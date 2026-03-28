@@ -1,6 +1,13 @@
 <?php
+/**
+ * Site-root base for footer links (not dirname of script — avoids /directory/ breaking Home, etc.)
+ */
 if (!isset($baseUrl)) {
-    $baseUrl = rtrim((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/';
+    if (defined('SITE_CANONICAL_BASE') && SITE_CANONICAL_BASE !== '') {
+        $baseUrl = rtrim(SITE_CANONICAL_BASE, '/') . '/';
+    } else {
+        $baseUrl = rtrim((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'], '/') . '/';
+    }
 }
 $siteRoot = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
 ?>

@@ -25,12 +25,13 @@ $result = $conn->query($sql);
 <head>
 <?php $breadcrumbs = [
   ['https://mycovai.in/','Home'],
-  ['https://mycovai.in/government-offices','Government Offices']
+  ['https://mycovai.in/directory/government-offices.php','Government Offices']
 ]; ?>
 <?php include '../components/meta.php'; ?>
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
 <link rel="stylesheet" href="/assets/css/homepage-directone.css">
+<link rel="stylesheet" href="/directory/directory-listing.css">
 
 <title>Government Offices in Coimbatore | MyCovai</title>
 
@@ -41,7 +42,7 @@ $result = $conn->query($sql);
 <meta name="author" content="Krishnan">
 
 <meta property="og:type" content="article" />
-<meta name=”robots” content=”index, follow”>
+<meta name="robots" content="index, follow">
 <meta property="og:title" content="Government Offices in Coimbatore | MyCovai" />
 <meta property="og:description" content="Find government offices in Coimbatore (Covai). Get office names, addresses, contacts, and landmarks for public services." />
 <meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
@@ -64,35 +65,6 @@ background-color:#0583D2;
 cursor: pointer;
 opacity: 0.5;
 
-}
-</style>
-<style>
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover:not(.active) {
-  background-color: #111;
-}
-
-.active {
-  background-color: #04AA6D;
 }
 </style>
 <script async defer data-pin-hover="true" data-pin-tall="true" data-pin-round="true" src="//assets.pinterest.com/js/pinit.js"></script>
@@ -227,49 +199,64 @@ color: #4c516D;
 
 <div class="container maxw-1280" id="main-content" role="main">
   <h1 class="text-center text-primary-omr">Government Offices in Coimbatore</h1>
+  <p class="text-center text-muted mb-0" style="max-width: 36rem; margin-left: auto; margin-right: auto;">Public offices, civic services, and administrative locations across Covai.</p>
   <?php
 if ($result->num_rows > 0) {
-    echo "<div class='container'>";
-    echo "<h2 style='text-align:center; margin-bottom:20px;'>Government Offices in Coimbatore (Covai)</h2>";
-
-    // Output data for each row
+    echo '<div class="directory-card-grid" role="list">';
+    $rank = 0;
     while ($row = $result->fetch_assoc()) {
-        echo "<div class='row' style='border-bottom:1px solid #ddd; padding:10px 0;'>";
-
-        // Serial Number
-        echo "<div class='col-sm-1' style='background-color:#b8e3ff; text-align:center; padding:10px;'>";
-        echo "<strong>" . $row["slno"] . "</strong>";
-        echo "</div>";
-
-        // Office Name and Address
-        echo "<div class='col-sm-7' style='font-weight:bold; background-color:#0583D2; color:#fff; padding:10px;'>";
-        $nm = $row["office_name"];
-        $slugBase = strtolower(preg_replace('/[^a-zA-Z0-9]+/','-',$nm));
+        $rank++;
+        $nm = (string)$row['office_name'];
+        $slugBase = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $nm));
         $slugBase = trim($slugBase, '-');
-        $detail = '/government-offices/' . $slugBase . '-' . (int)$row['slno'];
-        echo '<a style="color:#fff; text-decoration:underline;" href="' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($nm, ENT_QUOTES, 'UTF-8') . '</a>';
-        echo "<br><span style='color:#cccccc; font-weight:normal;'>" . $row["address"] . "</span>";
-        echo "</div>";
+        $sl = (int)$row['slno'];
+        $detail = '/government-offices/' . $slugBase . '-' . $sl;
+        $addr = isset($row['address']) ? trim((string)$row['address']) : '';
+        $contact = isset($row['contact']) ? trim((string)$row['contact']) : '';
+        $landmark = isset($row['landmark']) ? trim((string)$row['landmark']) : '';
+        $mapsQuery = urlencode($nm . ' ' . $addr);
+        $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . $mapsQuery;
 
-        // Contact
-        echo "<div class='col-sm-2' style='background-color:#386FA4; color:#fff; padding:10px;'>";
-        echo (!empty($row["contact"])) ? $row["contact"] : "N/A";
-        echo "</div>";
-
-        // Landmark
-        echo "<div class='col-sm-2' style='background-color:#0583D2; color:#fff; padding:10px;'>";
-        echo (!empty($row["landmark"])) ? $row["landmark"] : "N/A";
-        echo "</div>";
-
-        echo "</div>"; // Close row
+        echo '<article class="directory-card" role="listitem">';
+        echo '<div class="directory-card__accent" aria-hidden="true"></div>';
+        echo '<div class="directory-card__body">';
+        echo '<p class="directory-card__eyebrow">Office #' . $rank . '</p>';
+        echo '<h2 class="directory-card__title"><a href="' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($nm, ENT_QUOTES, 'UTF-8') . '</a></h2>';
+        if ($addr !== '') {
+            echo '<p class="directory-card__address">' . htmlspecialchars($addr, ENT_QUOTES, 'UTF-8') . '</p>';
+        }
+        echo '<div class="directory-card__meta">';
+        echo '<div class="directory-card__meta-row">';
+        echo '<i class="fa-solid fa-phone" aria-hidden="true"></i>';
+        echo '<span>';
+        if ($contact !== '') {
+            $telHref = preg_replace('/[^0-9+]/', '', $contact);
+            echo '<a href="tel:' . htmlspecialchars($telHref, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($contact, ENT_QUOTES, 'UTF-8') . '</a>';
+        } else {
+            echo '<span class="directory-card__meta-muted">No phone listed</span>';
+        }
+        echo '</span></div>';
+        echo '<div class="directory-card__meta-row">';
+        echo '<i class="fa-solid fa-location-dot" aria-hidden="true"></i>';
+        echo '<span>';
+        if ($landmark !== '') {
+            echo htmlspecialchars($landmark, ENT_QUOTES, 'UTF-8');
+        } else {
+            echo '<span class="directory-card__meta-muted">—</span>';
+        }
+        echo '</span></div>';
+        echo '</div>'; // meta
+        echo '<div class="directory-card__footer">';
+        echo '<span class="directory-card__id">ID ' . $sl . '</span>';
+        echo '<a class="directory-card__link-map" href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener">Map</a>';
+        echo '</div>';
+        echo '</div></article>';
     }
-
-    echo "</div>"; // Close container
+    echo '</div>';
 } else {
-    echo "<p style='text-align:center;'>No government offices found in Coimbatore.</p>";
+    echo '<p class="text-center mt-4">No government offices found in Coimbatore.</p>';
 }
 
-// Close connection
 $conn->close();
 ?>
     

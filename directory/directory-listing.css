@@ -134,3 +134,155 @@
     font-size: 1.15rem;
   }
 }
+
+/* -------------------------------------------------------------------------
+   Responsive card grid (government offices, similar directory pages)
+   ------------------------------------------------------------------------- */
+.directory-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  align-items: stretch;
+}
+
+@media (min-width: 992px) {
+  .directory-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .directory-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.directory-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: #fff;
+  border: 1px solid rgba(13, 59, 102, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(13, 59, 102, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.directory-card:hover {
+  box-shadow: 0 10px 32px rgba(5, 131, 210, 0.14);
+  border-color: rgba(5, 131, 210, 0.28);
+  transform: translateY(-3px);
+}
+
+.directory-card:focus-within {
+  outline: 2px solid rgba(5, 131, 210, 0.45);
+  outline-offset: 2px;
+}
+
+.directory-card__accent {
+  height: 4px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #0583d2 0%, #0d3b66 100%);
+}
+
+.directory-card__body {
+  padding: 1.15rem 1.25rem 1.2rem;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.directory-card__eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0583d2;
+  margin: 0;
+}
+
+.directory-card__title {
+  font-family: 'Playfair Display', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.directory-card__title a {
+  color: #0d3b66;
+  text-decoration: none;
+}
+
+.directory-card__title a:hover {
+  color: #0583d2;
+  text-decoration: underline;
+}
+
+.directory-card__address {
+  font-size: 0.875rem;
+  color: #495057;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.directory-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.35rem;
+}
+
+.directory-card__meta-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.8125rem;
+  color: #374151;
+  line-height: 1.45;
+}
+
+.directory-card__meta-row i {
+  color: #0583d2;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  width: 1.1em;
+  text-align: center;
+}
+
+.directory-card__meta-muted {
+  color: #868e96;
+  font-style: italic;
+}
+
+.directory-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.directory-card__id {
+  font-size: 0.72rem;
+  color: #adb5bd;
+}
+
+.directory-card__link-map {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0583d2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.directory-card__link-map:hover {
+  text-decoration: underline;
+  color: #0d3b66;
+}
