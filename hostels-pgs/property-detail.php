@@ -104,7 +104,7 @@ $og_image = "https://mycovai.in/hostels-pgs/" . htmlspecialchars($property['feat
 
 // Parse JSON fields
 $room_types = json_decode($property['room_types'] ?? '[]', true);
-$facilities = json_decode($property['facilities'] ?? '[]', true);
+$facilities = hostelsFacilitiesListForDisplay($property['facilities'] ?? null);
 ?>
 
 <!DOCTYPE html>
@@ -388,7 +388,10 @@ $facilities = json_decode($property['facilities'] ?? '[]', true);
                     <h2><i class="fas fa-file-alt me-2"></i>Overview</h2>
                     <div class="property-description">
                         <?php if (!empty($property['brief_overview'])): ?>
-                            <p class="lead mb-3"><?php echo nl2br(htmlspecialchars($property['brief_overview'])); ?></p>
+                            <?php
+                            $briefShow = preg_replace('/^Imported directory listing\s*[·•]?\s*/i', '', (string) $property['brief_overview']);
+                            ?>
+                            <p class="lead mb-3"><?php echo nl2br(htmlspecialchars($briefShow)); ?></p>
                         <?php endif; ?>
                         
                         <?php if (!empty($property['full_description'])): ?>
@@ -688,7 +691,14 @@ $facilities = json_decode($property['facilities'] ?? '[]', true);
                             
                             <div class="property-card-body">
                                 <div class="property-card-price mb-3">
-                                    ₹<?php echo number_format($related['monthly_rent_single'] ?? 0); ?>/month
+                                    <?php
+                                    $relRent = (float) ($related['monthly_rent_single'] ?? 0);
+                                    if ($relRent > 0) {
+                                        echo '₹' . number_format($relRent) . '/month';
+                                    } else {
+                                        echo '<span class="text-muted">Contact for rent</span>';
+                                    }
+                                    ?>
                                 </div>
                                 <a href="/hostels-pgs/property-detail.php?id=<?php echo $related['id']; ?>" 
                                    class="btn btn-sm btn-primary w-100">

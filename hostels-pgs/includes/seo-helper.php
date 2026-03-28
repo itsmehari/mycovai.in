@@ -4,6 +4,8 @@
  * Centralized SEO functions for Hostels & PGs portal
  */
 
+require_once __DIR__ . '/property-functions.php';
+
 /**
  * Generate comprehensive meta tags for property pages
  */
@@ -96,9 +98,9 @@ function generatePropertySchema($property) {
         ];
     }
     
-    // Amenities
-    $facilities = json_decode($property['facilities'] ?? '[]', true);
-    if (!empty($facilities) && is_array($facilities)) {
+    // Amenities (skip import metadata JSON objects)
+    $facilities = hostelsFacilitiesListForDisplay($property['facilities'] ?? null);
+    if ($facilities !== []) {
         $schema["amenityFeature"] = [];
         foreach ($facilities as $facility) {
             $schema["amenityFeature"][] = [

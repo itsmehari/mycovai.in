@@ -429,17 +429,17 @@ if (!empty($filter_params)) {
                                         <p class="text-muted mb-2">
                                             <?php 
                                             $overview = $property['brief_overview'] ?? $property['full_description'] ?? '';
+                                            $overview = preg_replace('/^Imported directory listing\s*[·•]?\s*/i', '', $overview);
                                             echo htmlspecialchars(strlen($overview) > 120 ? substr($overview, 0, 120) . '...' : $overview);
                                             ?>
                                         </p>
                                     </div>
                                     
-                                    <!-- Key Facilities -->
-                                    <?php if (!empty($property['facilities'])): ?>
-                                        <?php 
-                                        $facilities = json_decode($property['facilities'], true);
-                                        if (is_array($facilities) && !empty($facilities)): 
-                                        ?>
+                                    <!-- Key Facilities (JSON array only; not import metadata objects) -->
+                                    <?php
+                                    $facilities = hostelsFacilitiesListForDisplay($property['facilities'] ?? '');
+                                    if ($facilities !== []):
+                                    ?>
                                             <div class="property-card-amenities">
                                                 <?php foreach (array_slice($facilities, 0, 4) as $facility): ?>
                                                     <span class="amenity-badge">
@@ -450,15 +450,22 @@ if (!empty($filter_params)) {
                                                     <span class="amenity-badge">+<?php echo count($facilities) - 4; ?> more</span>
                                                 <?php endif; ?>
                                             </div>
-                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                                 
                                 <!-- Property Footer -->
                                 <footer class="property-card-footer">
                                     <div class="property-card-price">
-                                        ₹<?php echo number_format($property['monthly_rent_single'] ?? 0); ?>/month
+                                        <?php
+                                        $rent = isset($property['monthly_rent_single']) ? (float) $property['monthly_rent_single'] : 0;
+                                        if ($rent > 0):
+                                        ?>
+                                        ₹<?php echo number_format($rent); ?>/month
                                         <small class="text-muted d-block">Starting from</small>
+                                        <?php else: ?>
+                                        <span class="text-muted">Contact for rent</span>
+                                        <small class="text-muted d-block">Rates on enquiry</small>
+                                        <?php endif; ?>
                                     </div>
                                     
                                     <div class="property-actions">

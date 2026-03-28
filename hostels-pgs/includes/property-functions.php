@@ -204,6 +204,36 @@ function createSlug($text) {
 }
 
 /**
+ * Normal listings store facilities as a JSON array of strings, e.g. ["WiFi","Food"].
+ * CSV imports may store an object with import_source / social_raw — do not show that as amenity chips.
+ *
+ * @return list<string>
+ */
+function hostelsFacilitiesListForDisplay($facilitiesJson) {
+    if ($facilitiesJson === null || $facilitiesJson === '') {
+        return [];
+    }
+    $decoded = json_decode($facilitiesJson, true);
+    if (!is_array($decoded) || $decoded === []) {
+        return [];
+    }
+    if (function_exists('array_is_list')) {
+        if (!array_is_list($decoded)) {
+            return [];
+        }
+    } elseif (array_keys($decoded) !== range(0, count($decoded) - 1)) {
+        return [];
+    }
+    $out = [];
+    foreach ($decoded as $item) {
+        if (is_string($item) && $item !== '') {
+            $out[] = $item;
+        }
+    }
+    return $out;
+}
+
+/**
  * Sanitize input to prevent XSS
  * 
  * @param string $data Input data
