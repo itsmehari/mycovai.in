@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home3/metap8ok/mycovai.in
+    - /bin/rsync -a --exclude='.git' --exclude='.cursor' ./ $DEPLOYPATH/
