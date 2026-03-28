@@ -286,3 +286,207 @@
   text-decoration: underline;
   color: #0d3b66;
 }
+
+/* -------------------------------------------------------------------------
+   Government offices: flexbox card grid (4 columns desktop, CodePen-style)
+   ------------------------------------------------------------------------- */
+.gov-offices-flex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1.5rem -0.625rem 0;
+  align-items: stretch;
+}
+
+.gov-flex-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 calc(100% - 1.25rem);
+  max-width: calc(100% - 1.25rem);
+  margin: 0 0.625rem 1.25rem;
+  min-width: 0;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(13, 59, 102, 0.1);
+  border: 1px solid rgba(13, 59, 102, 0.12);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.gov-flex-card:hover {
+  box-shadow: 0 12px 28px rgba(5, 131, 210, 0.18);
+  transform: translateY(-4px);
+}
+
+.gov-flex-card:focus-within {
+  outline: 2px solid rgba(5, 131, 210, 0.5);
+  outline-offset: 2px;
+}
+
+/* 2 columns */
+@media (min-width: 576px) {
+  .gov-flex-card {
+    flex: 1 1 calc(50% - 1.25rem);
+    max-width: calc(50% - 1.25rem);
+  }
+}
+
+/* 3 columns */
+@media (min-width: 900px) {
+  .gov-flex-card {
+    flex: 1 1 calc(33.333% - 1.25rem);
+    max-width: calc(33.333% - 1.25rem);
+  }
+}
+
+/* 4 columns (4×4 style grid on wide screens) */
+@media (min-width: 1200px) {
+  .gov-flex-card {
+    flex: 1 1 calc(25% - 1.25rem);
+    max-width: calc(25% - 1.25rem);
+  }
+}
+
+.gov-flex-card__header {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(135deg, #0d3b66 0%, #1a4f7a 100%);
+  color: #fff;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  min-height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gov-flex-card__header a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.gov-flex-card__header a:hover {
+  text-decoration: underline;
+}
+
+.gov-flex-card__header h2,
+.gov-flex-card__header .h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.gov-flex-card__media {
+  flex-shrink: 0;
+  height: 132px;
+  background: linear-gradient(160deg, #e8f4fc 0%, #b8d9f0 45%, #7eb8db 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.gov-flex-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.45) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.gov-flex-card__media i {
+  font-size: 3rem;
+  color: rgba(13, 59, 102, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.gov-flex-card__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.1rem 1.1rem;
+  gap: 0.65rem;
+  min-height: 0;
+}
+
+.gov-flex-card__rank {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0583d2;
+  margin: 0;
+}
+
+.gov-flex-card__address {
+  font-size: 0.8125rem;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 0;
+}
+
+.gov-flex-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: auto;
+  font-size: 0.78rem;
+  color: #44403c;
+}
+
+.gov-flex-card__meta-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  line-height: 1.4;
+}
+
+.gov-flex-card__meta-row i {
+  color: #0583d2;
+  margin-top: 0.12rem;
+  flex-shrink: 0;
+  width: 1em;
+  text-align: center;
+}
+
+.gov-flex-card__meta-muted {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.gov-flex-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding-top: 0.75rem;
+  margin-top: 0.35rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.gov-flex-card__id {
+  font-size: 0.68rem;
+  color: #adb5bd;
+}
+
+.gov-flex-card__link-map {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0583d2;
+  text-decoration: none;
+}
+
+.gov-flex-card__link-map:hover {
+  text-decoration: underline;
+  color: #0d3b66;
+}

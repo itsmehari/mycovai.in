@@ -202,7 +202,7 @@ color: #4c516D;
   <p class="text-center text-muted mb-0" style="max-width: 36rem; margin-left: auto; margin-right: auto;">Public offices, civic services, and administrative locations across Covai.</p>
   <?php
 if ($result->num_rows > 0) {
-    echo '<div class="directory-card-grid" role="list">';
+    echo '<div class="gov-offices-flex-grid" role="list">';
     $rank = 0;
     while ($row = $result->fetch_assoc()) {
         $rank++;
@@ -217,38 +217,42 @@ if ($result->num_rows > 0) {
         $mapsQuery = urlencode($nm . ' ' . $addr);
         $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . $mapsQuery;
 
-        echo '<article class="directory-card" role="listitem">';
-        echo '<div class="directory-card__accent" aria-hidden="true"></div>';
-        echo '<div class="directory-card__body">';
-        echo '<p class="directory-card__eyebrow">Office #' . $rank . '</p>';
-        echo '<h2 class="directory-card__title"><a href="' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($nm, ENT_QUOTES, 'UTF-8') . '</a></h2>';
+        echo '<article class="gov-flex-card" role="listitem">';
+        echo '<header class="gov-flex-card__header">';
+        echo '<h2 class="h6 mb-0"><a href="' . htmlspecialchars($detail, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($nm, ENT_QUOTES, 'UTF-8') . '</a></h2>';
+        echo '</header>';
+        echo '<div class="gov-flex-card__media" aria-hidden="true"><i class="fa-solid fa-building-columns"></i></div>';
+        echo '<div class="gov-flex-card__body">';
+        echo '<p class="gov-flex-card__rank">Office #' . $rank . '</p>';
         if ($addr !== '') {
-            echo '<p class="directory-card__address">' . htmlspecialchars($addr, ENT_QUOTES, 'UTF-8') . '</p>';
+            echo '<p class="gov-flex-card__address">' . htmlspecialchars($addr, ENT_QUOTES, 'UTF-8') . '</p>';
+        } else {
+            echo '<p class="gov-flex-card__address gov-flex-card__meta-muted">Address not listed</p>';
         }
-        echo '<div class="directory-card__meta">';
-        echo '<div class="directory-card__meta-row">';
+        echo '<div class="gov-flex-card__meta">';
+        echo '<div class="gov-flex-card__meta-row">';
         echo '<i class="fa-solid fa-phone" aria-hidden="true"></i>';
         echo '<span>';
         if ($contact !== '') {
             $telHref = preg_replace('/[^0-9+]/', '', $contact);
             echo '<a href="tel:' . htmlspecialchars($telHref, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($contact, ENT_QUOTES, 'UTF-8') . '</a>';
         } else {
-            echo '<span class="directory-card__meta-muted">No phone listed</span>';
+            echo '<span class="gov-flex-card__meta-muted">No phone listed</span>';
         }
         echo '</span></div>';
-        echo '<div class="directory-card__meta-row">';
+        echo '<div class="gov-flex-card__meta-row">';
         echo '<i class="fa-solid fa-location-dot" aria-hidden="true"></i>';
         echo '<span>';
         if ($landmark !== '') {
             echo htmlspecialchars($landmark, ENT_QUOTES, 'UTF-8');
         } else {
-            echo '<span class="directory-card__meta-muted">—</span>';
+            echo '<span class="gov-flex-card__meta-muted">—</span>';
         }
         echo '</span></div>';
-        echo '</div>'; // meta
-        echo '<div class="directory-card__footer">';
-        echo '<span class="directory-card__id">ID ' . $sl . '</span>';
-        echo '<a class="directory-card__link-map" href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener">Map</a>';
+        echo '</div>';
+        echo '<div class="gov-flex-card__footer">';
+        echo '<span class="gov-flex-card__id">ID ' . $sl . '</span>';
+        echo '<a class="gov-flex-card__link-map" href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener">Map</a>';
         echo '</div>';
         echo '</div></article>';
     }
