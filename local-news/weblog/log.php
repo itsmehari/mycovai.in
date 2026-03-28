@@ -1,7 +1,7 @@
 <?php
 $ipaddress = $_SERVER['REMOTE_ADDR'];
 $page = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['PHP_SELF']}"; 
-$referrer = $_SERVER['HTTP_REFERER'];
+$referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Direct Access';
 $date = date('Y-m-d H:i:s');
 $useragent = $_SERVER['HTTP_USER_AGENT'];
 $remotehost = @getHostByAddr($ipaddress);
@@ -23,17 +23,16 @@ $logline = $ipaddress . '|' . $referrer . '|' . $date . '|' . $useragent . '|' .
 
 // echo $logline;
 
-// // Write to log file:
-$logfile = 'weblog/logfile.txt';
+// // Write to log file (anchor to this file; CWD is not reliable for nested routes)
+$logfile = __DIR__ . '/logfile.txt';
 
-// // Open the log file in "Append" mode
-if (!$handle = fopen($logfile, 'a+')) {
-    die("Failed to open log file");
+$handle = @fopen($logfile, 'a+');
+if ($handle) {
+    if (fwrite($handle, $logline) === false) {
+        @error_log('local-news/weblog/log.php: fwrite failed for ' . $logfile);
+    }
+    fclose($handle);
+} else {
+    @error_log('local-news/weblog/log.php: fopen failed for ' . $logfile);
 }
-// // Write $logline to our logfile.
-if (fwrite($handle, $logline) === FALSE) {
-    die("Failed to write to log file");
-}
-  
-fclose($handle);
 ?>

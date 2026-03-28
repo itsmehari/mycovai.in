@@ -23,17 +23,16 @@ $logline = $ipaddress . '|' . $referrer . '|' . $date . '|' . $useragent . '|' .
 
 // echo $logline;
 
-// // Write to log file:
-$logfile = 'weblog/logfile.txt';
+// // Write to log file (anchor to this file — PHP CWD is often the main script dir, e.g. /directory/)
+$logfile = __DIR__ . '/logfile.txt';
 
-// // Open the log file in "Append" mode
-if (!$handle = fopen($logfile, 'a+')) {
-    die("Failed to open log file");
+$handle = @fopen($logfile, 'a+');
+if ($handle) {
+    if (fwrite($handle, $logline) === false) {
+        @error_log('weblog/log.php: fwrite failed for ' . $logfile);
+    }
+    fclose($handle);
+} else {
+    @error_log('weblog/log.php: fopen failed for ' . $logfile);
 }
-// // Write $logline to our logfile.
-if (fwrite($handle, $logline) === FALSE) {
-    die("Failed to write to log file");
-}
-  
-fclose($handle);
 ?>
