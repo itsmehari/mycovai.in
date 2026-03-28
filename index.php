@@ -47,7 +47,10 @@ $home_categories = [
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
-    $home_favicon_href = get_canonical_base() . (defined('SITE_LOGO_URL') && SITE_LOGO_URL !== '' ? SITE_LOGO_URL : '/My-OMR-Logo.jpg');
+    // Absolute HTTPS icon only (no .htaccess rewrite — avoids LiteSpeed/cPanel rewrite issues)
+    $home_favicon_base = defined('SITE_CANONICAL_BASE') ? rtrim((string) SITE_CANONICAL_BASE, '/') : 'https://mycovai.in';
+    $home_favicon_path = (defined('SITE_LOGO_URL') && SITE_LOGO_URL !== '') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg';
+    $home_favicon_href = $home_favicon_base . $home_favicon_path;
     ?>
     <link rel="icon" href="<?php echo htmlspecialchars($home_favicon_href, ENT_QUOTES, 'UTF-8'); ?>" type="image/jpeg">
     <link rel="shortcut icon" href="<?php echo htmlspecialchars($home_favicon_href, ENT_QUOTES, 'UTF-8'); ?>">
