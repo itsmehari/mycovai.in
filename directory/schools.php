@@ -26,10 +26,10 @@ $result = $conn->query($sql);
 <link rel="stylesheet" href="/assets/css/homepage-directone.css">
 <title>Schools in Coimbatore | MyCovai</title>
 <meta name="description" content="Find schools in Coimbatore (Covai). Get school names, addresses, contacts, and landmarks for your child's education.">
-<link rel="canonical" href="https://mycovai.in/schools" />
+<link rel="canonical" href="https://mycovai.in/directory/schools.php" />
 <meta property="og:title" content="Schools in Coimbatore | MyCovai" />
-<meta property="og:description" content="Find schools along Coimbatore (Coimbatore. Get school names, addresses, contacts, and landmarks for your child's education." />
-<meta property="og:url" content="https://mycovai.in/schools" />
+<meta property="og:description" content="Find schools in Coimbatore (Covai). Get school names, addresses, contacts, and landmarks for your child's education." />
+<meta property="og:url" content="https://mycovai.in/directory/schools.php" />
 <meta property="og:type" content="article" />
 <meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -43,20 +43,10 @@ $result = $conn->query($sql);
 <meta name="keywords" content="Coimbatore, Covai, MyCovai, schools, RS Puram, Gandhipuram, Peelamedu, Saibaba Colony, Saravanampatti, Tamil Nadu">
 <meta name="author" content="Krishnan">
 
-<meta property="og:type" content="article" />
-<meta name=”robots” content=”index, follow”>
-<meta property="og:title" content="Coimbatore news, Search, Events, Happenings, Photographs" />
-<meta property="og:description" content="MyCovai - Coimbatore directory for schools, businesses, events, news and local information in Covai and neighbouring areas." />
-<meta property="og:url" content="https://mycovai.in/directory/schools.php" />
-<meta property="og:site_name" content="MyCovai Coimbatore." />
+<meta name="robots" content="index, follow">
+<meta property="og:site_name" content="MyCovai – Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="ta_IN" />
-
-<meta name="twitter:title" content="MyCovai - Coimbatore News, Events, Images, Happenings, Search, Business Website">
-<meta name="twitter:description" content="in this page you can find news, events, images, happenings, updates, local business information of Covai, Coimbatore and its Surroundings">
-<meta name="twitter:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>">
-<meta name="twitter:site" content="@MyCovai">
-<meta name="twitter:creator" content="@MyCovai">
 <link rel="stylesheet" href="/directory/footer.css">
 <style>
 .hover-me:hover

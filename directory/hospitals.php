@@ -134,7 +134,7 @@ color: #4c516D;
 </style>
 <!-- Duplicate Font Awesome (v4) removed; FA v6 loaded via head-resources -->
 
-<link rel="canonical" href="https://mycovai.in/hospitals" />
+<link rel="canonical" href="https://mycovai.in/directory/hospitals.php" />
 
 </head>
 <style>

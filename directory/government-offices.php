@@ -45,7 +45,7 @@ $result = $conn->query($sql);
 <meta property="og:title" content="Government Offices in Coimbatore | MyCovai" />
 <meta property="og:description" content="Find government offices in Coimbatore (Covai). Get office names, addresses, contacts, and landmarks for public services." />
 <meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
-<meta property="og:url" content="https://mycovai.in/government-offices" />
+<meta property="og:url" content="https://mycovai.in/directory/government-offices.php" />
 <meta property="og:site_name" content="MyCovai – Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="ta_IN" />
@@ -143,7 +143,7 @@ color: #4c516D;
 </style>
 <!-- Duplicate Font Awesome (v4) removed; FA v6 loaded via head-resources -->
 
-<link rel="canonical" href="https://mycovai.in/government-offices" />
+<link rel="canonical" href="https://mycovai.in/directory/government-offices.php" />
 
 </head>
 <style>

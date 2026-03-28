@@ -1,0 +1,136 @@
+/**
+ * Shared directory list layout (grid + flex). Load on listing pages.
+ * @see directory/components/directory-list-row.php
+ */
+
+.directory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.directory-row {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr) minmax(7.5rem, 11rem) minmax(5rem, 9.5rem);
+  gap: 0.75rem 1rem;
+  align-items: start;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.directory-row:hover {
+  border-color: rgba(5, 131, 210, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.directory-row__rank {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.directory-row__rank-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6c757d;
+}
+
+.directory-row__rank-num {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0583d2;
+}
+
+.directory-row__id {
+  display: block;
+  font-size: 0.72rem;
+  color: #adb5bd;
+  margin-top: 0.25rem;
+}
+
+.directory-row__main {
+  min-width: 0;
+}
+
+.directory-row__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem 0;
+  line-height: 1.3;
+}
+
+.directory-row__title a {
+  color: #0d3b66;
+  text-decoration: none;
+}
+
+.directory-row__title a:hover {
+  color: #0583d2;
+  text-decoration: underline;
+}
+
+.directory-row__address {
+  font-size: 0.9rem;
+  color: #495057;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.45;
+}
+
+.directory-row__badges .badge {
+  margin-right: 0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.directory-row__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+}
+
+.directory-row__contact {
+  font-size: 0.9rem;
+  color: #212529;
+  word-break: break-word;
+}
+
+.directory-row__contact-muted {
+  color: #868e96;
+  font-style: italic;
+}
+
+.directory-row__category {
+  font-size: 0.88rem;
+  color: #495057;
+  line-height: 1.4;
+}
+
+/* Banks list-group reuse */
+.directory-banks-list .list-group-item.directory-row {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 767.98px) {
+  .directory-row {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .directory-row__rank {
+    text-align: left;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .directory-row__rank-num {
+    font-size: 1.15rem;
+  }
+}

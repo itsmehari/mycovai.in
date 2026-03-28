@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 require '../core/omr-connect.php';
 require_once __DIR__ . '/components/generic-list-renderer.php';
 require_once __DIR__ . '/directory-config.php';
+require_once __DIR__ . '/components/directory-list-row.php';
 require_once '../core/cache-helpers.php';
 omr_output_cache_start(omr_cache_key_from_request('it_companies:'), 300);
 $tItCo = covai_table('it-companies');
@@ -137,6 +138,7 @@ if ($dataStmt) {
 <meta name="twitter:site" content="@MyCovai">
 <meta name="twitter:creator" content="@MyCovai">
 <link rel="stylesheet" href="/assets/css/homepage-directone.css">
+<link rel="stylesheet" href="/directory/directory-listing.css">
 <link rel="stylesheet" href="/directory/footer.css">
 <style>
 .hover-me:hover
@@ -390,67 +392,64 @@ body { font-family: 'Poppins', sans-serif; }
 
   <?php
 if (!empty($res['items'])) {
-    echo "<div class='container'>";
-    echo "<h2 style='text-align:center; margin-bottom:20px;'>IT Companies in Coimbatore</h2>";
+    echo "<div class='directory-list' role='list'>";
     $itemList = [];
-    $positionCounter = $offset + 1;
+    $listIndex = 0;
 
-    // Output data for each row
     foreach ($res['items'] as $row) {
+        $listIndex++;
+        $listRank = $offset + $listIndex;
         $companyId = (int)$row['slno'];
         $companyName = $row['company_name'];
-        $companyAddress = $row['address'];
+        $companyAddress = $row['address'] ?? '';
         $mapsQuery = urlencode($companyName . ' ' . $companyAddress);
         $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . $mapsQuery;
         $itemUrl = 'https://mycovai.in/directory/it-companies.php#company-' . $companyId;
         $itemList[] = [
             '@type' => 'ListItem',
-            'position' => $positionCounter++,
+            'position' => $listRank,
             'url' => $itemUrl,
             'name' => $companyName,
         ];
 
-        echo "<div id='company-{$companyId}' class='row row-item'>";
-
-        // Serial Number
-        echo "<div class='col-sm-1 col-serial'>";
-        echo "<strong>" . $row["slno"] . "</strong>";
-        echo "</div>";
-
-        // Company Name and Address
-        echo "<div class='col-sm-5 bg-primary-omr' style='font-weight:bold; padding:10px;'>";
         $slugBase = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $companyName));
         $slugBase = trim($slugBase, '-');
         $detailUrl = '/it-companies/' . $slugBase . '-' . $companyId;
-        echo "<a style='color:#fff; text-decoration:underline;' href='" . $detailUrl . "'>" . htmlspecialchars($companyName, ENT_QUOTES, 'UTF-8') . "</a>";
-        if (!empty($row['verified'])) { echo " <span class='badge badge-verified'>Verified</span>"; }
-        // locality badge
+
+        $badgesHtml = '';
+        if (!empty($row['verified'])) {
+            $badgesHtml .= '<span class="badge badge-success">Verified</span> ';
+        }
         $badgeLocality = '';
         foreach ((defined('COIMBATORE_LOCALITIES') ? COIMBATORE_LOCALITIES : ['RS Puram','Gandhipuram','Peelamedu']) as $locBadge) {
-            if (stripos($companyAddress, $locBadge) !== false) { $badgeLocality = $locBadge; break; }
+            if (stripos($companyAddress, $locBadge) !== false) {
+                $badgeLocality = $locBadge;
+                break;
+            }
         }
         if ($badgeLocality !== '') {
-            echo " <span class='badge badge-locality'>" . htmlspecialchars($badgeLocality, ENT_QUOTES, 'UTF-8') . "</span>";
+            $badgesHtml .= '<span class="badge badge-info">' . htmlspecialchars($badgeLocality, ENT_QUOTES, 'UTF-8') . '</span>';
         }
-        echo "<br><span class='muted-note'>" . htmlspecialchars($companyAddress, ENT_QUOTES, 'UTF-8') . "</span>";
-        echo "<div class='mt-2'>";
-        echo "<a class='btn btn-sm btn-light js-map-click' aria-label='View " . htmlspecialchars($companyName, ENT_QUOTES, 'UTF-8') . " on Google Maps' data-company='" . htmlspecialchars($companyName, ENT_QUOTES, 'UTF-8') . "' href='" . $mapsUrl . "' target='_blank' rel='noopener'>View on Map</a> ";
+
+        $contactVal = isset($row['contact']) ? trim((string)$row['contact']) : '';
+        $industryVal = isset($row[$cfg['fields']['industry_type']]) ? trim((string)$row[$cfg['fields']['industry_type']]) : '';
         $enquireSubject = urlencode('Listing Enquiry: ' . $companyName . ' (Coimbatore IT Companies)');
-        echo "<a class='btn btn-sm btn-warning js-enquire-click' aria-label='Enquire about " . htmlspecialchars($companyName, ENT_QUOTES, 'UTF-8') . "' data-company='" . htmlspecialchars($companyName, ENT_QUOTES, 'UTF-8') . "' href='/contact.php?subject=" . $enquireSubject . "'>Enquire</a>";
-        echo "</div>";
-        echo "</div>";
+        $enquireHref = '/contact.php?subject=' . $enquireSubject;
 
-        // Contact
-        echo "<div class='col-sm-3 bg-secondary-omr' style='padding:10px;'>";
-        echo (!empty($row["contact"])) ? htmlspecialchars($row["contact"], ENT_QUOTES, 'UTF-8') : "N/A";
-        echo "</div>";
-
-        // Industry Type
-        echo "<div class='col-sm-3 bg-primary-omr' style='padding:10px;'>";
-        echo htmlspecialchars($row[$cfg['fields']['industry_type']] ?? '', ENT_QUOTES, 'UTF-8');
-        echo "</div>";
-
-        echo "</div>"; // Close row
+        directory_render_list_row([
+            'rank' => $listRank,
+            'record_id' => $companyId,
+            'title' => htmlspecialchars($companyName, ENT_QUOTES, 'UTF-8'),
+            'title_href' => htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'),
+            'address' => htmlspecialchars($companyAddress, ENT_QUOTES, 'UTF-8'),
+            'contact' => $contactVal !== '' ? htmlspecialchars($contactVal, ENT_QUOTES, 'UTF-8') : null,
+            'category' => $industryVal !== '' ? htmlspecialchars($industryVal, ENT_QUOTES, 'UTF-8') : null,
+            'badges_html' => trim($badgesHtml),
+            'map_url' => htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8'),
+            'enquire_href' => htmlspecialchars($enquireHref, ENT_QUOTES, 'UTF-8'),
+            'anchor_id' => 'company-' . $companyId,
+            'analytics_company' => $companyName,
+        ]);
     }
     
     // Pagination
@@ -484,7 +483,7 @@ if (!empty($res['items'])) {
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     echo "</script>";
 
-    echo "</div>"; // Close container
+    echo "</div>"; // directory-list
 } else {
     echo "<p style='text-align:center;'>No IT companies found in Coimbatore.</p>";
 }

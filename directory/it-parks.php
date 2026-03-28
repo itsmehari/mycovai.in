@@ -37,7 +37,7 @@ if ($conn) {
 <?php include '../components/head-directory-list.php'; ?>
 
 <title>IT Parks in Coimbatore | MyCovai</title>
-<link rel="canonical" href="https://mycovai.in/it-parks" />
+<link rel="canonical" href="https://mycovai.in/directory/it-parks.php" />
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,7 +50,7 @@ if ($conn) {
 <meta property="og:title" content="IT Parks in Coimbatore | MyCovai" />
 <meta property="og:description" content="Explore major IT Parks along Coimbatore — locations, addresses, websites, inauguration year, owners, built-up areas, and key companies." />
 <meta property="og:image" content="https://mycovai.in<?php echo defined('SITE_LOGO_URL') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>" />
-<meta property="og:url" content="https://mycovai.in/it-parks" />
+<meta property="og:url" content="https://mycovai.in/directory/it-parks.php" />
 <meta property="og:site_name" content="MyCovai - Coimbatore Directory" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="ta_IN" />

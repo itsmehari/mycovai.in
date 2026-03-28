@@ -70,7 +70,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
     <meta property="og:title" content="Vegetarian Restaurants in Coimbatore | MyCovai">
     <meta property="og:description" content="Explore vegetarian restaurants in Coimbatore. Find restaurant names, addresses, cuisines, ratings, and more at MyCovai.in.">
     <meta property="og:image" content="https://mycovai.in/My-OMR-Idhu-Namma-OMR-Logo.jpg">
-    <meta property="og:url" content="https://mycovai.in/restaurants">
+    <meta property="og:url" content="https://mycovai.in/directory/restaurants.php">
     <meta property="og:site_name" content="MyCovai - Coimbatore Directory">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ta_IN">
@@ -84,7 +84,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
     <meta name="twitter:creator" content="@MyomrNews">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://mycovai.in/restaurants">
+    <link rel="canonical" href="https://mycovai.in/directory/restaurants.php">
 
     <?php include __DIR__ . '/../components/analytics.php'; ?>
 

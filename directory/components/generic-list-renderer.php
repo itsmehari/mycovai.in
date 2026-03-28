@@ -28,6 +28,7 @@ function render_directory_list(array $config, array $filters, int $page = 1, int
     $localityCol = $fields['locality'] ?? 'locality';
     $industryCol = $fields['industry_type'] ?? null;
     $verifiedCol = $fields['verified'] ?? null;
+    $websiteCol = $fields['website'] ?? null;
 
     $where = [];
     $params = [];
@@ -35,13 +36,33 @@ function render_directory_list(array $config, array $filters, int $page = 1, int
 
     if (!empty($filters['q'])) {
         $like = '%' . $filters['q'] . '%';
-        $where[] = "($nameCol LIKE ? OR " . ($addressCol ?: $nameCol) . " LIKE ?)";
-        $params[] = $like; $params[] = $like; $types .= 'ss';
+        $qParts = ["`$nameCol` LIKE ?"];
+        $params[] = $like;
+        $types .= 's';
+        if ($addressCol && column_exists($conn, $table, $addressCol)) {
+            $qParts[] = "`$addressCol` LIKE ?";
+            $params[] = $like;
+            $types .= 's';
+        }
+        if ($industryCol && column_exists($conn, $table, $industryCol)) {
+            $qParts[] = "`$industryCol` LIKE ?";
+            $params[] = $like;
+            $types .= 's';
+        }
+        $where[] = '(' . implode(' OR ', $qParts) . ')';
     }
     if (!empty($filters['locality'])) {
-        $where[] = ($localityCol ?: 'locality') . ' LIKE ?';
-        $params[] = '%' . $filters['locality'] . '%';
-        $types .= 's';
+        $locLike = '%' . $filters['locality'] . '%';
+        $locCol = $localityCol ?: 'locality';
+        if (column_exists($conn, $table, $locCol)) {
+            $where[] = "`$locCol` LIKE ?";
+            $params[] = $locLike;
+            $types .= 's';
+        } elseif ($addressCol && column_exists($conn, $table, $addressCol)) {
+            $where[] = "`$addressCol` LIKE ?";
+            $params[] = $locLike;
+            $types .= 's';
+        }
     }
 
     // Category-specific filters (implicit support for common columns)
@@ -76,11 +97,24 @@ function render_directory_list(array $config, array $filters, int $page = 1, int
     }
 
     $selectCols = [$idCol, $nameCol];
-    if ($addressCol) $selectCols[] = $addressCol;
-    if ($contactCol) $selectCols[] = $contactCol;
-    if ($localityCol) $selectCols[] = $localityCol;
-    if ($industryCol) $selectCols[] = $industryCol;
-    if ($verifiedCol) $selectCols[] = $verifiedCol;
+    if ($addressCol && column_exists($conn, $table, $addressCol)) {
+        $selectCols[] = $addressCol;
+    }
+    if ($contactCol && column_exists($conn, $table, $contactCol)) {
+        $selectCols[] = $contactCol;
+    }
+    if ($localityCol && column_exists($conn, $table, $localityCol)) {
+        $selectCols[] = $localityCol;
+    }
+    if ($industryCol && column_exists($conn, $table, $industryCol)) {
+        $selectCols[] = $industryCol;
+    }
+    if ($verifiedCol && column_exists($conn, $table, $verifiedCol)) {
+        $selectCols[] = $verifiedCol;
+    }
+    if ($websiteCol && column_exists($conn, $table, $websiteCol)) {
+        $selectCols[] = $websiteCol;
+    }
 
     $sql = 'SELECT ' . implode(', ', $selectCols) . " FROM `$table`" . $whereSql . " ORDER BY `$orderCol` $orderDir LIMIT ? OFFSET ?";
     $stmt = $conn->prepare($sql);

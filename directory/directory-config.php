@@ -82,7 +82,8 @@ $directory_configs = [
             'name' => 'bankname',
             'address' => 'address',
             'contact' => 'contact',
-            'landmark' => 'landmark'
+            'landmark' => 'landmark',
+            'website' => 'website',
         ],
         'icon' => 'fas fa-university',
         'color' => '#0583D2',
@@ -142,7 +143,8 @@ $directory_configs = [
             'name' => 'industry_name',
             'address' => 'address',
             'contact' => 'contact',
-            'landmark' => 'locality'
+            'landmark' => 'locality',
+            'industry_type' => 'industry_type',
         ],
         'icon' => 'fas fa-industry',
         'color' => '#0583D2',

@@ -10,10 +10,6 @@ require_once __DIR__ . '/directory-config.php';
 
 //echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";
 
-$t = covai_table('banks');
-$sql = "SELECT slno, bankname, address, contact, landmark, website FROM `$t`";
-$result = $conn->query($sql);
-
 ?>
 <?php include __DIR__ . '/../weblog/log.php'; ?>
 <!DOCTYPE html>
@@ -24,8 +20,9 @@ $result = $conn->query($sql);
 <?php include '../components/analytics.php'; ?>
 <?php include '../components/head-resources.php'; ?>
 <link rel="stylesheet" href="/assets/css/homepage-directone.css">
+<link rel="stylesheet" href="/directory/directory-listing.css">
 <title>Banks in Coimbatore | MyCovai</title>
-<link rel="canonical" href="https://mycovai.in/banks" />
+<link rel="canonical" href="https://mycovai.in/directory/banks.php" />
 <style>
 .hover-me:hover
 {
@@ -191,7 +188,16 @@ color: #4c516D;
 
 <div class="container maxw-1280" id="main-content" role="main">
   <h1 class="mt-4" style="color:#0583D2;">Banks in Coimbatore</h1>
-  <?php $cfg = get_directory_config('banks'); $q = isset($_GET['q']) ? trim($_GET['q']) : ''; $locality = isset($_GET['locality']) ? trim($_GET['locality']) : ''; $sort = isset($_GET['sort']) && $_GET['sort']==='newest' ? 'newest' : 'az'; $page = isset($_GET['page']) ? max(1,(int)$_GET['page']) : 1; $res = render_directory_list($cfg, ['q'=>$q,'locality'=>$locality,'sort'=>$sort], $page, 12); ?>
+  <?php
+    $cfg = get_directory_config('banks');
+    $q = isset($_GET['q']) ? trim((string)$_GET['q']) : '';
+    $locality = isset($_GET['locality']) ? trim((string)$_GET['locality']) : '';
+    $sort = isset($_GET['sort']) && $_GET['sort'] === 'newest' ? 'newest' : 'az';
+    $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+    $perPage = 12;
+    $res = render_directory_list($cfg, ['q' => $q, 'locality' => $locality, 'sort' => $sort], $page, $perPage);
+    $listOffset = ($res['page'] - 1) * $perPage;
+  ?>
   <form class="form-inline my-3" method="get" action="">
     <input type="text" class="form-control mr-2" name="q" placeholder="Search banks" value="<?php echo htmlspecialchars($q, ENT_QUOTES, 'UTF-8'); ?>">
     <select name="locality" class="form-control mr-2">
@@ -207,21 +213,43 @@ color: #4c516D;
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
   <?php if (!empty($res['items'])): ?>
-    <?php $itemList = []; ?>
-    <div class="list-group mb-3">
-      <?php foreach ($res['items'] as $row): $nm = $row[$cfg['fields']['name']] ?? ''; $id=(int)$row[$cfg['fields']['id']]; $slugBase=strtolower(preg_replace('/[^a-zA-Z0-9]+/','-',$nm)); $slugBase=trim($slugBase,'-'); $detail='/banks/'.$slugBase.'-'.$id; $itemList[]=['@type'=>'ListItem','position'=>$id,'url'=>'https://mycovai.in'.$detail,'name'=>$nm]; ?>
-        <div class="list-group-item">
-          <div class="d-flex justify-content-between align-items-start">
-            <div>
+    <?php
+    $itemList = [];
+    $websiteKey = $cfg['fields']['website'] ?? 'website';
+    $rank = $listOffset;
+    ?>
+    <div class="list-group mb-3 directory-banks-list">
+      <?php foreach ($res['items'] as $row):
+          $nm = $row[$cfg['fields']['name']] ?? '';
+          $id = (int)$row[$cfg['fields']['id']];
+          $rank++;
+          $slugBase = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $nm));
+          $slugBase = trim($slugBase, '-');
+          $detail = '/banks/' . $slugBase . '-' . $id;
+          $itemList[] = ['@type' => 'ListItem', 'position' => $rank, 'url' => 'https://mycovai.in' . $detail, 'name' => $nm];
+          $web = isset($row[$websiteKey]) ? trim((string)$row[$websiteKey]) : '';
+          if ($web !== '' && !preg_match('#^https?://#i', $web)) {
+              $web = 'https://' . $web;
+          }
+          ?>
+        <div class="list-group-item directory-row" style="border-radius:0.5rem;margin-bottom:0.5rem;">
+          <div class="d-flex justify-content-between align-items-start flex-wrap">
+            <div class="flex-grow-1" style="min-width:200px;">
+              <div class="d-flex align-items-baseline flex-wrap mb-1">
+                <span class="text-muted small mr-2">#<?php echo (int)$rank; ?></span>
+                <span class="text-muted small">ID <?php echo $id; ?></span>
+              </div>
               <div class="font-weight-bold"><a href="<?php echo htmlspecialchars($detail, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($nm, ENT_QUOTES, 'UTF-8'); ?></a></div>
-              <?php if (!empty($row[$cfg['fields']['address']]??'')): ?>
+              <?php if (!empty($row[$cfg['fields']['address']] ?? '')): ?>
                 <div class="text-muted"><?php echo htmlspecialchars($row[$cfg['fields']['address']], ENT_QUOTES, 'UTF-8'); ?></div>
               <?php endif; ?>
-              <?php if (!empty($row[$cfg['fields']['contact']]??'')): ?>
+              <?php if (!empty($row[$cfg['fields']['contact']] ?? '')): ?>
                 <div class="small">Contact: <?php echo htmlspecialchars($row[$cfg['fields']['contact']], ENT_QUOTES, 'UTF-8'); ?></div>
               <?php endif; ?>
+              <?php if ($web !== ''): ?>
+                <div class="small mt-1"><a href="<?php echo htmlspecialchars($web, ENT_QUOTES, 'UTF-8'); ?>" rel="noopener nofollow" target="_blank">Website</a></div>
+              <?php endif; ?>
             </div>
-            <span class="badge badge-light">#<?php echo (int)$row[$cfg['fields']['id']]; ?></span>
           </div>
         </div>
       <?php endforeach; ?>
