@@ -41,16 +41,36 @@ $counting_done = $today >= $counting_date;
         <a href="https://elections.tn.gov.in" target="_blank" rel="noopener">CEO Tamil Nadu</a>
     </p>
     <?php else: ?>
-    <p class="lead">Results for Coimbatore Assembly constituencies.</p>
-    <p>Official results: <a href="https://eci.gov.in" target="_blank" rel="noopener">ECI</a> · <a href="https://elections.tn.gov.in" target="_blank" rel="noopener">CEO Tamil Nadu</a>.</p>
-    <ul class="list-group list-group-flush">
-        <?php foreach ($constituencies as $slug => $ac): ?>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <strong><?php echo htmlspecialchars($ac['name']); ?></strong> (AC <?php echo (int) $ac['ac_no']; ?>)
-            <a href="<?php echo htmlspecialchars($base); ?>/constituency/<?php echo htmlspecialchars($slug); ?>.php">View</a>
-        </li>
+    <p class="lead">Results for Coimbatore Assembly constituencies (Lok Sabha segment).</p>
+    <p>Official results: <a href="https://eci.gov.in" target="_blank" rel="noopener">ECI</a> · <a href="https://elections.tn.gov.in" target="_blank" rel="noopener">CEO Tamil Nadu</a>. Cabinet portfolios (state ministers): <a href="<?php echo htmlspecialchars(get_canonical_base()); ?>/local-news/tamil-nadu-cabinet-portfolios-announced-coimbatore-covai-impact">MyCovai explainer</a>.</p>
+    <div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th scope="col">Constituency</th>
+                <th scope="col">AC</th>
+                <th scope="col">Winner (2026)</th>
+                <th scope="col">Party</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($constituencies as $slug => $ac):
+            $winner = $ac['winner_2026'] ?? null;
+            $party = $ac['winner_party_2026'] ?? null;
+        ?>
+            <tr>
+                <td><strong><?php echo htmlspecialchars($ac['name']); ?></strong></td>
+                <td><?php echo (int) $ac['ac_no']; ?></td>
+                <td><?php echo $winner ? htmlspecialchars($winner) : '<span class="text-muted">Pending update</span>'; ?></td>
+                <td><?php echo $party ? htmlspecialchars($party) : '&mdash;'; ?></td>
+                <td><a href="<?php echo htmlspecialchars($base); ?>/constituency/<?php echo htmlspecialchars($slug); ?>.php" class="btn btn-sm btn-outline-primary">View</a></td>
+            </tr>
         <?php endforeach; ?>
-    </ul>
+        </tbody>
+    </table>
+    </div>
+    <p class="small text-muted">MLAs represent assembly constituencies; cabinet ministers hold state departments. Data from MyCovai editorial; verify on ECI before official use.</p>
     <?php endif; ?>
     <p class="mt-4"><a href="<?php echo htmlspecialchars($base); ?>/">← Elections 2026</a></p>
 </main>

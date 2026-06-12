@@ -101,11 +101,11 @@
 
     // Track job listing clicks
     function trackJobListingClicks() {
-        const jobLinks = document.querySelectorAll('a[href*="job-detail-omr.php"]');
+        const jobLinks = document.querySelectorAll('a[href*="/jobs/"]');
         
         jobLinks.forEach(link => {
             link.addEventListener('click', function() {
-                const jobId = this.href.match(/id=(\d+)/);
+                const jobId = this.href.match(/-(\d+)(?:\/)?(?:\?|$)/) || this.href.match(/\/jobs\/(\d+)(?:\/)?(?:\?|$)/) || this.href.match(/id=(\d+)/);
                 const jobTitle = this.closest('.featured-job-card, .job-card')?.querySelector('h5, h3')?.textContent?.trim() || '';
                 
                 gtagSend('job_listing_click', {

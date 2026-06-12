@@ -33,7 +33,7 @@ $canonical_url = $base . '/local-events/venue/' . rawurlencode($slug);
   <?php endif; ?>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="../jobs/assets/omr-jobs-unified-design.css" />
+  <link rel="stylesheet" href="../jobs/assets/covai-jobs-unified-design.css" />
   <link rel="stylesheet" href="assets/events-dashboard.css" />
   <?php include __DIR__ . '/../components/analytics.php'; ?>
   <?php include __DIR__ . '/../components/organization-schema.php'; ?>

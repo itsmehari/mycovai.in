@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         file_put_contents("subscribers.txt", $email . "\n", FILE_APPEND);
         
         // Redirect back with success message
-        header("Location: thank-you.html");
+        header("Location: /thank-you.php");
         exit();
     } else {
         // Redirect back with error

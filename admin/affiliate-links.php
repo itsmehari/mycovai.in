@@ -1,14 +1,20 @@
 <?php
 require_once __DIR__ . '/_bootstrap.php';
 requireAdmin();
+requireRole(['super_admin']);
 
 require_once __DIR__ . '/../core/omr-connect.php';
 
 $title = 'Affiliate Links';
 $breadcrumbs = ['Affiliate Links' => null];
 
-if (isset($_GET['delete'])) {
-    $id = (int) $_GET['delete'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $_SESSION['flash_error'] = 'Invalid CSRF token.';
+        header('Location: /admin/affiliate-links.php');
+        exit;
+    }
+    $id = (int) ($_POST['id'] ?? 0);
     if ($id > 0) {
         $stmt = $conn->prepare('DELETE FROM covai_affiliate_links WHERE id = ?');
         $stmt->bind_param('i', $id);
@@ -18,9 +24,9 @@ if (isset($_GET['delete'])) {
             $_SESSION['flash_error'] = 'Could not delete (table missing?). Run dev-tools/sql/CREATE-covai-affiliate-links.sql';
         }
         $stmt->close();
-        header('Location: /admin/affiliate-links.php');
-        exit;
     }
+    header('Location: /admin/affiliate-links.php');
+    exit;
 }
 
 $result = $conn->query('SELECT id, monetization_type, advertiser, headline, slot_ids, weight, active, updated_at FROM covai_affiliate_links ORDER BY id DESC');
@@ -69,7 +75,12 @@ include __DIR__ . '/layout/header.php';
                     <td><?php echo !empty($row['active']) ? 'Yes' : 'No'; ?></td>
                     <td>
                         <a href="/admin/affiliate-links-edit.php?id=<?php echo (int) $row['id']; ?>" class="btn btn-sm btn-info">Edit</a>
-                        <a href="/admin/affiliate-links.php?delete=<?php echo (int) $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this row?');">Delete</a>
+                        <form method="post" class="d-inline" onsubmit="return confirm('Delete this row?');">
+                            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generate_csrf_token()); ?>">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value="<?php echo (int) $row['id']; ?>">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 <?php endwhile; ?>

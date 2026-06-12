@@ -20,12 +20,12 @@
 - **Status:** ✅ Fully functional and deployed
 - **Main Pages:**
   - `index.php` - Main job listings page (search, filters, pagination)
-  - `job-detail-omr.php` - Individual job view
-  - `post-job-omr.php` - Employer job posting form
+  - `job-detail-covai.php` - Individual job view
+  - `post-job-covai.php` - Employer job posting form
   - `apply-job-omr.php` - Job application form
-  - `employer-register-omr.php` - Employer registration
-  - `employer-login-omr.php` - Employer login
-  - `my-posted-jobs-omr.php` - Employer dashboard
+  - `employer-register-covai.php` - Employer registration
+  - `employer-login-covai.php` - Employer login
+  - `my-posted-jobs-covai.php` - Employer dashboard
   - Admin panel for job approvals
 
 ### Key Features
@@ -42,8 +42,8 @@
 ### Current URLs
 
 - Main listings: `myomr.in/omr-local-job-listings/`
-- Post job: `myomr.in/omr-local-job-listings/post-job-omr.php`
-- Job detail: `myomr.in/omr-local-job-listings/job-detail-omr.php?id={id}`
+- Post job: `myomr.in/omr-local-job-listings/post-job-covai.php`
+- Job detail: `myomr.in/omr-local-job-listings/job-detail-covai.php?id={id}`
 
 ### Reference: Pentahive Website Maintenance Service
 

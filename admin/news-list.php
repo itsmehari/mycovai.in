@@ -1,23 +1,29 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
-    header('Location: login.php');
-    exit;
-}
-require_once '../core/omr-connect.php';
-$title = 'Manage News Bulletin';
+require_once __DIR__ . '/_bootstrap.php';
+requireAdmin();
+requireRole(['super_admin']);
+require_once __DIR__ . '/../core/omr-connect.php';
+
+$title = 'Manage News Bulletin (legacy)';
 $breadcrumbs = ['News Bulletin' => null];
-// Handle delete
-if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
-    $del = $conn->prepare('DELETE FROM news_bulletin WHERE id = ?');
-    $del->bind_param('i', $id);
-    if ($del->execute()) {
-        $_SESSION['flash_success'] = 'News item deleted.';
-    } else {
-        $_SESSION['flash_error'] = 'Error deleting news item.';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $_SESSION['flash_error'] = 'Invalid CSRF token.';
+        header('Location: news-list.php');
+        exit;
     }
-    $del->close();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id > 0) {
+        $del = $conn->prepare('DELETE FROM news_bulletin WHERE id = ?');
+        $del->bind_param('i', $id);
+        if ($del->execute()) {
+            $_SESSION['flash_success'] = 'News item deleted.';
+        } else {
+            $_SESSION['flash_error'] = 'Error deleting news item.';
+        }
+        $del->close();
+    }
     header('Location: news-list.php');
     exit;
 }
@@ -28,7 +34,7 @@ $result = $conn->query('SELECT * FROM news_bulletin ORDER BY date DESC');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage News Bulletin - MyOMR CMS</title>
+    <title>Manage News Bulletin - MyCovai CMS</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -48,6 +54,9 @@ $result = $conn->query('SELECT * FROM news_bulletin ORDER BY date DESC');
       <?php include 'admin-header.php'; ?>
       <?php include 'admin-breadcrumbs.php'; ?>
       <?php include 'admin-flash.php'; ?>
+      <div class="alert alert-warning">
+        <strong>Deprecated.</strong> Use <a href="/admin/articles/index.php">News Articles</a> for new content. This page only manages legacy <code>news_bulletin</code> rows.
+      </div>
       <h2 class="mb-4">News Bulletin List</h2>
       <a href="news-add.php" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add News</a>
       <div class="table-responsive">
@@ -91,7 +100,12 @@ $result = $conn->query('SELECT * FROM news_bulletin ORDER BY date DESC');
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <a href="news-list.php?delete=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
+                            <form method="post" class="d-inline">
+                              <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generate_csrf_token()); ?>">
+                              <input type="hidden" name="action" value="delete">
+                              <input type="hidden" name="id" value="<?php echo (int) $row['id']; ?>">
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                           </div>
                         </div>
                       </div>

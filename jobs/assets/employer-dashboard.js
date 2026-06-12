@@ -2,7 +2,7 @@
  * Employer Dashboard JavaScript
  * Handles filtering, sorting, bulk actions, and dynamic updates
  * 
- * @package MyOMR Job Portal
+ * @package MyCovai Job Portal
  * @version 2.0.0
  */
 

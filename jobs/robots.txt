@@ -1,24 +1,17 @@
-# MyOMR Job Portal - Robots.txt
-# https://myomr.in/omr-local-job-listings/robots.txt
+# MyCovai Job Portal – robots.txt (see root robots.txt for site-wide rules)
+# Jobs sitemap: https://mycovai.in/jobs/sitemap.xml
 
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://myomr.in/omr-local-job-listings/sitemap.xml
+Sitemap: https://mycovai.in/jobs/sitemap.xml
 
-# Disallow admin panel
 Disallow: /admin/
 Disallow: /admin/*
 
-# Disallow includes
 Disallow: /includes/
 
-# Disallow processing scripts
 Disallow: /process-*.php
-Disallow: /*?*
 
-# Allow search engines to index job listings
 Allow: /index.php
-Allow: /job-detail-omr.php
-
+Allow: /job-detail-covai.php

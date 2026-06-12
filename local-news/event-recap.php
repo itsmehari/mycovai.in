@@ -27,7 +27,7 @@ if (is_dir($recapDir)) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><?php echo htmlspecialchars($page_title); ?></title>
-  <meta name="description" content="Photo recap and highlights from <?php echo htmlspecialchars($event['title']); ?> on OMR." />
+  <meta name="description" content="Photo recap and highlights from <?php echo htmlspecialchars($event['title']); ?> in Coimbatore." />
   <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>" />
   <?php include __DIR__ . '/../components/analytics.php'; ?>
   <?php include __DIR__ . '/../components/organization-schema.php'; ?>

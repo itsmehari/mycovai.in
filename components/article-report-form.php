@@ -1,7 +1,7 @@
 <?php
 /**
  * Report article / report inconsistencies form.
- * On submit sends to process-article-report.php, emails myomrnews@gmail.com.
+ * On submit sends to process-article-report.php, emails mycovai@gmail.com.
  *
  * Required: $article_url, $article_slug (or title for context)
  */

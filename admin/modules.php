@@ -4,7 +4,10 @@
  * Flattens the unified navigation config so legacy includes can continue consuming it.
  */
 
-$navSections = require __DIR__ . '/config/navigation.php';
+if (!function_exists('admin_filter_navigation')) {
+    require_once __DIR__ . '/../core/admin-auth.php';
+}
+$navSections = admin_filter_navigation(require __DIR__ . '/config/navigation.php');
 
 $modules = [];
 foreach ($navSections as $section) {

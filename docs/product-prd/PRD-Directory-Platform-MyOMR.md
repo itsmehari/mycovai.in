@@ -58,7 +58,7 @@ Rules
 #### Jobs module authentication and access control
 
 - Employer-facing pages use employer session only:
-  - `employer-login-omr.php`, `my-posted-jobs-omr.php`, `post-job-omr.php` → guarded by `requireEmployerAuth()` from `omr-local-job-listings/includes/employer-auth.php`.
+  - `employer-login-covai.php`, `my-posted-jobs-covai.php`, `post-job-covai.php` → guarded by `requireEmployerAuth()` from `omr-local-job-listings/includes/employer-auth.php`.
 - Admin-facing job moderation uses global admin only:
   - All pages under `/omr-local-job-listings/admin/` MUST call `requireAdmin()` from `core/admin-auth.php`.
   - Never redirect job admin URLs to employer login.
@@ -78,30 +78,30 @@ Workflows
 - Job Seeker
 
   1. Discover jobs → `omr-local-job-listings/index.php` (filters, pagination)
-  2. View details → `omr-local-job-listings/job-detail-omr.php?id={id}`
-  3. Apply → `process-application-omr.php` → success `application-submitted-omr.php`
+  2. View details → `omr-local-job-listings/job-detail-covai.php?id={id}`
+  3. Apply → `process-application-covai.php` → success `application-submitted-covai.php`
   4. Non-authenticated; data validated server-side; duplicate application checks in backend
 
 - Employer
 
-  1. Register → `employer-register-omr.php` (creates/updates `employers` row, status=pending)
-  2. Login → `employer-login-omr.php` (session set via `employerLogin()`)
-  3. Post job → `post-job-omr.php` (or via `process-job-omr.php`, status=pending)
-  4. Dashboard → `my-posted-jobs-omr.php` (guarded by `requireEmployerAuth()`)
+  1. Register → `employer-register-covai.php` (creates/updates `employers` row, status=pending)
+  2. Login → `employer-login-covai.php` (session set via `employerLogin()`)
+  3. Post job → `post-job-covai.php` (or via `process-job-covai.php`, status=pending)
+  4. Dashboard → `my-posted-jobs-covai.php` (guarded by `requireEmployerAuth()`)
   5. View applications → employer dashboard links per job
-  6. Logout → `employer-logout-omr.php`
+  6. Logout → `employer-logout-covai.php`
 
 - Super Admin
   1. Admin login → `/admin/login.php`
   2. Jobs admin → `/omr-local-job-listings/admin/` (guarded by `requireAdmin()`)
-  3. Approvals → `admin/manage-jobs-omr.php` (approve/reject)
-  4. Employer status → `admin/verify-employers-omr.php` (pending/verified/suspended)
+  3. Approvals → `admin/manage-jobs-covai.php` (approve/reject)
+  4. Employer status → `admin/verify-employers-covai.php` (pending/verified/suspended)
   5. Logout → `/admin/logout.php`
 
 Acceptance criteria (jobs module)
 
 - Auth separation
-  - Employer pages deny access without employer session and redirect to `employer-login-omr.php?redirect=...`.
+  - Employer pages deny access without employer session and redirect to `employer-login-covai.php?redirect=...`.
   - Jobs admin pages deny access without admin session and redirect to `/admin/login.php?redirect=...`.
   - No jobs admin URL redirects to employer login.
 - Submissions
@@ -118,12 +118,12 @@ Acceptance criteria (jobs module)
 
 - Job Seeker
 
-  - Entry: `/omr-local-job-listings/` → filter/search → `/job-detail-omr.php?id={id}` → apply (POST) → `/application-submitted-omr.php`
+  - Entry: `/omr-local-job-listings/` → filter/search → `/job-detail-covai.php?id={id}` → apply (POST) → `/application-submitted-covai.php`
   - Guards: server validation on apply; duplicate prevention by `(job_id, applicant_email)`; only approved jobs resolve on detail/list
 
 - Employer (Job Poster)
 
-  - Entry: `/omr-local-job-listings/employer-login-omr.php` → session set → `/omr-local-job-listings/my-posted-jobs-omr.php`
+  - Entry: `/omr-local-job-listings/employer-login-covai.php` → session set → `/omr-local-job-listings/my-posted-jobs-covai.php`
   - Actions: Post job (requires `requireEmployerAuth()`), view applications, logout
   - Guards: invalid email blocked; missing employer auto-created on login/register; posting requires CSRF + server validation
 
@@ -146,7 +146,7 @@ State Transitions
 - Admin URLs redirect to employer login
   - Mitigation: all jobs admin pages call `requireAdmin()`; add `DirectoryIndex index.php` under jobs/admin if needed (ops)
 - Posting without login
-  - Mitigation: `post-job-omr.php` guarded by `requireEmployerAuth()`; CTA routes to employer login (done)
+  - Mitigation: `post-job-covai.php` guarded by `requireEmployerAuth()`; CTA routes to employer login (done)
 - Empty categories prevent posting
   - Mitigation: `getJobCategories()` fallback; ops note to set `is_active=1`
 - Duplicate applications
@@ -375,16 +375,16 @@ Legend: [ ] pending [x] done [~] in progress
 - [x] `index.php` – Admin dashboard for jobs
   - Guard: `requireAdmin()` [done]
   - Lists key counts: pending/approved/applications/employers [done]
-- [x] `manage-jobs-omr.php` – Approve/Reject queue
+- [x] `manage-jobs-covai.php` – Approve/Reject queue
   - Guard: `requireAdmin()` [done]
   - Actions: approve/reject via POST [done]
   - Email notify employer on status change [done]
   - CSRF token on actions [done]
   - Batch approve/reject [done]
-- [x] `view-all-applications-omr.php` – All applications list
+- [x] `view-all-applications-covai.php` – All applications list
   - Guard: `requireAdmin()` [done]
   - Prepared statements; pagination optional [baseline done]
-- [x] `verify-employers-omr.php` – Verify/Suspend employers
+- [x] `verify-employers-covai.php` – Verify/Suspend employers
   - Guard: `requireAdmin()` [done]
   - Filters by status; actions: verify/pending/suspend [done]
   - Email notify on employer status change [todo]
@@ -407,7 +407,7 @@ Cross-cutting (Jobs admin)
   - Font: Poppins loaded via Google Fonts; included by default on modern pages
   - Include guidance: add in `<head>` → `link /assets/css/core.css` and Poppins; or include `components/head-resources.php`
   - Applied on:
-    - Jobs: `omr-local-job-listings/index.php`, `job-detail-omr.php`, `post-job-omr.php`
+    - Jobs: `omr-local-job-listings/index.php`, `job-detail-covai.php`, `post-job-covai.php`
     - IT: covered via `components/head-resources.php` + Poppins (tokens usable where adopted)
   - Owner: UI/Frontend | Effort: 1d (done)
   - Acceptance: Tokens present; pages render with Poppins and shared color system; max width 1280 preserved

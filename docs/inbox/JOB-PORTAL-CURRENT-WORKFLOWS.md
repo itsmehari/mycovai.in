@@ -12,40 +12,40 @@ _Created: 11 Nov 2025 — Prepared for WBS Step 1 (“Discovery & Planning”)_
    - Keyword, location, category, job type submitted via GET; salary min/max inputs exist but unused.
    - Search sorts via on-page buttons (`job-search-omr.js`) with client-side resorting only.
 3. **Job Detail Exploration**
-   - Detail view `job-detail-omr.php` fetches job by ID, increments views, displays metadata and related jobs.
+   - Detail view `job-detail-covai.php` fetches job by ID, increments views, displays metadata and related jobs.
    - “Apply Now” triggers modal form; share buttons (WhatsApp/LinkedIn) log to console only.
 4. **Application Submission**
-   - Form posts to `process-application-omr.php`; validates name/email/phone, inserts row, increments counter.
+   - Form posts to `process-application-covai.php`; validates name/email/phone, inserts row, increments counter.
    - Duplicate detection via `hasUserApplied()` cookie/email check; sends employer email if configured.
-   - Applicant redirect to `application-submitted-omr.php` confirmation page.
+   - Applicant redirect to `application-submitted-covai.php` confirmation page.
 
 ## 2. Employer Journey
 
 1. **Authentication**
-   - `employer-login-omr.php` email-only login; creates pending employer if none exists (`employerLogin()`).
+   - `employer-login-covai.php` email-only login; creates pending employer if none exists (`employerLogin()`).
 2. **Job Posting**
-   - Access gated by `requireEmployerAuth()` -> `post-job-omr.php` multi-section form.
+   - Access gated by `requireEmployerAuth()` -> `post-job-covai.php` multi-section form.
    - CSRF token stored in session; categories sourced via `getJobCategories()`.
 3. **Processing Submission**
-   - `process-job-omr.php` handles create/update:
+   - `process-job-covai.php` handles create/update:
      - Validates fields, ensures description length, normalises optional fields.
      - Inserts/updates employer, inserts job with `status = 'pending'`.
-     - On success redirects to `job-posted-success-omr.php`.
+     - On success redirects to `job-posted-success-covai.php`.
 4. **Employer Dashboard**
-   - `my-posted-jobs-omr.php` displays stats, job table; pulls all jobs for employer (no pagination, limited filters).
-   - Actions: edit (`edit-job-omr.php`), view applications (`view-applications-omr.php`), preview listing.
+   - `my-posted-jobs-covai.php` displays stats, job table; pulls all jobs for employer (no pagination, limited filters).
+   - Actions: edit (`edit-job-covai.php`), view applications (`view-applications-covai.php`), preview listing.
 
 ## 3. Admin Journey
 
 1. **Dashboard Overview**
    - `omr-local-job-listings/admin/index.php` shows pending/approved counts, applications, employers.
 2. **Job Moderation**
-   - `admin/manage-jobs-omr.php` loads all postings joined with employer info.
+   - `admin/manage-jobs-covai.php` loads all postings joined with employer info.
    - Actions: single or bulk approve/reject; audit log entries; employer email notifications.
 3. **Employer Verification**
-   - `admin/verify-employers-omr.php` adjusts employer status (pending/verified/suspended); writes audit log.
+   - `admin/verify-employers-covai.php` adjusts employer status (pending/verified/suspended); writes audit log.
 4. **Application Oversight**
-   - `admin/view-all-applications-omr.php` (list), `admin/view-applications-omr.php` (per job) for review.
+   - `admin/view-all-applications-covai.php` (list), `admin/view-applications-covai.php` (per job) for review.
 
 ## 4. Cross-Cutting Observations (Baseline for Later Steps)
 

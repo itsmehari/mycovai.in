@@ -14,23 +14,23 @@
 ```
 /omr-local-job-listings/
 ├── index.php                          ✅
-├── post-job-omr.php                   ✅
-├── job-detail-omr.php                 ✅
-├── employer-login-omr.php             ✅
-├── employer-logout-omr.php            ✅
-├── my-posted-jobs-omr.php            ✅
-├── application-submitted-omr.php     ✅
-├── job-posted-success-omr.php         ✅
-├── process-job-omr.php               ✅
-├── process-application-omr.php        ✅
+├── post-job-covai.php                   ✅
+├── job-detail-covai.php                 ✅
+├── employer-login-covai.php             ✅
+├── employer-logout-covai.php            ✅
+├── my-posted-jobs-covai.php            ✅
+├── application-submitted-covai.php     ✅
+├── job-posted-success-covai.php         ✅
+├── process-job-covai.php               ✅
+├── process-application-covai.php        ✅
 ├── generate-sitemap.php               ✅
 ├── robots.txt                         ✅
 ├── admin/
 │   ├── index.php                      ✅
-│   ├── manage-jobs-omr.php            ✅
-│   └── view-all-applications-omr.php  ✅
+│   ├── manage-jobs-covai.php            ✅
+│   └── view-all-applications-covai.php  ✅
 ├── includes/
-│   ├── job-functions-omr.php          ✅
+│   ├── job-functions-covai.php          ✅
 │   ├── employer-auth.php             ✅
 │   └── seo-helper.php                 ✅
 └── assets/
@@ -123,8 +123,8 @@
 ### **Test These URLs:**
 
 - [ ] `https://myomr.in/omr-local-job-listings/` (Main page loads)
-- [ ] `https://myomr.in/omr-local-job-listings/post-job-omr.php` (Form loads)
-- [ ] `https://myomr.in/omr-local-job-listings/employer-login-omr.php` (Login loads)
+- [ ] `https://myomr.in/omr-local-job-listings/post-job-covai.php` (Form loads)
+- [ ] `https://myomr.in/omr-local-job-listings/employer-login-covai.php` (Login loads)
 - [ ] Check browser console for JavaScript errors
 - [ ] Check page source for proper HTML structure
 

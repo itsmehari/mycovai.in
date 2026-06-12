@@ -4,27 +4,32 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require '../core/omr-connect.php';
+require_once __DIR__ . '/../core/directory-active-filters.php';
 
 // Pagination settings
 $restaurants_per_page = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $restaurants_per_page;
 
-// Filter settings
-$locality_filter = isset($_GET['locality']) ? $conn->real_escape_string($_GET['locality']) : '';
-$cuisine_filter = isset($_GET['cuisine']) ? $conn->real_escape_string($_GET['cuisine']) : '';
+// Filter settings (raw for URLs/UI; escaped for SQL)
+$locality_raw = isset($_GET['locality']) ? trim((string) $_GET['locality']) : '';
+$locality_esc = $locality_raw !== '' ? $conn->real_escape_string($locality_raw) : '';
+$cuisine_raw = isset($_GET['cuisine']) ? trim((string) $_GET['cuisine']) : '';
+$cuisine_esc = $cuisine_raw !== '' ? $conn->real_escape_string($cuisine_raw) : '';
 $cost_filter = isset($_GET['cost']) ? (int)$_GET['cost'] : 0;
 $rating_filter = isset($_GET['rating']) ? (float)$_GET['rating'] : 0;
+$q_raw = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
+$q_esc = $q_raw !== '' ? $conn->real_escape_string($q_raw) : '';
 
 $tRest = covai_table('restaurants');
 // Build the SQL query with filters (geolocation optional for covai_restaurants)
 $sql = "SELECT id, name, address, locality, cuisine, cost_for_two, rating, availability, reviews, imagelocation, IFNULL(ST_X(geolocation),0) AS lon, IFNULL(ST_Y(geolocation),0) AS lat 
         FROM `$tRest` WHERE 1=1";
-if ($locality_filter) {
-    $sql .= " AND locality = '$locality_filter'";
+if ($locality_esc !== '') {
+    $sql .= " AND locality = '$locality_esc'";
 }
-if ($cuisine_filter) {
-    $sql .= " AND cuisine LIKE '%$cuisine_filter%'";
+if ($cuisine_esc !== '') {
+    $sql .= " AND cuisine LIKE '%$cuisine_esc%'";
 }
 if ($cost_filter) {
     $sql .= " AND cost_for_two <= $cost_filter";
@@ -32,14 +37,47 @@ if ($cost_filter) {
 if ($rating_filter) {
     $sql .= " AND rating >= $rating_filter";
 }
+if ($q_esc !== '') {
+    $sql .= " AND (name LIKE '%$q_esc%' OR address LIKE '%$q_esc%' OR locality LIKE '%$q_esc%' OR cuisine LIKE '%$q_esc%' OR reviews LIKE '%$q_esc%')";
+}
 $sql .= " LIMIT $restaurants_per_page OFFSET $offset";
 
 // Count total restaurants for pagination
 $count_sql = "SELECT COUNT(*) as total FROM `$tRest` WHERE 1=1";
-if ($locality_filter) $count_sql .= " AND locality = '$locality_filter'";
-if ($cuisine_filter) $count_sql .= " AND cuisine LIKE '%$cuisine_filter%'";
-if ($cost_filter) $count_sql .= " AND cost_for_two <= $cost_filter";
-if ($rating_filter) $count_sql .= " AND rating >= $rating_filter";
+if ($locality_esc !== '') {
+    $count_sql .= " AND locality = '$locality_esc'";
+}
+if ($cuisine_esc !== '') {
+    $count_sql .= " AND cuisine LIKE '%$cuisine_esc%'";
+}
+if ($cost_filter) {
+    $count_sql .= " AND cost_for_two <= $cost_filter";
+}
+if ($rating_filter) {
+    $count_sql .= " AND rating >= $rating_filter";
+}
+if ($q_esc !== '') {
+    $count_sql .= " AND (name LIKE '%$q_esc%' OR address LIKE '%$q_esc%' OR locality LIKE '%$q_esc%' OR cuisine LIKE '%$q_esc%' OR reviews LIKE '%$q_esc%')";
+}
+
+$restaurants_chip_preserve = array_filter([
+    'cuisine' => $cuisine_raw !== '' ? $cuisine_raw : null,
+    'cost' => $cost_filter > 0 ? $cost_filter : null,
+    'rating' => $rating_filter > 0 ? $rating_filter : null,
+], static fn ($v) => $v !== null && $v !== '');
+
+$restaurants_page_query = static function (int $p) use ($locality_raw, $cuisine_raw, $cost_filter, $rating_filter, $q_raw): string {
+    $parts = array_filter([
+        'page' => $p > 1 ? $p : null,
+        'locality' => $locality_raw !== '' ? $locality_raw : null,
+        'cuisine' => $cuisine_raw !== '' ? $cuisine_raw : null,
+        'cost' => $cost_filter > 0 ? $cost_filter : null,
+        'rating' => $rating_filter > 0 ? $rating_filter : null,
+        'q' => $q_raw !== '' ? $q_raw : null,
+    ], static fn ($v) => $v !== null && $v !== '' && $v !== 0 && $v !== 0.0);
+
+    return http_build_query($parts);
+};
 $count_result = $conn->query($count_sql);
 $total_restaurants = $count_result->fetch_assoc()['total'];
 $total_pages = ceil($total_restaurants / $restaurants_per_page);
@@ -69,7 +107,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
     <meta property="og:type" content="website">
     <meta property="og:title" content="Vegetarian Restaurants in Coimbatore | MyCovai">
     <meta property="og:description" content="Explore vegetarian restaurants in Coimbatore. Find restaurant names, addresses, cuisines, ratings, and more at MyCovai.in.">
-    <meta property="og:image" content="https://mycovai.in/My-OMR-Idhu-Namma-OMR-Logo.jpg">
+    <meta property="og:image" content="https://mycovai.in/assets/img/mycovai-logo.svg">
     <meta property="og:url" content="https://mycovai.in/directory/restaurants.php">
     <meta property="og:site_name" content="MyCovai - Coimbatore Directory">
     <meta property="og:locale" content="en_US">
@@ -79,9 +117,9 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Vegetarian Restaurants in Coimbatore | MyCovai">
     <meta name="twitter:description" content="Explore vegetarian restaurants in Coimbatore. Find restaurant names, addresses, cuisines, ratings, and more at MyCovai.in.">
-    <meta name="twitter:image" content="https://mycovai.in/My-OMR-Idhu-Namma-OMR-Logo.jpg">
-    <meta name="twitter:site" content="@MyomrNews">
-    <meta name="twitter:creator" content="@MyomrNews">
+    <meta name="twitter:image" content="https://mycovai.in/assets/img/mycovai-logo.svg">
+    <meta name="twitter:site" content="@MyCovai">
+    <meta name="twitter:creator" content="@MyCovai">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://mycovai.in/directory/restaurants.php">
@@ -150,14 +188,19 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
     <section class="container maxw-1280 py-4" id="filters">
         <div class="filter-section">
             <h3 class="mb-4">Filter Restaurants</h3>
+            <?php echo covai_directory_active_filters_markup('/directory/restaurants.php', $q_raw, $locality_raw, $restaurants_chip_preserve); ?>
             <form method="GET" action="">
                 <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="rest-q">Search name or keywords</label>
+                        <input type="text" name="q" id="rest-q" class="form-control" value="<?php echo htmlspecialchars($q_raw, ENT_QUOTES, 'UTF-8'); ?>" placeholder="Restaurant name, cuisine…" autocomplete="off">
+                    </div>
                     <div class="col-md-3 mb-3">
                         <label for="locality">Locality</label>
                         <select name="locality" id="locality" class="form-control">
                             <option value="">All Localities</option>
                             <?php while ($loc = $localities->fetch_assoc()): ?>
-                                <option value="<?php echo htmlspecialchars($loc['locality']); ?>" <?php echo $locality_filter == $loc['locality'] ? 'selected' : ''; ?>>
+                                <option value="<?php echo htmlspecialchars($loc['locality']); ?>" <?php echo $locality_raw === $loc['locality'] ? 'selected' : ''; ?>>
                                     <?php echo htmlspecialchars($loc['locality']); ?>
                                 </option>
                             <?php endwhile; ?>
@@ -168,7 +211,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
                         <select name="cuisine" id="cuisine" class="form-control">
                             <option value="">All Cuisines</option>
                             <?php while ($cui = $cuisines->fetch_assoc()): ?>
-                                <option value="<?php echo htmlspecialchars($cui['cuisine']); ?>" <?php echo $cuisine_filter == $cui['cuisine'] ? 'selected' : ''; ?>>
+                                <option value="<?php echo htmlspecialchars($cui['cuisine']); ?>" <?php echo $cuisine_raw === $cui['cuisine'] ? 'selected' : ''; ?>>
                                     <?php echo htmlspecialchars($cui['cuisine']); ?>
                                 </option>
                             <?php endwhile; ?>
@@ -195,14 +238,14 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Apply Filters</button>
-                <a href="restaurants.php" class="btn btn-secondary mt-2">Clear Filters</a>
+                <a href="/directory/restaurants.php" class="btn btn-secondary mt-2">Clear Filters</a>
             </form>
         </div>
     </section>
 
     <!-- Banner ad: listing-mid -->
     <div class="container maxw-1280 py-3 d-flex justify-content-center">
-        <?php covai_ad_slot('listing-mid', '336x280'); ?>
+        <?php covai_monetized_slot('listing-mid', '336x280'); ?>
     </div>
 
     <!-- Restaurant Cards -->
@@ -315,7 +358,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
     <section class="container maxw-1280 py-5" id="map">
         <h2 class="text-center mb-4">Find Restaurants on the Map</h2>
         <div class="map-preview">
-            <img src="https://maps.googleapis.com/maps/api/staticmap?center=12.94,80.24&zoom=12&size=800x300&maptype=roadmap&markers=color:red%7C12.94,80.24&key=YOUR_GOOGLE_MAPS_API_KEY" alt="OMR Restaurants Map Preview">
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=12.94,80.24&zoom=12&size=800x300&maptype=roadmap&markers=color:red%7C12.94,80.24&key=YOUR_GOOGLE_MAPS_API_KEY" alt="Coimbatore restaurants map preview">
         </div>
         <div class="text-center mt-4">
             <a href="https://www.google.com/maps/search/vegetarian+restaurants/@12.94,80.24,12z" class="btn btn-primary" target="_blank">View Full Map</a>
@@ -329,7 +372,7 @@ $cuisines = $conn->query("SELECT DISTINCT cuisine FROM `$tRest` ORDER BY cuisine
                 <div class="card border-success shadow-sm text-center p-4" style="background: linear-gradient(90deg, #FDBB2D 0%, #3A1C71 100%); color: #fff;">
                     <h2 class="mb-3">Join the Coimbatore dining community!</h2>
                     <p class="lead">Share your dining experiences, rate restaurants, or suggest new vegetarian spots in Coimbatore.</p>
-                    <p>Email us at <a href="mailto:myomrnews@gmail.com" class="text-white font-weight-bold">myomrnews@gmail.com</a></p>
+                    <p>Email us at <a href="mailto:mycovai@gmail.com" class="text-white font-weight-bold">mycovai@gmail.com</a></p>
                     <div class="mt-3">
                         <?php include $_SERVER['DOCUMENT_ROOT'].'/components/social-icons.php'; ?>
                     </div>

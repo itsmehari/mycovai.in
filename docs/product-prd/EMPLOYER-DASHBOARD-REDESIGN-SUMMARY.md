@@ -20,7 +20,7 @@ Successfully redesigned the employer dashboard with a modern, QuikrJobs-inspired
 ## ✅ Completed Features
 
 ### 1. **Unified Applications Dashboard**
-- ✅ Main dashboard page: `employer-dashboard-omr.php`
+- ✅ Main dashboard page: `employer-dashboard-covai.php`
 - ✅ View all applications across jobs in one place
 - ✅ Job selector dropdown to filter by specific job posting
 - ✅ Real-time applicant count display
@@ -87,7 +87,7 @@ Successfully redesigned the employer dashboard with a modern, QuikrJobs-inspired
 ## 📁 Files Created
 
 ### Core Files
-1. **`omr-local-job-listings/employer-dashboard-omr.php`**
+1. **`omr-local-job-listings/employer-dashboard-covai.php`**
    - Main dashboard page with all features
 
 2. **`omr-local-job-listings/includes/employer-applicant-card.php`**
@@ -114,10 +114,10 @@ Successfully redesigned the employer dashboard with a modern, QuikrJobs-inspired
 
 ## 📝 Files Modified
 
-1. **`omr-local-job-listings/my-posted-jobs-omr.php`**
+1. **`omr-local-job-listings/my-posted-jobs-covai.php`**
    - Added link to new unified dashboard
 
-2. **`omr-local-job-listings/view-applications-omr.php`**
+2. **`omr-local-job-listings/view-applications-covai.php`**
    - Added link to unified dashboard with job filter
    - Updated navigation buttons
 
@@ -161,16 +161,16 @@ Indexes added for performance:
 
 ### Navigation Updates
 
-1. **Employer Dashboard (`my-posted-jobs-omr.php`)**
-   - New button: "View All Applications" → links to `employer-dashboard-omr.php`
+1. **Employer Dashboard (`my-posted-jobs-covai.php`)**
+   - New button: "View All Applications" → links to `employer-dashboard-covai.php`
 
-2. **Job-Specific Applications (`view-applications-omr.php`)**
-   - New button: "Unified Dashboard" → links to `employer-dashboard-omr.php?job_id=X`
+2. **Job-Specific Applications (`view-applications-covai.php`)**
+   - New button: "Unified Dashboard" → links to `employer-dashboard-covai.php?job_id=X`
 
 ### Application Form Updates Needed
 
 To collect new fields, update:
-- `omr-local-job-listings/post-job-omr.php` (if job application form is there)
+- `omr-local-job-listings/post-job-covai.php` (if job application form is there)
 - Application submission process to collect:
   - Age
   - Gender
@@ -388,15 +388,15 @@ To collect new fields, update:
 ## 📞 Support & Maintenance
 
 ### Code Location
-- Main dashboard: `omr-local-job-listings/employer-dashboard-omr.php`
+- Main dashboard: `omr-local-job-listings/employer-dashboard-covai.php`
 - Components: `omr-local-job-listings/includes/`
 - Styles: `omr-local-job-listings/assets/employer-dashboard.css`
 - Scripts: `omr-local-job-listings/assets/employer-dashboard.js`
 
 ### Related Files
 - Employer authentication: `omr-local-job-listings/includes/employer-auth.php`
-- Application status update: `omr-local-job-listings/update-application-status-omr.php`
-- Job listings: `omr-local-job-listings/my-posted-jobs-omr.php`
+- Application status update: `omr-local-job-listings/update-application-status-covai.php`
+- Job listings: `omr-local-job-listings/my-posted-jobs-covai.php`
 
 ---
 

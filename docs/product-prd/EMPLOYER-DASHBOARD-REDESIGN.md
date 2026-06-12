@@ -46,8 +46,8 @@ tags:
 **Objective:** Redesign the employer dashboard to provide a modern, intuitive interface for managing job applications with advanced filtering, bulk actions, and enhanced candidate profiles.
 
 **Current State:**
-- Basic job listings dashboard (`my-posted-jobs-omr.php`)
-- Separate application view per job (`view-applications-omr.php`)
+- Basic job listings dashboard (`my-posted-jobs-covai.php`)
+- Separate application view per job (`view-applications-covai.php`)
 - Limited filtering capabilities
 - No bulk actions
 - Basic candidate profile display
@@ -153,9 +153,9 @@ tags:
 
 ```
 /omr-local-job-listings/
-├── employer-dashboard-omr.php (NEW - Main unified dashboard)
-├── view-applications-omr.php (REFACTORED - Keep for job-specific view)
-├── my-posted-jobs-omr.php (KEEP - Job management view)
+├── employer-dashboard-covai.php (NEW - Main unified dashboard)
+├── view-applications-covai.php (REFACTORED - Keep for job-specific view)
+├── my-posted-jobs-covai.php (KEEP - Job management view)
 ├── includes/
 │   ├── employer-auth.php (EXISTING)
 │   ├── employer-dashboard-filters.php (NEW)
@@ -175,7 +175,7 @@ tags:
 ```
 User Request
     ↓
-employer-dashboard-omr.php
+employer-dashboard-covai.php
     ↓
 Load Employer Jobs + Applications
     ↓
@@ -375,7 +375,7 @@ CREATE TABLE application_timeline (
 
 ### 1. Main Dashboard Page
 
-**File:** `employer-dashboard-omr.php`
+**File:** `employer-dashboard-covai.php`
 
 **Responsibilities:**
 - Authenticate employer
@@ -485,7 +485,7 @@ CREATE TABLE application_timeline (
    - Backfill existing data where possible
 
 2. **Update Application Form**
-   - Modify `process-application-omr.php`
+   - Modify `process-application-covai.php`
    - Add new fields to application form
    - Update validation logic
    - Store new fields in database
@@ -512,7 +512,7 @@ CREATE TABLE application_timeline (
    - Add action buttons
 
 3. **Create Main Dashboard Page**
-   - `employer-dashboard-omr.php`
+   - `employer-dashboard-covai.php`
    - Integrate sidebar and cards
    - Add job selector
    - Add bulk actions bar
@@ -543,8 +543,8 @@ CREATE TABLE application_timeline (
 ### Phase 4: Integration & Refactoring (Day 7-8)
 
 1. **Update Existing Pages**
-   - Refactor `view-applications-omr.php` to use new components
-   - Update `my-posted-jobs-omr.php` to link to new dashboard
+   - Refactor `view-applications-covai.php` to use new components
+   - Update `my-posted-jobs-covai.php` to link to new dashboard
    - Ensure consistency across pages
 
 2. **Update Navigation**
@@ -583,7 +583,7 @@ CREATE TABLE application_timeline (
 
 ### Files to Create
 
-1. `omr-local-job-listings/employer-dashboard-omr.php` - **NEW**
+1. `omr-local-job-listings/employer-dashboard-covai.php` - **NEW**
 2. `omr-local-job-listings/includes/employer-dashboard-filters.php` - **NEW**
 3. `omr-local-job-listings/includes/employer-applicant-card.php` - **NEW**
 4. `omr-local-job-listings/assets/employer-dashboard.css` - **NEW**
@@ -595,10 +595,10 @@ CREATE TABLE application_timeline (
 
 ### Files to Modify
 
-1. `omr-local-job-listings/view-applications-omr.php` - **REFACTOR** (use new components)
-2. `omr-local-job-listings/my-posted-jobs-omr.php` - **UPDATE** (add link to new dashboard)
-3. `omr-local-job-listings/process-application-omr.php` - **UPDATE** (add new fields)
-4. `omr-local-job-listings/post-job-omr.php` - **CHECK** (if application form needs updates)
+1. `omr-local-job-listings/view-applications-covai.php` - **REFACTOR** (use new components)
+2. `omr-local-job-listings/my-posted-jobs-covai.php` - **UPDATE** (add link to new dashboard)
+3. `omr-local-job-listings/process-application-covai.php` - **UPDATE** (add new fields)
+4. `omr-local-job-listings/post-job-covai.php` - **CHECK** (if application form needs updates)
 
 ### Database Changes
 

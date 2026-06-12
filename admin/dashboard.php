@@ -1,14 +1,13 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
-    header('Location: /admin/login.php');
-    exit;
-}
+require_once __DIR__ . '/_bootstrap.php';
+requireAdmin();
+requireRole(['super_admin', 'editor_events']);
 require_once __DIR__ . '/../core/omr-connect.php';
 
 $title = 'Admin Dashboard';
 $breadcrumbs = [];
 $username = $_SESSION['admin_username'] ?? 'admin';
+$isSuperAdmin = admin_current_role() === 'super_admin';
 
 // Helper to safely run a query and return result or null (table may not exist)
 function safeQuery($conn, $sql, $default = null) {
@@ -31,14 +30,16 @@ function safeCount($conn, $table) {
 }
 
 // Stats queries with try-catch (default to 0 when table missing)
-$news_bulletin_count = safeCount($conn, 'news_bulletin');
+$news_bulletin_count = $isSuperAdmin ? safeCount($conn, 'news_bulletin') : 0;
 $articles_count = safeCount($conn, 'articles');
 $events_count = safeCount($conn, 'events');
 $restaurants_count = safeCount($conn, covai_table('restaurants'));
 
 // Recent activity with correct columns
 $recent_articles = safeQuery($conn, "SELECT id, title, published_date FROM articles ORDER BY published_date DESC LIMIT 3");
-$recent_bulletin = safeQuery($conn, "SELECT id, title, `date` FROM news_bulletin ORDER BY `date` DESC LIMIT 3");
+$recent_bulletin = $isSuperAdmin
+    ? safeQuery($conn, "SELECT id, title, `date` FROM news_bulletin ORDER BY `date` DESC LIMIT 3")
+    : null;
 $recent_events = safeQuery($conn, "SELECT id, title, event_date FROM events ORDER BY event_date DESC LIMIT 3");
 $recent_restaurants = safeQuery($conn, "SELECT id, name AS title, created_at FROM `" . covai_table('restaurants') . "` ORDER BY created_at DESC LIMIT 3");
 ?>
@@ -90,13 +91,15 @@ $recent_restaurants = safeQuery($conn, "SELECT id, name AS title, created_at FRO
             <p>Articles</p>
           </div>
         </div>
+        <?php if ($isSuperAdmin): ?>
         <div class="col-md-3">
           <div class="stat-card shadow-sm">
             <i class="fas fa-list text-info"></i>
             <h5><?php echo $news_bulletin_count; ?></h5>
-            <p>Bulletin</p>
+            <p>Bulletin (legacy)</p>
           </div>
         </div>
+        <?php endif; ?>
         <div class="col-md-3">
           <div class="stat-card shadow-sm">
             <i class="fas fa-calendar-alt text-success"></i>
@@ -134,10 +137,11 @@ $recent_restaurants = safeQuery($conn, "SELECT id, name AS title, created_at FRO
             </div>
           </div>
         </div>
+        <?php if ($isSuperAdmin): ?>
         <div class="col-md-3">
           <div class="card shadow-sm">
             <div class="card-body">
-              <h5 class="card-title">Recent Bulletin</h5>
+              <h5 class="card-title">Recent Bulletin (legacy)</h5>
               <?php if ($recent_bulletin && $recent_bulletin->num_rows > 0): ?>
                 <?php while ($row = $recent_bulletin->fetch_assoc()): ?>
                   <div class="recent-item">
@@ -152,6 +156,7 @@ $recent_restaurants = safeQuery($conn, "SELECT id, name AS title, created_at FRO
             </div>
           </div>
         </div>
+        <?php endif; ?>
         <div class="col-md-3">
           <div class="card shadow-sm">
             <div class="card-body">
@@ -190,10 +195,10 @@ $recent_restaurants = safeQuery($conn, "SELECT id, name AS title, created_at FRO
         </div>
       </div>
 
-      <!-- News Management: Articles vs Bulletin -->
+      <!-- News Management -->
       <h3 class="mb-3">News Management</h3>
       <div class="row">
-        <div class="col-md-6 mb-4">
+        <div class="<?php echo $isSuperAdmin ? 'col-md-6' : 'col-md-12'; ?> mb-4">
           <div class="card border-primary shadow-sm">
             <div class="card-body text-center">
               <i class="fas fa-newspaper fa-2x mb-2 text-primary"></i>
@@ -204,17 +209,19 @@ $recent_restaurants = safeQuery($conn, "SELECT id, name AS title, created_at FRO
             </div>
           </div>
         </div>
+        <?php if ($isSuperAdmin): ?>
         <div class="col-md-6 mb-4">
           <div class="card border-secondary shadow-sm">
             <div class="card-body text-center">
               <i class="fas fa-list fa-2x mb-2 text-secondary"></i>
-              <h5 class="card-title">News Bulletin</h5>
-              <p class="card-text">Legacy news_bulletin table, separate from Articles.</p>
+              <h5 class="card-title">News Bulletin (legacy)</h5>
+              <p class="card-text">Deprecated <code>news_bulletin</code> table — super_admin only.</p>
               <a href="/admin/news-list.php" class="btn btn-secondary btn-block">Manage Bulletin</a>
               <a href="/admin/news-add.php" class="btn btn-outline-secondary btn-sm mt-2">Add Bulletin Item</a>
             </div>
           </div>
         </div>
+        <?php endif; ?>
       </div>
 
       <!-- Module Picker -->

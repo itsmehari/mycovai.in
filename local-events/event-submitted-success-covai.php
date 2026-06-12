@@ -14,7 +14,7 @@ $t = isset($_GET['t']) ? $_GET['t'] : '';
   <title>Event Submitted – <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="../jobs/assets/omr-jobs-unified-design.css" />
+  <link rel="stylesheet" href="../jobs/assets/covai-jobs-unified-design.css" />
   <?php include __DIR__ . '/../components/analytics.php'; ?>
 </head>
 <body class="modern-page">
@@ -51,7 +51,7 @@ $t = isset($_GET['t']) ? $_GET['t'] : '';
 <script src="assets/events-analytics.js"></script>
 <script>
   (function(){
-    var evS = window.MyCovaiEventsAnalytics || window.MyOMREventsAnalytics;
+    var evS = window.MyCovaiEventsAnalytics;
     if (evS) { evS.submissionSuccess(<?php echo (int)$submission_id; ?>); }
   })();
 </script>

@@ -11,10 +11,10 @@ Use it to understand how the public job board, employer tools, and admin operati
 
 | Stage | Stakeholder | Files / Scripts | Description |
 | --- | --- | --- | --- |
-| Browse Jobs | Job seekers | `index.php`, `job-detail-omr.php`, `assets/job-listings-omr.css`, `assets/job-search-omr.js` | Public landing page with filters & search; detail view shows structured data, OG tags, and inquiry CTA. |
-| Post Job | Employers | `post-job-omr.php`, `process-job-omr.php`, `job-posted-success-omr.php` | Secure form with CSRF + validation. On submit, data is stored as `pending` until admin approval. |
-| Manage Jobs | Employers | `employer-login-omr.php`, `my-posted-jobs-omr.php`, `edit-job-omr.php`, `update-application-status-omr.php` | Logged-in employers manage listings, edit postings, and review candidate applications. Sessions handled via `includes/employer-auth.php`. |
-| Admin Ops | Internal team | `admin/manage-jobs-omr.php`, `admin/verify-employers-omr.php`, `admin/view-all-applications-omr.php` | Admins approve jobs, verify employers, and escalate reports. Views gated by `$_SESSION['admin_logged_in']`. |
+| Browse Jobs | Job seekers | `index.php`, `job-detail-covai.php`, `assets/job-listings-omr.css`, `assets/job-search-omr.js` | Public landing page with filters & search; detail view shows structured data, OG tags, and inquiry CTA. |
+| Post Job | Employers | `post-job-covai.php`, `process-job-covai.php`, `job-posted-success-covai.php` | Secure form with CSRF + validation. On submit, data is stored as `pending` until admin approval. |
+| Manage Jobs | Employers | `employer-login-covai.php`, `my-posted-jobs-covai.php`, `edit-job-covai.php`, `update-application-status-covai.php` | Logged-in employers manage listings, edit postings, and review candidate applications. Sessions handled via `includes/employer-auth.php`. |
+| Admin Ops | Internal team | `admin/manage-jobs-covai.php`, `admin/verify-employers-covai.php`, `admin/view-all-applications-covai.php` | Admins approve jobs, verify employers, and escalate reports. Views gated by `$_SESSION['admin_logged_in']`. |
 | SEO & Outreach | Marketing / SEO | `generate-sitemap.php`, `assets/landing-page-analytics.js`, `includes/seo-helper.php` | Generates `sitemap.xml`, injects JSON-LD schemas, tracks conversions. |
 | Maintenance & QA | Dev / QA | `DEPLOYMENT-CHECKLIST.md`, `HUMAN-TESTING-CHECKLIST.md`, `ERROR-DEBUG-GUIDE.md`, `READY-FOR-DEPLOYMENT.md` | Checklists and guides for regression testing, launch prep, and debugging. |
 
@@ -26,9 +26,9 @@ Use it to understand how the public job board, employer tools, and admin operati
 omr-local-job-listings/
 ├── admin/                     # Admin dashboards and moderation tools
 │   ├── index.php              # Overview dashboard
-│   ├── manage-jobs-omr.php    # Approve / reject job postings
-│   ├── verify-employers-omr.php
-│   └── view-all-applications-omr.php
+│   ├── manage-jobs-covai.php    # Approve / reject job postings
+│   ├── verify-employers-covai.php
+│   └── view-all-applications-covai.php
 ├── assets/                    # Frontend assets (CSS/JS)
 │   ├── omr-jobs-unified-design.css
 │   ├── job-listings-omr.css
@@ -40,7 +40,7 @@ omr-local-job-listings/
 ├── includes/                  # Shared PHP helpers
 │   ├── employer-auth.php      # Session management + guards
 │   ├── employer-applicant-card.php # Applicant profile card component (NEW)
-│   ├── job-functions-omr.php  # CRUD helpers, validation, pagination, filters
+│   ├── job-functions-covai.php  # CRUD helpers, validation, pagination, filters
 │   ├── landing-page-template.php
 │   └── seo-helper.php         # Meta tags, canonical URLs, schema builders
 ├── DEPLOYMENT-CHECKLIST.md    # Step-by-step deployment SOP
@@ -53,20 +53,20 @@ omr-local-job-listings/
 ├── generate-sitemap.php       # Builds job sitemap with clean URLs
 ├── robots.txt                 # Disallow rules for crawler hygiene
 ├── index.php                  # Jobs landing page (searchable list)
-├── job-detail-omr.php         # Individual vacancy page (JobPosting schema)
-├── post-job-omr.php           # Employer-facing job form
-├── process-job-omr.php        # Form handler (writes to DB, sends email)
-├── employer-register-omr.php  # Employer onboarding
-├── employer-login-omr.php     # Auth portal
-├── employer-landing-omr.php   # Marketing landing page for employers
-├── employer-dashboard-omr.php # Unified applications dashboard (NEW - advanced filtering, bulk actions)
-├── my-posted-jobs-omr.php     # Employer dashboard (job management view)
-├── view-applications-omr.php  # Employer-side application list (job-specific)
-├── process-application-omr.php# Handles new applications
-├── update-application-status-omr.php
-├── edit-job-omr.php           # Edit flow for existing jobs
-├── application-submitted-omr.php
-└── job-posted-success-omr.php # Thank-you / follow-up CTAs
+├── job-detail-covai.php         # Individual vacancy page (JobPosting schema)
+├── post-job-covai.php           # Employer-facing job form
+├── process-job-covai.php        # Form handler (writes to DB, sends email)
+├── employer-register-covai.php  # Employer onboarding
+├── employer-login-covai.php     # Auth portal
+├── employer-landing-covai.php   # Marketing landing page for employers
+├── employer-dashboard-covai.php # Unified applications dashboard (NEW - advanced filtering, bulk actions)
+├── my-posted-jobs-covai.php     # Employer dashboard (job management view)
+├── view-applications-covai.php  # Employer-side application list (job-specific)
+├── process-application-covai.php# Handles new applications
+├── update-application-status-covai.php
+├── edit-job-covai.php           # Edit flow for existing jobs
+├── application-submitted-covai.php
+└── job-posted-success-covai.php # Thank-you / follow-up CTAs
 ```
 
 **Test & Diagnostics Utilities**
@@ -79,29 +79,29 @@ omr-local-job-listings/
 
 | Table | Purpose | Key Columns | Related Files |
 | --- | --- | --- | --- |
-| `job_postings` | Stores all job listings | `id`, `employer_id`, `status`, `featured`, `published_at` | `process-job-omr.php`, `job-detail-omr.php`, `includes/job-functions-omr.php` |
-| `employers` | Employer profiles & login credentials | `id`, `company_name`, `email`, `password_hash`, `status` | `employer-register-omr.php`, `includes/employer-auth.php`, `admin/verify-employers-omr.php` |
-| `job_applications` | Candidate applications | `id`, `job_id`, `candidate_email`, `status`, `source` | `process-application-omr.php`, `view-applications-omr.php`, `update-application-status-omr.php` |
-| `job_categories` | List of categories & slugs | `id`, `name`, `slug`, `is_active` | `includes/job-functions-omr.php`, `FIX-CATEGORIES.sql` |
+| `job_postings` | Stores all job listings | `id`, `employer_id`, `status`, `featured`, `published_at` | `process-job-covai.php`, `job-detail-covai.php`, `includes/job-functions-covai.php` |
+| `employers` | Employer profiles & login credentials | `id`, `company_name`, `email`, `password_hash`, `status` | `employer-register-covai.php`, `includes/employer-auth.php`, `admin/verify-employers-covai.php` |
+| `job_applications` | Candidate applications | `id`, `job_id`, `candidate_email`, `status`, `source` | `process-application-covai.php`, `view-applications-covai.php`, `update-application-status-covai.php` |
+| `job_categories` | List of categories & slugs | `id`, `name`, `slug`, `is_active` | `includes/job-functions-covai.php`, `FIX-CATEGORIES.sql` |
 
-> **Status Flags:** `job_postings.status` cycles `pending → approved → archived`. Admin actions reside in `admin/manage-jobs-omr.php`.
+> **Status Flags:** `job_postings.status` cycles `pending → approved → archived`. Admin actions reside in `admin/manage-jobs-covai.php`.
 
 ---
 
 ## 4. End-to-End Flow Summaries
 
 ### A. Job Posting Lifecycle
-1. Employer registers (`employer-register-omr.php`) → auto email / pending status.
-2. After login, they submit via `post-job-omr.php`.
-3. `process-job-omr.php` validates, sanitizes, inserts record with `status='pending'`.
-4. Admin reviews in `admin/manage-jobs-omr.php`; on approval, job appears publicly.
-5. Employer edits via `edit-job-omr.php`; changes revert to `pending` for moderation if major fields are touched.
+1. Employer registers (`employer-register-covai.php`) → auto email / pending status.
+2. After login, they submit via `post-job-covai.php`.
+3. `process-job-covai.php` validates, sanitizes, inserts record with `status='pending'`.
+4. Admin reviews in `admin/manage-jobs-covai.php`; on approval, job appears publicly.
+5. Employer edits via `edit-job-covai.php`; changes revert to `pending` for moderation if major fields are touched.
 
 ### B. Application Handling
-1. Candidate applies through CTA (modal or `application-submitted-omr.php`).
-2. `process-application-omr.php` stores entry, triggers email notifications.
-3. Employer views applications via `employer-dashboard-omr.php` (unified view with advanced filtering, bulk actions) OR via `view-applications-omr.php` (job-specific view).
-4. Status updates (shortlisted/rejected) go through `update-application-status-omr.php`; admins see full trail in `admin/view-all-applications-omr.php`.
+1. Candidate applies through CTA (modal or `application-submitted-covai.php`).
+2. `process-application-covai.php` stores entry, triggers email notifications.
+3. Employer views applications via `employer-dashboard-covai.php` (unified view with advanced filtering, bulk actions) OR via `view-applications-covai.php` (job-specific view).
+4. Status updates (shortlisted/rejected) go through `update-application-status-covai.php`; admins see full trail in `admin/view-all-applications-covai.php`.
 
 ### C. SEO / Analytics Loop
 1. `includes/seo-helper.php` attaches per-page metadata, canonical tags, and JSON-LD (`JobPosting` for detail pages, `CollectionPage` for listings).
@@ -133,7 +133,7 @@ omr-local-job-listings/
 
 - Use this README as the authoritative map; update it whenever files move or workflow changes.
 - Cross-reference `docs/worklogs/` for daily context and `HUMAN-TESTING-CHECKLIST.md` after major edits.
-- When touching shared helpers (`includes/job-functions-omr.php`), document changes in `FIXES-APPLIED.md`.
+- When touching shared helpers (`includes/job-functions-covai.php`), document changes in `FIXES-APPLIED.md`.
 
 ---
 

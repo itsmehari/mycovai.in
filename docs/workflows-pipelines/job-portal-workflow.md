@@ -23,11 +23,11 @@ summary: End-to-end flow for the MyOMR job marketplace, covering employer onboar
 flowchart TD
     A[Employer registers] --> B{Profile complete?}
     B -- No --> B1[Request missing company info<br/>Employer support follow-up] --> A
-    B -- Yes --> C[Submit job via post-job-omr.php]
-    C --> D[`process-job-omr.php` saves as pending]
+    B -- Yes --> C[Submit job via post-job-covai.php]
+    C --> D[`process-job-covai.php` saves as pending]
     D --> E{Validation errors?}
     E -- Yes --> E1[Return to form<br/>Show errors] --> C
-    E -- No --> F[Admin review manage-jobs-omr.php]
+    E -- No --> F[Admin review manage-jobs-covai.php]
     F --> G{Approve job?}
     G -- Reject --> G1[Notify employer with reason<br/>Option to resubmit] --> C
     G -- Approve --> H[Set status=approved]
@@ -44,32 +44,32 @@ flowchart TD
 ## 3. Step-by-Step
 
 1. **Employer onboarding**
-   - Employer visits `/omr-local-job-listings/employer-register-omr.php`.
-   - `process-job-omr.php` creates employer record; email verification (if configured) or manual approval.
-   - Employer logs in via `/employer-login-omr.php` (sessions handled by `includes/employer-auth.php`).
+   - Employer visits `/omr-local-job-listings/employer-register-covai.php`.
+   - `process-job-covai.php` creates employer record; email verification (if configured) or manual approval.
+   - Employer logs in via `/employer-login-covai.php` (sessions handled by `includes/employer-auth.php`).
 
 2. **Job submission**
-   - Employer fills `/post-job-omr.php` form (fields: title, category, location, job_type, salary, description).
-   - Submission hits `process-job-omr.php` which:
+   - Employer fills `/post-job-covai.php` form (fields: title, category, location, job_type, salary, description).
+   - Submission hits `process-job-covai.php` which:
      - Validates required fields, sanitizes input, sets `status='pending'`.
-     - Normalises salary + `valid_through` (helper functions in `includes/job-functions-omr.php` / `seo-helper.php`).
-   - On success, redirect to `job-posted-success-omr.php`.
+     - Normalises salary + `valid_through` (helper functions in `includes/job-functions-covai.php` / `seo-helper.php`).
+   - On success, redirect to `job-posted-success-covai.php`.
 
 3. **Admin moderation**
-   - Admin visits `/omr-local-job-listings/admin/manage-jobs-omr.php`.
-   - Filters pending vs approved jobs, checks employer credibility (`verify-employers-omr.php`).
+   - Admin visits `/omr-local-job-listings/admin/manage-jobs-covai.php`.
+   - Filters pending vs approved jobs, checks employer credibility (`verify-employers-covai.php`).
    - Approves job (`status='approved'`) or rejects with notes; optionally marks featured.
    - Generates sitemap via `/omr-local-job-listings/generate-sitemap.php` after batch approvals.
 
 4. **Public listing & SEO**
    - Approved jobs surface on `/omr-local-job-listings/index.php` (uses direct query fallback strategy).
-   - Job detail pages (`job-detail-omr.php`) render structured data via `generateJobPostingSchema()`.
+   - Job detail pages (`job-detail-covai.php`) render structured data via `generateJobPostingSchema()`.
    - Listing cards include hidden microdata to stay in sync with detail schema.
 
 5. **Application handling**
-   - Applicants submit via `/omr-local-job-listings/job-detail-omr.php` → `process-application-omr.php`.
-   - Employer receives notification, reviews applications at `/view-applications-omr.php`.
-   - Status updates handled by `/update-application-status-omr.php`.
+   - Applicants submit via `/omr-local-job-listings/job-detail-covai.php` → `process-application-covai.php`.
+   - Employer receives notification, reviews applications at `/view-applications-covai.php`.
+   - Status updates handled by `/update-application-status-covai.php`.
 
 6. **Analytics & maintenance**
    - Monitor dashboards (`HUMAN-TESTING-CHECKLIST.md`, analytics JS).
@@ -79,7 +79,7 @@ flowchart TD
 
 **Employer onboarding**
 - [ ] Company profile complete (address, contact, logo).
-- [ ] Employer verified in admin panel (`verify-employers-omr.php`).
+- [ ] Employer verified in admin panel (`verify-employers-covai.php`).
 
 **Job approval**
 - [ ] Job content reviewed for clarity & keywords.
@@ -102,10 +102,10 @@ flowchart TD
 
 ## 6. References
 
-- Employer flows: `post-job-omr.php`, `process-job-omr.php`, `employer-register-omr.php`, `employer-auth.php`
-- Admin tools: `/admin/manage-jobs-omr.php`, `/admin/verify-employers-omr.php`, `/admin/index.php`
-- Front-end listings: `index.php`, `job-detail-omr.php`
-- Structured data helpers: `includes/seo-helper.php`, `includes/job-functions-omr.php`
+- Employer flows: `post-job-covai.php`, `process-job-covai.php`, `employer-register-covai.php`, `employer-auth.php`
+- Admin tools: `/admin/manage-jobs-covai.php`, `/admin/verify-employers-covai.php`, `/admin/index.php`
+- Front-end listings: `index.php`, `job-detail-covai.php`
+- Structured data helpers: `includes/seo-helper.php`, `includes/job-functions-covai.php`
 - QA docs: `HUMAN-TESTING-CHECKLIST.md`, `READY-FOR-DEPLOYMENT.md`, `LEARNINGS.md` (JobPosting entry 10 Nov 2025)
 
 

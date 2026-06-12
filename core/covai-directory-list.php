@@ -39,8 +39,8 @@ $result = $conn->query($sql);
 <meta name="twitter:title" content="Coimbatore Directory — Schools, Businesses, News | MyCovai">
 <meta name="twitter:description" content="Find schools, hospitals, banks, restaurants and more in Coimbatore. Your local directory for Covai.">
 <meta name="twitter:image" content="https://mycovai.in/My-OMR-Logo.jpg">
-<meta name="twitter:site" content="@MyomrNews">
-<meta name="twitter:creator" content="@MyomrNews">
+<meta name="twitter:site" content="@MyCovai">
+<meta name="twitter:creator" content="@MyCovai">
 <link rel="stylesheet" href="/assets/css/footer.css">
 <style>
 .hover-me:hover

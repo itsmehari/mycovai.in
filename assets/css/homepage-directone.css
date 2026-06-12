@@ -99,6 +99,18 @@
   background: rgba(184, 82, 46, 0.08);
 }
 
+.homepage-logo-img {
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.homepage-header-ctas {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .homepage-cta {
   display: inline-flex;
   align-items: center;
@@ -119,6 +131,17 @@
   color: var(--mycovai-white);
   transform: translateY(-2px);
   box-shadow: var(--mycovai-shadow-hover);
+}
+
+.homepage-cta-outline {
+  background: transparent;
+  color: var(--mycovai-primary) !important;
+  border: 2px solid var(--mycovai-primary);
+}
+
+.homepage-cta-outline:hover {
+  background: rgba(184, 82, 46, 0.08);
+  color: var(--mycovai-primary-dark) !important;
 }
 
 /* ---- Hero: warm gradient + overlay + motion ---- */

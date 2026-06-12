@@ -1,6 +1,5 @@
 /**
- * Job Portal - Enhanced Google Analytics Event Tracking
- * Track important user interactions
+ * MyCovai Job Portal – GA event helpers (gtag)
  */
 
 // Track job application submission
@@ -99,6 +98,29 @@ document.addEventListener('DOMContentLoaded', function() {
             trackJobSearch(searchTerm, {
                 category: category,
                 location: location
+            });
+        });
+    }
+
+    const refineForm = document.querySelector('form.advanced-filters');
+    if (refineForm) {
+        refineForm.addEventListener('submit', function() {
+            const jobType = refineForm.querySelector('select[name="job_type"]')?.value || '';
+            trackFilterUsage('job_type', jobType || 'all');
+        });
+    }
+
+    const cards = document.getElementById('job-cards-container');
+    if (cards && typeof gtag !== 'undefined') {
+        cards.addEventListener('click', function(e) {
+            const link = e.target.closest('a.btn-primary');
+            if (!link || !link.getAttribute('href')) return;
+            const card = link.closest('.job-card');
+            const titleEl = card ? card.querySelector('.job-title a') : null;
+            gtag('event', 'select_job', {
+                event_category: 'Job Portal',
+                event_label: titleEl ? titleEl.textContent.trim().slice(0, 120) : 'job_card',
+                link_url: link.href,
             });
         });
     }

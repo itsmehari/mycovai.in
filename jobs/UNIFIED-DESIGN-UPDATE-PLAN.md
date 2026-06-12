@@ -2,7 +2,7 @@
 
 ## Pages to Update
 
-1. ✅ **post-job-omr.php** - Partially done (Company section modernized)
+1. ✅ **post-job-covai.php** - Partially done (Company section modernized)
 
    - Need to update: Job Details section, Review & Submit section
 
@@ -12,29 +12,29 @@
    - Update job cards to use modern styling
    - Modernize search/filter UI
 
-3. **job-detail-omr.php** - Single job view
+3. **job-detail-covai.php** - Single job view
 
    - Modern hero section
    - Modern job detail card
    - Modern application form
 
-4. **job-posted-success-omr.php** - Success page
+4. **job-posted-success-covai.php** - Success page
 
    - Modern success card design
    - Icon animation
    - Modern buttons
 
-5. **application-submitted-omr.php** - Application success
+5. **application-submitted-covai.php** - Application success
 
    - Modern success card
    - Consistent with job-posted-success
 
-6. **employer-login-omr.php** - Login page
+6. **employer-login-covai.php** - Login page
 
    - Modern login card
    - Form styling consistent with post-job
 
-7. **my-posted-jobs-omr.php** - Employer dashboard
+7. **my-posted-jobs-covai.php** - Employer dashboard
    - Modern dashboard cards
    - Job list cards
 

@@ -1,5 +1,8 @@
 <?php
-$navigationConfig = require __DIR__ . '/config/navigation.php';
+if (!function_exists('admin_filter_navigation')) {
+    require_once __DIR__ . '/../core/admin-auth.php';
+}
+$navigationConfig = admin_filter_navigation(require __DIR__ . '/config/navigation.php');
 
 $navSections = array_map(function (array $section) {
     $links = [];
@@ -251,7 +254,7 @@ $currentUri = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
 <div class="admin-sidebar__shade" id="adminSidebarShade"></div>
 <nav class="col-md-2 col-lg-2 admin-sidebar d-flex flex-column" aria-label="Admin navigation">
   <header class="admin-sidebar__header">
-    <h1 class="admin-sidebar__brand">MyOMR Admin</h1>
+    <h1 class="admin-sidebar__brand">MyCovai Admin</h1>
     <button class="admin-sidebar__toggle admin-sidebar__collapse-btn" type="button" id="adminSidebarClose" aria-label="Close sidebar">
       <i class="fas fa-xmark"></i>
     </button>

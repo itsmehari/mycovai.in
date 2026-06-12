@@ -6,6 +6,8 @@ This folder contains archived markdown documentation files that were created for
 
 These files are kept for historical reference but are no longer actively used in the project workflow.
 
+**MyOMR → MyCovai (2026):** Archived docs may still mention Old Mahabalipuram Road, `myomr.in`, or Chennai OMR. Live site branding and URLs are documented in `.cursor/LIVE-SYSTEM-MAP.md` and `.cursor/maintenance/LEGACY-MYOMR-AUDIT.md`. Do not treat archive copy as current product truth.
+
 ## Categories
 
 ### Setup & Configuration Guides

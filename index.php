@@ -1,9 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-?>
-<?php
+require_once __DIR__ . '/core/error-handler.php';
 include 'weblog/log.php';
 include 'core/omr-connect.php';
 
@@ -26,20 +22,10 @@ if (!is_array($listing_counts)) {
 }
 
 // Category config for homepage grid (key => [label, url, icon, highlight])
-$home_categories = [
-    'schools'            => ['Schools', '/directory/schools.php', 'fas fa-school', false],
-    'best-schools'       => ['Best Schools', '/directory/best-schools.php', 'fas fa-star', false],
-    'it-companies'       => ['IT Companies', '/directory/it-companies.php', 'fas fa-laptop-code', true],
-    'industries'         => ['Industries', '/directory/industries.php', 'fas fa-industry', false],
-    'restaurants'        => ['Restaurants', '/directory/restaurants.php', 'fas fa-utensils', false],
-    'government-offices' => ['Government Offices', '/directory/government-offices.php', 'fas fa-building', false],
-    'atms'               => ['ATMs', '/directory/atms.php', 'fas fa-credit-card', false],
-    'parks'              => ['Parks', '/directory/parks.php', 'fas fa-tree', false],
-    'banks'              => ['Banks', '/directory/banks.php', 'fas fa-university', false],
-    'hospitals'          => ['Hospitals', '/directory/hospitals.php', 'fas fa-hospital', false],
-    'hostels-pgs'        => ['Hostels & PGs', '/hostels-pgs/', 'fas fa-bed', false],
-    'coworking-spaces'   => ['Coworking Spaces', '/coworking-spaces/', 'fas fa-building', false],
-];
+$home_categories = include __DIR__ . '/core/homepage-directory-categories.php';
+if (!is_array($home_categories)) {
+    $home_categories = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +35,7 @@ $home_categories = [
     <?php
     // Absolute HTTPS icon only (no .htaccess rewrite — avoids LiteSpeed/cPanel rewrite issues)
     $home_favicon_base = defined('SITE_CANONICAL_BASE') ? rtrim((string) SITE_CANONICAL_BASE, '/') : 'https://mycovai.in';
-    $home_favicon_path = (defined('SITE_LOGO_URL') && SITE_LOGO_URL !== '') ? SITE_LOGO_URL : '/My-OMR-Logo.jpg';
+    $home_favicon_path = function_exists('covai_logo_url') ? covai_logo_url() : ((defined('SITE_LOGO_URL') && SITE_LOGO_URL !== '') ? SITE_LOGO_URL : '/assets/img/mycovai-logo.svg');
     $home_favicon_href = $home_favicon_base . $home_favicon_path;
     ?>
     <link rel="icon" href="<?php echo htmlspecialchars($home_favicon_href, ENT_QUOTES, 'UTF-8'); ?>" type="image/jpeg">
@@ -182,7 +168,7 @@ $home_categories = [
 
 <!-- Banner ad: homepage-mid -->
 <div class="container-xl py-3">
-    <?php covai_ad_slot('homepage-mid', '336x280'); ?>
+    <?php covai_monetized_slot('homepage-mid', '336x280'); ?>
 </div>
 
 <!-- Subscribe -->

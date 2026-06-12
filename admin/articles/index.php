@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../_bootstrap.php';
 requireAdmin();
+requireRole(['super_admin', 'editor_events']);
 
 require_once __DIR__ . '/../../core/omr-connect.php';
 
@@ -9,8 +10,13 @@ $DOC_ROOT = dirname(__DIR__, 2);
 $title = 'News Articles';
 $breadcrumbs = ['Articles' => null];
 
-if (isset($_GET['delete'])) {
-    $id = (int)$_GET['delete'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $_SESSION['flash_error'] = 'Invalid CSRF token.';
+        header('Location: /admin/articles/index.php');
+        exit;
+    }
+    $id = (int) ($_POST['id'] ?? 0);
     if ($id > 0) {
         $stmt = $conn->prepare('SELECT image_path FROM articles WHERE id = ?');
         $stmt->bind_param('i', $id);
@@ -36,9 +42,9 @@ if (isset($_GET['delete'])) {
             $_SESSION['flash_error'] = 'Error deleting article.';
         }
         $del->close();
-        header('Location: /admin/articles/index.php');
-        exit;
     }
+    header('Location: /admin/articles/index.php');
+    exit;
 }
 
 $result = $conn->query("SELECT id, title, slug, status, published_date, author, category, created_at FROM articles ORDER BY created_at DESC");
@@ -78,7 +84,12 @@ include __DIR__ . '/../layout/header.php';
                     <td>
                         <a href="/local-news/<?php echo htmlspecialchars($row['slug']); ?>" class="btn btn-sm btn-outline-primary" target="_blank" title="View">View</a>
                         <a href="/admin/articles/edit.php?id=<?php echo (int)$row['id']; ?>" class="btn btn-sm btn-info">Edit</a>
-                        <a href="/admin/articles/index.php?delete=<?php echo (int)$row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this article?');">Delete</a>
+                        <form method="post" class="d-inline" onsubmit="return confirm('Delete this article?');">
+                            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generate_csrf_token()); ?>">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value="<?php echo (int)$row['id']; ?>">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 <?php endwhile; ?>

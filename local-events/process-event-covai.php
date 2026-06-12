@@ -120,7 +120,7 @@ try {
             '<p>We will review your event within 24–48 hours. You can review or edit your submission (until approved) using this secure link:</p>' .
             '<p><a href="' . htmlspecialchars($manageUrl) . '">' . htmlspecialchars($manageUrl) . '</a></p>' .
             '<p>— ' . htmlspecialchars($site) . '</p>';
-    @myomrSendMail($data['organizer_email'], $subject, $html);
+    @covaiSendMail($data['organizer_email'], $subject, $html);
   }
 
   header('Location: event-submitted-success-covai.php?id=' . (int)$newId . '&t=' . urlencode($token));

@@ -373,3 +373,23 @@
   background: rgba(234, 88, 12, 0.2);
   color: #c2410c;
 }
+
+/* Google AdSense units */
+.covai-adsense-zone {
+  margin: var(--space-6, 24px) auto;
+  max-width: var(--covai-ad-max-width);
+  text-align: center;
+}
+
+.covai-adsense-zone__label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin-bottom: 0.35rem;
+}
+
+.covai-adsense-unit {
+  margin: 0 auto;
+}

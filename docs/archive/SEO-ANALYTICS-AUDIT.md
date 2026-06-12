@@ -14,12 +14,12 @@
 ✅ **All Public Pages (100% Coverage):**
 
 - ✅ `index.php` - Main job listings page
-- ✅ `job-detail-omr.php` - Individual job view
-- ✅ `post-job-omr.php` - Job posting form
-- ✅ `employer-login-omr.php` - Employer login
-- ✅ `my-posted-jobs-omr.php` - Employer dashboard
-- ✅ `application-submitted-omr.php` - Application success
-- ✅ `job-posted-success-omr.php` - Job posted confirmation
+- ✅ `job-detail-covai.php` - Individual job view
+- ✅ `post-job-covai.php` - Job posting form
+- ✅ `employer-login-covai.php` - Employer login
+- ✅ `my-posted-jobs-covai.php` - Employer dashboard
+- ✅ `application-submitted-covai.php` - Application success
+- ✅ `job-posted-success-covai.php` - Job posted confirmation
 
 **Implementation Method:** Centralized via `components/analytics.php`
 
@@ -86,7 +86,7 @@
 
 ✅ **Implemented Schemas:**
 
-- ✅ **JobPosting Schema** (`job-detail-omr.php`)
+- ✅ **JobPosting Schema** (`job-detail-covai.php`)
 
   - Job title, description
   - Hiring organization
@@ -109,8 +109,8 @@
 ✅ **Clean URLs:**
 
 - ✅ `https://myomr.in/omr-local-job-listings/`
-- ✅ `https://myomr.in/omr-local-job-listings/job-detail-omr.php?id=123`
-- ✅ `https://myomr.in/omr-local-job-listings/post-job-omr.php`
+- ✅ `https://myomr.in/omr-local-job-listings/job-detail-covai.php?id=123`
+- ✅ `https://myomr.in/omr-local-job-listings/post-job-covai.php`
 
 ### **Canonical URLs:**
 

@@ -24,13 +24,15 @@ $site_name = defined('SITE_NAME') ? SITE_NAME : 'MyCovai';
     <?php include __DIR__ . '/components/main-nav.php'; ?>
     <main class="policy-container">
         <h1>Data Policy</h1>
-        <p><strong>Effective Date:</strong> 01-01-2025</p>
+        <p><strong>Effective Date:</strong> 29-05-2026</p>
         <h2>1. Purpose</h2>
         <p>This Data Policy outlines how <?php echo htmlspecialchars($site_name); ?> collects, uses, stores, and protects your data in compliance with applicable laws and best practices.</p>
         <h2>2. Data Collection</h2>
         <ul>
             <li>We collect only the data necessary to provide our services, such as contact details, listing information, and analytics data.</li>
-            <li>Data is collected through forms, cookies, and third-party integrations (e.g., analytics).</li>
+            <li>Data is collected through forms, cookies, and third-party integrations (e.g., Google Analytics, Microsoft Clarity).</li>
+            <li>Advertising partners (e.g., Google AdSense) may collect usage data via cookies when ads are displayed on our site. See our <a href="/privacy-policy.php">Privacy Policy</a> for full details on advertising and analytics.</li>
+            <li>Affiliate links on selected pages may pass referral data to third-party retailers when you click through. See our <a href="/affiliate-disclosure.php">Affiliate Disclosure</a>.</li>
         </ul>
         <h2>3. Data Usage</h2>
         <ul>

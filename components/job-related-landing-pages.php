@@ -2,69 +2,62 @@
 /**
  * Related Landing Pages Component
  * Shows contextually relevant landing pages on each landing page
- * 
- * Usage: <?php 
+ *
+ * Usage: <?php
  *   $current_page_type = 'location'; // 'location', 'industry', 'experience', 'type'
- *   $current_page_value = 'Perungudi'; // e.g., 'Perungudi', 'IT', 'fresher', 'part-time'
- *   include 'components/job-related-landing-pages.php'; 
+ *   $current_page_value = 'RS Puram';
+ *   include 'components/job-related-landing-pages.php';
  * ?>
  */
 
-// Determine related pages based on current page type
 $related_pages = [];
 
 if (isset($current_page_type)) {
     switch ($current_page_type) {
         case 'location':
-            // Related: Industries in this location, experience levels, job types
             $related_pages = [
-                ['url' => '/it-jobs-omr-chennai.php', 'title' => 'IT Jobs in OMR', 'icon' => 'laptop-code'],
-                ['url' => '/teaching-jobs-omr-chennai.php', 'title' => 'Teaching Jobs in OMR', 'icon' => 'chalkboard-teacher'],
-                ['url' => '/fresher-jobs-omr-chennai.php', 'title' => 'Fresher Jobs in OMR', 'icon' => 'user-graduate'],
-                ['url' => '/part-time-jobs-omr-chennai.php', 'title' => 'Part-Time Jobs in OMR', 'icon' => 'clock'],
+                ['url' => '/it-jobs-coimbatore.php', 'title' => 'IT Jobs in Coimbatore', 'icon' => 'laptop-code'],
+                ['url' => '/jobs/?category=teaching', 'title' => 'Teaching Jobs in Covai', 'icon' => 'chalkboard-teacher'],
+                ['url' => '/jobs/?experience=fresher', 'title' => 'Fresher Jobs in Covai', 'icon' => 'user-graduate'],
+                ['url' => '/jobs/?job_type=part-time', 'title' => 'Part-Time Jobs in Covai', 'icon' => 'clock'],
             ];
             break;
-            
+
         case 'industry':
-            // Related: Other locations, experience levels, job types
             $related_pages = [
-                ['url' => '/jobs-in-sholinganallur-omr.php', 'title' => 'Jobs in Sholinganallur', 'icon' => 'map-marker-alt'],
-                ['url' => '/jobs-in-perungudi-omr.php', 'title' => 'Jobs in Perungudi', 'icon' => 'map-marker-alt'],
-                ['url' => '/fresher-jobs-omr-chennai.php', 'title' => 'Fresher Jobs', 'icon' => 'user-graduate'],
-                ['url' => '/experienced-jobs-omr-chennai.php', 'title' => 'Experienced Jobs', 'icon' => 'user-tie'],
+                ['url' => '/jobs-in-gandhipuram.php', 'title' => 'Jobs in Gandhipuram', 'icon' => 'map-marker-alt'],
+                ['url' => '/jobs-in-rs-puram.php', 'title' => 'Jobs in RS Puram', 'icon' => 'map-marker-alt'],
+                ['url' => '/jobs/?experience=fresher', 'title' => 'Fresher Jobs', 'icon' => 'user-graduate'],
+                ['url' => '/jobs/?experience=experienced', 'title' => 'Experienced Jobs', 'icon' => 'user-tie'],
             ];
             break;
-            
+
         case 'experience':
-            // Related: Industries, locations, job types
             $related_pages = [
-                ['url' => '/it-jobs-omr-chennai.php', 'title' => 'IT Jobs for Freshers', 'icon' => 'laptop-code'],
-                ['url' => '/jobs-in-sholinganallur-omr.php', 'title' => 'Jobs in Sholinganallur', 'icon' => 'map-marker-alt'],
-                ['url' => '/part-time-jobs-omr-chennai.php', 'title' => 'Part-Time Jobs', 'icon' => 'clock'],
+                ['url' => '/it-jobs-coimbatore.php', 'title' => 'IT Jobs for Freshers', 'icon' => 'laptop-code'],
+                ['url' => '/jobs-in-saravanampatti.php', 'title' => 'Jobs in Saravanampatti', 'icon' => 'map-marker-alt'],
+                ['url' => '/jobs/?job_type=part-time', 'title' => 'Part-Time Jobs', 'icon' => 'clock'],
             ];
             break;
-            
+
         case 'type':
-            // Related: Industries, locations, experience levels
             $related_pages = [
-                ['url' => '/retail-jobs-omr-chennai.php', 'title' => 'Retail Jobs', 'icon' => 'shopping-bag'],
-                ['url' => '/jobs-in-navalur-omr.php', 'title' => 'Jobs in Navalur', 'icon' => 'map-marker-alt'],
-                ['url' => '/fresher-jobs-omr-chennai.php', 'title' => 'Fresher Jobs', 'icon' => 'user-graduate'],
+                ['url' => '/jobs/?category=retail', 'title' => 'Retail Jobs', 'icon' => 'shopping-bag'],
+                ['url' => '/jobs-in-peelamedu.php', 'title' => 'Jobs in Peelamedu', 'icon' => 'map-marker-alt'],
+                ['url' => '/jobs/?experience=fresher', 'title' => 'Fresher Jobs', 'icon' => 'user-graduate'],
             ];
             break;
-            
+
         default:
-            // Default: Show popular pages
             $related_pages = [
-                ['url' => '/it-jobs-omr-chennai.php', 'title' => 'IT Jobs in OMR', 'icon' => 'laptop-code'],
-                ['url' => '/jobs-in-sholinganallur-omr.php', 'title' => 'Jobs in Sholinganallur', 'icon' => 'map-marker-alt'],
-                ['url' => '/fresher-jobs-omr-chennai.php', 'title' => 'Fresher Jobs', 'icon' => 'user-graduate'],
-                ['url' => '/part-time-jobs-omr-chennai.php', 'title' => 'Part-Time Jobs', 'icon' => 'clock'],
+                ['url' => '/it-jobs-coimbatore.php', 'title' => 'IT Jobs in Coimbatore', 'icon' => 'laptop-code'],
+                ['url' => '/jobs-in-gandhipuram.php', 'title' => 'Jobs in Gandhipuram', 'icon' => 'map-marker-alt'],
+                ['url' => '/jobs/?experience=fresher', 'title' => 'Fresher Jobs', 'icon' => 'user-graduate'],
+                ['url' => '/jobs/?job_type=part-time', 'title' => 'Part-Time Jobs', 'icon' => 'clock'],
             ];
     }
 }
 
-// Limit to 4 related pages
 $related_pages = array_slice($related_pages, 0, 4);
 ?>
 
@@ -99,4 +92,3 @@ $related_pages = array_slice($related_pages, 0, 4);
     text-decoration: none;
 }
 </style>
-

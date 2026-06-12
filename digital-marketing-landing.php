@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/core/omr-connect.php';
+require_once __DIR__ . '/core/mycovai-config.php';
 /**
  * MyCovai Digital Marketing Landing Page
  * 
@@ -23,8 +24,16 @@ $canonical_url = 'https://mycovai.in/digital-marketing-landing.php';
 // OG tags
 $og_title = $page_title;
 $og_description = 'Join ' . $site_brand . ' - Coimbatore\'s premier digital community platform. Get local news, find jobs, discover events, browse businesses, and connect with the Covai community.';
-$og_image = 'https://mycovai.in/My-OMR-Logo.jpg';
+$og_image = (defined('SITE_CANONICAL_BASE') ? rtrim(SITE_CANONICAL_BASE, '/') : 'https://mycovai.in') . covai_logo_url();
 $og_url = $canonical_url;
+
+$social_same_as = array_values(array_filter([
+    (defined('SOCIAL_FACEBOOK') && SOCIAL_FACEBOOK !== '') ? SOCIAL_FACEBOOK : null,
+    (defined('SOCIAL_INSTAGRAM') && SOCIAL_INSTAGRAM !== '') ? SOCIAL_INSTAGRAM : null,
+    (defined('SOCIAL_WHATSAPP') && SOCIAL_WHATSAPP !== '') ? SOCIAL_WHATSAPP : null,
+    (defined('SOCIAL_YOUTUBE') && SOCIAL_YOUTUBE !== '') ? SOCIAL_YOUTUBE : null,
+    (defined('SOCIAL_TWITTER') && SOCIAL_TWITTER !== '') ? SOCIAL_TWITTER : null,
+]));
 
 // Twitter tags
 $twitter_title = $og_title;
@@ -64,15 +73,15 @@ error_reporting(E_ALL);
 <!-- Landing Page Custom CSS -->
 <style>
 :root {
-    --myomr-primary: #008552;
-    --myomr-primary-dark: #14532d;
-    --myomr-primary-light: #22c55e;
-    --myomr-accent: #F77F00;
-    --myomr-accent-light: #FFA500;
-    --myomr-text-dark: #1a1a1a;
-    --myomr-text-light: #6b7280;
-    --myomr-bg-light: #f8f9fa;
-    --myomr-white: #ffffff;
+    --covai-primary: #008552;
+    --covai-primary-dark: #14532d;
+    --covai-primary-light: #22c55e;
+    --covai-accent: #F77F00;
+    --covai-accent-light: #FFA500;
+    --covai-text-dark: #1a1a1a;
+    --covai-text-light: #6b7280;
+    --covai-bg-light: #f8f9fa;
+    --covai-white: #ffffff;
 }
 
 * {
@@ -83,7 +92,7 @@ error_reporting(E_ALL);
 
 body {
     font-family: 'Poppins', sans-serif;
-    color: var(--myomr-text-dark);
+    color: var(--covai-text-dark);
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -98,7 +107,7 @@ body.loaded {
     position: absolute;
     top: -40px;
     left: 6px;
-    background: var(--myomr-primary);
+    background: var(--covai-primary);
     color: white;
     padding: 8px 16px;
     text-decoration: none;
@@ -112,7 +121,7 @@ body.loaded {
 
 /* Header Styles */
 .landing-header {
-    background: var(--myomr-white);
+    background: var(--covai-white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     position: sticky;
     top: 0;
@@ -141,7 +150,7 @@ body.loaded {
 .logo-section .logo-text {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     text-decoration: none;
 }
 
@@ -153,18 +162,18 @@ body.loaded {
 }
 
 .landing-nav a {
-    color: var(--myomr-text-dark);
+    color: var(--covai-text-dark);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .landing-nav a:hover {
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
 }
 
 .landing-nav .cta-nav {
-    background: var(--myomr-primary);
+    background: var(--covai-primary);
     color: white;
     padding: 0.5rem 1.5rem;
     border-radius: 25px;
@@ -172,7 +181,7 @@ body.loaded {
 }
 
 .landing-nav .cta-nav:hover {
-    background: var(--myomr-primary-dark);
+    background: var(--covai-primary-dark);
     color: white;
 }
 
@@ -181,13 +190,13 @@ body.loaded {
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--myomr-text-dark);
+    color: var(--covai-text-dark);
     cursor: pointer;
 }
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, var(--myomr-primary) 0%, var(--myomr-primary-dark) 100%);
+    background: linear-gradient(135deg, var(--covai-primary) 0%, var(--covai-primary-dark) 100%);
     color: white;
     padding: 100px 0;
     position: relative;
@@ -238,7 +247,7 @@ body.loaded {
 }
 
 .hero-title .highlight {
-    color: var(--myomr-accent-light);
+    color: var(--covai-accent-light);
     position: relative;
     display: inline-block;
 }
@@ -250,7 +259,7 @@ body.loaded {
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--myomr-accent-light);
+    background: var(--covai-accent-light);
     border-radius: 2px;
 }
 
@@ -268,7 +277,7 @@ body.loaded {
 }
 
 .btn-hero-primary {
-    background: var(--myomr-accent);
+    background: var(--covai-accent);
     color: white;
     padding: 1rem 2.5rem;
     border-radius: 50px;
@@ -284,7 +293,7 @@ body.loaded {
 }
 
 .btn-hero-primary:hover {
-    background: var(--myomr-accent-light);
+    background: var(--covai-accent-light);
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(247, 127, 0, 0.3);
     color: white;
@@ -360,7 +369,7 @@ body.loaded {
     justify-content: center;
     background: white;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     text-decoration: none;
     transition: all 0.3s ease;
     font-size: 1.25rem;
@@ -369,7 +378,7 @@ body.loaded {
 .social-icon-float:hover {
     transform: translateY(-5px) scale(1.1);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
 }
 
 .social-icon-float.facebook { color: #3b5998; }
@@ -390,42 +399,42 @@ body.loaded {
 
 .stat-icon {
     font-size: 2.5rem;
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     margin-bottom: 1rem;
 }
 
 .stat-number {
     font-size: 3.5rem;
     font-weight: 800;
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     line-height: 1;
     margin-bottom: 0.5rem;
 }
 
 .stat-label {
     font-size: 1.1rem;
-    color: var(--myomr-text-light);
+    color: var(--covai-text-light);
     font-weight: 500;
 }
 
 /* Services Section */
 .services-section {
     padding: 80px 0;
-    background: var(--myomr-white);
+    background: var(--covai-white);
 }
 
 .section-title {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     margin-bottom: 1rem;
 }
 
 .section-subtitle {
     text-align: center;
     font-size: 1.2rem;
-    color: var(--myomr-text-light);
+    color: var(--covai-text-light);
     margin-bottom: 3rem;
     max-width: 700px;
     margin-left: auto;
@@ -440,7 +449,7 @@ body.loaded {
 }
 
 .service-card {
-    background: var(--myomr-white);
+    background: var(--covai-white);
     border-radius: 20px;
     padding: 2rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -454,13 +463,13 @@ body.loaded {
 .service-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 30px rgba(0, 133, 82, 0.15);
-    border-color: var(--myomr-primary);
+    border-color: var(--covai-primary);
 }
 
 .service-icon {
     width: 70px;
     height: 70px;
-    background: linear-gradient(135deg, var(--myomr-primary), var(--myomr-primary-light));
+    background: linear-gradient(135deg, var(--covai-primary), var(--covai-primary-light));
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -473,19 +482,19 @@ body.loaded {
 .service-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     margin-bottom: 1rem;
 }
 
 .service-description {
-    color: var(--myomr-text-light);
+    color: var(--covai-text-light);
     line-height: 1.7;
     margin-bottom: 1.5rem;
     flex-grow: 1;
 }
 
 .service-cta {
-    background: var(--myomr-primary);
+    background: var(--covai-primary);
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -499,7 +508,7 @@ body.loaded {
 }
 
 .service-cta:hover {
-    background: var(--myomr-primary-dark);
+    background: var(--covai-primary-dark);
     transform: translateX(5px);
     color: white;
 }
@@ -513,7 +522,7 @@ body.loaded {
 .business-directory-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -525,7 +534,7 @@ body.loaded {
 }
 
 .service-card-small {
-    background: var(--myomr-white);
+    background: var(--covai-white);
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
@@ -537,13 +546,13 @@ body.loaded {
 .service-card-small:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 133, 82, 0.12);
-    border-color: var(--myomr-primary-light);
+    border-color: var(--covai-primary-light);
 }
 
 .service-icon-small {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, var(--myomr-primary-light), var(--myomr-primary));
+    background: linear-gradient(135deg, var(--covai-primary-light), var(--covai-primary));
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -556,12 +565,12 @@ body.loaded {
 .service-title-small {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--myomr-text-dark);
+    color: var(--covai-text-dark);
     margin-bottom: 0.5rem;
 }
 
 .service-cta-small {
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -572,14 +581,14 @@ body.loaded {
 }
 
 .service-cta-small:hover {
-    color: var(--myomr-primary-dark);
+    color: var(--covai-primary-dark);
     gap: 0.5rem;
 }
 
 /* CTA Sections */
 .cta-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, var(--myomr-primary) 0%, var(--myomr-primary-dark) 100%);
+    background: linear-gradient(135deg, var(--covai-primary) 0%, var(--covai-primary-dark) 100%);
     color: white;
     text-align: center;
     position: relative;
@@ -626,7 +635,7 @@ body.loaded {
 }
 
 .btn-cta-primary {
-    background: var(--myomr-accent);
+    background: var(--covai-accent);
     color: white;
     padding: 1rem 2.5rem;
     border-radius: 50px;
@@ -640,7 +649,7 @@ body.loaded {
 }
 
 .btn-cta-primary:hover {
-    background: var(--myomr-accent-light);
+    background: var(--covai-accent-light);
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(247, 127, 0, 0.3);
     color: white;
@@ -671,11 +680,11 @@ body.loaded {
 /* Newsletter Section */
 .newsletter-section {
     padding: 80px 0;
-    background: var(--myomr-bg-light);
+    background: var(--covai-bg-light);
 }
 
 .newsletter-card {
-    background: var(--myomr-white);
+    background: var(--covai-white);
     border-radius: 20px;
     padding: 3rem;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
@@ -687,12 +696,12 @@ body.loaded {
 .newsletter-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--myomr-primary);
+    color: var(--covai-primary);
     margin-bottom: 1rem;
 }
 
 .newsletter-description {
-    color: var(--myomr-text-light);
+    color: var(--covai-text-light);
     margin-bottom: 2rem;
     font-size: 1.1rem;
 }
@@ -717,12 +726,12 @@ body.loaded {
 
 .newsletter-input:focus {
     outline: none;
-    border-color: var(--myomr-primary);
+    border-color: var(--covai-primary);
     box-shadow: 0 0 0 3px rgba(0, 133, 82, 0.1);
 }
 
 .btn-newsletter {
-    background: var(--myomr-primary);
+    background: var(--covai-primary);
     color: white;
     padding: 1rem 2.5rem;
     border: none;
@@ -737,7 +746,7 @@ body.loaded {
 }
 
 .btn-newsletter:hover {
-    background: var(--myomr-primary-dark);
+    background: var(--covai-primary-dark);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 133, 82, 0.3);
 }
@@ -745,7 +754,7 @@ body.loaded {
 .newsletter-privacy {
     margin-top: 1.5rem;
     font-size: 0.9rem;
-    color: var(--myomr-text-light);
+    color: var(--covai-text-light);
 }
 
 /* Loading State */
@@ -1050,7 +1059,7 @@ body:not(.loaded) {
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--myomr-text-dark);
+    color: var(--covai-text-dark);
     cursor: pointer;
     padding: 0.5rem;
     transition: transform 0.3s ease;
@@ -1068,7 +1077,7 @@ body:not(.loaded) {
 .mobile-menu-nav a {
     display: block;
     padding: 1rem 1.5rem;
-    color: var(--myomr-text-dark);
+    color: var(--covai-text-dark);
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -1077,14 +1086,14 @@ body:not(.loaded) {
 
 .mobile-menu-nav a:hover,
 .mobile-menu-nav a:focus {
-    background: var(--myomr-bg-light);
-    border-left-color: var(--myomr-primary);
-    color: var(--myomr-primary);
+    background: var(--covai-bg-light);
+    border-left-color: var(--covai-primary);
+    color: var(--covai-primary);
     padding-left: 2rem;
 }
 
 .mobile-menu-nav .cta-nav {
-    background: var(--myomr-primary);
+    background: var(--covai-primary);
     color: white;
     margin: 1rem 1.5rem;
     border-radius: 8px;
@@ -1093,7 +1102,7 @@ body:not(.loaded) {
 }
 
 .mobile-menu-nav .cta-nav:hover {
-    background: var(--myomr-primary-dark);
+    background: var(--covai-primary-dark);
     padding-left: 1.5rem;
 }
 
@@ -1168,7 +1177,7 @@ html {
 }
 
 .stat-card:hover .stat-number {
-    color: var(--myomr-primary-light);
+    color: var(--covai-primary-light);
 }
 
 /* Enhanced Newsletter Form */
@@ -1177,12 +1186,12 @@ html {
 }
 
 .newsletter-input:valid:not(:placeholder-shown) {
-    border-color: var(--myomr-primary-light);
+    border-color: var(--covai-primary-light);
 }
 
 /* Accessibility */
 *:focus-visible {
-    outline: 3px solid var(--myomr-accent);
+    outline: 3px solid var(--covai-accent);
     outline-offset: 2px;
 }
 
@@ -1196,7 +1205,7 @@ html {
 @media (prefers-contrast: high) {
     .service-card,
     .newsletter-card {
-        border: 2px solid var(--myomr-text-dark);
+        border: 2px solid var(--covai-text-dark);
     }
 }
 
@@ -1223,34 +1232,28 @@ html {
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "MyOMR",
+  "name": "MyCovai",
   "url": "https://mycovai.in",
-  "logo": "https://mycovai.in/My-OMR-Logo.jpg",
-  "description": "MyOMR.in - Your complete digital community hub for Old Mahabalipuram Road (OMR), Chennai. Local news, jobs, events, business listings, and more.",
+  "logo": "<?php echo (defined('SITE_CANONICAL_BASE') ? rtrim(SITE_CANONICAL_BASE, '/') : 'https://mycovai.in') . covai_logo_url(); ?>",
+  "description": "mycovai.in - Your complete digital community hub for Coimbatore. Local news, jobs, events, business listings, and more.",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Chennai",
+    "addressLocality": "Coimbatore",
     "addressRegion": "Tamil Nadu",
-    "addressCountry": "IN",
-    "streetAddress": "OMR Road"
+    "addressCountry": "IN"
   },
   "contactPoint": {
     "@type": "ContactPoint",
-    "email": "myomrnews@gmail.com",
+    "email": "mycovai@gmail.com",
     "contactType": "Customer Service",
     "areaServed": "IN",
     "availableLanguage": ["en", "ta"]
   },
-  "sameAs": [
-    "https://www.facebook.com/myomrCommunity",
-    "https://www.instagram.com/myomrcommunity",
-    "https://chat.whatsapp.com/Eixz1mmURuFLvnNZzCfGDi",
-    "https://www.youtube.com/channel/UCyFrgbaQht7C-17m_prn0Rg"
-  ],
+  "sameAs": <?php echo json_encode($social_same_as, JSON_UNESCAPED_SLASHES); ?>,
   "areaServed": {
     "@type": "City",
-    "name": "Chennai",
-    "sameAs": "https://en.wikipedia.org/wiki/Chennai"
+    "name": "Coimbatore",
+    "sameAs": "https://en.wikipedia.org/wiki/Coimbatore"
   }
 }
 </script>
@@ -1266,13 +1269,13 @@ html {
   "inLanguage": "en-IN",
   "isPartOf": {
     "@type": "WebSite",
-    "name": "MyOMR",
+    "name": "MyCovai",
     "url": "https://mycovai.in"
   },
   "about": {
     "@type": "Thing",
     "name": "Digital Community Services",
-    "description": "Comprehensive digital services for OMR corridor residents and businesses"
+    "description": "Comprehensive digital services for Coimbatore residents and businesses"
   },
   "breadcrumb": {
     "@type": "BreadcrumbList",
@@ -1308,18 +1311,18 @@ html {
   "serviceType": "Digital Community Platform",
   "provider": {
     "@type": "Organization",
-    "name": "MyOMR",
+    "name": "MyCovai",
     "url": "https://mycovai.in"
   },
   "areaServed": {
     "@type": "City",
-    "name": "Chennai",
+    "name": "Coimbatore",
     "addressRegion": "Tamil Nadu",
     "addressCountry": "IN"
   },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "MyOMR Digital Services",
+    "name": "MyCovai Digital Services",
     "itemListElement": [
       {
         "@type": "OfferCatalog",
@@ -1373,42 +1376,42 @@ html {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is MyOMR.in?",
+      "name": "What is mycovai.in?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "MyOMR.in is Chennai's premier digital community hub for Old Mahabalipuram Road (OMR) corridor. We provide comprehensive digital services including local news, job listings, events, business directories, hostels, coworking spaces, and community engagement platforms."
+        "text": "mycovai.in is Coimbatore's premier digital community hub. We provide local news, job listings, events, business directories, hostels, coworking spaces, and community engagement for Covai."
       }
     },
     {
       "@type": "Question",
-      "name": "What services does MyOMR.in offer?",
+      "name": "What services does mycovai.in offer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "MyOMR.in offers comprehensive digital services including local news & updates, job listings & career services, events & activities, business directory (schools, hospitals, banks, restaurants, IT companies, etc.), hostels & PGs, coworking spaces, community engagement, and newsletter subscriptions."
+        "text": "mycovai.in offers comprehensive digital services including local news & updates, job listings & career services, events & activities, business directory (schools, hospitals, banks, restaurants, IT companies, etc.), hostels & PGs, coworking spaces, community engagement, and newsletter subscriptions."
       }
     },
     {
       "@type": "Question",
-      "name": "How can I join MyOMR.in?",
+      "name": "How can I join mycovai.in?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can join MyOMR.in by visiting our website and exploring our various services. Subscribe to our newsletter, browse job listings, discover events, or list your business. Most services are free to use, and you can get started immediately."
+        "text": "You can join mycovai.in by visiting our website and exploring our various services. Subscribe to our newsletter, browse job listings, discover events, or list your business. Most services are free to use, and you can get started immediately."
       }
     },
     {
       "@type": "Question",
-      "name": "Is MyOMR.in free to use?",
+      "name": "Is mycovai.in free to use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, most services on MyOMR.in are free to use. We offer optional subscription plans for enhanced features. You can browse news, jobs, events, and business directories without any cost. Check our pricing page for subscription options."
+        "text": "Yes, most services on mycovai.in are free to use. We offer optional subscription plans for enhanced features. You can browse news, jobs, events, and business directories without any cost. Check our pricing page for subscription options."
       }
     },
     {
       "@type": "Question",
-      "name": "What areas does MyOMR.in cover?",
+      "name": "What areas does mycovai.in cover?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "MyOMR.in covers the entire OMR corridor including Perungudi, Thuraipakkam, Karapakkam, Kandhanchavadi, Mettukuppam, Sholinganallur, Dollar Stop, IT Corridor, Tidel Park, Madhya Kailash, Navalur, Thazhambur, Kelambakkam, and more areas along Old Mahabalipuram Road."
+        "text": "mycovai.in covers Coimbatore including RS Puram, Gandhipuram, Peelamedu, Saibaba Colony, Saravanampatti, Race Course, Singanallur, Town Hall, and neighbourhoods across the city."
       }
     },
     {
@@ -1416,7 +1419,7 @@ html {
       "name": "How do I post a job listing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "To post a job listing, visit our job portal at /jobs/post-job-omr.php. Employers can register, create job postings, and manage their listings through our employer dashboard. Job postings are moderated before going live."
+        "text": "To post a job listing, visit our job portal at /jobs/post-job-covai.php. Employers can register, create job postings, and manage their listings through our employer dashboard. Job postings are moderated before going live."
       }
     },
     {
@@ -1432,23 +1435,23 @@ html {
       "name": "How do I subscribe to the newsletter?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can subscribe to our newsletter by entering your email address in the newsletter subscription form on our website. Look for the 'Subscribe to Our Newsletter' section and enter your email. You'll receive regular updates about OMR news, events, and opportunities."
+        "text": "You can subscribe to our newsletter by entering your email on mycovai.in. You'll receive updates about Covai news, events, and opportunities."
       }
     },
     {
       "@type": "Question",
-      "name": "How can I contact MyOMR.in?",
+      "name": "How can I contact mycovai.in?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can contact MyOMR.in by email at myomrnews@gmail.com or call us at +91-98847 85845. Visit our support page at /discover/support.php for more contact options and information."
+        "text": "You can contact mycovai.in by email at mycovai@gmail.com or call us at +91-98847 85845. Visit our support page at /discover/support.php for more contact options and information."
       }
     },
     {
       "@type": "Question",
-      "name": "Is MyOMR.in mobile-friendly?",
+      "name": "Is mycovai.in mobile-friendly?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, MyOMR.in is fully mobile-responsive and optimized for all devices including smartphones, tablets, and desktops. You can access all our services and features seamlessly on any device with an internet connection."
+        "text": "Yes, mycovai.in is fully mobile-responsive and optimized for all devices including smartphones, tablets, and desktops. You can access all our services and features seamlessly on any device with an internet connection."
       }
     }
   ]
@@ -1460,8 +1463,8 @@ html {
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "MyOMR.in Digital Services",
-  "description": "Complete list of digital services offered by MyOMR.in for the OMR corridor community",
+  "name": "mycovai.in Digital Services",
+  "description": "Complete list of digital services offered by mycovai.in for the Coimbatore community",
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -1469,8 +1472,8 @@ html {
       "item": {
         "@type": "Service",
         "name": "Local News & Updates",
-        "url": "https://mycovai.in/local-news/",
-        "description": "Stay informed with latest news, stories, and community updates from OMR corridor"
+        "url": "https://mycovai.in/coimbatore-news.php",
+        "description": "Stay informed with latest news, stories, and community updates from Coimbatore"
       }
     },
     {
@@ -1480,7 +1483,7 @@ html {
         "@type": "Service",
         "name": "Job Listings & Career Services",
         "url": "https://mycovai.in/jobs/",
-        "description": "Find and post jobs, connect with employers in OMR"
+        "description": "Find and post jobs, connect with employers in Coimbatore"
       }
     },
     {
@@ -1510,7 +1513,7 @@ html {
         "@type": "Service",
         "name": "Hostels & PGs",
         "url": "https://mycovai.in/hostels-pgs/",
-        "description": "Find student and professional accommodation along OMR"
+        "description": "Find student and professional accommodation in Coimbatore"
       }
     },
     {
@@ -1530,7 +1533,7 @@ html {
         "@type": "Service",
         "name": "Community Engagement",
         "url": "https://mycovai.in/discover/community.php",
-        "description": "Join discussions and connect with OMR community"
+        "description": "Join discussions and connect with the Covai community"
       }
     },
     {
@@ -1556,9 +1559,9 @@ html {
 <header class="landing-header" role="banner">
     <div class="container">
         <div class="logo-section">
-            <a href="/" class="logo-text" aria-label="MyOMR Home">
-                <img src="/My-OMR-Logo.jpg" alt="MyOMR Logo" height="50" width="50">
-                MyOMR.in
+            <a href="/" class="logo-text" aria-label="MyCovai Home">
+                <img src="<?php echo htmlspecialchars(covai_logo_url()); ?>" alt="MyCovai Logo" height="50" width="50">
+                mycovai.in
             </a>
         </div>
         <nav class="landing-nav" role="navigation" aria-label="Main navigation">
@@ -1585,10 +1588,10 @@ html {
                         <i class="fas fa-star"></i> Your Digital Community Hub
                     </span>
                     <h1 id="hero-title" class="hero-title">
-                        For Your <span class="highlight">Complete</span> OMR Community Experience
+                        For Your <span class="highlight">Complete</span> Coimbatore Community Experience
                     </h1>
                     <p class="hero-description">
-                        Discover MyOMR.in - Chennai's premier digital platform connecting residents, businesses, and job seekers along Old Mahabalipuram Road. Get local news, find jobs, discover events, browse business directories, and join a thriving community.
+                        Discover mycovai.in — Coimbatore's digital platform for residents, businesses, and job seekers. Get local news, find jobs, discover events, browse directories, and join the Covai community.
                     </p>
                     <div class="hero-cta">
                         <a href="#services" class="btn-hero-primary" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Get Started Hero'});">
@@ -1653,8 +1656,8 @@ html {
     <!-- Mid-Page CTA -->
     <section class="cta-section">
         <div class="container">
-            <h2 class="cta-title fade-in-up">Ready to Explore OMR?</h2>
-            <p class="cta-description fade-in-up">Join thousands of community members and discover everything OMR has to offer!</p>
+            <h2 class="cta-title fade-in-up">Ready to Explore Covai?</h2>
+            <p class="cta-description fade-in-up">Join community members and discover everything Covai has to offer!</p>
             <div class="cta-buttons">
                 <a href="#services" class="btn-cta-primary" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Explore Services Mid'});">
                     <i class="fas fa-rocket"></i> Explore Services
@@ -1671,7 +1674,7 @@ html {
         <div class="container">
             <h2 id="services-title" class="section-title fade-in-up">Our Digital Services</h2>
             <p class="section-subtitle fade-in-up">
-                Everything you need to connect, discover, and thrive in the OMR corridor
+                Everything you need to connect, discover, and thrive in the Coimbatore
             </p>
             
             <!-- Primary Services Grid -->
@@ -1680,8 +1683,8 @@ html {
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-newspaper"></i></div>
                     <h3 class="service-title">Local News & Updates</h3>
-                    <p class="service-description">Stay informed with the latest news, stories, and community updates from the OMR corridor. Get breaking news, civic updates, and local happenings delivered to you.</p>
-                    <a href="/local-news/" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Local News'});">
+                    <p class="service-description">Stay informed with the latest news, stories, and community updates from the Coimbatore. Get breaking news, civic updates, and local happenings delivered to you.</p>
+                    <a href="/coimbatore-news.php" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Local News'});">
                         Read News <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -1690,7 +1693,7 @@ html {
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-briefcase"></i></div>
                     <h3 class="service-title">Job Listings & Career Services</h3>
-                    <p class="service-description">Find your dream job in OMR! Browse hundreds of job listings by location, industry, and experience level. Post job vacancies and connect with employers.</p>
+                    <p class="service-description">Find your dream job in Coimbatore. Browse job listings by location, industry, and experience level. Post vacancies and connect with employers.</p>
                     <a href="/jobs/" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Job Listings'});">
                         Browse Jobs <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1700,7 +1703,7 @@ html {
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-calendar-day"></i></div>
                     <h3 class="service-title">Events & Activities</h3>
-                    <p class="service-description">Discover and list local events, festivals, and activities happening in OMR. Stay connected with community events and never miss out on exciting happenings.</p>
+                    <p class="service-description">Discover and list local events, festivals, and activities in Coimbatore. Stay connected with community events across Covai.</p>
                     <a href="/local-events/" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Events'});">
                         View Events <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1710,7 +1713,7 @@ html {
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-building"></i></div>
                     <h3 class="service-title">Business Directory</h3>
-                    <p class="service-description">Comprehensive directory of businesses, services, and professionals along OMR. Find schools, hospitals, banks, restaurants, IT companies, and more.</p>
+                    <p class="service-description">Comprehensive directory of businesses, services, and professionals in Coimbatore. Find schools, hospitals, banks, restaurants, IT parks, and more.</p>
                     <a href="/directory/" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Business Directory'});">
                         Browse Directory <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1720,7 +1723,7 @@ html {
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-bed"></i></div>
                     <h3 class="service-title">Hostels & PGs</h3>
-                    <p class="service-description">Find student and professional accommodation along OMR corridor. Browse verified hostels and PGs with detailed information, amenities, and contact details.</p>
+                    <p class="service-description">Find student and professional accommodation along Coimbatore. Browse verified hostels and PGs with detailed information, amenities, and contact details.</p>
                     <a href="/hostels-pgs/" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Hostels PGs'});">
                         Find Accommodation <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1730,7 +1733,7 @@ html {
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-laptop-house"></i></div>
                     <h3 class="service-title">Coworking Spaces</h3>
-                    <p class="service-description">Discover flexible workspace solutions for freelancers, startups, and remote workers. Find the perfect coworking space in OMR with day passes and monthly plans.</p>
+                    <p class="service-description">Discover flexible workspace solutions for freelancers, startups, and remote workers. Find coworking spaces in Coimbatore with day passes and monthly plans.</p>
                     <a href="/coworking-spaces/" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Coworking Spaces'});">
                         Find Workspace <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1740,7 +1743,7 @@ html {
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-users"></i></div>
                     <h3 class="service-title">Community Engagement</h3>
-                    <p class="service-description">Join discussions, share experiences, and help shape the OMR community. Connect with residents, businesses, and community leaders in meaningful ways.</p>
+                    <p class="service-description">Join discussions, share experiences, and help shape the Covai community. Connect with residents, businesses, and local leaders.</p>
                     <a href="/discover/community.php" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Community'});">
                         Join Community <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1750,7 +1753,7 @@ html {
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-envelope-open-text"></i></div>
                     <h3 class="service-title">Newsletter Subscription</h3>
-                    <p class="service-description">Get the latest updates, news, events, and exclusive content delivered directly to your inbox. Stay connected with OMR happenings without missing a beat.</p>
+                    <p class="service-description">Get the latest updates, news, events, and content delivered to your inbox. Stay connected with Covai happenings.</p>
                     <a href="#newsletter" class="service-cta" onclick="gtag('event', 'click', {'event_category': 'Service', 'event_label': 'Newsletter'});">
                         Subscribe Now <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1827,7 +1830,7 @@ html {
                     <div class="service-card-small">
                         <div class="service-icon-small"><i class="fas fa-building"></i></div>
                         <h4 class="service-title-small">IT Parks</h4>
-                        <a href="/directory/it-parks-in-omr.php" class="service-cta-small">
+                        <a href="/directory/" class="service-cta-small">
                             Browse <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -1840,7 +1843,7 @@ html {
     <section id="newsletter" class="newsletter-section" aria-labelledby="newsletter-title">
         <div class="container">
             <div class="newsletter-card">
-                <h2 id="newsletter-title" class="newsletter-title fade-in-up">Stay Updated with OMR</h2>
+                <h2 id="newsletter-title" class="newsletter-title fade-in-up">Stay Updated with Covai</h2>
                 <p class="newsletter-description fade-in-up">Subscribe to our newsletter and get the latest news, events, job opportunities, and community updates delivered to your inbox.</p>
                 <form action="/core/subscribe.php" method="POST" class="newsletter-form">
                     <input type="email" name="email" class="newsletter-input" placeholder="Enter your email address" required aria-label="Email address for newsletter subscription">
@@ -1856,8 +1859,8 @@ html {
     <!-- Bottom CTA Section -->
     <section class="cta-section">
         <div class="container">
-            <h2 class="cta-title fade-in-up">Join MyOMR.in Today</h2>
-            <p class="cta-description fade-in-up">Your complete digital community hub for Old Mahabalipuram Road. Connect, discover, and thrive with thousands of community members.</p>
+            <h2 class="cta-title fade-in-up">Join mycovai.in Today</h2>
+            <p class="cta-description fade-in-up">Your complete digital community hub for Coimbatore. Connect, discover, and thrive with thousands of community members.</p>
             <div class="cta-buttons">
                 <a href="/" class="btn-cta-primary" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Get Started Bottom'});">
                     <i class="fas fa-home"></i> Explore Homepage
@@ -1876,7 +1879,7 @@ html {
 <!-- Mobile Menu -->
 <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true">
     <div class="mobile-menu-header">
-        <a href="/" class="logo-text" style="font-size: 1.25rem;">MyOMR.in</a>
+        <a href="/" class="logo-text" style="font-size: 1.25rem;">mycovai.in</a>
         <button class="mobile-menu-close" aria-label="Close mobile menu" id="mobileMenuClose">
             <i class="fas fa-times"></i>
         </button>
@@ -1894,20 +1897,25 @@ html {
 <?php include 'components/footer.php'; ?>
 
 <!-- Floating Social Icons -->
+<?php if (!empty($social_same_as)): ?>
 <div class="floating-social-icons" aria-label="Social media links">
-    <a href="https://www.facebook.com/myomrCommunity" target="_blank" rel="noopener noreferrer" class="social-icon-float facebook" aria-label="Facebook">
+    <?php if (defined('SOCIAL_FACEBOOK') && SOCIAL_FACEBOOK !== ''): ?>
+    <a href="<?php echo htmlspecialchars(SOCIAL_FACEBOOK); ?>" target="_blank" rel="noopener noreferrer" class="social-icon-float facebook" aria-label="Facebook">
         <i class="fab fa-facebook-f"></i>
     </a>
-    <a href="https://www.instagram.com/myomrcommunity" target="_blank" rel="noopener noreferrer" class="social-icon-float instagram" aria-label="Instagram">
+    <?php endif; ?>
+    <?php if (defined('SOCIAL_INSTAGRAM') && SOCIAL_INSTAGRAM !== ''): ?>
+    <a href="<?php echo htmlspecialchars(SOCIAL_INSTAGRAM); ?>" target="_blank" rel="noopener noreferrer" class="social-icon-float instagram" aria-label="Instagram">
         <i class="fab fa-instagram"></i>
     </a>
-    <a href="https://chat.whatsapp.com/Eixz1mmURuFLvnNZzCfGDi" target="_blank" rel="noopener noreferrer" class="social-icon-float whatsapp" aria-label="WhatsApp">
+    <?php endif; ?>
+    <?php if (defined('SOCIAL_WHATSAPP') && SOCIAL_WHATSAPP !== ''): ?>
+    <a href="<?php echo htmlspecialchars(SOCIAL_WHATSAPP); ?>" target="_blank" rel="noopener noreferrer" class="social-icon-float whatsapp" aria-label="WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
-    <a href="#" class="social-icon-float linkedin" aria-label="LinkedIn">
-        <i class="fab fa-linkedin-in"></i>
-    </a>
+    <?php endif; ?>
 </div>
+<?php endif; ?>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

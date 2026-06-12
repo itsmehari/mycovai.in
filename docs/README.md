@@ -1,8 +1,11 @@
-# 📚 MyOMR.in Documentation
+# 📚 MyCovai.in Documentation
+
+> **Live system map (10x — update first):** [`.cursor/LIVE-SYSTEM-MAP.md`](../.cursor/LIVE-SYSTEM-MAP.md)  
+> **Maintenance runbook:** [`.cursor/maintenance/MAINTENANCE-RUNBOOK.md`](../.cursor/maintenance/MAINTENANCE-RUNBOOK.md)
 
 ## 🤖 AI System Context & Overview
 
-**Purpose of This Documentation Folder:** This `docs/` directory contains comprehensive documentation for the MyOMR.in project, a local news and community platform serving the Old Mahabalipuram Road (OMR) corridor in Chennai, India. The documentation is systematically organized to support both human developers and AI systems in understanding, maintaining, and extending the codebase.
+**Purpose of This Documentation Folder:** This `docs/` directory contains deep reference documentation for **MyCovai.in** (Coimbatore). The **live** architecture map lives in `.cursor/LIVE-SYSTEM-MAP.md`; use `docs/` for PRDs, worklogs, SEO guides, and historical material. The documentation is systematically organized to support both human developers and AI systems in understanding, maintaining, and extending the codebase.
 
 **Project Context:** MyOMR.in is a PHP-based web platform built with procedural PHP, MySQL, Bootstrap 5, and vanilla JavaScript. It provides local news, events, job listings, business directories, and community features for residents and businesses along the OMR corridor. The platform is deployed on shared hosting (cPanel) and uses phpMyAdmin for database management.
 

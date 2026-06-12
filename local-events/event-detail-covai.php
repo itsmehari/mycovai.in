@@ -36,7 +36,7 @@ $map_suffix = $event ? trim(($event['locality'] ?? '') . ' ' . $region_full) : $
   <?php endif; ?>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/jobs/assets/omr-jobs-unified-design.css" />
+  <link rel="stylesheet" href="/jobs/assets/covai-jobs-unified-design.css" />
   <link rel="stylesheet" href="/assets/css/events-covai.css" />
   <?php include __DIR__ . '/../components/analytics.php'; ?>
   <?php if ($event): 
@@ -193,7 +193,7 @@ $map_suffix = $event ? trim(($event['locality'] ?? '') . ' ' . $region_full) : $
 <script src="/local-events/assets/events-analytics.js"></script>
 <script>
   (function(){
-    var ev = window.MyCovaiEventsAnalytics || window.MyOMREventsAnalytics;
+    var ev = window.MyCovaiEventsAnalytics;
     var slug = <?php echo json_encode($slug); ?>;
     document.querySelectorAll('a[data-share]').forEach(function(el){
       el.addEventListener('click', function(){

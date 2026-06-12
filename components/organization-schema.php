@@ -4,8 +4,11 @@ if (!function_exists('get_canonical_base')) {
     require_once __DIR__ . '/../core/url-helpers.php';
 }
 $base = get_canonical_base();
-$orgName = defined('SITE_NAME') ? SITE_NAME : 'MyOMR';
-$orgLogo = $base . (defined('SITE_LOGO_URL') && SITE_LOGO_URL !== '' ? SITE_LOGO_URL : '/My-OMR-Logo.jpg');
+if (!function_exists('covai_site_name')) {
+    require_once __DIR__ . '/../core/mycovai-config.php';
+}
+$orgName = covai_site_name();
+$orgLogo = $base . covai_logo_url();
 $sameAs = [];
 if (defined('MYCOVAI_CONFIG_LOADED')) {
     if (defined('SOCIAL_FACEBOOK') && SOCIAL_FACEBOOK !== '') $sameAs[] = SOCIAL_FACEBOOK;
@@ -14,12 +17,8 @@ if (defined('MYCOVAI_CONFIG_LOADED')) {
     if (defined('SOCIAL_YOUTUBE') && SOCIAL_YOUTUBE !== '') $sameAs[] = SOCIAL_YOUTUBE;
     if (defined('SOCIAL_WHATSAPP') && SOCIAL_WHATSAPP !== '') $sameAs[] = SOCIAL_WHATSAPP;
 }
-if (empty($sameAs)) {
-    $sameAs = [
-        'https://www.facebook.com/myomrCommunity',
-        'https://www.instagram.com/myomrcommunity/',
-        'https://www.youtube.com/channel/UCyFrgbaQht7C-17m_prn0Rg'
-    ];
+if (empty($sameAs) && defined('SOCIAL_WHATSAPP') && SOCIAL_WHATSAPP !== '') {
+    $sameAs = [SOCIAL_WHATSAPP];
 }
 $org = [
   '@context' => 'https://schema.org',

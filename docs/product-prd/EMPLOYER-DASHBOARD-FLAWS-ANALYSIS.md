@@ -23,7 +23,7 @@ tags:
 
 ## 📋 Executive Summary
 
-This document provides a comprehensive analysis of the employer dashboard (`employer-dashboard-omr.php`) identifying **critical security vulnerabilities**, **UX/UI design flaws**, **performance issues**, **functional gaps**, and **architectural concerns**.
+This document provides a comprehensive analysis of the employer dashboard (`employer-dashboard-covai.php`) identifying **critical security vulnerabilities**, **UX/UI design flaws**, **performance issues**, **functional gaps**, and **architectural concerns**.
 
 **Severity Breakdown:**
 - 🔴 **Critical**: 8 issues
@@ -39,7 +39,7 @@ This document provides a comprehensive analysis of the employer dashboard (`empl
 
 ### 1. SQL Injection Vulnerability (Security)
 
-**Location:** `employer-dashboard-omr.php` lines 34, 49-52, 76-91
+**Location:** `employer-dashboard-covai.php` lines 34, 49-52, 76-91
 
 **Problem:**
 ```php
@@ -73,7 +73,7 @@ $whereConditions[] = "a.status = '{$statusFilter}'";
 
 ### 2. Missing CSRF Protection (Security)
 
-**Location:** `update-application-status-omr.php` lines 1-42
+**Location:** `update-application-status-covai.php` lines 1-42
 
 **Problem:**
 - No CSRF token validation on status update forms
@@ -95,20 +95,20 @@ $whereConditions[] = "a.status = '{$statusFilter}'";
 
 ### 3. Broken Redirect After Status Update (UX)
 
-**Location:** `update-application-status-omr.php` line 34
+**Location:** `update-application-status-covai.php` line 34
 
 **Problem:**
 ```php
-header('Location: view-applications-omr.php?id=' . $job_id . '&success=updated');
+header('Location: view-applications-covai.php?id=' . $job_id . '&success=updated');
 ```
 
 **Impact:**
-- After updating status from unified dashboard, user is redirected to old `view-applications-omr.php` page
+- After updating status from unified dashboard, user is redirected to old `view-applications-covai.php` page
 - Loses filter context and current page state
 - Poor user experience - breaks workflow
 
 **Fix Required:**
-- Redirect back to `employer-dashboard-omr.php` with preserved filters
+- Redirect back to `employer-dashboard-covai.php` with preserved filters
 - Maintain current page, job selection, and filter state
 - Use session or URL parameters to restore context
 
@@ -148,7 +148,7 @@ function applyFilters() {
 
 ### 5. Inefficient Database Queries (Performance)
 
-**Location:** `employer-dashboard-omr.php` lines 94-129, 136-163
+**Location:** `employer-dashboard-covai.php` lines 94-129, 136-163
 
 **Problem:**
 ```php
@@ -180,7 +180,7 @@ $educationQuery = "SELECT DISTINCT applicant_education ...";
 
 ### 6. Missing Input Validation & Sanitization (Security)
 
-**Location:** Throughout `employer-dashboard-omr.php`
+**Location:** Throughout `employer-dashboard-covai.php`
 
 **Problem:**
 ```php
@@ -206,7 +206,7 @@ $statusCategory = isset($_GET['category']) ? $conn->real_escape_string($_GET['ca
 
 ### 7. No Rate Limiting on Actions (Security)
 
-**Location:** `update-application-status-omr.php`, bulk actions
+**Location:** `update-application-status-covai.php`, bulk actions
 
 **Problem:**
 - No rate limiting on status updates
@@ -230,7 +230,7 @@ $statusCategory = isset($_GET['category']) ? $conn->real_escape_string($_GET['ca
 
 ### 8. Missing Authorization Checks (Security)
 
-**Location:** `update-application-status-omr.php` lines 24-28
+**Location:** `update-application-status-covai.php` lines 24-28
 
 **Problem:**
 ```php
@@ -258,7 +258,7 @@ $statusCategory = isset($_GET['category']) ? $conn->real_escape_string($_GET['ca
 
 ### 9. Filter State Not Preserved in URL (UX)
 
-**Location:** `employer-dashboard-omr.php` - Filter implementation
+**Location:** `employer-dashboard-covai.php` - Filter implementation
 
 **Problem:**
 - Checkbox filters (locality, education, gender) don't preserve state in URL
@@ -363,7 +363,7 @@ function handleBulkSMS() {
 
 ### 13. No Pagination State Preservation (UX)
 
-**Location:** `employer-dashboard-omr.php` lines 522-544
+**Location:** `employer-dashboard-covai.php` lines 522-544
 
 **Problem:**
 - Pagination links don't preserve all filter states
@@ -411,7 +411,7 @@ function handleBulkSMS() {
 
 ### 15. Inefficient Filter Query Logic (Performance)
 
-**Location:** `employer-dashboard-omr.php` lines 72-130
+**Location:** `employer-dashboard-covai.php` lines 72-130
 
 **Problem:**
 ```php

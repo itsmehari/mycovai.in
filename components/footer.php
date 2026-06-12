@@ -1,4 +1,10 @@
 <?php
+if (!defined('MYCOVAI_CONFIG_LOADED')) {
+    $mycovai_config = __DIR__ . '/../core/mycovai-config.php';
+    if (is_file($mycovai_config)) {
+        require_once $mycovai_config;
+    }
+}
 if (defined('MYCOVAI_CONFIG_LOADED')) {
     include __DIR__ . '/footer-covai.php';
     return;
@@ -66,9 +72,10 @@ if (!isset($baseUrl)) {
                             </div>
                             <ul>
                                 <li><a href="<?php echo $baseUrl; ?>index.php">Home</a></li>
+                                <li><a href="<?php echo $baseUrl; ?>about.php">About</a></li>
                                 <li><a href="<?php echo $baseUrl; ?>covai-directory-list.php">Coimbatore Directory</a></li>
                                 <li><a href="<?php echo $baseUrl; ?>contact.php">Contact us</a></li>
-                                <li><a href="<?php echo $baseUrl; ?>local-news/">Latest News</a></li>
+                                <li><a href="<?php echo $baseUrl; ?>coimbatore-news.php">Covai News</a></li>
                             </ul>
                         </div>
                     </div>
@@ -134,6 +141,7 @@ if (!isset($baseUrl)) {
                             <ul>
                                 <li><a href="<?php echo $baseUrl; ?>terms-and-conditions.php">Terms</a></li>
                                 <li><a href="<?php echo $baseUrl; ?>privacy-policy.php">Privacy</a></li>
+                                <li><a href="<?php echo $baseUrl; ?>affiliate-disclosure.php">Affiliate Disclosure</a></li>
                                 <li><a href="<?php echo $baseUrl; ?>data-policy.php">Policy</a></li>
                                 <li><a href="<?php echo $baseUrl; ?>webmaster-contact.php">Contact Webmaster</a></li>
                             </ul>

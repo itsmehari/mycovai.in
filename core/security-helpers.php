@@ -1,6 +1,6 @@
 <?php
 /**
- * Security Helper Functions for MyOMR.in
+ * Security Helper Functions for MyCovai
  * This file contains common security functions for input validation and sanitization
  */
 

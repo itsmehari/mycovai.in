@@ -17,6 +17,7 @@ $ga_id = defined('GA_MEASUREMENT_ID') && GA_MEASUREMENT_ID !== '' ? GA_MEASUREME
   gtag('js', new Date());
   gtag('config', '<?php echo htmlspecialchars($ga_id); ?>');
 </script>
+<script defer src="/assets/js/directory-analytics-events.js"></script>
 <!-- End Google Analytics -->
 
 <!-- Microsoft Clarity -->

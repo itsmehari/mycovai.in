@@ -161,7 +161,7 @@ $applicationId = (int)$app['id'];
     </div>
     
     <div class="applicant-actions-bottom">
-        <form method="POST" action="update-application-status-omr.php" class="d-inline" 
+        <form method="POST" action="update-application-status-covai.php" class="d-inline" 
               onsubmit="return confirm('Mark this application as shortlisted?');">
             <input type="hidden" name="application_id" value="<?php echo $applicationId; ?>">
             <input type="hidden" name="status" value="shortlisted">
@@ -171,7 +171,7 @@ $applicationId = (int)$app['id'];
             </button>
         </form>
         
-        <form method="POST" action="update-application-status-omr.php" class="d-inline" 
+        <form method="POST" action="update-application-status-covai.php" class="d-inline" 
               onsubmit="return confirm('Reject this application?');">
             <input type="hidden" name="application_id" value="<?php echo $applicationId; ?>">
             <input type="hidden" name="status" value="rejected">

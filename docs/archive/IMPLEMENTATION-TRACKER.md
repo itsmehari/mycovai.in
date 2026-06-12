@@ -26,7 +26,7 @@
 - [x] Create folder structure: /omr-local-job-listings/
 - [x] Create subfolders: admin/, includes/, assets/
 - [x] Set up database connection helper
-- [x] Create job-functions-omr.php (helper functions)
+- [x] Create job-functions-covai.php (helper functions)
 - [ ] Test database connectivity
 - **Status:** 🟢 In Progress (80% complete)
 - **Completed:** ✅ Oct 29 - Created structure & helper functions
@@ -46,8 +46,8 @@
 
 ### **Day 5-7: Post Job Form & Backend Processing**
 
-- [x] Create post-job-omr.php (posting form)
-- [x] Create process-job-omr.php (backend)
+- [x] Create post-job-covai.php (posting form)
+- [x] Create process-job-covai.php (backend)
 - [x] Add form validation
 - [x] Add CSRF protection
 - [x] Add file upload security
@@ -62,11 +62,11 @@
 
 ### **Day 8-10: Job Detail & Application Form**
 
-- [x] Create job-detail-omr.php
+- [x] Create job-detail-covai.php
 - [x] Add breadcrumb navigation
 - [x] Create apply-job-omr.php form
 - [x] Add resume upload (security)
-- [x] Create process-application-omr.php
+- [x] Create process-application-covai.php
 - [ ] Add email notifications
 - [x] Test application flow
 - **Status:** ✅ Complete (90% - email notifications pending)
@@ -74,22 +74,22 @@
 
 ### **Day 11-12: Employer Dashboard**
 
-- [x] Create employer-register-omr.php (auto-register via post-job form)
-- [x] Create employer-login-omr.php
-- [x] Create my-posted-jobs-omr.php
-- [x] Create view-applications-omr.php
+- [x] Create employer-register-covai.php (auto-register via post-job form)
+- [x] Create employer-login-covai.php
+- [x] Create my-posted-jobs-covai.php
+- [x] Create view-applications-covai.php
 - [x] Add application status management
 - [x] Test employer flow
 - [x] Create employer-auth.php (session management)
-- [x] Create employer-logout-omr.php
+- [x] Create employer-logout-covai.php
 - **Status:** ✅ Complete
 - **Completed:** ✅ Oct 29 - Full employer authentication and dashboard system
 
 ### **Day 13-14: Admin Panel Basics**
 
 - [x] Create admin/index.php (dashboard)
-- [x] Create admin/manage-jobs-omr.php (approve/reject jobs)
-- [x] Create admin/view-all-applications-omr.php
+- [x] Create admin/manage-jobs-covai.php (approve/reject jobs)
+- [x] Create admin/view-all-applications-covai.php
 - [x] Add approve/reject functionality
 - [ ] Add email notifications (placeholder created)
 - [x] Test admin flow
@@ -186,7 +186,7 @@
 4. ✅ Created IMPLEMENTATION-TRACKER.md (this file)
 5. ✅ Created README.md
 6. ✅ Created CREATE-JOBS-DATABASE.sql
-7. ✅ Created job-functions-omr.php (helper functions)
+7. ✅ Created job-functions-covai.php (helper functions)
 8. ✅ Removed incorrect /jobs/ folder
 
 **Status:** Foundation documentation and helper functions complete ✅
@@ -239,8 +239,8 @@
 
 #### **🔄 Next Milestone:**
 
-- Build post-job-omr.php (job posting form)
-- Create process-job-omr.php (backend processing)
+- Build post-job-covai.php (job posting form)
+- Create process-job-covai.php (backend processing)
 - Add employer registration flow
 
 ### **October 29, 2025 - 10:52 AM**
@@ -277,9 +277,9 @@
 
 #### **✅ Job Posting Form Complete:**
 
-1. ✅ Created post-job-omr.php - Full job posting form
-2. ✅ Created process-job-omr.php - Secure backend processing
-3. ✅ Created job-posted-success-omr.php - Success confirmation page
+1. ✅ Created post-job-covai.php - Full job posting form
+2. ✅ Created process-job-covai.php - Secure backend processing
+3. ✅ Created job-posted-success-covai.php - Success confirmation page
 4. ✅ Added multi-step form with progress indicator
 5. ✅ Implemented CSRF token protection
 6. ✅ Added server-side validation
@@ -317,7 +317,7 @@
 
 #### **🔄 Next Milestone:**
 
-- Build job-detail-omr.php (individual job view)
+- Build job-detail-covai.php (individual job view)
 - Create application form
 - Add employer dashboard
 
@@ -327,12 +327,12 @@
 
 #### **✅ Job Detail & Application System Complete:**
 
-1. ✅ Created job-detail-omr.php - Full job view page with SEO
+1. ✅ Created job-detail-covai.php - Full job view page with SEO
 2. ✅ Added breadcrumb navigation
 3. ✅ Implemented JobPosting structured data
 4. ✅ Created application modal with form
-5. ✅ Created process-application-omr.php - Secure backend
-6. ✅ Created application-submitted-omr.php - Success page
+5. ✅ Created process-application-covai.php - Secure backend
+6. ✅ Created application-submitted-covai.php - Success page
 7. ✅ Added view count tracking
 8. ✅ Added "already applied" check
 9. ✅ Implemented share functionality (WhatsApp, LinkedIn, Email)
@@ -371,7 +371,7 @@
 
 #### **🔄 Next Milestone:**
 
-- Build employer dashboard (my-posted-jobs-omr.php) ✅
+- Build employer dashboard (my-posted-jobs-covai.php) ✅
 - Create admin panel for job approvals ✅
 - Add email notification system (placeholder created)
 
@@ -380,12 +380,12 @@
 #### **✅ Employer Dashboard & Admin Panel Complete:**
 
 1. ✅ Created includes/employer-auth.php - Session management system
-2. ✅ Created employer-login-omr.php - Email-based login
-3. ✅ Created employer-logout-omr.php - Session cleanup
-4. ✅ Created my-posted-jobs-omr.php - Employer dashboard
+2. ✅ Created employer-login-covai.php - Email-based login
+3. ✅ Created employer-logout-covai.php - Session cleanup
+4. ✅ Created my-posted-jobs-covai.php - Employer dashboard
 5. ✅ Created admin/index.php - Admin dashboard with statistics
-6. ✅ Created admin/manage-jobs-omr.php - Approve/reject jobs
-7. ✅ Created admin/view-all-applications-omr.php - View all applications
+6. ✅ Created admin/manage-jobs-covai.php - Approve/reject jobs
+7. ✅ Created admin/view-all-applications-covai.php - View all applications
 8. ✅ Implemented session-based authentication
 9. ✅ Added statistics cards (pending, approved, applications, employers)
 10. ✅ Added job approval/rejection workflow

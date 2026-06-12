@@ -1,9 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
-    header('Location: login.php');
-    exit;
-}
+require_once __DIR__ . '/_bootstrap.php';
+requireRole(['super_admin']);
 $title = 'Update News';
 $breadcrumbs = ['News Bulletin' => 'news-list.php', 'Update News' => null];
 ?>
@@ -12,7 +9,7 @@ $breadcrumbs = ['News Bulletin' => 'news-list.php', 'Update News' => null];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update News - MyOMR CMS</title>
+    <title>Update News - MyCovai CMS</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>

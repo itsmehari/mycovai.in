@@ -1,9 +1,5 @@
-# Project Understanding
+# Project understanding
 
-This folder contains high-level context and reading notes for the MyCovai.in project.
+**Superseded by the live hub:** [../LIVE-SYSTEM-MAP.md](../LIVE-SYSTEM-MAP.md)
 
-| File | Purpose |
-|------|---------|
-| `PROJECT-UNDERSTANDING.md` | Main reference: identity, deployment, goals, legacy notes, folder roles |
-
-Read this first when working on the codebase or planning changes.
+Use `PROJECT-UNDERSTANDING.md` for a short onboarding blurb only. All module maps, legacy status, and maintenance links live in **LIVE-SYSTEM-MAP.md**.

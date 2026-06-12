@@ -1,7 +1,7 @@
 # 🔧 Fixes Applied - Error Reporting & Path Corrections
 
 **Date:** October 29, 2025  
-**Issue:** PHP 500 Error on post-job-omr.php  
+**Issue:** PHP 500 Error on post-job-covai.php  
 **Status:** ✅ Fixed
 
 ---
@@ -21,21 +21,21 @@ Created `includes/error-reporting.php`:
 
 Updated these files with error reporting:
 
-- ✅ `post-job-omr.php`
+- ✅ `post-job-covai.php`
 - ✅ `index.php`
-- ✅ `job-detail-omr.php`
-- ✅ `process-job-omr.php`
-- ✅ `process-application-omr.php`
-- ✅ `employer-login-omr.php`
-- ✅ `my-posted-jobs-omr.php`
-- ✅ `job-posted-success-omr.php`
-- ✅ `application-submitted-omr.php`
+- ✅ `job-detail-covai.php`
+- ✅ `process-job-covai.php`
+- ✅ `process-application-covai.php`
+- ✅ `employer-login-covai.php`
+- ✅ `my-posted-jobs-covai.php`
+- ✅ `job-posted-success-covai.php`
+- ✅ `application-submitted-covai.php`
 
 ### **3. Fixed Path Issues**
 
 Changed all `require_once` to use `__DIR__`:
 
-- ✅ `require_once 'includes/job-functions-omr.php'` → `require_once __DIR__ . '/includes/job-functions-omr.php'`
+- ✅ `require_once 'includes/job-functions-covai.php'` → `require_once __DIR__ . '/includes/job-functions-covai.php'`
 - ✅ More reliable path resolution
 - ✅ Works regardless of current working directory
 
@@ -48,7 +48,7 @@ Changed all `require_once` to use `__DIR__`:
 - ✅ Returns empty array on error
 - ✅ Logs errors for debugging
 
-**In `post-job-omr.php`:**
+**In `post-job-covai.php`:**
 
 - ✅ Try-catch around `getJobCategories()` call
 - ✅ Fallback to empty array if function fails
@@ -94,18 +94,18 @@ Run this file to diagnose issues:
 ## 📋 Files Modified
 
 1. ✅ `includes/error-reporting.php` (NEW)
-2. ✅ `includes/job-functions-omr.php` (Enhanced error handling)
+2. ✅ `includes/job-functions-covai.php` (Enhanced error handling)
 3. ✅ `includes/employer-auth.php` (DB connection check)
 4. ✅ `core/omr-connect.php` (Better error messages)
-5. ✅ `post-job-omr.php` (Error reporting + error handling)
+5. ✅ `post-job-covai.php` (Error reporting + error handling)
 6. ✅ `index.php` (Error reporting + fixed paths)
-7. ✅ `job-detail-omr.php` (Error reporting + fixed paths)
-8. ✅ `process-job-omr.php` (Error reporting + fixed paths)
-9. ✅ `process-application-omr.php` (Error reporting + fixed paths)
-10. ✅ `employer-login-omr.php` (Error reporting)
-11. ✅ `my-posted-jobs-omr.php` (Error reporting)
-12. ✅ `job-posted-success-omr.php` (Error reporting)
-13. ✅ `application-submitted-omr.php` (Error reporting)
+7. ✅ `job-detail-covai.php` (Error reporting + fixed paths)
+8. ✅ `process-job-covai.php` (Error reporting + fixed paths)
+9. ✅ `process-application-covai.php` (Error reporting + fixed paths)
+10. ✅ `employer-login-covai.php` (Error reporting)
+11. ✅ `my-posted-jobs-covai.php` (Error reporting)
+12. ✅ `job-posted-success-covai.php` (Error reporting)
+13. ✅ `application-submitted-covai.php` (Error reporting)
 14. ✅ `test-connection.php` (NEW - Diagnostic tool)
 15. ✅ `ERROR-DEBUG-GUIDE.md` (NEW - Documentation)
 
@@ -120,7 +120,7 @@ Run this file to diagnose issues:
 
 2. **Test Error Display**
 
-   - Visit: `https://myomr.in/omr-local-job-listings/post-job-omr.php`
+   - Visit: `https://myomr.in/omr-local-job-listings/post-job-covai.php`
    - Errors should now display in browser
    - Read error message carefully
 
@@ -171,7 +171,7 @@ Run this file to diagnose issues:
 - ✅ Improved error logging
 - ✅ Graceful fallback to empty array
 
-### **8. Enhanced Error Catching in `post-job-omr.php`**
+### **8. Enhanced Error Catching in `post-job-covai.php`**
 
 - ✅ Added catch block for `Error` type (in addition to `Exception`)
 - ✅ Error messages display directly in browser during development

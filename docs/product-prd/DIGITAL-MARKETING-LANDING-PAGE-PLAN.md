@@ -600,7 +600,7 @@ Based on reference screenshot, the page includes:
 | **Home** | `/` | Main homepage |
 | **Local News** | `/local-news/` | News articles and stories |
 | **Jobs** | `/omr-local-job-listings/` | Job portal homepage |
-| **Post Job** | `/omr-local-job-listings/post-job-omr.php` | Employer job posting |
+| **Post Job** | `/omr-local-job-listings/post-job-covai.php` | Employer job posting |
 | **Events** | `/omr-local-events/` | Events portal homepage |
 | **Post Event** | `/omr-local-events/post-event-covai.php` | Event submission |
 | **Business Directory** | `/omr-listings/` | Main directory page |

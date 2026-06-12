@@ -23,7 +23,7 @@ if (!function_exists('_covai_ad_icon')) {
             'colourchemist'  => 'fas fa-palette',
             'bseri'          => 'fas fa-building',
             'edmasters'      => 'fas fa-graduation-cap',
-            'myomr'          => 'fas fa-list-ul',
+            'sister_site'    => 'fas fa-list-ul',
             'akshayam'       => 'fas fa-umbrella-beach',
             'amazon'         => 'fab fa-amazon',
         ];
@@ -314,5 +314,23 @@ if (!function_exists('covai_ad_banner_row')) {
             <?php endif; ?>
         </div>
         <?php
+    }
+}
+
+if (!function_exists('covai_monetized_slot')) {
+    /**
+     * Render AdSense when enabled for this slot; otherwise registry banner.
+     *
+     * @param string $slot_id Slot ID (e.g. homepage-mid, article-mid)
+     * @param string $size    IAB size
+     */
+    function covai_monetized_slot($slot_id, $size = '336x280') {
+        if (!function_exists('covai_adsense_unit')) {
+            require_once __DIR__ . '/adsense.php';
+        }
+        if (covai_adsense_unit($slot_id, $size)) {
+            return;
+        }
+        covai_ad_slot($slot_id, $size);
     }
 }

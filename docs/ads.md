@@ -8,8 +8,10 @@ Banner ads are registry-driven, slot-based, with random selection per slot. No d
 |------|--------|
 | **core/ad-registry.php** | Slot IDs (`$covai_ad_slot_ids`) and ad records (`$covai_ads`). |
 | **core/amazon-affiliate-registry.php** | Optional Amazon India affiliate records merged into `$covai_ads` when enabled and when `AMAZON_ASSOCIATE_STORE_ID` is configured. |
-| **components/ad-banner-slot.php** | `covai_ad_slot($slot_id, $size)`, `covai_ad_slot_row($slot_id, $count)`, and `covai_ad_banner_row($slot_id, $size, $max)`. Loads registry, outputs HTML. Injects `ad-banners.css` once per page. |
-| **assets/css/ad-banners.css** | Styles for `.covai-ad-zone`, `.covai-ad-slot`, `.covai-ad-banner`, size classes (728x90, 336x280, 300x250, 320x50, card-row), and design variants. |
+| **components/ad-banner-slot.php** | `covai_ad_slot()`, `covai_monetized_slot()`, `covai_ad_slot_row()`, `covai_ad_banner_row()`. Loads registry, outputs HTML. Injects `ad-banners.css` once per page. |
+| **components/adsense.php** | Google AdSense units when `ADSENSE_ENABLED` (see `core/mycovai-config.php`). |
+| **core/adsense-placement.php** | URI denylist — no ads on employer/admin/form flows. |
+| **assets/css/ad-banners.css** | Styles for registry banners and `.covai-adsense-zone`. |
 
 ## Usage
 
@@ -17,8 +19,10 @@ On any page that includes `components/head-resources.php` (or that loads the ad 
 
 ```php
 <?php covai_ad_slot('article-top', '728x90'); ?>
-<?php covai_ad_slot('homepage-mid', '336x280'); ?>
+<?php covai_monetized_slot('homepage-mid', '336x280'); ?>
 ```
+
+`covai_monetized_slot()` tries AdSense first (when enabled and configured for that slot), then falls back to the registry banner. Use on tier-1 content surfaces; keep `covai_ad_slot()` for sponsor-only slots like `homepage-top` card row.
 
 Optional row of slots (each slot picks one ad at random; may show duplicates):
 
@@ -79,3 +83,10 @@ For many links or non-developer edits:
 ## Debug
 
 Append `?covai_ad_debug=1` to the URL to see HTML comments when no eligible ad is found or the registry is missing.
+
+## Google AdSense
+
+- Config: `ADSENSE_ENABLED`, `ADSENSE_CLIENT_ID`, `ADSENSE_SLOT_UNITS` in `core/mycovai-config.php`.
+- Keep `ADSENSE_ENABLED` false until AdSense approves the site.
+- Full checklist: `docs/analytics-seo/ADSENSE-READINESS.md`.
+- Do not place AdSense on employer dashboards, job application forms, or admin pages (`core/adsense-placement.php`).

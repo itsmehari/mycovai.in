@@ -10,14 +10,14 @@
 
 ```
 /listings/
-  ├── post-job-omr.php                           # ✅ Already exists
+  ├── post-job-covai.php                           # ✅ Already exists
   ├── search-and-post-jobs-job-vacancy-employment-platform-for-omr-chennai.php  # ✅ Already exists
   ├── job-detail-omr-chennai.php                 # 🆕 Individual job view
   ├── apply-job-omr-chennai.php                  # 🆕 Application form
-  ├── employer-register-omr.php                   # 🆕 Employer signup
-  ├── my-posted-jobs-omr.php                     # 🆕 Employer dashboard
-  ├── view-applications-omr.php                   # 🆕 Application management
-  └── process-job-omr.php                         # 🆕 Backend processor
+  ├── employer-register-covai.php                   # 🆕 Employer signup
+  ├── my-posted-jobs-covai.php                     # 🆕 Employer dashboard
+  ├── view-applications-covai.php                   # 🆕 Application management
+  └── process-job-covai.php                         # 🆕 Backend processor
 ```
 
 ---
@@ -30,7 +30,7 @@
 [action]-[location]-[additional-descriptor].php
 
 Examples:
-✅ post-job-omr.php
+✅ post-job-covai.php
 ✅ search-and-post-jobs-job-vacancy-employment-platform-for-omr-chennai.php
 ✅ rent-house-omr.php
 ✅ sell-property-omr.php
@@ -63,27 +63,27 @@ Examples:
 
 ```
 ✅ search-and-post-jobs-job-vacancy-employment-platform-for-omr-chennai.php  (Exists)
-✅ post-job-omr.php                                                           (Exists)
+✅ post-job-covai.php                                                           (Exists)
 ✅ job-detail-omr-chennai.php                                                 (New)
 ✅ apply-job-omr-chennai.php                                                  (New)
-✅ process-job-omr.php                                                         (New)
+✅ process-job-covai.php                                                         (New)
 ```
 
 ### **Employer Features:**
 
 ```
 ✅ employer-register-omr-chennai.php
-✅ employer-login-omr.php
-✅ my-posted-jobs-omr.php
-✅ view-applications-omr.php
-✅ edit-job-omr.php
+✅ employer-login-covai.php
+✅ my-posted-jobs-covai.php
+✅ view-applications-covai.php
+✅ edit-job-covai.php
 ```
 
 ### **Admin Features:**
 
 ```
 ✅ admin/manage-job-listings-omr.php
-✅ admin/verify-employers-omr.php
+✅ admin/verify-employers-covai.php
 ✅ admin/job-analytics-omr.php
 ```
 
@@ -101,12 +101,12 @@ Examples:
 ### **Employer Workflow:**
 
 ```
-1. Employer visits: /listings/post-job-omr.php
+1. Employer visits: /listings/post-job-covai.php
 2. If not registered, redirects to: /listings/employer-register-omr-chennai.php
 3. Fills employer form → Creates account
 4. Returns to posting form
 5. Fills job details → Submits
-6. Goes to: /listings/my-posted-jobs-omr.php (dashboard)
+6. Goes to: /listings/my-posted-jobs-covai.php (dashboard)
 ```
 
 ### **Job Seeker Workflow:**
@@ -125,7 +125,7 @@ Examples:
 
 ### **Core Pages (Following Your Naming):**
 
-- [x] `/listings/post-job-omr.php` - Already exists
+- [x] `/listings/post-job-covai.php` - Already exists
 - [x] `/listings/search-and-post-jobs-job-vacancy-employment-platform-for-omr-chennai.php` - Already exists
 - [ ] `/listings/job-detail-omr-chennai.php` - Needs creation
 - [ ] `/listings/apply-job-omr-chennai.php` - Needs creation
@@ -133,20 +133,20 @@ Examples:
 
 ### **Backend:**
 
-- [ ] `/listings/process-job-omr.php` - Needs creation
-- [ ] `/listings/process-application-omr.php` - Needs creation
-- [ ] `/listings/includes/job-functions-omr.php` - Needs creation
+- [ ] `/listings/process-job-covai.php` - Needs creation
+- [ ] `/listings/process-application-covai.php` - Needs creation
+- [ ] `/listings/includes/job-functions-covai.php` - Needs creation
 
 ### **Employer Dashboard:**
 
-- [ ] `/listings/my-posted-jobs-omr.php` - Needs creation
-- [ ] `/listings/view-applications-omr.php` - Needs creation
-- [ ] `/listings/edit-job-omr.php` - Needs creation
+- [ ] `/listings/my-posted-jobs-covai.php` - Needs creation
+- [ ] `/listings/view-applications-covai.php` - Needs creation
+- [ ] `/listings/edit-job-covai.php` - Needs creation
 
 ### **Admin Panel (Create admin subfolder in listings):**
 
 - [ ] `/listings/admin/manage-job-listings-omr.php` - Needs creation
-- [ ] `/listings/admin/verify-employers-omr.php` - Needs creation
+- [ ] `/listings/admin/verify-employers-covai.php` - Needs creation
 
 ### **Assets:**
 
@@ -181,7 +181,7 @@ Examples:
 
 ### **Phase 1: Enhance Existing Files**
 
-- Update `post-job-omr.php` with better form
+- Update `post-job-covai.php` with better form
 - Update `search-and-post-jobs-job-vacancy-employment-platform-for-omr-chennai.php` to load from database
 
 ### **Phase 2: Create New Files**

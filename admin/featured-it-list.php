@@ -1,23 +1,26 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
-    header('Location: login.php');
-    exit;
-}
-require_once '../core/omr-connect.php';
+require_once __DIR__ . '/_bootstrap.php';
+requireAdmin();
+require_once __DIR__ . '/../core/omr-connect.php';
 
-// Handle delete
-if (isset($_GET['delete'])) {
-    $id = (int)$_GET['delete'];
-    $del = $conn->prepare('DELETE FROM `' . covai_table('it_companies_feat') . '` WHERE id = ?');
-    $del->bind_param('i', $id);
-    $del->execute();
-    $del->close();
-    $_SESSION['flash_success'] = 'Featured entry deleted';
-    $_SESSION['ga_event'] = [
-        'name' => 'admin_feature_delete',
-        'featured_id' => (int)$id
-    ];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $_SESSION['flash_error'] = 'Invalid CSRF token.';
+        header('Location: featured-it-list.php');
+        exit;
+    }
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id > 0) {
+        $del = $conn->prepare('DELETE FROM `' . covai_table('it_companies_feat') . '` WHERE id = ?');
+        $del->bind_param('i', $id);
+        $del->execute();
+        $del->close();
+        $_SESSION['flash_success'] = 'Featured entry deleted';
+        $_SESSION['ga_event'] = [
+            'name' => 'admin_feature_delete',
+            'featured_id' => (int) $id,
+        ];
+    }
     header('Location: featured-it-list.php');
     exit;
 }
@@ -120,7 +123,12 @@ $res = $conn->query($sql);
                   <td><input type="datetime-local" name="end_at" class="form-control form-control-sm" style="width:210px" value="<?php echo $row['end_at'] ? date('Y-m-d\TH:i', strtotime($row['end_at'])) : ''; ?>" /></td>
                   <td>
                       <button type="submit" class="btn btn-sm btn-success">Save</button>
-                      <a href="featured-it-list.php?delete=<?php echo (int)$row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this featured entry?');">Delete</a>
+                    </form>
+                    <form method="post" class="d-inline" onsubmit="return confirm('Delete this featured entry?');">
+                      <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generate_csrf_token()); ?>">
+                      <input type="hidden" name="action" value="delete">
+                      <input type="hidden" name="id" value="<?php echo (int)$row['id']; ?>">
+                      <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                     </form>
                   </td>
                 </tr>

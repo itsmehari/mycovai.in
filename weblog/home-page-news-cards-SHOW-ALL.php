@@ -6,7 +6,7 @@ $sql = "SELECT id, title, slug, summary, published_date, image_path FROM article
 $result = $conn->query($sql);
 ?>
 
-<div class="myomr-news-bulletin">
+<div class="mycovai-news-bulletin">
   <div class="news-grid">
     <?php if ($result && $result->num_rows > 0): ?>
       <?php while($row = $result->fetch_assoc()): ?>
@@ -25,5 +25,5 @@ $result = $conn->query($sql);
     <?php endif; ?>
   </div>
 </div>
-<link rel="stylesheet" href="/assets/css/myomr-news-bulletin.css">
+<link rel="stylesheet" href="/assets/css/mycovai-news-bulletin.css">
 

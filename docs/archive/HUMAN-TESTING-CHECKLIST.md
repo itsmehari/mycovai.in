@@ -122,7 +122,7 @@ _________________________________________________
 
 ### **Task 2.1: Post a Job**
 - [ ] Click "Post a Job" button
-- [ ] Navigate to post-job-omr.php
+- [ ] Navigate to post-job-covai.php
 - [ ] Form loads correctly
 - [ ] Fill in company information:
   - [ ] Company name
@@ -151,10 +151,10 @@ _________________________________________________
 ---
 
 ### **Task 2.2: Employer Login**
-- [ ] Navigate to employer-login-omr.php
+- [ ] Navigate to employer-login-covai.php
 - [ ] Enter email address
 - [ ] Click login
-- [ ] Dashboard loads (my-posted-jobs-omr.php)
+- [ ] Dashboard loads (my-posted-jobs-covai.php)
 - [ ] Posted jobs list displays
 - [ ] Can see job status (pending/approved/rejected)
 
@@ -212,7 +212,7 @@ _________________________________________________
 ---
 
 ### **Task 3.2: Approve/Reject Jobs**
-- [ ] Navigate to manage-jobs-omr.php
+- [ ] Navigate to manage-jobs-covai.php
 - [ ] See list of all jobs (pending, approved, rejected)
 - [ ] Click approve button for pending job
 - [ ] Confirm approval
@@ -229,7 +229,7 @@ _________________________________________________
 ---
 
 ### **Task 3.3: View Applications**
-- [ ] Navigate to view-all-applications-omr.php
+- [ ] Navigate to view-all-applications-covai.php
 - [ ] See all applications listed
 - [ ] Application details display:
   - [ ] Applicant name

@@ -1,49 +1,28 @@
-// MyCovai Events - Google Analytics Event Helpers (MyOMREventsAnalytics kept as alias)
-(function(){
-  function send(action, params){
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', action, params || {});
+// MyCovai Events - Google Analytics event helpers
+(function () {
+  function pushEvent(name, params) {
+    if (typeof gtag === 'function') {
+      gtag('event', name, params || {});
     }
   }
 
-  // Expose minimal API
-  window.MyOMREventsAnalytics = {
-    filterUsed: function(label){ send('events_filter', { event_category: 'Events', event_label: label || '' }); },
-    viewClicked: function(slug){ send('event_view', { event_category: 'Events', event_label: slug || '' }); },
-    mapClicked: function(slug){ send('event_map', { event_category: 'Events', event_label: slug || '' }); },
-    ticketClicked: function(slug){ send('event_ticket', { event_category: 'Events', event_label: slug || '' }); },
-    shareClicked: function(channel, slug){ send('event_share', { event_category: 'Events', event_label: channel + '|' + (slug||'') }); },
-    addToCalendar: function(slug){ send('event_calendar_add', { event_category: 'Events', event_label: slug || '' }); },
-    icsDownloaded: function(slug){ send('event_ics_download', { event_category: 'Events', event_label: slug || '' }); },
-    submissionStart: function(){ send('event_submit_start', { event_category: 'Events' }); },
-    submissionSubmit: function(){ send('event_submit_attempt', { event_category: 'Events' }); },
-    submissionSuccess: function(id){ send('event_submit_success', { event_category: 'Events', value: id||0 }); }
+  window.MyCovaiEventsAnalytics = {
+    filterUsed: function (label) { pushEvent('events_filter_used', { filter: label }); },
+    eventView: function (slug) { pushEvent('events_event_view', { event_slug: slug }); },
+    shareClicked: function (channel, slug) { pushEvent('events_share_click', { channel: channel, event_slug: slug }); },
+    mapClicked: function (slug) { pushEvent('events_map_click', { event_slug: slug }); },
+    ticketClicked: function (slug) { pushEvent('events_ticket_click', { event_slug: slug }); },
+    submissionStart: function () { pushEvent('events_post_start'); },
+    submissionSubmit: function () { pushEvent('events_post_submit'); },
+    submissionSuccess: function (id) { pushEvent('events_post_success', { submission_id: id }); }
   };
 
-  window.MyCovaiEventsAnalytics = window.MyOMREventsAnalytics;
-
-  // Auto-bind common hooks
-  document.addEventListener('DOMContentLoaded', function(){
-    // Filter form
-    var filterForm = document.querySelector('form.dashboard-toolbar');
-    if (filterForm) {
-      filterForm.addEventListener('submit', function(){
-        var q = new URLSearchParams(new FormData(filterForm)).toString();
-        window.MyOMREventsAnalytics.filterUsed(q);
+  document.addEventListener('DOMContentLoaded', function () {
+    var q = document.querySelector('[data-events-filter]');
+    if (q) {
+      q.addEventListener('change', function () {
+        window.MyCovaiEventsAnalytics.filterUsed(q.value || 'all');
       });
     }
-
-    // Track elements with data-analytics attributes
-    document.querySelectorAll('[data-analytics]').forEach(function(el){
-      el.addEventListener('click', function(){
-        var type = el.getAttribute('data-analytics');
-        var label = el.getAttribute('data-analytics-label') || '';
-        if (type && window.MyOMREventsAnalytics[type]) {
-          window.MyOMREventsAnalytics[type](label);
-        }
-      });
-    });
   });
 })();
-
-

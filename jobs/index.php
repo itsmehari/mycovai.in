@@ -1,18 +1,16 @@
 <?php
 /**
- * MyOMR Job Portal - Main Job Listings Page
- * 
- * @package MyOMR Job Portal
- * @version 2.0.0
- * 
- * Uses direct database queries (like test-jobs.php) for reliable job loading
+ * MyCovai Job Portal – main job listings page
+ *
+ * @package MyCovai Job Portal
+ * @version 2.1.0
  */
 
 // Enable error reporting for development
 require_once __DIR__ . '/includes/error-reporting.php';
 
 // Include helper functions
-require_once __DIR__ . '/includes/job-functions-omr.php';
+require_once __DIR__ . '/includes/job-functions-covai.php';
 require_once __DIR__ . '/includes/seo-helper.php';
 
 // Load database connection directly (like test-jobs.php)
@@ -45,121 +43,14 @@ $current_page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $jobs_per_page = 20;
 $offset = ($current_page - 1) * $jobs_per_page;
 
-// Get jobs using direct query (like test-jobs.php - the working approach)
+// Jobs list: filtered + paginated in SQL (employer joined for search)
 $jobs = [];
 $total_jobs = 0;
 
 if (isset($conn) && $conn instanceof mysqli && !$conn->connect_error) {
-    // Direct query to get approved jobs (same as test-jobs.php Test 5)
-    $limitInt = (int)$jobs_per_page;
-    $offsetInt = (int)$offset;
-    
-    // First get all approved jobs
-    $allJobsQuery = "SELECT * FROM job_postings WHERE status = 'approved' ORDER BY featured DESC, created_at DESC";
-    $allJobsResult = $conn->query($allJobsQuery);
-    
-    if ($allJobsResult && $allJobsResult->num_rows > 0) {
-        $allJobs = $allJobsResult->fetch_all(MYSQLI_ASSOC);
-        $total_jobs = count($allJobs);
-        
-        // Apply filters if any
-        if (!empty($filters)) {
-            $filteredJobs = [];
-            foreach ($allJobs as $job) {
-                $match = true;
-                
-                if (!empty($filters['category']) && $job['category'] !== $filters['category']) {
-                    $match = false;
-                }
-                if (!empty($filters['location']) && stripos($job['location'] ?? '', $filters['location']) === false) {
-                    $match = false;
-                }
-                if (!empty($filters['job_type']) && $job['job_type'] !== $filters['job_type']) {
-                    $match = false;
-                }
-                if (!empty($filters['search'])) {
-                    $searchMatch = (
-                        stripos($job['title'] ?? '', $filters['search']) !== false ||
-                        stripos($job['description'] ?? '', $filters['search']) !== false
-                    );
-                    // Check company name if we have employer_id
-                    if (!$searchMatch && !empty($job['employer_id'])) {
-                        $empQuery = "SELECT company_name FROM employers WHERE id = " . (int)$job['employer_id'];
-                        $empResult = $conn->query($empQuery);
-                        if ($empResult && $empRow = $empResult->fetch_assoc()) {
-                            if (stripos($empRow['company_name'] ?? '', $filters['search']) !== false) {
-                                $searchMatch = true;
-                            }
-                        }
-                    }
-                    if (!$searchMatch) {
-                        $match = false;
-                    }
-                }
-                
-                if ($match) {
-                    $filteredJobs[] = $job;
-                }
-            }
-            $allJobs = $filteredJobs;
-            $total_jobs = count($filteredJobs);
-        }
-        
-        // Apply pagination
-        $jobs = array_slice($allJobs, $offsetInt, $limitInt);
-        
-        // Enrich with employer and category data
-        if (!empty($jobs)) {
-            $jobIds = array_column($jobs, 'id');
-            if (!empty($jobIds)) {
-                $placeholders = implode(',', array_fill(0, count($jobIds), '?'));
-                $enrichSql = "SELECT j.id, e.company_name, e.contact_person, e.email as employer_email, 
-                                    e.phone as employer_phone, e.address as company_address, c.name as category_name
-                             FROM job_postings j
-                             LEFT JOIN employers e ON j.employer_id = e.id
-                             LEFT JOIN job_categories c ON j.category = c.slug
-                             WHERE j.id IN ({$placeholders})";
-                
-                $enrichStmt = $conn->prepare($enrichSql);
-                if ($enrichStmt) {
-                    $types = str_repeat('i', count($jobIds));
-                    if ($enrichStmt->bind_param($types, ...$jobIds)) {
-                        if ($enrichStmt->execute()) {
-                            $enrichResult = $enrichStmt->get_result();
-                            if ($enrichResult) {
-                                $enrichData = [];
-                                while ($row = $enrichResult->fetch_assoc()) {
-                                    $enrichData[$row['id']] = $row;
-                                }
-                                
-                                // Merge enrichment data
-                                foreach ($jobs as &$job) {
-                                    if (isset($enrichData[$job['id']])) {
-                                        $job['company_name'] = $enrichData[$job['id']]['company_name'] ?? null;
-                                        $job['contact_person'] = $enrichData[$job['id']]['contact_person'] ?? null;
-                                        $job['employer_email'] = $enrichData[$job['id']]['employer_email'] ?? null;
-                                        $job['employer_phone'] = $enrichData[$job['id']]['employer_phone'] ?? null;
-                                        $job['company_address'] = $enrichData[$job['id']]['company_address'] ?? null;
-                                        $job['category_name'] = $enrichData[$job['id']]['category_name'] ?? null;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    $enrichStmt->close();
-                }
-            }
-        }
-    } else {
-        // Try fallback with LOWER/TRIM
-        $fallbackQuery = "SELECT * FROM job_postings WHERE LOWER(TRIM(status)) = 'approved' ORDER BY featured DESC, created_at DESC";
-        $fallbackResult = $conn->query($fallbackQuery);
-        if ($fallbackResult && $fallbackResult->num_rows > 0) {
-            $allJobs = $fallbackResult->fetch_all(MYSQLI_ASSOC);
-            $total_jobs = count($allJobs);
-            $jobs = array_slice($allJobs, $offsetInt, $limitInt);
-        }
-    }
+    $listing = covai_jobs_index_fetch($conn, $filters, $current_page, $jobs_per_page);
+    $jobs = $listing['jobs'];
+    $total_jobs = $listing['total'];
 }
 
 $total_pages = ceil($total_jobs / $jobs_per_page);
@@ -168,11 +59,11 @@ $total_pages = ceil($total_jobs / $jobs_per_page);
 $categories = getJobCategories();
 
 // SEO Meta (Phase 4: Covai when config loaded)
-$site_name = defined('SITE_NAME') ? SITE_NAME : 'MyOMR';
-$region_short = defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'OMR';
-$region_full = defined('SITE_REGION') ? SITE_REGION : 'OMR Chennai';
-$page_title = defined('MYCOVAI_CONFIG_LOADED') ? "Jobs in " . $region_short . " – Find Local Opportunities | " . $site_name : "Jobs in OMR Chennai - Find Local Opportunities | MyOMR";
-$page_description = defined('MYCOVAI_CONFIG_LOADED') ? "Find jobs in " . $region_full . ". IT, Teaching, Healthcare & more. Apply directly to employers. Free job listings for local opportunities in " . $region_full . "." : "Find 1000+ jobs in OMR Chennai. IT, Teaching, Healthcare & more. Apply directly to employers. Free job listings for local opportunities in Old Mahabalipuram Road.";
+$site_name = defined('SITE_NAME') ? SITE_NAME : 'MyCovai';
+$region_short = defined('SITE_REGION_SHORT') ? SITE_REGION_SHORT : 'Coimbatore';
+$region_full = defined('SITE_REGION') ? SITE_REGION : 'Coimbatore';
+$page_title = "Jobs in " . $region_short . " – Find Local Opportunities | " . $site_name;
+$page_description = "Find jobs in " . $region_full . ". IT, Teaching, Healthcare & more. Apply directly to employers. Free job listings for local opportunities in " . $region_full . ".";
 $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https://mycovai.in') . '/jobs/';
 
 // Build filter URL for pagination
@@ -190,7 +81,7 @@ if (!empty($filter_params)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $page_title; ?></title>
     <meta name="description" content="<?php echo $page_description; ?>">
-    <meta name="keywords" content="<?php echo defined('MYCOVAI_CONFIG_LOADED') ? 'jobs in Coimbatore, Covai jobs, IT jobs Coimbatore, teaching jobs Covai, local job portal' : 'jobs in OMR Chennai, IT jobs OMR, teaching jobs OMR, healthcare jobs OMR, local job portal, Old Mahabalipuram Road jobs'; ?>">
+    <meta name="keywords" content="jobs in Coimbatore, Covai jobs, IT jobs Coimbatore, teaching jobs Covai, local job portal">
     <link rel="canonical" href="<?php echo $canonical_url; ?>">
     
     <!-- Open Graph -->
@@ -217,8 +108,8 @@ if (!empty($filter_params)) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/core.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/job-listings-omr.css">
-    <link rel="stylesheet" href="assets/omr-jobs-unified-design.css">
+    <link rel="stylesheet" href="assets/job-listings-covai.css">
+    <link rel="stylesheet" href="assets/covai-jobs-unified-design.css">
     <!-- Universal Footer Styles -->
     <link rel="stylesheet" href="../components/footer.css">
     
@@ -251,14 +142,10 @@ if (!empty($filter_params)) {
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "<?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'My OMR'); ?>",
+      "name": "<?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?>",
       "url": "<?php echo defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https://mycovai.in'; ?>/",
       "logo": "<?php echo defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https://mycovai.in'; ?><?php echo defined('SITE_LOGO_URL') && SITE_LOGO_URL !== '' ? SITE_LOGO_URL : '/My-OMR-Logo.jpg'; ?>",
-      "sameAs": [
-        "https://www.facebook.com/MyOMR.in",
-        "https://www.instagram.com/myomr.in",
-        "https://x.com/MyomrNews"
-      ]
+      "sameAs": <?php echo json_encode(covai_jobs_schema_same_as_array(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
     }
     </script>
 </head>
@@ -344,7 +231,7 @@ if (!empty($filter_params)) {
                     <small class="text-muted">Showing <?php echo number_format($total_jobs); ?> jobs</small>
                 </div>
                 <div class="col-md-6">
-                    <form method="GET" class="advanced-filters d-flex gap-2 flex-wrap">
+                    <form method="GET" class="advanced-filters d-flex gap-2 flex-wrap" aria-label="Refine job search">
                         <!-- Preserve existing filters -->
                         <?php foreach ($filters as $key => $value): ?>
                             <?php if ($key !== 'job_type' && !empty($value)): ?>
@@ -383,22 +270,22 @@ if (!empty($filter_params)) {
                     <h3 class="h5 mb-3"><i class="fas fa-map-marker-alt text-primary me-2"></i>Browse Jobs by Location</h3>
                     <div class="row g-2">
                         <div class="col-6 col-md-6">
-                            <a href="/jobs-in-perungudi-omr.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Perungudi</a>
+                            <a href="/jobs-in-rs-puram.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in RS Puram</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/jobs-in-sholinganallur-omr.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Sholinganallur</a>
+                            <a href="/jobs-in-gandhipuram.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Gandhipuram</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/jobs-in-navalur-omr.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Navalur</a>
+                            <a href="/jobs-in-peelamedu.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Peelamedu</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/jobs-in-thoraipakkam-omr.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Thoraipakkam</a>
+                            <a href="/jobs-in-saravanampatti.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Saravanampatti</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/jobs-in-kelambakkam-omr.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Kelambakkam</a>
+                            <a href="/jobs-in-saibaba-colony.php" class="btn btn-outline-primary btn-sm w-100 mb-2">Jobs in Saibaba Colony</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/jobs-in-omr-chennai.php" class="btn btn-primary btn-sm w-100 mb-2">All Locations</a>
+                            <a href="/jobs-in-coimbatore.php" class="btn btn-primary btn-sm w-100 mb-2">All Locations</a>
                         </div>
                     </div>
                 </div>
@@ -406,22 +293,22 @@ if (!empty($filter_params)) {
                     <h3 class="h5 mb-3"><i class="fas fa-industry text-success me-2"></i>Browse Jobs by Industry</h3>
                     <div class="row g-2">
                         <div class="col-6 col-md-6">
-                            <a href="/it-jobs-omr-chennai.php" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-laptop-code me-1"></i>IT Jobs</a>
+                            <a href="/it-jobs-coimbatore.php" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-laptop-code me-1"></i>IT Jobs</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/teaching-jobs-omr-chennai.php" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-chalkboard-teacher me-1"></i>Teaching</a>
+                            <a href="/jobs/?category=teaching" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-chalkboard-teacher me-1"></i>Teaching</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/healthcare-jobs-omr-chennai.php" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-user-md me-1"></i>Healthcare</a>
+                            <a href="/jobs/?category=healthcare" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-user-md me-1"></i>Healthcare</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/retail-jobs-omr-chennai.php" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-shopping-bag me-1"></i>Retail</a>
+                            <a href="/jobs/?category=retail" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-shopping-bag me-1"></i>Retail</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/hospitality-jobs-omr-chennai.php" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-utensils me-1"></i>Hospitality</a>
+                            <a href="/jobs/?category=hospitality" class="btn btn-outline-success btn-sm w-100 mb-2"><i class="fas fa-utensils me-1"></i>Hospitality</a>
                         </div>
                         <div class="col-6 col-md-6">
-                            <a href="/jobs-in-omr-chennai.php" class="btn btn-success btn-sm w-100 mb-2">All Industries</a>
+                            <a href="/jobs-in-coimbatore.php" class="btn btn-success btn-sm w-100 mb-2">All Industries</a>
                         </div>
                     </div>
                 </div>
@@ -430,10 +317,10 @@ if (!empty($filter_params)) {
                 <div class="col-12">
                     <h3 class="h5 mb-3"><i class="fas fa-briefcase text-info me-2"></i>Specialized Job Searches</h3>
                     <div class="d-flex flex-wrap gap-2">
-                        <a href="/fresher-jobs-omr-chennai.php" class="btn btn-outline-info btn-sm"><i class="fas fa-user-graduate me-1"></i>Fresher Jobs</a>
-                        <a href="/experienced-jobs-omr-chennai.php" class="btn btn-outline-info btn-sm"><i class="fas fa-user-tie me-1"></i>Experienced Jobs</a>
-                        <a href="/part-time-jobs-omr-chennai.php" class="btn btn-outline-warning btn-sm"><i class="fas fa-clock me-1"></i>Part-Time Jobs</a>
-                        <a href="/work-from-home-jobs-omr.php" class="btn btn-outline-warning btn-sm"><i class="fas fa-home me-1"></i>Work from Home</a>
+                        <a href="/jobs/?experience=fresher" class="btn btn-outline-info btn-sm"><i class="fas fa-user-graduate me-1"></i>Fresher Jobs</a>
+                        <a href="/jobs/?experience=experienced" class="btn btn-outline-info btn-sm"><i class="fas fa-user-tie me-1"></i>Experienced Jobs</a>
+                        <a href="/jobs/?job_type=part-time" class="btn btn-outline-warning btn-sm"><i class="fas fa-clock me-1"></i>Part-Time Jobs</a>
+                        <a href="/jobs/?job_type=remote" class="btn btn-outline-warning btn-sm"><i class="fas fa-home me-1"></i>Work from Home</a>
                     </div>
                 </div>
             </div>
@@ -492,7 +379,7 @@ if (!empty($filter_params)) {
                                 <!-- Job Header -->
                                 <header class="job-header mb-3">
                                     <h3 class="h5 mb-2 job-title" itemprop="title">
-                                        <a href="job-detail-omr.php?id=<?php echo $job['id']; ?>" 
+                                        <a href="<?php echo htmlspecialchars(getJobDetailUrl($job['id'], $job['title'] ?? '')); ?>" 
                                            class="text-decoration-none text-dark">
                                             <?php echo htmlspecialchars($job['title']); ?>
                                         </a>
@@ -582,7 +469,7 @@ if (!empty($filter_params)) {
                                     </div>
                                     
                                     <div class="job-actions">
-                                        <a href="job-detail-omr.php?id=<?php echo $job['id']; ?>" 
+                                        <a href="<?php echo htmlspecialchars(getJobDetailUrl($job['id'], $job['title'] ?? '')); ?>" 
                                            class="btn btn-primary btn-sm">
                                             <i class="fas fa-eye me-1"></i> View Details
                                         </a>
@@ -658,10 +545,10 @@ if (!empty($filter_params)) {
                 <div class="col-lg-8">
                     <h2 class="h3 mb-3">Are You an Employer?</h2>
                     <p class="lead mb-4">Post your job openings and connect with talented professionals in <?php echo htmlspecialchars($region_short); ?>.</p>
-                    <a href="employer-login-omr.php" class="btn btn-light btn-lg me-3">
+                    <a href="employer-login-covai.php" class="btn btn-light btn-lg me-3">
                         <i class="fas fa-plus me-1"></i> Post a Job
                     </a>
-                    <a href="employer-register-omr.php" class="btn btn-outline-light btn-lg">
+                    <a href="employer-register-covai.php" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-building me-1"></i> Register as Employer
                     </a>
                 </div>
@@ -677,7 +564,7 @@ if (!empty($filter_params)) {
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Custom JS -->
-<script src="assets/job-search-omr.js"></script>
+<script src="assets/job-search-covai.js"></script>
 <!-- Analytics Events -->
 <script src="assets/job-analytics-events.js"></script>
 

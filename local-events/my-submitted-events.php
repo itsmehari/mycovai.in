@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>My Submitted Events – <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?></title>
   <meta name="description" content="Check the status of events you submitted to <?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?>." />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="../jobs/assets/omr-jobs-unified-design.css" />
+  <link rel="stylesheet" href="../jobs/assets/covai-jobs-unified-design.css" />
   <link rel="stylesheet" href="assets/events-dashboard.css" />
   <?php include __DIR__ . '/../components/analytics.php'; ?>
   <?php include __DIR__ . '/../components/organization-schema.php'; ?>

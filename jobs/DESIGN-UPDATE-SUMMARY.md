@@ -7,7 +7,7 @@
    - ✅ `post-job-form-modern.css` - Modern form styling system
    - ✅ `omr-jobs-unified-design.css` - Unified components (fixed)
 
-2. **post-job-omr.php:**
+2. **post-job-covai.php:**
    - ✅ Modern progress indicator with animated steps
    - ✅ Company Information section fully modernized
    - ⚠️ **Pending**: Job Details section (lines 278-353) - needs modern classes
@@ -16,7 +16,7 @@
 
 ## ⏳ In Progress / Pending
 
-### High Priority - Complete post-job-omr.php first
+### High Priority - Complete post-job-covai.php first
 
 - Update Job Details section to use `form-section-header`, `form-control-modern`, etc.
 - Update Review & Submit section with modern alert and button styling
@@ -24,10 +24,10 @@
 ### Then Update Other Pages:
 
 3. **index.php** - Main job listings page
-4. **job-detail-omr.php** - Single job view page
-5. **job-posted-success-omr.php** - Success confirmation
-6. **application-submitted-omr.php** - Application confirmation
-7. **employer-login-omr.php** - Login page
+4. **job-detail-covai.php** - Single job view page
+5. **job-posted-success-covai.php** - Success confirmation
+6. **application-submitted-covai.php** - Application confirmation
+7. **employer-login-covai.php** - Login page
 8. Jobs\*\* - Employer dashboard
 
 ## Design System Standards
@@ -44,7 +44,7 @@ All pages should use:
 
 ## Next Steps
 
-1. Complete post-job-omr.php Job Details & Review sections
+1. Complete post-job-covai.php Job Details & Review sections
 2. Systematically update each remaining page
 3. Test responsive design on all pages
 4. Verify consistent styling across all pages

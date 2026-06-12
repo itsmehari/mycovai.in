@@ -50,15 +50,15 @@ ob_start();
     <style>
         /* MyCovai Branding Colors */
         :root {
-            --myomr-green: #14532d;
-            --myomr-light-green: #22c55e;
-            --myomr-orange: #F77F00;
-            --myomr-text: #4c516D;
+            --covai-green: #14532d;
+            --covai-light-green: #22c55e;
+            --covai-orange: #F77F00;
+            --covai-text: #4c516D;
         }
 
         /* Hero Section */
         .sdg-hero {
-            background: linear-gradient(135deg, var(--myomr-green) 0%, var(--myomr-light-green) 100%);
+            background: linear-gradient(135deg, var(--covai-green) 0%, var(--covai-light-green) 100%);
             color: white;
             padding: 4rem 0;
             text-align: center;
@@ -177,14 +177,14 @@ ob_start();
 
         /* Call to Action */
         .cta-section {
-            background: var(--myomr-green);
+            background: var(--covai-green);
             color: white;
             padding: 3rem 0;
             text-align: center;
         }
 
         .cta-button {
-            background: var(--myomr-orange);
+            background: var(--covai-orange);
             color: white;
             padding: 1rem 2rem;
             border: none;
@@ -228,14 +228,14 @@ ob_start();
 
         .section-header h2 {
             font-family: 'Playfair Display', serif;
-            color: var(--myomr-green);
+            color: var(--covai-green);
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
 
         .section-header p {
             font-family: 'Josefin Sans', sans-serif;
-            color: var(--myomr-text);
+            color: var(--covai-text);
             font-size: 1.1rem;
         }
     </style>
@@ -278,8 +278,8 @@ ob_start();
         {
           "@type": "Article",
           "@id": "https://mycovai.in/discover/sustainable-development-goals.php#article",
-          "headline": "UN Sustainable Development Goals | MyOMR Community Commitment",
-          "description": "MyOMR's commitment to UN Sustainable Development Goals and community sustainability initiatives",
+          "headline": "UN Sustainable Development Goals | MyCovai Community Commitment",
+          "description": "MyCovai's commitment to UN Sustainable Development Goals and community sustainability initiatives",
           "image": "https://mycovai.in/My-OMR-Logo.jpg",
           "author": {
             "@type": "Organization",
@@ -481,10 +481,10 @@ ob_start();
             },
             {
               "@type": "Question",
-              "name": "How does MyOMR support the Sustainable Development Goals?",
+              "name": "How does MyCovai support the Sustainable Development Goals?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "MyOMR supports the SDGs through four primary areas: (1) Sustainable Cities & Communities (SDG 11) via local news and civic engagement, (2) Quality Education (SDG 4) through comprehensive school directories, (3) Decent Work & Economic Growth (SDG 8) via job listings and business directories, and (4) Good Health & Well-being (SDG 3) through healthcare facility directories and wellness content."
+                "text": "MyCovai supports the SDGs through four primary areas: (1) Sustainable Cities & Communities (SDG 11) via local news and civic engagement, (2) Quality Education (SDG 4) through comprehensive school directories, (3) Decent Work & Economic Growth (SDG 8) via job listings and business directories, and (4) Good Health & Well-being (SDG 3) through healthcare facility directories and wellness content."
               }
             },
             {
@@ -497,18 +497,18 @@ ob_start();
             },
             {
               "@type": "Question",
-              "name": "How can I participate in supporting the SDGs through MyOMR?",
+              "name": "How can I participate in supporting the SDGs through MyCovai?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "You can participate in three ways: (1) Individual Actions - Make sustainable choices, support local businesses, and participate in community initiatives, (2) Business Practices - Adopt sustainable business practices and list your business on MyOMR, and (3) Community Initiatives - Join or start community initiatives focused on sustainability, education, health, and social inclusion."
+                "text": "You can participate in three ways: (1) Individual Actions - Make sustainable choices, support local businesses, and participate in community initiatives, (2) Business Practices - Adopt sustainable business practices and list your business on MyCovai, and (3) Community Initiatives - Join or start community initiatives focused on sustainability, education, health, and social inclusion."
               }
             },
             {
               "@type": "Question",
-              "name": "What is SDG 11 and how does MyOMR support it?",
+              "name": "What is SDG 11 and how does MyCovai support it?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "SDG 11 is Sustainable Cities & Communities, aiming to make cities inclusive, safe, resilient and sustainable. MyOMR supports SDG 11 through community news and civic awareness, local business directories promoting sustainable practices, and community events that build social connections."
+                "text": "SDG 11 is Sustainable Cities & Communities, aiming to make cities inclusive, safe, resilient and sustainable. MyCovai supports SDG 11 through community news and civic awareness, local business directories promoting sustainable practices, and community events that build social connections."
               }
             }
           ]
@@ -909,7 +909,7 @@ if (file_exists('../components/main-nav.php')) {
                         <li>Reduce energy consumption through efficient practices</li>
                     </ul>
                     <p class="small text-muted">Supports: SDG 8, SDG 5, SDG 7, SDG 4</p>
-                    <a href="/listings/" class="btn btn-outline-primary btn-sm">List Your Business</a>
+                    <a href="/directory/get-listed.php" class="btn btn-outline-primary btn-sm">List Your Business</a>
                 </div>
             </div>
         </div>

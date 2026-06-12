@@ -41,7 +41,7 @@ All job portal files now have **error reporting enabled** for development. Error
    - Verify table names match exactly
 
 5. **Function Not Defined**
-   - Check if `job-functions-omr.php` is included
+   - Check if `job-functions-covai.php` is included
    - Verify function names are correct
    - Check for typos in function calls
 
@@ -97,8 +97,8 @@ SHOW TABLES LIKE 'employer%';
 
 **If Function Error:**
 
-- Check if `includes/job-functions-omr.php` exists
-- Verify path: `__DIR__ . '/includes/job-functions-omr.php'`
+- Check if `includes/job-functions-covai.php` exists
+- Verify path: `__DIR__ . '/includes/job-functions-covai.php'`
 - Check file permissions (644 for files, 755 for folders)
 
 ---
@@ -122,7 +122,7 @@ Line: [Line Number]
 ## 🔍 Check These Files First
 
 1. ✅ `core/omr-connect.php` - Database connection
-2. ✅ `includes/job-functions-omr.php` - Helper functions
+2. ✅ `includes/job-functions-covai.php` - Helper functions
 3. ✅ `includes/error-reporting.php` - Error display
 4. ✅ Database tables exist
 5. ✅ File paths are correct

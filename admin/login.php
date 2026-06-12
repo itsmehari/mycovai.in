@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // reset attempts
                 $_SESSION['admin_login_attempts'] = [];
                 unset($_SESSION['admin_login_csrf']);
-                $to = isset($_GET['redirect']) ? $_GET['redirect'] : '/admin/index.php';
+                $to = admin_safe_redirect($_GET['redirect'] ?? null, '/admin/index.php');
                 header('Location: ' . $to);
                 exit;
             } else {
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login – MyOMR</title>
+  <title>Admin Login – MyCovai</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light d-flex align-items-center" style="min-height:100vh;">
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="col-md-4">
         <div class="card shadow-sm">
           <div class="card-body">
-            <h1 class="h4 mb-3 text-center">MyOMR Admin Login</h1>
+            <h1 class="h4 mb-3 text-center">MyCovai Admin Login</h1>
             <?php if ($error): ?><div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div><?php endif; ?>
             <form method="post" autocomplete="off">
               <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($_SESSION['admin_login_csrf']); ?>">

@@ -146,20 +146,20 @@
 #### Main Pages
 
 - `/omr-local-job-listings/` (index.php)
-- `/omr-local-job-listings/post-job-omr.php`
-- `/omr-local-job-listings/employer-register-omr.php`
-- `/omr-local-job-listings/employer-login-omr.php`
-- `/omr-local-job-listings/employer-landing-omr.php`
+- `/omr-local-job-listings/post-job-covai.php`
+- `/omr-local-job-listings/employer-register-covai.php`
+- `/omr-local-job-listings/employer-login-covai.php`
+- `/omr-local-job-listings/employer-landing-covai.php`
 
 #### Job Detail Pages (Dynamic from Database)
 
-- `/omr-local-job-listings/job-detail-omr.php?id=[ID]` (for all approved jobs)
+- `/omr-local-job-listings/job-detail-covai.php?id=[ID]` (for all approved jobs)
 
 **Excluded:**
 
 - `/omr-local-job-listings/admin/` (entire folder)
 - `/omr-local-job-listings/process-*.php` (processing files)
-- `/omr-local-job-listings/application-submitted-omr.php` (thank you page - optional)
+- `/omr-local-job-listings/application-submitted-covai.php` (thank you page - optional)
 - Test files, debug files
 
 ---
@@ -278,7 +278,7 @@
 
 - `/admin/` (entire folder)
 - Any file with "admin" in path
-- Login/authentication pages (employer-login-omr.php, admin-login, etc.)
+- Login/authentication pages (employer-login-covai.php, admin-login, etc.)
 
 ### Processing/Action Files
 

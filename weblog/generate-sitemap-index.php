@@ -9,13 +9,12 @@ header('Content-Type: application/xml; charset=utf-8');
 $base = get_canonical_base();
 
 $sitemaps = [
+  $base . '/pages-sitemap.xml',
   $base . '/local-events/sitemap.xml',
   $base . '/directory/sitemap.xml',
   $base . '/jobs/sitemap.xml',
   $base . '/hostels-pgs/sitemap.xml',
   $base . '/coworking-spaces/sitemap.xml',
-  $base . '/pentahive/sitemap.xml',
-  $base . '/election-blo-details/sitemap.xml',
   $base . '/coimbatore-elections-2026/sitemap.xml',
   $base . '/local-news/sitemap.xml',
 ];

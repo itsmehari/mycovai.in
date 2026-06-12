@@ -9,7 +9,7 @@ version: 1.0
 
 ## 📋 Overview
 
-This document details how the new **Employer Dashboard** (`employer-dashboard-omr.php`) has been integrated into the existing MyOMR Job Portal system, ensuring seamless navigation and workflow continuity.
+This document details how the new **Employer Dashboard** (`employer-dashboard-covai.php`) has been integrated into the existing MyOMR Job Portal system, ensuring seamless navigation and workflow continuity.
 
 **Status:** ✅ Fully Integrated  
 **Last Updated:** 30-11-2025
@@ -23,7 +23,7 @@ This document details how the new **Employer Dashboard** (`employer-dashboard-om
 **File:** `omr-local-job-listings/includes/employer-auth.php` ✅
 
 - New dashboard uses `requireEmployerAuth()` - **Compatible**
-- Redirects to `employer-login-omr.php?redirect=...` - **Compatible**
+- Redirects to `employer-login-covai.php?redirect=...` - **Compatible**
 - Session variables used: `employer_id`, `employer_email`, `employer_company` - **Compatible**
 
 **Status:** ✅ No changes needed - fully compatible
@@ -32,17 +32,17 @@ This document details how the new **Employer Dashboard** (`employer-dashboard-om
 
 ### 2. **Employer Login Redirect**
 
-**File:** `omr-local-job-listings/employer-login-omr.php`
+**File:** `omr-local-job-listings/employer-login-covai.php`
 
 **Current Behavior:**
-- Default redirect: `my-posted-jobs-omr.php` (line 10)
+- Default redirect: `my-posted-jobs-covai.php` (line 10)
 - Supports custom redirect via `?redirect=` parameter
 
 **Integration Options:**
-1. ✅ **Option A (Recommended):** Keep default as `my-posted-jobs-omr.php` - allows users to choose
-2. ⚠️ **Option B:** Change default to `employer-dashboard-omr.php` - more direct access
+1. ✅ **Option A (Recommended):** Keep default as `my-posted-jobs-covai.php` - allows users to choose
+2. ⚠️ **Option B:** Change default to `employer-dashboard-covai.php` - more direct access
 
-**Recommendation:** Keep Option A - users can navigate from "My Posted Jobs" to "View All Applications" dashboard. The dashboard is accessible from `my-posted-jobs-omr.php` with a prominent button.
+**Recommendation:** Keep Option A - users can navigate from "My Posted Jobs" to "View All Applications" dashboard. The dashboard is accessible from `my-posted-jobs-covai.php` with a prominent button.
 
 **Status:** ✅ Integrated (navigation link added)
 
@@ -50,11 +50,11 @@ This document details how the new **Employer Dashboard** (`employer-dashboard-om
 
 ### 3. **Employer Landing Page**
 
-**File:** `omr-local-job-listings/employer-landing-omr.php`
+**File:** `omr-local-job-listings/employer-landing-covai.php`
 
 **Current Links:**
-- ✅ "Post a New Job" → `post-job-omr.php`
-- ✅ "Go to Dashboard" → `my-posted-jobs-omr.php`
+- ✅ "Post a New Job" → `post-job-covai.php`
+- ✅ "Go to Dashboard" → `my-posted-jobs-covai.php`
 
 **Update Needed:**
 - Add third option or update "Go to Dashboard" to include new dashboard link
@@ -67,10 +67,10 @@ This document details how the new **Employer Dashboard** (`employer-dashboard-om
 
 ### 4. **My Posted Jobs Page** 
 
-**File:** `omr-local-job-listings/my-posted-jobs-omr.php` ✅
+**File:** `omr-local-job-listings/my-posted-jobs-covai.php` ✅
 
 **Updates Made:**
-- ✅ Added "View All Applications" button in header → links to `employer-dashboard-omr.php`
+- ✅ Added "View All Applications" button in header → links to `employer-dashboard-covai.php`
 - ✅ Button appears prominently in hero section
 - ✅ Maintains all existing functionality
 
@@ -80,10 +80,10 @@ This document details how the new **Employer Dashboard** (`employer-dashboard-om
 
 ### 5. **View Applications Page**
 
-**File:** `omr-local-job-listings/view-applications-omr.php` ✅
+**File:** `omr-local-job-listings/view-applications-covai.php` ✅
 
 **Updates Made:**
-- ✅ Added "Unified Dashboard" button → links to `employer-dashboard-omr.php?job_id=X`
+- ✅ Added "Unified Dashboard" button → links to `employer-dashboard-covai.php?job_id=X`
 - ✅ Pre-filters dashboard by selected job ID
 - ✅ Maintains backward compatibility
 
@@ -140,7 +140,7 @@ This document details how the new **Employer Dashboard** (`employer-dashboard-om
 ### 9. **Existing Function Compatibility**
 
 **Status Updates:**
-- ✅ `update-application-status-omr.php` - Compatible (used in applicant cards)
+- ✅ `update-application-status-covai.php` - Compatible (used in applicant cards)
 - ✅ Form actions point to existing endpoints
 - ✅ All existing employer workflows remain functional
 
@@ -161,14 +161,14 @@ This document details how the new **Employer Dashboard** (`employer-dashboard-om
 
 ### Update 1: Employer Landing Page
 
-**File:** `omr-local-job-listings/employer-landing-omr.php`
+**File:** `omr-local-job-listings/employer-landing-covai.php`
 
 Add third option card or update existing "Go to Dashboard" section:
 
 ```php
 // Option 1: Add third card for Applications Dashboard
 <div class="col-md-4">
-    <a href="employer-dashboard-omr.php" class="text-decoration-none">
+    <a href="employer-dashboard-covai.php" class="text-decoration-none">
         <div class="card-modern p-5 text-center option-card h-100">
             <div class="option-icon text-info">
                 <i class="fas fa-users"></i>
@@ -195,18 +195,18 @@ Add new dashboard to documentation:
 
 **Section 2. Folder & File Breakdown:**
 ```markdown
-├── employer-dashboard-omr.php     # Unified applications dashboard (NEW)
-├── my-posted-jobs-omr.php         # Employer dashboard (list view)
-├── view-applications-omr.php      # Employer-side application list
+├── employer-dashboard-covai.php     # Unified applications dashboard (NEW)
+├── my-posted-jobs-covai.php         # Employer dashboard (list view)
+├── view-applications-covai.php      # Employer-side application list
 ```
 
 **Section 4. End-to-End Flow Summaries:**
 ```markdown
 ### D. Application Management
-1. Employer views applications via `employer-dashboard-omr.php` (unified view with filters)
-   OR via `view-applications-omr.php` (job-specific view)
+1. Employer views applications via `employer-dashboard-covai.php` (unified view with filters)
+   OR via `view-applications-covai.php` (job-specific view)
 2. Advanced filtering, bulk actions, and status management available
-3. Status updates go through `update-application-status-omr.php`
+3. Status updates go through `update-application-status-covai.php`
 ```
 
 **Priority:** Low (documentation only)  
@@ -236,25 +236,25 @@ Add new dashboard to documentation:
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Employer Login                           │
-│              (employer-login-omr.php)                       │
+│              (employer-login-covai.php)                       │
 └───────────────────┬─────────────────────────────────────────┘
                     │
                     ▼
 ┌─────────────────────────────────────────────────────────────┐
 │              My Posted Jobs                                 │
-│         (my-posted-jobs-omr.php)                           │
+│         (my-posted-jobs-covai.php)                           │
 │  ┌───────────────────────────────────────────────────┐     │
 │  │  [View All Applications] → employer-dashboard     │     │
-│  │  [Post New Job] → post-job-omr.php                │     │
-│  │  [Edit Job] → edit-job-omr.php                    │     │
-│  │  [View Applications] → view-applications-omr.php  │     │
+│  │  [Post New Job] → post-job-covai.php                │     │
+│  │  [Edit Job] → edit-job-covai.php                    │     │
+│  │  [View Applications] → view-applications-covai.php  │     │
 │  └───────────────────────────────────────────────────┘     │
 └───────────────────┬─────────────────────────────────────────┘
                     │
                     ▼
 ┌─────────────────────────────────────────────────────────────┐
 │         Unified Applications Dashboard                      │
-│        (employer-dashboard-omr.php) ✨ NEW                 │
+│        (employer-dashboard-covai.php) ✨ NEW                 │
 │  ┌───────────────────────────────────────────────────┐     │
 │  │  • Filter by Job, Status, Locality, etc.          │     │
 │  │  • Bulk Actions (Email, SMS, Download)            │     │
@@ -263,18 +263,18 @@ Add new dashboard to documentation:
 │  └───────────────────────────────────────────────────┘     │
 │                                                             │
 │  ┌───────────────────────────────────────────────────┐     │
-│  │  [Back to My Jobs] → my-posted-jobs-omr.php      │     │
-│  │  [Post New Job] → post-job-omr.php                │     │
+│  │  [Back to My Jobs] → my-posted-jobs-covai.php      │     │
+│  │  [Post New Job] → post-job-covai.php                │     │
 │  └───────────────────────────────────────────────────┘     │
 └───────────────────┬─────────────────────────────────────────┘
                     │
                     ▼
 ┌─────────────────────────────────────────────────────────────┐
 │       Job-Specific Applications View                        │
-│       (view-applications-omr.php)                          │
+│       (view-applications-covai.php)                          │
 │  ┌───────────────────────────────────────────────────┐     │
 │  │  [Unified Dashboard] → employer-dashboard?id=X    │     │
-│  │  [Back to Jobs] → my-posted-jobs-omr.php         │     │
+│  │  [Back to Jobs] → my-posted-jobs-covai.php         │     │
 │  └───────────────────────────────────────────────────┘     │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -288,8 +288,8 @@ Add new dashboard to documentation:
 - [x] Authentication system compatible
 - [x] Database queries compatible
 - [x] Session management compatible
-- [x] Navigation links added to `my-posted-jobs-omr.php`
-- [x] Navigation links added to `view-applications-omr.php`
+- [x] Navigation links added to `my-posted-jobs-covai.php`
+- [x] Navigation links added to `view-applications-covai.php`
 - [x] Component dependencies satisfied
 - [x] CSS/JS assets properly linked
 - [x] Error handling compatible
@@ -374,9 +374,9 @@ Before deploying the new dashboard:
 2. **Optional Migration:** The dashboard works with existing data. New fields (age, gender, etc.) are optional and can be populated over time.
 
 3. **User Choice:** Employers can choose between:
-   - **Unified Dashboard** (`employer-dashboard-omr.php`) - Advanced filtering, bulk actions
-   - **Job-Specific View** (`view-applications-omr.php`) - Simple list for one job
-   - **Job Management** (`my-posted-jobs-omr.php`) - Manage job postings
+   - **Unified Dashboard** (`employer-dashboard-covai.php`) - Advanced filtering, bulk actions
+   - **Job-Specific View** (`view-applications-covai.php`) - Simple list for one job
+   - **Job Management** (`my-posted-jobs-covai.php`) - Manage job postings
 
 4. **Future Enhancements:**
    - Bulk email/SMS backend APIs

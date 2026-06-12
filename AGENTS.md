@@ -33,13 +33,17 @@ When the user asks to **update the database** without specifying live:
 - **Direct remote:** Set `DB_HOST=mycovai.in` (and other env vars if needed). Ensure the machine’s public IP is allowed in cPanel → Remote MySQL®.
 - **Test:** `php dev-tools/test-db-connect-cli.php` with env set.
 - **Summary:** `php dev-tools/db-summary-cli.php` with env set to list tables and row counts on the connected database.
-- **Update .cursor db-summary:** After every database update and daily, run the summary script and save output to `.cursor/db-summary-dd-MM-yyyy.md` (see LEARNINGS.md).
+- **Update .cursor db-summary:** After every database update and daily, run the summary script and save output to `.cursor/db-summaries/db-summary-dd-MM-yyyy.md` (see LEARNINGS.md).
 
 ---
 
-## Documentation
+## Documentation (10x live system)
 
-- Read `docs/README.md` before adding or moving documentation.
+- **Start here:** `.cursor/LIVE-SYSTEM-MAP.md` — master live map (modules, URLs, phases, legacy).
+- **Hub index:** `.cursor/README.md`
+- **Maintenance:** `.cursor/maintenance/MAINTENANCE-RUNBOOK.md`
+- **Legacy MyOMR audit:** `.cursor/maintenance/LEGACY-MYOMR-AUDIT.md`
+- Read `docs/README.md` before adding or moving deep documentation.
 - Worklogs: `docs/worklogs/worklog-dd-mm-yyyy.md`.
 - Recent changes: `docs/RECENT-UPDATES.md`.
 - Learnings: `LEARNINGS.md`.

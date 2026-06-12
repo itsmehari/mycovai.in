@@ -1,9 +1,9 @@
 <?php
 require_once __DIR__ . '/app-secrets.php';
 
-function myomrSendMail(string $to, string $subject, string $html, string $textAlt = ''): bool {
-    $from = (string)(defined('MYCOVAI_MAIL_FROM') ? MYCOVAI_MAIL_FROM : MYOMR_MAIL_FROM);
-    $fromName = (string)(defined('MYCOVAI_MAIL_FROM_NAME') ? MYCOVAI_MAIL_FROM_NAME : MYOMR_MAIL_FROM_NAME);
+function covaiSendMail(string $to, string $subject, string $html, string $textAlt = ''): bool {
+    $from = (string)(defined('MYCOVAI_MAIL_FROM') ? MYCOVAI_MAIL_FROM : 'mycovai@gmail.com');
+    $fromName = (string)(defined('MYCOVAI_MAIL_FROM_NAME') ? MYCOVAI_MAIL_FROM_NAME : 'MyCovai Team');
     $headers = [];
     $headers[] = 'MIME-Version: 1.0';
     $headers[] = 'Content-type: text/html; charset=UTF-8';
@@ -20,5 +20,3 @@ function myomrSendMail(string $to, string $subject, string $html, string $textAl
 function encodeHeader(string $s): string {
     return '=?UTF-8?B?' . base64_encode($s) . '?=';
 }
-
-

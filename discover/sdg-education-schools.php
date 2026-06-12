@@ -1209,7 +1209,7 @@ if (file_exists('../components/main-nav.php')) {
             <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
                 <a href="/" style="color: white; text-decoration: underline; font-size: 0.95rem;"><i class="fas fa-home"></i> Home</a>
                 <a href="/directory/schools.php" style="color: white; text-decoration: underline; font-size: 0.95rem;"><i class="fas fa-school"></i> School Directory</a>
-                <a href="/local-news/" style="color: white; text-decoration: underline; font-size: 0.95rem;"><i class="fas fa-newspaper"></i> Local News</a>
+                <a href="/coimbatore-news.php" style="color: white; text-decoration: underline; font-size: 0.95rem;"><i class="fas fa-newspaper"></i> Covai News</a>
                 <a href="/local-events/" style="color: white; text-decoration: underline; font-size: 0.95rem;"><i class="fas fa-calendar"></i> Events</a>
             </div>
             <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.9;">

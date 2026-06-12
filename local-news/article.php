@@ -9,6 +9,7 @@ if (empty($slug)) {
 }
 
 require_once '../core/omr-connect.php';
+require_once '../core/mycovai-config.php';
 
 // Prepare and execute the query to prevent SQL injection
 $stmt = $conn->prepare("SELECT * FROM articles WHERE slug = ? AND status = 'published'");
@@ -62,7 +63,7 @@ $covai_pair_tamil_slug = $tamil_slug;
     $article_desc = htmlspecialchars($article['summary']);
     $article_content = strip_tags(htmlspecialchars($article['content']));
     $article_url = 'https://mycovai.in/local-news/' . $article['slug'];
-    $raw_image = $article['image_path'] ?? '/My-OMR-Logo.jpg';
+    $raw_image = $article['image_path'] ?? covai_logo_url();
     $article_image = (strpos($raw_image, 'http://') === 0 || strpos($raw_image, 'https://') === 0)
         ? $raw_image
         : 'https://mycovai.in' . (strpos($raw_image, '/') === 0 ? '' : '/') . $raw_image;
@@ -130,10 +131,10 @@ $covai_pair_tamil_slug = $tamil_slug;
         },
         {
           "@type": "Question",
-          "name": "Which areas are covered under AC Shozhinganallur?",
+          "name": "Which Coimbatore areas have BLO coverage?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Assembly Constituency 27 (Shozhinganallur) covers areas including Ullagaram, Puzhithivakkam, Madipakkam, Perungudi, Palavakkam, Kottivakkam, Neelangarai, Thuraipakkam, Karapakkam, Sholinganallur, Jalladianpet, Medavakkam, Kovilambakkam, Nanmangalam, S.Kolathur, Vengaivasal, Sithalapakkam, Semmenjery, Perumbakkam, Ottiyambakkam, Uthandi, and many more localities along Old Mahabalipuram Road (OMR)."
+            "text": "Block Level Officers serve voters across all Coimbatore assembly constituencies. Use the ECI voter portal with your address or EPIC number to find the BLO assigned to your polling part."
           }
         },
         {
@@ -167,8 +168,8 @@ $covai_pair_tamil_slug = $tamil_slug;
           "@type": "HowToStep",
           "position": 1,
           "name": "Visit the BLO Search Page",
-          "text": "Go to https://mycovai.in/info/find-blo-officer.php on your web browser",
-          "url": "https://mycovai.in/info/find-blo-officer.php"
+          "text": "Go to https://voters.eci.gov.in/ on your web browser",
+          "url": "https://voters.eci.gov.in/"
         },
         {
           "@type": "HowToStep",
@@ -218,7 +219,7 @@ $covai_pair_tamil_slug = $tamil_slug;
       "serviceType": "Election Services",
       "areaServed": {
         "@type": "City",
-        "name": "Chennai",
+        "name": "Coimbatore",
         "containedIn": {
           "@type": "State",
           "name": "Tamil Nadu"
@@ -235,7 +236,7 @@ $covai_pair_tamil_slug = $tamil_slug;
       },
       "availableChannel": {
         "@type": "ServiceChannel",
-        "serviceUrl": "https://mycovai.in/info/find-blo-officer.php",
+        "serviceUrl": "https://voters.eci.gov.in/",
         "serviceType": "Online"
       }
     }
@@ -247,8 +248,8 @@ $covai_pair_tamil_slug = $tamil_slug;
     <link rel="stylesheet" href="/assets/css/article-components.css">
     <style>
         :root {
-            --myomr-green: #14532d;
-            --myomr-light-green: #22c55e;
+            --covai-green: #14532d;
+            --covai-light-green: #22c55e;
         }
         
         .article-container { 
@@ -290,23 +291,23 @@ $covai_pair_tamil_slug = $tamil_slug;
         
         .article-content h2 {
             font-family: 'Playfair Display', serif;
-            color: var(--myomr-green);
+            color: var(--covai-green);
             font-size: 2rem;
             margin: 2rem 0 1rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--myomr-light-green);
+            border-bottom: 2px solid var(--covai-light-green);
         }
 
         .article-content h3 {
             font-family: 'Playfair Display', serif;
-            color: var(--myomr-green);
+            color: var(--covai-green);
             font-size: 1.5rem;
             margin: 1.5rem 0 1rem;
         }
 
         .info-box {
             background: #e7f5e7;
-            border-left: 4px solid var(--myomr-light-green);
+            border-left: 4px solid var(--covai-light-green);
             padding: 1.5rem;
             margin: 1.5rem 0;
             border-radius: 5px;
@@ -393,7 +394,7 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
 
         <!-- Related Articles Section -->
         <div style="margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 8px;">
-            <h3 style="color: var(--myomr-green); margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; font-size: 1.75rem;">More Articles</h3>
+            <h3 style="color: var(--covai-green); margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; font-size: 1.75rem;">More Articles</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
                 <?php
                 // Get related articles - use existing connection (exclude Tamil versions)
@@ -407,7 +408,7 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
                     $related_result = $related_stmt->get_result();
                     while ($related = $related_result->fetch_assoc()) {
                         $article_count++;
-                        $related_image = !empty($related['image_path']) ? htmlspecialchars($related['image_path']) : '/My-OMR-Logo.jpg';
+                        $related_image = !empty($related['image_path']) ? htmlspecialchars($related['image_path']) : htmlspecialchars(covai_logo_url());
                         $related_summary = !empty($related['summary']) ? htmlspecialchars(substr($related['summary'], 0, 120)) . '...' : '';
                         $related_date = !empty($related['published_date']) ? date('M j, Y', strtotime($related['published_date'])) : '';
                         
@@ -420,7 +421,7 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
                         }
                         
                         // Article title
-                        echo '<h4 style="color: var(--myomr-green); font-size: 1.1rem; font-weight: 600; margin: 0 0 0.5rem 0; line-height: 1.4;">' . htmlspecialchars($related['title']) . '</h4>';
+                        echo '<h4 style="color: var(--covai-green); font-size: 1.1rem; font-weight: 600; margin: 0 0 0.5rem 0; line-height: 1.4;">' . htmlspecialchars($related['title']) . '</h4>';
                         
                         // Article date
                         if ($related_date) {
@@ -455,7 +456,7 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
             </div>
             <?php if ($article_count > 0): ?>
             <div style="text-align: center; margin-top: 1.5rem;">
-                <a href="/coimbatore-news.php" style="display: inline-block; padding: 0.75rem 2rem; background: var(--myomr-green); color: white; text-decoration: none; border-radius: 5px; font-weight: 600; transition: background 0.3s;" onmouseover="this.style.background='#22c55e';" onmouseout="this.style.background='var(--myomr-green)';">View All Articles</a>
+                <a href="/coimbatore-news.php" style="display: inline-block; padding: 0.75rem 2rem; background: var(--covai-green); color: white; text-decoration: none; border-radius: 5px; font-weight: 600; transition: background 0.3s;" onmouseover="this.style.background='#22c55e';" onmouseout="this.style.background='var(--covai-green)';">View All Articles</a>
             </div>
             <?php endif; ?>
         </div>
@@ -507,7 +508,7 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
                     </div>
                     <div class="col-lg-5">
                         <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                            <h3 style="color: var(--myomr-green); font-size: 1.75rem; margin-bottom: 1rem; text-align: center;">
+                            <h3 style="color: var(--covai-green); font-size: 1.75rem; margin-bottom: 1rem; text-align: center;">
                                 <i class="fas fa-bell"></i> Subscribe for Updates
                             </h3>
                             
@@ -522,25 +523,7 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
                                 </div>
                             <?php endif; ?>
                             
-                            <form method="POST" action="../info/process-blo-subscription.php" style="margin-top: 1.5rem;">
-                                <input type="hidden" name="source" value="News Article - <?php echo htmlspecialchars($article['title']); ?>">
-                                <input type="hidden" name="page_url" value="<?php echo htmlspecialchars($article_url); ?>">
-                                
-                                <!-- Honeypot field for spam protection -->
-                                <input type="text" name="website" style="display: none;" tabindex="-1" autocomplete="off">
-                                
-                                <div class="form-group mb-3">
-                                    <label for="sub_name_article" style="color: #14532d; font-weight: 600; margin-bottom: 0.5rem; display: block;">
-                                        <i class="fas fa-user"></i> Name (Optional)
-                                    </label>
-                                    <input type="text" 
-                                           id="sub_name_article" 
-                                           name="name" 
-                                           class="form-control" 
-                                           placeholder="Your name"
-                                           style="padding: 0.75rem; border: 2px solid #d1fae5; border-radius: 6px; width: 100%;">
-                                </div>
-                                
+                            <form method="POST" action="/core/subscribe.php" style="margin-top: 1.5rem;">
                                 <div class="form-group mb-3">
                                     <label for="sub_email_article" style="color: #14532d; font-weight: 600; margin-bottom: 0.5rem; display: block;">
                                         <i class="fas fa-envelope"></i> Email Address <span style="color: #ef4444;">*</span>
@@ -555,9 +538,8 @@ require_once __DIR__ . '/../components/article-ad-banner.php';
                                 </div>
                                 
                                 <button type="submit" 
-                                        name="subscribe_email" 
                                         class="btn btn-lg w-100" 
-                                        style="background: var(--myomr-green); color: white; padding: 0.875rem; border: none; border-radius: 6px; font-weight: 600; font-size: 1.1rem; transition: background 0.3s;">
+                                        style="background: var(--covai-green); color: white; padding: 0.875rem; border: none; border-radius: 6px; font-weight: 600; font-size: 1.1rem; transition: background 0.3s;">
                                     <i class="fas fa-paper-plane"></i> Subscribe Now
                                 </button>
                                 

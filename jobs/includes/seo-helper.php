@@ -8,7 +8,7 @@
  * Generate comprehensive meta tags for job pages
  */
 function generateJobSEOMeta($title, $description, $url, $image = '', $type = 'website') {
-    $image = $image ?: 'https://mycovai.in/My-OMR-Logo.jpg';
+    $image = $image ?: 'https://mycovai.in/assets/img/mycovai-logo.svg';
     
     $meta = '';
     
@@ -22,7 +22,7 @@ function generateJobSEOMeta($title, $description, $url, $image = '', $type = 'we
     $meta .= '<meta property="og:url" content="' . htmlspecialchars($url) . '">' . "\n";
     $meta .= '<meta property="og:type" content="' . htmlspecialchars($type) . '">' . "\n";
     $meta .= '<meta property="og:image" content="' . htmlspecialchars($image) . '">' . "\n";
-    $meta .= '<meta property="og:site_name" content="' . htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyOMR') . '">' . "\n";
+    $meta .= '<meta property="og:site_name" content="' . htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai') . '">' . "\n";
     
     // Twitter Card
     $meta .= '<meta name="twitter:card" content="summary_large_image">' . "\n";
@@ -48,33 +48,30 @@ function sanitizeSchemaText($value, $maxLength = 250) {
 }
 
 /**
- * Map OMR localities to postal codes and regions
+ * Map Coimbatore localities to postal codes and regions
  */
-function getOmrPostalMap() {
+function getCovaiPostalMap() {
     return [
-        'okkiyam' => ['locality' => 'Okkiyam Thoraipakkam', 'postalCode' => '600097', 'region' => 'Tamil Nadu'],
-        'thoraipakkam' => ['locality' => 'Thoraipakkam', 'postalCode' => '600097', 'region' => 'Tamil Nadu'],
-        'karapakkam' => ['locality' => 'Karapakkam', 'postalCode' => '600097', 'region' => 'Tamil Nadu'],
-        'perungudi' => ['locality' => 'Perungudi', 'postalCode' => '600096', 'region' => 'Tamil Nadu'],
-        'sholinganallur' => ['locality' => 'Sholinganallur', 'postalCode' => '600119', 'region' => 'Tamil Nadu'],
-        'semmencherry' => ['locality' => 'Semmencherry', 'postalCode' => '600119', 'region' => 'Tamil Nadu'],
-        'navalur' => ['locality' => 'Navalur', 'postalCode' => '603103', 'region' => 'Tamil Nadu'],
-        'siruseri' => ['locality' => 'Siruseri', 'postalCode' => '603103', 'region' => 'Tamil Nadu'],
-        'padur' => ['locality' => 'Padur', 'postalCode' => '603103', 'region' => 'Tamil Nadu'],
-        'kelambakkam' => ['locality' => 'Kelambakkam', 'postalCode' => '603103', 'region' => 'Tamil Nadu'],
-        'egattur' => ['locality' => 'Egattur', 'postalCode' => '603103', 'region' => 'Tamil Nadu'],
-        'kazhipattur' => ['locality' => 'Kazhipattur', 'postalCode' => '603103', 'region' => 'Tamil Nadu'],
-        'uthandi' => ['locality' => 'Uthandi', 'postalCode' => '600119', 'region' => 'Tamil Nadu'],
-        'uttandi' => ['locality' => 'Uthandi', 'postalCode' => '600119', 'region' => 'Tamil Nadu'],
-        'medavakkam' => ['locality' => 'Medavakkam', 'postalCode' => '600100', 'region' => 'Tamil Nadu'],
-        'perumbakkam' => ['locality' => 'Perumbakkam', 'postalCode' => '600100', 'region' => 'Tamil Nadu'],
-        'pallikaranai' => ['locality' => 'Pallikaranai', 'postalCode' => '600100', 'region' => 'Tamil Nadu'],
-        'thiruporur' => ['locality' => 'Thiruporur', 'postalCode' => '603110', 'region' => 'Tamil Nadu'],
-        'muttukadu' => ['locality' => 'Muttukadu', 'postalCode' => '603103', 'region' => 'Tamil Nadu'],
-        'old mahabalipuram' => ['locality' => 'OMR, Chennai', 'postalCode' => '600097', 'region' => 'Tamil Nadu'],
-        'mahabalipuram road' => ['locality' => 'OMR, Chennai', 'postalCode' => '600097', 'region' => 'Tamil Nadu'],
-        'chennai' => ['locality' => 'Chennai', 'postalCode' => '600097', 'region' => 'Tamil Nadu'],
+        'rs puram' => ['locality' => 'RS Puram', 'postalCode' => '641002', 'region' => 'Tamil Nadu'],
+        'r.s. puram' => ['locality' => 'RS Puram', 'postalCode' => '641002', 'region' => 'Tamil Nadu'],
+        'gandhipuram' => ['locality' => 'Gandhipuram', 'postalCode' => '641012', 'region' => 'Tamil Nadu'],
+        'peelamedu' => ['locality' => 'Peelamedu', 'postalCode' => '641004', 'region' => 'Tamil Nadu'],
+        'saravanampatti' => ['locality' => 'Saravanampatti', 'postalCode' => '641035', 'region' => 'Tamil Nadu'],
+        'saibaba colony' => ['locality' => 'Saibaba Colony', 'postalCode' => '641011', 'region' => 'Tamil Nadu'],
+        'race course' => ['locality' => 'Race Course', 'postalCode' => '641018', 'region' => 'Tamil Nadu'],
+        'singanallur' => ['locality' => 'Singanallur', 'postalCode' => '641005', 'region' => 'Tamil Nadu'],
+        'ukkadam' => ['locality' => 'Ukkadam', 'postalCode' => '641001', 'region' => 'Tamil Nadu'],
+        'town hall' => ['locality' => 'Town Hall', 'postalCode' => '641001', 'region' => 'Tamil Nadu'],
+        'ramanathapuram' => ['locality' => 'Ramanathapuram', 'postalCode' => '641045', 'region' => 'Tamil Nadu'],
+        'thudiyalur' => ['locality' => 'Thudiyalur', 'postalCode' => '641034', 'region' => 'Tamil Nadu'],
+        'coimbatore' => ['locality' => 'Coimbatore', 'postalCode' => '641001', 'region' => 'Tamil Nadu'],
+        'covai' => ['locality' => 'Coimbatore', 'postalCode' => '641001', 'region' => 'Tamil Nadu'],
     ];
+}
+
+/** @deprecated Use getCovaiPostalMap() */
+function getOmrPostalMap() {
+    return getCovaiPostalMap();
 }
 
 /**
@@ -82,10 +79,10 @@ function getOmrPostalMap() {
  */
 function resolveJobPostalAddress(array $job) {
     $defaults = [
-        'streetAddress' => 'Old Mahabalipuram Road, Chennai',
-        'addressLocality' => 'Chennai',
+        'streetAddress' => 'Coimbatore, Tamil Nadu',
+        'addressLocality' => 'Coimbatore',
         'addressRegion' => 'Tamil Nadu',
-        'postalCode' => '600097',
+        'postalCode' => '641001',
         'addressCountry' => 'IN',
     ];
     
@@ -106,7 +103,7 @@ function resolveJobPostalAddress(array $job) {
         }
     }
     
-    $map = getOmrPostalMap();
+    $map = getCovaiPostalMap();
     $haystacks = [
         strtolower($locationText),
         strtolower($companyAddress),
@@ -215,7 +212,7 @@ function generateJobPostingSchema($job) {
         "employmentType" => sanitizeSchemaText($job['job_type'], 50),
         "hiringOrganization" => array_filter([
             "@type" => "Organization",
-            "name" => sanitizeSchemaText($job['company_name'] ?? 'MyOMR Employer', 200),
+            "name" => sanitizeSchemaText($job['company_name'] ?? 'Employer', 200),
             "email" => sanitizeSchemaText($job['employer_email'] ?? ''),
             "telephone" => sanitizeSchemaText($job['employer_phone'] ?? ''),
             "address" => array_filter([

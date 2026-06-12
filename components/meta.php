@@ -8,26 +8,27 @@ $canonical_url = isset($canonical_url) ? $canonical_url : get_canonical_url();
 // Use config defaults when MyCovai config is loaded (Phase 2)
 $default_title = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_DEFAULT_TITLE')
     ? SITE_DEFAULT_TITLE
-    : 'My OMR - Old Mahabalipuram Road News, Events, Images, Happenings, Search, Business Website';
+    : 'MyCovai – Coimbatore Directory & Listings | Explore Covai';
 $default_description = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_DEFAULT_DESCRIPTION')
     ? SITE_DEFAULT_DESCRIPTION
-    : 'News, Events, Happenings in and around Old Mahabalipuram Road, Chennai.';
+    : 'Your local directory for Coimbatore. Find schools, restaurants, jobs, events, hostels, coworking spaces and more in Covai.';
 $default_keywords = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_DEFAULT_KEYWORDS')
     ? SITE_DEFAULT_KEYWORDS
-    : 'Old Mahabalipuram Road, OMR Road, OMR News, My OMR, Perungudi, SRP Tools, Kandhanchavadi, Thuraipakkam, Karapakkam, Mettukuppam, Dollar Stop, Sholinganallur, Navalur, Kelambakkam.';
+    : 'Coimbatore, Covai, MyCovai, directory, listings, local business, schools, jobs, events, hostels, coworking, Tamil Nadu';
 $default_og_title = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_OG_SITE_NAME')
     ? SITE_OG_SITE_NAME
-    : 'Old Mahabalipuram Road news, Search, Events, Happenings, Photographs';
+    : 'MyCovai – Coimbatore Directory';
 $default_og_description = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_DEFAULT_DESCRIPTION')
     ? SITE_DEFAULT_DESCRIPTION
-    : 'home page of old mahabalipuram road, OMR website, which hosts several features for its user base, especially from chennai, Tamilnadu.';
+    : 'Your local directory for Coimbatore — schools, jobs, events, hostels and more.';
 $default_og_site_name = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_OG_SITE_NAME')
     ? SITE_OG_SITE_NAME
-    : 'My OMR Old Mahabalipuram Road.';
+    : 'MyCovai – Coimbatore Directory';
 $base = get_canonical_base();
-$default_og_image = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_LOGO_URL') && SITE_LOGO_URL !== ''
-    ? $base . SITE_LOGO_URL
-    : $base . '/My-OMR-Logo.jpg';
+if (!function_exists('covai_logo_url') && file_exists(__DIR__ . '/../core/mycovai-config.php')) {
+    require_once __DIR__ . '/../core/mycovai-config.php';
+}
+$default_og_image = $base . (function_exists('covai_logo_url') ? covai_logo_url() : '/assets/img/mycovai-logo.svg');
 ?>
 <title><?php echo isset($page_title) ? htmlspecialchars($page_title) : $default_title; ?></title>
 <meta charset="utf-8">
@@ -47,12 +48,12 @@ $default_og_image = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_LOGO_URL')
 <meta name="twitter:title" content="<?php echo isset($twitter_title) ? htmlspecialchars($twitter_title) : $default_title; ?>">
 <meta name="twitter:description" content="<?php echo isset($twitter_description) ? htmlspecialchars($twitter_description) : $default_og_description; ?>">
 <meta name="twitter:image" content="<?php echo isset($twitter_image) ? htmlspecialchars($twitter_image) : $default_og_image; ?>">
-<meta name="twitter:site" content="<?php echo defined('MYCOVAI_CONFIG_LOADED') ? '@MyCovai' : '@MyomrNews'; ?>">
-<meta name="twitter:creator" content="<?php echo defined('MYCOVAI_CONFIG_LOADED') ? '@MyCovai' : '@MyomrNews'; ?>">
+<meta name="twitter:site" content="@MyCovai">
+<meta name="twitter:creator" content="@MyCovai">
 <!-- End Meta/SEO Tags -->
 <script type="application/ld+json">
 <?php
-$org_name = defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_NAME') ? SITE_NAME : 'My OMR';
+$org_name = function_exists('covai_site_name') ? covai_site_name() : (defined('SITE_NAME') ? SITE_NAME : 'MyCovai');
 $org_url = $base . '/';
 $org_logo = isset($og_image) ? $og_image : $default_og_image;
 $same_as = [];
@@ -61,8 +62,8 @@ if (defined('MYCOVAI_CONFIG_LOADED')) {
     if (defined('SOCIAL_INSTAGRAM') && SOCIAL_INSTAGRAM !== '') $same_as[] = SOCIAL_INSTAGRAM;
     if (defined('SOCIAL_TWITTER') && SOCIAL_TWITTER !== '') $same_as[] = SOCIAL_TWITTER;
 }
-if (empty($same_as)) {
-    $same_as = ['https://www.facebook.com/MyOMR.in', 'https://www.instagram.com/myomr.in', 'https://x.com/MyomrNews'];
+if (empty($same_as) && defined('SOCIAL_WHATSAPP') && SOCIAL_WHATSAPP !== '') {
+    $same_as = [SOCIAL_WHATSAPP];
 }
 $org = [
   '@context' => 'https://schema.org',

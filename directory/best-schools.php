@@ -5,11 +5,23 @@ error_reporting(E_ALL);
 // $browser = get_browser(null, true); // Disabled for stability
 
 require '../core/omr-connect.php';
+require_once __DIR__ . '/../core/directory-active-filters.php';
 
 //echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";
 
 $t = covai_table('schools');
-$sql = "SELECT slno, schoolname, address, contact, landmark FROM `$t`";
+$filter_q = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
+$filter_locality = isset($_GET['locality']) ? trim((string) $_GET['locality']) : '';
+$sql = "SELECT slno, schoolname, address, contact, landmark FROM `$t` WHERE 1=1";
+if ($filter_q !== '') {
+    $esc = $conn->real_escape_string($filter_q);
+    $sql .= " AND (schoolname LIKE '%{$esc}%' OR address LIKE '%{$esc}%' OR landmark LIKE '%{$esc}%')";
+}
+if ($filter_locality !== '') {
+    $esc = $conn->real_escape_string($filter_locality);
+    $sql .= " AND (address LIKE '%{$esc}%' OR landmark LIKE '%{$esc}%')";
+}
+$sql .= ' ORDER BY schoolname ASC';
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -103,6 +115,7 @@ opacity: 0.5;
 
 <div class="container">
   <h1 style="text-align:center; color:#0583D2;">Best Schools in Coimbatore – Directory</h1>
+  <?php echo covai_directory_active_filters_markup('/directory/best-schools.php', $filter_q, $filter_locality); ?>
   
   <!-- Introductory Content Start -->
   <div class="row">

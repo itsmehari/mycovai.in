@@ -11,6 +11,22 @@ function isAdminLoggedIn(): bool {
     return !empty($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true;
 }
 
+function admin_safe_redirect(?string $target, string $default = '/admin/index.php'): string {
+    if ($target === null || $target === '') {
+        return $default;
+    }
+    if (strpos($target, '//') !== false || strpos($target, ':') !== false) {
+        return $default;
+    }
+    if ($target[0] !== '/') {
+        return $default;
+    }
+    if (preg_match('/[\r\n]/', $target)) {
+        return $default;
+    }
+    return $target;
+}
+
 function requireAdmin(): void {
     if (!isAdminLoggedIn()) {
         $redirect = urlencode($_SERVER['REQUEST_URI'] ?? '/');
@@ -47,6 +63,48 @@ function attemptAdminLogin(string $username, string $password): bool {
         return true;
     }
     return false;
+}
+
+function admin_current_role(): string
+{
+    return (string) ($_SESSION['admin_role'] ?? '');
+}
+
+/**
+ * Whether the logged-in admin role may open a navigation module.
+ * Modules without `roles` are super_admin only.
+ */
+function admin_can_access_module(array $module): bool
+{
+    $role = admin_current_role();
+    if ($role === 'super_admin') {
+        return true;
+    }
+    $allowed = $module['roles'] ?? null;
+    if ($allowed === null) {
+        return false;
+    }
+    return in_array($role, $allowed, true);
+}
+
+/**
+ * Filter navigation sections/modules by current admin role.
+ */
+function admin_filter_navigation(array $sections): array
+{
+    $filtered = [];
+    foreach ($sections as $section) {
+        $modules = array_values(array_filter(
+            $section['modules'] ?? [],
+            'admin_can_access_module'
+        ));
+        if ($modules === []) {
+            continue;
+        }
+        $section['modules'] = $modules;
+        $filtered[] = $section;
+    }
+    return $filtered;
 }
 
 function adminLogout(): void {

@@ -95,12 +95,12 @@ $siteRoot = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 
                         <div class="footer-widget-heading"><h3>Useful Links</h3></div>
                         <ul>
                             <li><a href="<?php echo $baseUrl; ?>index.php">Home</a></li>
+                            <li><a href="<?php echo $baseUrl; ?>about.php">About</a></li>
                             <li><a href="<?php echo $baseUrl; ?>directory/index.php">Explore Covai</a></li>
                             <li><a href="<?php echo $baseUrl; ?>directory/emergency-civic-directory.php">Emergency Directory</a></li>
                             <li><a href="<?php echo $baseUrl; ?>coimbatore-news.php">Covai News</a></li>
                             <li><a href="<?php echo $baseUrl; ?>coimbatore-elections-2026/">Elections 2026</a></li>
                             <li><a href="<?php echo $baseUrl; ?>contact.php">Contact us</a></li>
-                            <li><a href="<?php echo $baseUrl; ?>local-news/">Latest News</a></li>
                         </ul>
                     </div>
                 </div>
@@ -155,4 +155,5 @@ $siteRoot = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 
         </div>
     </div>
 </footer>
+<?php include __DIR__ . '/cookie-notice.php'; ?>
 <a href="https://wa.me/919445088028" class="float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp my-float"></i></a>

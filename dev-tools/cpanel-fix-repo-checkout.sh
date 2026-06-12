@@ -32,7 +32,7 @@ echo "==> Resetting to origin/main..."
 git reset --hard origin/main
 
 echo "==> Top-level entries (first 40):"
-ls -la | head -40
+ls -la | head -40i 
 
 echo ""
 echo "Done. Refresh cPanel File Manager on: $REPO"

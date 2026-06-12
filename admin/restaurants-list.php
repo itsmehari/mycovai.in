@@ -1,10 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
-    header('Location: login.php');
-    exit;
-}
-require_once '../core/omr-connect.php';
+require_once __DIR__ . '/_bootstrap.php';
+requireAdmin();
+require_once __DIR__ . '/../core/omr-connect.php';
 $title = 'Manage Restaurants';
 $breadcrumbs = ['Restaurants' => null];
 
@@ -54,7 +51,7 @@ if (isset($_GET['delete'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Restaurants - MyOMR CMS</title>
+    <title>Manage Restaurants - MyCovai CMS</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -135,7 +132,12 @@ if (isset($_GET['delete'])) {
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <a href="restaurants-list.php?delete=<?php echo $row['id']; ?>&page=<?php echo $page; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="btn btn-danger">Delete</a>
+                            <form method="post" class="d-inline">
+                              <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generate_csrf_token()); ?>">
+                              <input type="hidden" name="action" value="delete">
+                              <input type="hidden" name="id" value="<?php echo (int) $row['id']; ?>">
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                           </div>
                         </div>
                       </div>

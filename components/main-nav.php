@@ -1,4 +1,9 @@
-<?php /* Unified Main Navigation Bar - Green Theme with Top Secondary Menu */ ?>
+<?php
+if (!function_exists('covai_logo_url')) {
+    require_once __DIR__ . '/../core/mycovai-config.php';
+}
+/* Unified Main Navigation Bar - Green Theme with Top Secondary Menu */
+?>
 <style>
 /* Top Secondary Menu Bar - 60px height */
 .top-secondary-menu {
@@ -570,9 +575,9 @@ function is_active($link, $current_uri) {
 <nav class="main-navbar" role="navigation" aria-label="Primary">
   <div class="logo">
     <?php if (defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_LOGO_URL') && SITE_LOGO_URL !== ''): ?>
-    <img src="<?php echo htmlspecialchars(SITE_LOGO_URL); ?>" alt="<?php echo defined('SITE_NAME') ? htmlspecialchars(SITE_NAME) : 'MyCovai'; ?> Logo">
+    <img src="<?php echo htmlspecialchars(function_exists('covai_logo_url') ? covai_logo_url() : SITE_LOGO_URL); ?>" alt="<?php echo defined('SITE_NAME') ? htmlspecialchars(SITE_NAME) : 'MyCovai'; ?> Logo">
     <?php else: ?>
-    <img src="/My-OMR-Logo.jpg" alt="<?php echo defined('SITE_NAME') ? htmlspecialchars(SITE_NAME) : 'MyCovai'; ?> Logo">
+    <img src="<?php echo htmlspecialchars(function_exists('covai_logo_url') ? covai_logo_url() : '/assets/img/mycovai-logo.svg'); ?>" alt="<?php echo defined('SITE_NAME') ? htmlspecialchars(SITE_NAME) : 'MyCovai'; ?> Logo">
     <?php endif; ?>
     <span><?php echo defined('MYCOVAI_CONFIG_LOADED') && defined('SITE_NAME') ? SITE_NAME : 'MyCovai'; ?></span>
   </div>
@@ -591,24 +596,22 @@ function is_active($link, $current_uri) {
     <li class="nav-item"><a class="nav-link <?php echo is_active('/directory/index.php', $current_uri) ? 'active' : ''; ?>" href="/directory/index.php"><i class="fas fa-home mr-1"></i><?php echo defined('MYCOVAI_CONFIG_LOADED') ? 'Explore Covai' : 'Explore Places'; ?></a></li>
     <li><a href="/about.php" class="<?php echo is_active('/about.php', $current_uri) ? 'active' : ''; ?>">About</a></li>
     <li><a href="/coimbatore-news.php" class="<?php echo is_active('/coimbatore-news.php', $current_uri) ? 'active' : ''; ?>"><i class="fas fa-newspaper mr-1"></i>Covai News</a></li>
-    <li><a href="/local-news/news-highlights-from-omr-road.php" class="<?php echo is_active('/local-news/news-highlights-from-omr-road.php', $current_uri) ? 'active' : ''; ?>">News Highlights</a></li>
-    <li><a href="/local-news/image-video-gallery-old-mahabalipuram-road-news.php" class="<?php echo is_active('/local-news/image-video-gallery-old-mahabalipuram-road-news.php', $current_uri) ? 'active' : ''; ?>">Gallery</a></li>
     <li class="dropdown">
       <a href="#" tabindex="0" aria-label="Services menu" aria-haspopup="true" aria-expanded="false">Services ▾</a>
       <div class="dropdown-content">
-        <a href="/jobs-in-omr-chennai.php" class="<?php echo (is_active('/jobs-in-omr-chennai.php', $current_uri) || strpos($current_uri, 'jobs-in-') !== false || strpos($current_uri, 'it-jobs') !== false || strpos($current_uri, 'fresher-jobs') !== false || strpos($current_uri, 'part-time-jobs') !== false) ? 'active' : ''; ?>">Find Jobs<?php echo defined('MYCOVAI_CONFIG_LOADED') ? ' in Covai' : ' in OMR'; ?></a>
+        <a href="/jobs-in-coimbatore.php" class="<?php echo (is_active('/jobs-in-coimbatore.php', $current_uri) || strpos($current_uri, 'jobs-in-') !== false || strpos($current_uri, 'it-jobs-coimbatore') !== false) ? 'active' : ''; ?>">Find Jobs in Covai</a>
         <a href="/jobs/" class="<?php echo is_active('/jobs/', $current_uri) ? 'active' : ''; ?>">Browse All Jobs</a>
         <div class="dropdown-divider"></div>
-        <a href="/it-jobs-omr-chennai.php" class="dropdown-sub-item">IT Jobs</a>
-        <a href="/teaching-jobs-omr-chennai.php" class="dropdown-sub-item">Teaching Jobs</a>
-        <a href="/fresher-jobs-omr-chennai.php" class="dropdown-sub-item">Fresher Jobs</a>
-        <a href="/part-time-jobs-omr-chennai.php" class="dropdown-sub-item">Part-Time Jobs</a>
+        <a href="/it-jobs-coimbatore.php" class="dropdown-sub-item">IT Jobs</a>
+        <a href="/jobs-in-rs-puram.php" class="dropdown-sub-item">Jobs in RS Puram</a>
+        <a href="/jobs-in-peelamedu.php" class="dropdown-sub-item">Jobs in Peelamedu</a>
+        <a href="/jobs/?job_type=part-time" class="dropdown-sub-item">Part-Time Jobs</a>
         <div class="dropdown-divider"></div>
         <a href="/local-events/" class="<?php echo is_active('/local-events/', $current_uri) ? 'active' : ''; ?>">Events</a>
         <a href="/hostels-pgs/" class="<?php echo is_active('/hostels-pgs/', $current_uri) ? 'active' : ''; ?>">Hostels & PGs</a>
         <a href="/coworking-spaces/" class="<?php echo is_active('/coworking-spaces/', $current_uri) ? 'active' : ''; ?>">Coworking Spaces</a>
-        <a href="/listings/sell-rent-property-house-plot-omr-chennai.php" class="<?php echo is_active('/listings/sell-rent-property-house-plot-omr-chennai.php', $current_uri) ? 'active' : ''; ?>">Real Estate</a>
-        <a href="/citizens-charter-old-mahabali-puram-road.php" class="<?php echo is_active('/citizens-charter-old-mahabali-puram-road.php', $current_uri) ? 'active' : ''; ?>">Citizens Charter</a>
+        <a href="/directory/get-listed.php" class="<?php echo is_active('/directory/get-listed.php', $current_uri) ? 'active' : ''; ?>">List Your Business</a>
+        <a href="/info/citizens-charter-old-mahabali-puram-road.php" class="<?php echo is_active('/info/citizens-charter-old-mahabali-puram-road.php', $current_uri) ? 'active' : ''; ?>">Citizens Charter</a>
       </div>
     </li>
     <li class="dropdown">
@@ -630,7 +633,7 @@ function is_active($link, $current_uri) {
 <!-- Quick Action Pills Bar -->
 <div class="quick-action-pills">
   <div class="pills-container">
-    <a href="/jobs/employer-landing-omr.php" class="action-pill pill-job">
+    <a href="/jobs/employer-landing-covai.php" class="action-pill pill-job">
       <div class="pill-accent"></div>
       <div class="pill-content">
         <i class="fas fa-briefcase"></i>

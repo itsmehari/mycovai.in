@@ -236,7 +236,7 @@ if (!empty($items)) {
 
 4. **JobPosting Schema**
    - ✅ Implemented in job detail pages
-   - ✅ Used in `omr-local-job-listings/job-detail-omr.php`
+   - ✅ Used in `omr-local-job-listings/job-detail-covai.php`
    - ✅ Includes job details, location, salary
 
 5. **LocalBusiness Schema**

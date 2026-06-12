@@ -1,33 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<?php
+require_once __DIR__ . '/../core/omr-connect.php';
+$page_title = 'Sign in | ' . (defined('SITE_NAME') ? SITE_NAME : 'MyCovai');
+$page_description = 'Community member sign-in for ' . (defined('SITE_NAME') ? SITE_NAME : 'MyCovai') . ' — ' . (defined('SITE_REGION') ? SITE_REGION : 'Coimbatore') . ' directory and local news.';
+$page_keywords = defined('SITE_DEFAULT_KEYWORDS') ? SITE_DEFAULT_KEYWORDS : 'MyCovai, Coimbatore, sign in';
+$canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https://mycovai.in') . '/admin/commonlogin.php';
+?>
 <?php include 'components/meta.php'; ?>
 <?php include 'components/analytics.php'; ?>
 <?php include 'components/head-resources.php'; ?>
-
-<title>Old Mahabalipuram Road - (MY OMR Website) - Common User Login Page</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="News, Events, Happenings in and around Old Mahabalipuram Road, You can find news articles, event coverages, search for businesses, post advertisments related to companies, businesses, events and happenings in our website.">
-<meta name="keywords" content="Old Mahabalipuram Road, OMR Road, OMR News, My OMR, Perungudi, SRP Tools, Kandhanchavadi, Thuraipakkam, Karapakkam, Mettukuppam, Dollar Stop, Sholinganallur, Navalur, Kelambakkam.">
-<meta name="author" content="Krishnan">
-
-<meta property="og:type" content="article" />
-<meta name=”robots” content=”index, follow”>
-<meta property="og:title" content="Old Mahabalipuram Road news, Search, Events, Happenings, Photographs" />
-<meta property="og:description" content="home page of old mahabalipuram road, OMR website,which hosts several features for its user base, especially from chennai, Tamilnadu. We offer special coverage on the News, Happenings, Events, Businesses and people of old mahabalipuram road and its
-neighbouring Community" />
-<meta property="og:image" content="https://mycovai.in/My-OMR-Logo.jpg" />
-<meta property="og:url" content="https://mycovai.in/" />
-<meta property="og:site_name" content="My OMR Old Mahabalipuram Road." />
-<meta property="og:locale" content="en_US" />
-<meta property="og:locale:alternate" content="ta_IN" />
-
-<meta name="twitter:title" content="My OMR - Old Mahabalipuram Road News, Events, Images, Happenings, Search, Business Website">
-<meta name="twitter:description" content="in this page you can find news, events, images, happenings, updates, local business information of OMR Road, Old Mahabalipuram Road and its Surroundings">
-<meta name="twitter:image" content="https://mycovai.in/My-OMR-Logo.jpg">
-<meta name="twitter:site" content="@MyomrNews">
-<meta name="twitter:creator" content="@MyomrNews">
 <link rel="stylesheet" href="assets/css/main.css">
 
 <?php include 'components/social-icons.php'; ?>
@@ -106,8 +89,8 @@ background: #eee;
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
       <div class="col-md-8 col-lg-7 col-xl-6">
-        <img src="MyOmr-Login-Page.png"
-          class="img-fluid" alt="Phone image">
+        <img src="<?php echo htmlspecialchars(function_exists('covai_logo_url') ? covai_logo_url() : '/assets/img/mycovai-logo.svg'); ?>"
+          class="img-fluid" alt="<?php echo htmlspecialchars(defined('SITE_NAME') ? SITE_NAME : 'MyCovai'); ?>">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
         <form>

@@ -34,6 +34,18 @@ $required_text = defined('AMAZON_ASSOCIATE_DISCLOSURE_TEXT')
             <li>We avoid placing affiliate links in sensitive/admin-only workflows.</li>
         </ul>
 
+        <h2>Display advertising (Google AdSense)</h2>
+        <p>
+            <?php echo htmlspecialchars($site_name); ?> may also show third-party display advertisements through services such as
+            <strong>Google AdSense</strong>. These ads are separate from affiliate links: they are served by advertising networks
+            and are clearly labeled as advertisements on our pages.
+        </p>
+        <p>
+            Advertising partners may use cookies to serve ads based on your visits to this and other websites.
+            For how we handle cookies, analytics, and advertising data, see our
+            <a href="/privacy-policy.php">Privacy Policy</a>.
+        </p>
+
         <h2>Questions</h2>
         <p>
             For questions about this disclosure, contact us at

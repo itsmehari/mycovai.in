@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add New Article - MyOMR</title>
+    <title>Add New Article - MyCovai</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { font-family: Arial, sans-serif; max-width: 900px; margin: 50px auto; padding: 20px; }
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <h1>📰 Add New Article to MyOMR</h1>
+    <h1>📰 Add New Article to MyCovai</h1>
     
     <?php if ($message): ?>
         <?php echo $message; ?>
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <div class="form-group">
             <label>Author</label>
-            <input type="text" name="author" value="MyOMR Editorial Team">
+            <input type="text" name="author" value="MyCovai Editorial Team">
         </div>
         
         <div class="form-group">

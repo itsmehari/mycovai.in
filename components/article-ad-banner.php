@@ -19,9 +19,9 @@ $size_mobile = ($size === '728x90') ? '320x50' : $size;
 ?>
 <div class="article-ad-wrapper">
     <div class="article-ad-wrapper__desktop">
-        <?php covai_ad_slot($slot_id, $size); ?>
+        <?php covai_monetized_slot($slot_id, $size); ?>
     </div>
     <div class="article-ad-wrapper__mobile">
-        <?php covai_ad_slot($slot_id, $size_mobile); ?>
+        <?php covai_monetized_slot($slot_id, $size_mobile); ?>
     </div>
 </div>

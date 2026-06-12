@@ -14,6 +14,8 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $root = $_SERVER['DOCUMENT_ROOT'] ?? dirname(__DIR__);
+require_once $root . '/core/error-handler.php';
 require_once $root . '/core/admin-auth.php';
+require_once $root . '/core/security-helpers.php';
 
 

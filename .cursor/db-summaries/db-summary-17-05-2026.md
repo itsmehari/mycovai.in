@@ -1,0 +1,59 @@
+﻿Database: metap8ok_mycovai
+Tables: 52
+
+Table                                             Rows
+------------------------------------------------------------
+List of Areas                                     25
+admin_audit_log                                   0
+admin_users                                       0
+articles                                          39
+businesses                                        0
+covai_affiliate_links                             6
+covai_atms                                        160
+covai_banks                                       169
+covai_gov_offices                                 162
+covai_hospitals                                   159
+covai_industries                                  155
+covai_it_companies                                160
+covai_it_companies_featured                       0
+covai_it_parks                                    153
+covai_it_parks_featured                           0
+covai_parks                                       155
+covai_restaurants                                 158
+covai_schools                                     163
+coworking_spaces                                  1
+employers                                         10
+event_attendees                                   0
+event_categories                                  5
+event_listings                                    5
+event_submissions                                 0
+events                                            0
+gallery                                           0
+hostels_pgs                                       16
+job_applications                                  0
+job_categories                                    10
+job_postings                                      10
+omr_election_blo                                  0
+omr_it_companies_featured                         0
+omr_it_company_submissions                        0
+omrelections_civic_issues                         0
+omrelections_constituencies                       0
+omrelections_election_results                     0
+omrelections_localities                           0
+omrelections_polling_stations                     0
+omrelections_representatives                      0
+omrelections_voter_services                       0
+organizers                                        0
+property_inquiries                                0
+property_owners                                   2
+property_photos                                   0
+property_reviews                                  0
+saved_properties                                  0
+saved_spaces                                      0
+schools                                           0
+space_inquiries                                   0
+space_owners                                      1
+space_photos                                      0
+space_reviews                                     0
+------------------------------------------------------------
+Total rows (all tables)                           1724

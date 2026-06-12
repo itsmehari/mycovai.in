@@ -94,7 +94,7 @@
 
 ---
 
-### 5. Job Detail Pages (`job-detail-omr.php`)
+### 5. Job Detail Pages (`job-detail-covai.php`)
 
 **Location:** Related Jobs Section / Sidebar
 

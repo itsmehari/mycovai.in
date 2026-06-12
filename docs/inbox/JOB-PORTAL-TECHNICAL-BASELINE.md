@@ -8,13 +8,13 @@ _Created: 11 Nov 2025 — Supports WBS Step 2 (“Data & Backend Stabilisation�
 |------|---------|---------------|-------|
 | Listings page | `omr-local-job-listings/index.php` | `SELECT * FROM job_postings WHERE status='approved' ORDER BY featured DESC, created_at DESC` (full table scan) | Fetches entire approved dataset, then filters/paginates in PHP. Salary filters collected but unused. |
 | Job enrichment | `index.php` | Prepared `IN` clause on selected job IDs to join employers/categories | Uses dynamic placeholders; safe but only after full in-memory slice. |
-| Search fallback | `index.php`, `includes/job-functions-omr.php` | `SELECT * FROM job_postings WHERE LOWER(TRIM(status)) = 'approved'` | Redundant second pass for data cleanliness. |
-| Job counts | `includes/job-functions-omr.php`, `jobs-in-*.php` | Count query `SELECT COUNT(*) FROM job_postings WHERE status='approved'` then optional in-PHP filtering | `salary_min/max` never applied; category/location filters use `stripos` in PHP. |
-| Job detail | `job-detail-omr.php` | `SELECT j.*, e.*, c.* FROM job_postings j LEFT JOIN employers e ... WHERE j.id = ? AND j.status='approved'` | Falls back to non-status-constrained query if no match; increments view counter. |
-| Applications | `process-application-omr.php` | Insert + `UPDATE job_postings SET applications_count = applications_count + 1` | Duplicate detection via `job_applications` unique constraint (implicit) and helper. |
-| Employer dashboard | `my-posted-jobs-omr.php` | `SELECT * FROM job_postings WHERE employer_id = {id}` plus email join fallback | Loads all employer jobs at once; no pagination/filter. |
-| Admin moderation | `admin/manage-jobs-omr.php` | `SELECT j.*, e.* FROM job_postings j JOIN employers e ...` | No pagination; entire corpus fetched for UI table. |
-| Category loading | `includes/job-functions-omr.php` | `SELECT * FROM job_categories WHERE is_active = 1` fallback to all | Logs warnings if none active. |
+| Search fallback | `index.php`, `includes/job-functions-covai.php` | `SELECT * FROM job_postings WHERE LOWER(TRIM(status)) = 'approved'` | Redundant second pass for data cleanliness. |
+| Job counts | `includes/job-functions-covai.php`, `jobs-in-*.php` | Count query `SELECT COUNT(*) FROM job_postings WHERE status='approved'` then optional in-PHP filtering | `salary_min/max` never applied; category/location filters use `stripos` in PHP. |
+| Job detail | `job-detail-covai.php` | `SELECT j.*, e.*, c.* FROM job_postings j LEFT JOIN employers e ... WHERE j.id = ? AND j.status='approved'` | Falls back to non-status-constrained query if no match; increments view counter. |
+| Applications | `process-application-covai.php` | Insert + `UPDATE job_postings SET applications_count = applications_count + 1` | Duplicate detection via `job_applications` unique constraint (implicit) and helper. |
+| Employer dashboard | `my-posted-jobs-covai.php` | `SELECT * FROM job_postings WHERE employer_id = {id}` plus email join fallback | Loads all employer jobs at once; no pagination/filter. |
+| Admin moderation | `admin/manage-jobs-covai.php` | `SELECT j.*, e.* FROM job_postings j JOIN employers e ...` | No pagination; entire corpus fetched for UI table. |
+| Category loading | `includes/job-functions-covai.php` | `SELECT * FROM job_categories WHERE is_active = 1` fallback to all | Logs warnings if none active. |
 
 ## 2. Performance & Scalability Risks
 

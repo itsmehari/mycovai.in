@@ -17,6 +17,8 @@ return [
         'winner_votes_2021' => 126903,
         'runner_votes_2021' => 94212,
         'margin_2021' => 32691,
+        'winner_2026' => 'K. Ramkumar',
+        'winner_party_2026' => 'TVK',
     ],
     'sulur' => [
         'name' => 'Sulur',
@@ -30,6 +32,8 @@ return [
         'winner_votes_2021' => 118968,
         'runner_votes_2021' => null,
         'margin_2021' => null,
+        'winner_2026' => 'N.M. Sukumar',
+        'winner_party_2026' => 'TVK',
     ],
     'kavundampalayam' => [
         'name' => 'Kavundampalayam',
@@ -43,6 +47,8 @@ return [
         'winner_votes_2021' => 135669,
         'runner_votes_2021' => 125893,
         'margin_2021' => 9776,
+        'winner_2026' => 'Kanimozhi Santhosh',
+        'winner_party_2026' => 'TVK',
     ],
     'coimbatore-north' => [
         'name' => 'Coimbatore (North)',
@@ -56,6 +62,8 @@ return [
         'winner_votes_2021' => 81454,
         'runner_votes_2021' => 77453,
         'margin_2021' => 4001,
+        'winner_2026' => 'V. Sampathkumar',
+        'winner_party_2026' => 'TVK',
     ],
     'coimbatore-south' => [
         'name' => 'Coimbatore (South)',
@@ -69,6 +77,8 @@ return [
         'winner_votes_2021' => null,
         'runner_votes_2021' => null,
         'margin_2021' => 1700,
+        'winner_2026' => 'V. Senthilbalaji',
+        'winner_party_2026' => 'DMK',
     ],
     'singanallur' => [
         'name' => 'Singanallur',
@@ -82,5 +92,7 @@ return [
         'winner_votes_2021' => 81244,
         'runner_votes_2021' => 70390,
         'margin_2021' => 10854,
+        'winner_2026' => 'K.S. Giriprashath',
+        'winner_party_2026' => 'TVK',
     ],
 ];

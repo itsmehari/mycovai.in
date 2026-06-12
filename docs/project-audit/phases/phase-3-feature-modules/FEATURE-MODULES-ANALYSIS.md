@@ -61,9 +61,9 @@ This phase analyzed all user-facing feature modules of MyOMR.in, including:
 omr-local-job-listings/
 ├── admin/                    # Admin moderation tools
 │   ├── index.php            # Admin dashboard
-│   ├── manage-jobs-omr.php  # Approve/reject jobs
-│   ├── verify-employers-omr.php
-│   └── view-all-applications-omr.php
+│   ├── manage-jobs-covai.php  # Approve/reject jobs
+│   ├── verify-employers-covai.php
+│   └── view-all-applications-covai.php
 ├── assets/                  # Frontend assets
 │   ├── omr-jobs-unified-design.css
 │   ├── job-listings-omr.css
@@ -72,22 +72,22 @@ omr-local-job-listings/
 │   └── landing-page-analytics.js
 ├── includes/                # Shared PHP helpers
 │   ├── employer-auth.php    # Session management
-│   ├── job-functions-omr.php
+│   ├── job-functions-covai.php
 │   ├── landing-page-template.php
 │   ├── seo-helper.php       # SEO utilities
 │   └── error-reporting.php
 ├── index.php                # Main listings page
-├── job-detail-omr.php       # Individual job view
-├── post-job-omr.php         # Job posting form
-├── process-job-omr.php      # Form handler
-├── employer-register-omr.php
-├── employer-login-omr.php
-├── employer-landing-omr.php
-├── my-posted-jobs-omr.php   # Employer dashboard
-├── view-applications-omr.php
-├── process-application-omr.php
-├── update-application-status-omr.php
-├── edit-job-omr.php
+├── job-detail-covai.php       # Individual job view
+├── post-job-covai.php         # Job posting form
+├── process-job-covai.php      # Form handler
+├── employer-register-covai.php
+├── employer-login-covai.php
+├── employer-landing-covai.php
+├── my-posted-jobs-covai.php   # Employer dashboard
+├── view-applications-covai.php
+├── process-application-covai.php
+├── update-application-status-covai.php
+├── edit-job-covai.php
 └── generate-sitemap.php
 ```
 

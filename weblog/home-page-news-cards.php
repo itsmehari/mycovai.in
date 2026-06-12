@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../core/omr-connect.php';
+require_once __DIR__ . '/../core/mycovai-config.php';
 
 // Fetch articles from the 'articles' table (exclude Tamil versions - slugs ending with -tamil)
 $sql = "SELECT id, title, slug, summary, published_date, image_path 
@@ -11,13 +12,13 @@ $sql = "SELECT id, title, slug, summary, published_date, image_path
 $result = $conn->query($sql);
 ?>
 
-<div class="myomr-news-bulletin">
+<div class="mycovai-news-bulletin">
   <div class="news-grid">
     <?php if ($result && $result->num_rows > 0): ?>
       <?php while($row = $result->fetch_assoc()): ?>
         <div class="news-card">
           <?php
-          $img = $row['image_path'] ?? '/My-OMR-Logo.jpg';
+          $img = $row['image_path'] ?? (function_exists('covai_logo_url') ? covai_logo_url() : '/assets/img/mycovai-logo.svg');
           $img_url = (strpos($img, 'http') === 0) ? $img : 'https://mycovai.in' . (strpos($img, '/') === 0 ? '' : '/') . $img;
           ?>
           <img src="<?php echo htmlspecialchars($img_url); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
@@ -41,5 +42,5 @@ $result = $conn->query($sql);
     <?php endif; ?>
   </div>
 </div>
-<link rel="stylesheet" href="/assets/css/myomr-news-bulletin.css">
+<link rel="stylesheet" href="/assets/css/mycovai-news-bulletin.css">
 

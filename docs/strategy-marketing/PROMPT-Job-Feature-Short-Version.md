@@ -12,7 +12,7 @@ I need you to act as a **Digital Marketing Head** and create a comprehensive lan
 
 - **Location:** `/omr-local-job-listings/`
 - **Status:** ✅ Fully functional and deployed
-- **Main Pages:** index.php (listings), job-detail-omr.php, post-job-omr.php, apply-job-omr.php
+- **Main Pages:** index.php (listings), job-detail-covai.php, post-job-covai.php, apply-job-omr.php
 - **URLs:** `myomr.in/omr-local-job-listings/`
 - **Tech Stack:** PHP (Procedural), MySQL, Bootstrap 5
 

@@ -38,9 +38,10 @@ if (!defined('MYCOVAI_CONFIG_LOADED')) {
     define('SITE_DEFAULT_KEYWORDS', 'Coimbatore, Covai, MyCovai, directory, listings, local business, schools, jobs, events, hostels, coworking, RS Puram, Gandhipuram, Tamil Nadu');
     define('SITE_OG_SITE_NAME', SITE_NAME . ' – ' . SITE_REGION . ' Directory');
 
-    // --- Optional: logo URL (relative or absolute), empty = no default image ---
-    // Legacy: My-OMR-Logo.jpg used until MyCovai logo is added at /assets/img/mycovai-logo.png
-    define('SITE_LOGO_URL', '/My-OMR-Logo.jpg');
+    // --- Logo (relative path under document root) ---
+    define('SITE_LOGO_URL', '/assets/img/mycovai-logo.svg');
+
+    require_once __DIR__ . '/site-branding.php';
 
     // --- Analytics (Phase 2) ---
     define('GA_MEASUREMENT_ID', 'G-2FZCJC1JZH');
@@ -60,6 +61,22 @@ if (!defined('MYCOVAI_CONFIG_LOADED')) {
 
     /** Merge banner rows from table covai_affiliate_links (requires migration). */
     define('COVAI_AFFILIATE_LINKS_DB_ENABLED', true);
+
+    /**
+     * Google AdSense — keep disabled until account/site is approved.
+     * After approval: set ADSENSE_ENABLED true and fill ADSENSE_SLOT_UNITS with ad unit IDs from AdSense.
+     */
+    define('ADSENSE_ENABLED', false);
+    define('ADSENSE_CLIENT_ID', 'ca-pub-9202877510948050');
+    define('ADSENSE_AUTO_ADS', false);
+    define('ADSENSE_MAX_UNITS_PER_PAGE', 3);
+    define('ADSENSE_SLOT_UNITS', [
+        'homepage-mid'  => '',
+        'article-mid'   => '',
+        'article-bottom'=> '',
+        'listing-mid'   => '',
+        'detail-mid'    => '',
+    ]);
 
     // --- MyCovai directory table names (covai_* only, no omr_*) ---
     define('COVAI_TABLES', [

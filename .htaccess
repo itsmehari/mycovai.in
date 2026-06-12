@@ -34,8 +34,9 @@ RewriteRule ^discover-myomr(/.*)?$ /discover$1 [R=301,L]
 RewriteRule ^events/?$ /local-events/ [R=301,L]
 RewriteRule ^events/(.+)$ /local-events/$1 [R=301,L]
 
-# Root sitemap index
+# Root sitemap index + static hub pages sitemap
 RewriteRule ^sitemap\.xml$ weblog/generate-sitemap-index.php [L]
+RewriteRule ^pages-sitemap\.xml$ weblog/generate-static-sitemap.php [L]
 
 # Module: Events – clean routes (Phase 6: local-events/ to avoid clash with existing events/)
 RewriteRule ^local-events/sitemap\.xml$ local-events/generate-events-sitemap.php [L]
@@ -61,6 +62,27 @@ RewriteRule ^emergency-civic-directory$ /directory/emergency-civic-directory.php
 
 # Module: Job Portal – sitemap (Phase 6: jobs/)
 RewriteRule ^jobs/sitemap\.xml$ jobs/generate-sitemap.php [L]
+RewriteRule ^jobs/job-detail-omr\.php$ /jobs/job-detail-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/post-job-omr\.php$ /jobs/post-job-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/process-job-omr\.php$ /jobs/process-job-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/process-application-omr\.php$ /jobs/process-application-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/application-submitted-omr\.php$ /jobs/application-submitted-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/job-posted-success-omr\.php$ /jobs/job-posted-success-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/edit-job-omr\.php$ /jobs/edit-job-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/edit-employer-profile-omr\.php$ /jobs/edit-employer-profile-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/employer-dashboard-omr\.php$ /jobs/employer-dashboard-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/employer-landing-omr\.php$ /jobs/employer-landing-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/employer-login-omr\.php$ /jobs/employer-login-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/employer-logout-omr\.php$ /jobs/employer-logout-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/employer-register-omr\.php$ /jobs/employer-register-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/my-posted-jobs-omr\.php$ /jobs/my-posted-jobs-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/update-application-status-omr\.php$ /jobs/update-application-status-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/view-applications-omr\.php$ /jobs/view-applications-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/admin/manage-jobs-omr\.php$ /jobs/admin/manage-jobs-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/admin/verify-employers-omr\.php$ /jobs/admin/verify-employers-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/admin/view-all-applications-omr\.php$ /jobs/admin/view-all-applications-covai.php [R=301,L,QSA]
+RewriteRule ^jobs/([a-z0-9-]+)-([0-9]+)/?$ jobs/job-detail-covai.php?slug=$1&id=$2 [L,QSA,NC]
+RewriteRule ^jobs/([0-9]+)/?$ jobs/job-detail-covai.php?id=$1 [L,QSA]
 
 # Module: Hostels & PGs – sitemap (Phase 6: hostels-pgs/)
 RewriteRule ^hostels-pgs/sitemap\.xml$ hostels-pgs/generate-sitemap.php [L]
@@ -68,19 +90,61 @@ RewriteRule ^hostels-pgs/sitemap\.xml$ hostels-pgs/generate-sitemap.php [L]
 # Module: Coworking Spaces – sitemap (Phase 6: coworking-spaces/)
 RewriteRule ^coworking-spaces/sitemap\.xml$ coworking-spaces/generate-sitemap.php [L]
 
-# Module: Pentahive – sitemap
-RewriteRule ^pentahive/sitemap\.xml$ pentahive/generate-sitemap.php [L]
-
-# Module: Election BLO Details – sitemap
-RewriteRule ^election-blo-details/sitemap\.xml$ election-blo-details/generate-blo-sitemap.php [L]
-
 # Module: Coimbatore Elections 2026 – sitemap
 RewriteRule ^coimbatore-elections-2026/sitemap\.xml$ coimbatore-elections-2026/generate-sitemap.php [L]
 
 # Add more modules here when ready (news) with similar patterns
 
-# Legacy jobs page redirect (obsolete)
-RewriteRule ^listings/search-and-post-jobs-job-vacancy-employment-platform-for-omr-chennai\.php$ jobs/index.php [R=301,L]
+# Retired OMR listings landers → Covai directory hub
+RewriteRule ^listings/.*$ /directory/ [R=301,L]
+
+# Retired Pentahive OMR marketing microsite
+RewriteRule ^pentahive(?:/.*)?$ / [R=301,L]
+
+# Retired Chennai AC BLO search (OMR-era)
+RewriteRule ^info/find-blo-officer\.php$ /coimbatore-elections-2026/ [R=301,L,QSA]
+RewriteRule ^info/process-blo-subscription\.php$ /coimbatore-news.php [R=301,L]
+
+# Retired OMR info pages → Covai equivalents (preserve SEO via 301)
+RewriteRule ^info/citizens-charter-old-mahabali-puram-road\.php$ /about.php [R=301,L]
+RewriteRule ^info/pallikaranai-marsh-ramsar-wetland\.php$ /coimbatore-news.php [R=301,L]
+RewriteRule ^info/report-civic-issue-omr\.php$ /contact.php [R=301,L]
+RewriteRule ^info/onboarding/getting-started\.php$ /discover/getting-started.php [R=301,L]
+RewriteRule ^info/onboarding/features\.php$ /discover/features.php [R=301,L]
+RewriteRule ^info/onboarding/community\.php$ /discover/community.php [R=301,L]
+RewriteRule ^weblog/contact-my-omr-team\.php$ /contact.php [R=301,L]
+RewriteRule ^weblog/general-data-policy-of-my-omr\.php$ /data-policy.php [R=301,L]
+RewriteRule ^free-ads-chennai(?:/.*)?$ / [R=301,L]
+
+# Legacy thank-you HTML → PHP (subscribe flow)
+RewriteRule ^thank-you\.html$ /thank-you.php [R=301,L]
+RewriteRule ^components/thank-you\.html$ /thank-you.php [R=301,L]
+RewriteRule ^info/thank-you\.html$ /thank-you.php [R=301,L]
+
+# Custom error pages (fail-safe)
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+# Block legacy unauthenticated news upload endpoint (security audit Phase 1)
+RewriteRule ^admin/updatenewsform\.php$ - [F,L]
+
+# Job landing pages: OMR Chennai URLs → Coimbatore canonical pages (AdSense site-focus cleanup)
+RewriteRule ^jobs-in-omr-chennai\.php$ /jobs-in-coimbatore.php [R=301,L]
+RewriteRule ^jobs-in-perungudi-omr\.php$ /jobs-in-rs-puram.php [R=301,L]
+RewriteRule ^jobs-in-sholinganallur-omr\.php$ /jobs-in-gandhipuram.php [R=301,L]
+RewriteRule ^jobs-in-navalur-omr\.php$ /jobs-in-peelamedu.php [R=301,L]
+RewriteRule ^jobs-in-thoraipakkam-omr\.php$ /jobs-in-saravanampatti.php [R=301,L]
+RewriteRule ^jobs-in-kelambakkam-omr\.php$ /jobs-in-saibaba-colony.php [R=301,L]
+RewriteRule ^it-jobs-omr-chennai\.php$ /it-jobs-coimbatore.php [R=301,L]
+
+# Retired OMR IT parks pages
+RewriteRule ^directory/it-parks-in-omr\.php$ /directory/it-parks.php [R=301,L]
+RewriteRule ^discover/it-parks-in-omr\.php$ /it-parks [R=301,L]
+
+# Retired OMR job SEO landers in /weblog/ (robots disallow; redirect for bookmarks)
+RewriteRule ^weblog/experienced-jobs-omr-chennai\.php$ /jobs-in-coimbatore.php [R=301,L]
+RewriteRule ^weblog/healthcare-jobs-omr-chennai\.php$ /jobs-in-coimbatore.php [R=301,L]
+RewriteRule ^weblog/hospitality-jobs-omr-chennai\.php$ /jobs-in-coimbatore.php [R=301,L]
 
 # Coimbatore directory list – canonical covai-directory-list (replaces omr-road-database-list)
 RewriteRule ^covai-directory-list\.php$ core/covai-directory-list.php [L]
@@ -186,7 +250,7 @@ RewriteRule ^it-companies$ /directory/it-companies.php [L,NC]
 RewriteRule ^it-companies/([A-Za-z0-9-]+)$ /directory/it-company.php?slug=$1 [L,NC,QSA]
 
 # Pretty URL for IT parks listing
-RewriteRule ^it-parks$ /directory/it-parks-in-omr.php [L,NC]
+RewriteRule ^it-parks$ /directory/it-parks.php [L,NC]
 RewriteRule ^it-parks/([A-Za-z0-9-]+)$ /directory/it-park.php?slug=$1 [L,NC,QSA]
 RewriteRule ^it-parks/sitemap\.xml$ /directory/generate-it-parks-sitemap.php [L]
 
@@ -224,6 +288,16 @@ RewriteRule ^parks/([A-Za-z0-9-]+)$ /directory/park.php?slug=$1 [L,NC,QSA]
 
 # Local news – article sitemap (must be before slug catch-all)
 RewriteRule ^local-news/sitemap\.xml$ local-news/generate-sitemap.php [L]
+
+# Retired OMR static local-news/*.php files → Covai news hub (infra allowlist)
+RewriteCond %{REQUEST_URI} ^/local-news/[^/]+\.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/local-news/article\.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/local-news/event-recap\.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/local-news/generate-sitemap\.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/local-news/news-highlights\.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/local-news/news-highlights-from-omr-road\.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/local-news/article-sports-seo-enhancement\.php$ [NC]
+RewriteRule ^local-news/[^/]+\.php$ /coimbatore-news.php [R=301,L]
 
 # Clean URLs for articles: /local-news/article-slug -> article.php?slug=article-slug
 RewriteCond %{REQUEST_FILENAME} !-f

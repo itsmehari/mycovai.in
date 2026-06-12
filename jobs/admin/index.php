@@ -34,10 +34,10 @@ $stats['total_employers'] = $result['count'] ?? 0;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - MyOMR Job Portal</title>
+    <title>Admin Dashboard – MyCovai Job Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/job-listings-omr.css">
+    <link rel="stylesheet" href="../assets/job-listings-covai.css">
 </head>
 <body>
 
@@ -90,7 +90,7 @@ $stats['total_employers'] = $result['count'] ?? 0;
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-tasks me-2"></i>Manage Jobs</h5>
                     <p class="card-text">Approve, reject, or edit job postings</p>
-                    <a href="manage-jobs-omr.php" class="btn btn-primary">Manage Jobs</a>
+                    <a href="manage-jobs-covai.php" class="btn btn-primary">Manage Jobs</a>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@ $stats['total_employers'] = $result['count'] ?? 0;
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-users me-2"></i>View All Applications</h5>
                     <p class="card-text">Browse all job applications</p>
-                    <a href="view-all-applications-omr.php" class="btn btn-primary">View Applications</a>
+                    <a href="view-all-applications-covai.php" class="btn btn-primary">View Applications</a>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@ $stats['total_employers'] = $result['count'] ?? 0;
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-user-check me-2"></i>Verify Employers</h5>
                     <p class="card-text">Approve, set pending, or suspend employer accounts</p>
-                    <a href="verify-employers-omr.php" class="btn btn-primary">Verify Employers</a>
+                    <a href="verify-employers-covai.php" class="btn btn-primary">Verify Employers</a>
                 </div>
             </div>
         </div>

@@ -30,7 +30,7 @@ $localityOpts = function_exists('getCoimbatoreLocalitySelectOptions') ? getCoimb
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/css/tabler.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../jobs/assets/post-job-form-modern.css" />
-  <link rel="stylesheet" href="../jobs/assets/omr-jobs-unified-design.css" />
+  <link rel="stylesheet" href="../jobs/assets/covai-jobs-unified-design.css" />
   <link rel="stylesheet" href="assets/events-dashboard.css" />
   <?php include __DIR__ . '/../components/analytics.php'; ?>
 </head>
@@ -226,11 +226,11 @@ $localityOpts = function_exists('getCoimbatoreLocalitySelectOptions') ? getCoimb
     form.addEventListener('submit', e => {
       if (!form.checkValidity()) { e.preventDefault(); e.stopPropagation(); }
       form.classList.add('was-validated');
-      var ev = window.MyCovaiEventsAnalytics || window.MyOMREventsAnalytics;
+      var ev = window.MyCovaiEventsAnalytics;
       if (ev) { ev.submissionSubmit(); }
     });
   });
-  var evStart = window.MyCovaiEventsAnalytics || window.MyOMREventsAnalytics;
+  var evStart = window.MyCovaiEventsAnalytics;
   if (evStart) { evStart.submissionStart(); }
 })();
 </script>

@@ -72,7 +72,7 @@ switch (strtolower($detectedLocality)) {
           <?php if ($careersUrl !== ''): ?>
             <a class="btn btn-sm btn-success mt-2" href="<?php echo htmlspecialchars($careersUrl); ?>" target="_blank" rel="noopener">Careers</a>
           <?php endif; ?>
-          <a class="btn btn-sm btn-outline-primary mt-2" href="/local-news/">Coimbatore News</a>
+          <a class="btn btn-sm btn-outline-primary mt-2" href="/coimbatore-news.php">Coimbatore News</a>
         </div>
       </div>
     </aside>

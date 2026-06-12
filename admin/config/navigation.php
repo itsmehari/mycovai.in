@@ -17,6 +17,7 @@ return [
                 'path' => '/admin/index.php',
                 'icon' => 'fa-th-large',
                 'tags' => ['dashboard', 'modules', 'picker'],
+                'roles' => ['super_admin', 'editor_events'],
             ],
             [
                 'key' => 'dashboard',
@@ -25,6 +26,7 @@ return [
                 'path' => '/admin/dashboard.php',
                 'icon' => 'fa-chart-pie',
                 'tags' => ['dashboard', 'overview', 'analytics'],
+                'roles' => ['super_admin', 'editor_events'],
             ],
             [
                 'key' => 'articles',
@@ -33,32 +35,34 @@ return [
                 'path' => '/admin/articles/index.php',
                 'icon' => 'fa-newspaper',
                 'tags' => ['news', 'articles', 'content'],
+                'roles' => ['super_admin', 'editor_events'],
                 'actions' => [
                     ['label' => 'Add Article', 'path' => '/admin/articles/add.php'],
                 ],
             ],
             [
                 'key' => 'news',
-                'name' => 'News Bulletin',
-                'description' => 'Legacy news_bulletin table, separate from Articles.',
+                'name' => 'News Bulletin (legacy)',
+                'description' => 'Deprecated — use News Articles. Legacy news_bulletin table only.',
                 'path' => '/admin/news-list.php',
                 'icon' => 'fa-list',
                 'tags' => ['news', 'bulletin', 'legacy'],
+                'roles' => ['super_admin'],
                 'actions' => [
-                    ['label' => 'Add News', 'path' => '/admin/news-add.php'],
-                    ['label' => 'Draft Queue', 'path' => '/admin/news-list.php#drafts'],
+                    ['label' => 'Use Articles instead', 'path' => '/admin/articles/index.php'],
                 ],
             ],
             [
                 'key' => 'events',
                 'name' => 'Events',
-                'description' => 'Review submissions, publish events, and access analytics.',
-                'path' => '/admin/events/events-list.php',
+                'description' => 'Review submissions and publish events (event_listings).',
+                'path' => '/local-events/admin/manage-events-covai.php',
                 'icon' => 'fa-calendar-days',
                 'tags' => ['events', 'calendar'],
+                'roles' => ['super_admin', 'editor_events'],
                 'actions' => [
-                    ['label' => 'Add Event', 'path' => '/admin/events/events-add.php'],
-                    ['label' => 'Events Analytics', 'path' => '/admin/events-analytics.php'],
+                    ['label' => 'View Listings', 'path' => '/local-events/admin/view-listings.php'],
+                    ['label' => 'Events Admin Home', 'path' => '/local-events/admin/index.php'],
                 ],
             ],
             [
@@ -68,6 +72,7 @@ return [
                 'path' => '/jobs/admin/index.php',
                 'icon' => 'fa-briefcase',
                 'tags' => ['jobs', 'careers', 'employment'],
+                'roles' => ['super_admin', 'editor_events'],
             ],
             [
                 'key' => 'hostels_pgs',
@@ -169,7 +174,7 @@ return [
             [
                 'key' => 'atms',
                 'name' => 'ATM Network',
-                'description' => 'Track ATMs and banking touchpoints across OMR.',
+                'description' => 'Track ATMs and banking touchpoints across Coimbatore.',
                 'path' => '/admin/atms-list.php',
                 'icon' => 'fa-building-columns',
                 'tags' => ['atm', 'finance', 'directories'],

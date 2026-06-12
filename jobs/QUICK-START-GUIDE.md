@@ -56,14 +56,14 @@ Expected: Job listings page loads
 
 ### **Test 3: Post Job**
 
-1. Click "Post a Job" or visit: `/post-job-omr.php`
+1. Click "Post a Job" or visit: `/post-job-covai.php`
 2. Fill form with test data
 3. Submit
 4. ✅ Success page should show
 
 ### **Test 4: Employer Login**
 
-1. Visit: `/employer-login-omr.php`
+1. Visit: `/employer-login-covai.php`
 2. Enter email used in job posting
 3. ✅ Dashboard should load
 4. ✅ Posted job should appear
@@ -73,7 +73,7 @@ Expected: Job listings page loads
 1. Login as admin (email: admin@myomr.in)
 2. Visit: `/admin/index.php`
 3. ✅ Statistics should show
-4. Visit: `/admin/manage-jobs-omr.php`
+4. Visit: `/admin/manage-jobs-covai.php`
 5. ✅ Jobs list should show
 6. ✅ Approve test job
 

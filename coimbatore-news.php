@@ -3,12 +3,10 @@
  * Covai News – canonical Coimbatore news page.
  * Sections: hero, lead article + grid (Option B), quick links, featured events, subscribe, footer.
  */
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+require_once __DIR__ . '/core/error-handler.php';
 include __DIR__ . '/weblog/log.php';
 require_once __DIR__ . '/core/omr-connect.php';
+require_once __DIR__ . '/core/mycovai-config.php';
 require_once __DIR__ . '/core/url-helpers.php';
 
 $canonical_url = get_canonical_base() . '/coimbatore-news.php';
@@ -23,12 +21,27 @@ $sql = "SELECT id, title, slug, summary, published_date, image_path
         FROM articles 
         WHERE status = 'published' 
         AND slug NOT LIKE '%-tamil' ";
+$types = '';
+$params = [];
 if ($tag_filter !== '') {
-    $tag_escaped = $conn->real_escape_string($tag_filter);
-    $sql .= "AND (tags LIKE '%" . $tag_escaped . "%' OR category LIKE '%" . $tag_escaped . "%') ";
+    $like = '%' . $tag_filter . '%';
+    $sql .= 'AND (tags LIKE ? OR category LIKE ?) ';
+    $types .= 'ss';
+    $params[] = $like;
+    $params[] = $like;
 }
-$sql .= "ORDER BY published_date DESC LIMIT 21";
-$articles_result = $conn->query($sql);
+$sql .= 'ORDER BY published_date DESC LIMIT 21';
+$articles_result = null;
+if ($types === '') {
+    $articles_result = $conn->query($sql);
+} else {
+    $stmt = $conn->prepare($sql);
+    if ($stmt) {
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+        $articles_result = $stmt->get_result();
+    }
+}
 $lead_article = null;
 $grid_articles = [];
 if ($articles_result && $articles_result->num_rows > 0) {
@@ -39,7 +52,7 @@ if ($articles_result && $articles_result->num_rows > 0) {
 }
 
 function article_image_url($image_path) {
-    $img = $image_path ?? '/My-OMR-Logo.jpg';
+    $img = $image_path ?? (function_exists('covai_logo_url') ? covai_logo_url() : '/assets/img/mycovai-logo.svg');
     return (strpos($img, 'http') === 0) ? $img : 'https://mycovai.in' . (strpos($img, '/') === 0 ? '' : '/') . $img;
 }
 ?>

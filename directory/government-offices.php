@@ -5,16 +5,21 @@ error_reporting(E_ALL);
 // $browser = get_browser(null, true); // Disabled for stability
 
 require '../core/omr-connect.php';
+require_once __DIR__ . '/../core/directory-active-filters.php';
 
-//echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";
-
-$locality = isset($_GET['locality']) ? trim($_GET['locality']) : '';
+$filter_q = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
+$filter_locality = isset($_GET['locality']) ? trim((string) $_GET['locality']) : '';
 $t = covai_table('government-offices');
-$sql = "SELECT slno, office_name, address, contact, landmark FROM `$t`";
-if ($locality !== '') {
-  $safe = '%' . $conn->real_escape_string($locality) . '%';
-  $sql .= " WHERE address LIKE '" . $safe . "'";
+$sql = "SELECT slno, office_name, address, contact, landmark FROM `$t` WHERE 1=1";
+if ($filter_q !== '') {
+    $esc = $conn->real_escape_string($filter_q);
+    $sql .= " AND (office_name LIKE '%{$esc}%' OR address LIKE '%{$esc}%' OR landmark LIKE '%{$esc}%')";
 }
+if ($filter_locality !== '') {
+    $esc = $conn->real_escape_string($filter_locality);
+    $sql .= " AND (address LIKE '%{$esc}%' OR landmark LIKE '%{$esc}%')";
+}
+$sql .= ' ORDER BY office_name ASC';
 $result = $conn->query($sql);
 
 
@@ -199,6 +204,7 @@ color: #4c516D;
 
 <div class="container maxw-1280" id="main-content" role="main">
   <h1 class="text-center text-primary-omr">Government Offices in Coimbatore</h1>
+  <?php echo covai_directory_active_filters_markup('/directory/government-offices.php', $filter_q, $filter_locality); ?>
   <p class="text-center text-muted mb-0" style="max-width: 36rem; margin-left: auto; margin-right: auto;">Public offices, civic services, and administrative locations across Covai.</p>
   <?php
 if ($result->num_rows > 0) {

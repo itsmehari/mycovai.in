@@ -17,7 +17,7 @@ A **secure, accessible, and SEO-optimized job portal** for OMR (Old Mahabalipura
 ### **Phase 1: Foundation (100% Complete)**
 
 - ✅ Database setup (4 tables: employers, job_postings, job_applications, job_categories)
-- ✅ Helper functions (job-functions-omr.php with 13 functions)
+- ✅ Helper functions (job-functions-covai.php with 13 functions)
 - ✅ Folder structure (/omr-local-job-listings/, admin/, includes/, assets/)
 - ✅ Index page with search, filters, and pagination
 - ✅ Job posting form with validation
@@ -26,7 +26,7 @@ A **secure, accessible, and SEO-optimized job portal** for OMR (Old Mahabalipura
 ### **Phase 2: Core Features (100% Complete)**
 
 - ✅ Employer authentication (email-based login)
-- ✅ Employer dashboard (my-posted-jobs-omr.php)
+- ✅ Employer dashboard (my-posted-jobs-covai.php)
 - ✅ Admin panel (approve/reject jobs, view applications)
 - ✅ Application tracking system
 - ✅ View count tracking
@@ -49,21 +49,21 @@ A **secure, accessible, and SEO-optimized job portal** for OMR (Old Mahabalipura
 ```
 /omr-local-job-listings/
 ├── index.php                          ✅ Main job listings page
-├── post-job-omr.php                   ✅ Job posting form
-├── job-detail-omr.php                 ✅ Individual job view
-├── employer-login-omr.php             ✅ Employer authentication
-├── employer-logout-omr.php            ✅ Session cleanup
-├── my-posted-jobs-omr.php            ✅ Employer dashboard
-├── application-submitted-omr.php     ✅ Success confirmation
-├── job-posted-success-omr.php         ✅ Job posted confirmation
+├── post-job-covai.php                   ✅ Job posting form
+├── job-detail-covai.php                 ✅ Individual job view
+├── employer-login-covai.php             ✅ Employer authentication
+├── employer-logout-covai.php            ✅ Session cleanup
+├── my-posted-jobs-covai.php            ✅ Employer dashboard
+├── application-submitted-covai.php     ✅ Success confirmation
+├── job-posted-success-covai.php         ✅ Job posted confirmation
 ├── generate-sitemap.php               ✅ Dynamic sitemap generation
 ├── robots.txt                         ✅ Search engine crawler rules
 ├── admin/
 │   ├── index.php                      ✅ Admin dashboard
-│   ├── manage-jobs-omr.php            ✅ Job approval/rejection
-│   └── view-all-applications-omr.php  ✅ View all applications
+│   ├── manage-jobs-covai.php            ✅ Job approval/rejection
+│   └── view-all-applications-covai.php  ✅ View all applications
 ├── includes/
-│   ├── job-functions-omr.php          ✅ Helper functions
+│   ├── job-functions-covai.php          ✅ Helper functions
 │   └── employer-auth.php              ✅ Authentication helpers
 ├── assets/
 │   ├── job-listings-omr.css           ✅ Complete styling

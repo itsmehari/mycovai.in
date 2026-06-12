@@ -2,6 +2,25 @@
 
 Short log of notable changes. For full worklogs see `docs/worklogs/` (e.g. `worklog-dd-mm-yyyy.md`).
 
+**Live system map (10x doc):** `.cursor/LIVE-SYSTEM-MAP.md` · **Maintenance:** `.cursor/maintenance/MAINTENANCE-RUNBOOK.md`
+
+---
+
+## 2026-05-29
+
+**10x live documentation + `.cursor` organization**
+
+- Added `.cursor/LIVE-SYSTEM-MAP.md` — master live map (modules, URLs, config, phases, legacy summary).
+- Added `.cursor/maintenance/` — `PHASE-STATUS.md`, `LEGACY-MYOMR-AUDIT.md`, `MAINTENANCE-RUNBOOK.md`.
+- Moved DB snapshots to `.cursor/db-summaries/`; added READMEs for `plans/`, `.cursor/` root.
+- Added `dev-tools/audit-legacy-myomr-cli.php` for ongoing MyOMR string scans.
+- Updated `AGENTS.md` and `LEARNINGS.md` to point at new paths.
+
+**Phases 5–6 (security audit plan)**
+
+- Homepage listing counts file cache (`logs/cache/`), cleaned `sitemap.xml`, removed OMR job landers.
+- Docs: `docs/deployment/MYCOVAI-DEPLOYMENT-NOTES.md`, `docs/inbox/CONTENT-EDITOR-PLAYBOOK.md`, `docs/inbox/E2E-TEST-CHECKLIST.md`.
+
 ---
 
 ## 2026-03-19

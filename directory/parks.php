@@ -5,16 +5,21 @@ error_reporting(E_ALL);
 // $browser = get_browser(null, true); // Disabled for stability
 
 require '../core/omr-connect.php';
+require_once __DIR__ . '/../core/directory-active-filters.php';
 
-//echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";
-
-$locality = isset($_GET['locality']) ? trim($_GET['locality']) : '';
+$filter_q = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
+$filter_locality = isset($_GET['locality']) ? trim((string) $_GET['locality']) : '';
 $t = covai_table('parks');
-$sql = "SELECT slno, parkname, location, area, features, timings FROM `$t`";
-if ($locality !== '') {
-  $safe = '%' . $conn->real_escape_string($locality) . '%';
-  $sql .= " WHERE location LIKE '" . $safe . "'";
+$sql = "SELECT slno, parkname, location, area, features, timings FROM `$t` WHERE 1=1";
+if ($filter_q !== '') {
+    $esc = $conn->real_escape_string($filter_q);
+    $sql .= " AND (parkname LIKE '%{$esc}%' OR location LIKE '%{$esc}%' OR area LIKE '%{$esc}%' OR features LIKE '%{$esc}%')";
 }
+if ($filter_locality !== '') {
+    $esc = $conn->real_escape_string($filter_locality);
+    $sql .= " AND (location LIKE '%{$esc}%' OR area LIKE '%{$esc}%')";
+}
+$sql .= ' ORDER BY parkname ASC';
 $result = $conn->query($sql);
 
 ?>
@@ -199,6 +204,7 @@ color: #4c516D;
 
 <div class="container maxw-1280" id="main-content" role="main">
   <h1 class="text-center text-primary-omr">Parks in Coimbatore – Directory</h1>
+  <?php echo covai_directory_active_filters_markup('/directory/parks.php', $filter_q, $filter_locality); ?>
   <form class="form-inline my-3" method="get" action="">
     <select name="locality" class="form-control mr-2">
       <option value="">All localities</option>

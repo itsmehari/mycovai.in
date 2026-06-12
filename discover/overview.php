@@ -47,10 +47,10 @@ $discover_label = defined('MYCOVAI_CONFIG_LOADED') ? 'Discover ' . $site_name : 
                 <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
                     <span class="text-2xl font-bold text-green-700 mb-2">Just ₹1 Per Day</span>
                     <span class="text-gray-600">Full access to all features</span>
-                    <img src="/images/omr-city-skyline.jpg" alt="<?php echo htmlspecialchars($region_full); ?> Skyline" class="w-40 h-40 object-cover rounded-full mt-4 mb-2">
+                    <img src="<?php echo htmlspecialchars(function_exists('covai_logo_url') ? covai_logo_url() : '/assets/img/mycovai-logo.svg'); ?>" alt="<?php echo htmlspecialchars($region_full); ?>" class="w-40 h-40 object-contain rounded-full mt-4 mb-2">
                 </div>
                 <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-                    <img src="/images/myomr-qr-code.png" alt="<?php echo htmlspecialchars($site_name); ?> QR Code" class="w-32 h-32 mb-2">
+                    <img src="<?php echo htmlspecialchars(function_exists('covai_logo_url') ? covai_logo_url() : '/assets/img/mycovai-logo.svg'); ?>" alt="<?php echo htmlspecialchars($site_name); ?>" class="w-32 h-32 mb-2 object-contain">
                     <span class="text-gray-600">Scan to get started instantly!</span>
                 </div>
             </div>
@@ -123,7 +123,7 @@ $discover_label = defined('MYCOVAI_CONFIG_LOADED') ? 'Discover ' . $site_name : 
                     <ul class="space-y-2">
                         <li><a href="/discover/community.php" class="text-gray-400 hover:text-white">Community</a></li>
                         <li><a href="/discover/support.php" class="text-gray-400 hover:text-white">Support</a></li>
-                        <li><a href="/discover/it-parks-in-omr.php" class="text-gray-400 hover:text-white">Guide: IT Parks</a></li>
+                        <li><a href="/it-parks" class="text-gray-400 hover:text-white">IT Parks in Covai</a></li>
                         <li><a href="//privacy-policy.php" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
                     </ul>
                 </div>

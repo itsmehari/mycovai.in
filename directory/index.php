@@ -1,5 +1,36 @@
 <?php
 require_once __DIR__ . '/../core/omr-connect.php';
+require_once __DIR__ . '/../core/directory-hub-redirect.php';
+
+$home_categories = include __DIR__ . '/../core/homepage-directory-categories.php';
+if (!is_array($home_categories)) {
+    $home_categories = [];
+}
+
+$hub_q = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
+$hub_location = isset($_GET['location']) ? trim((string) $_GET['location']) : '';
+$hub_category = isset($_GET['category']) ? trim((string) $_GET['category']) : '';
+
+$invalid_category = false;
+if ($hub_category !== '') {
+    $target = directory_hub_build_url($hub_category, $hub_q, $hub_location);
+    if ($target !== null) {
+        header('Location: ' . $target, true, 302);
+        exit;
+    }
+    $invalid_category = true;
+}
+
+$show_refine = ($hub_q !== '' || $hub_location !== '') && $hub_category === '';
+$jobs_hub_params = [];
+if ($hub_q !== '') {
+    $jobs_hub_params['search'] = $hub_q;
+}
+if ($hub_location !== '') {
+    $jobs_hub_params['location'] = $hub_location;
+}
+$jobs_hub_url = '/jobs/' . ($jobs_hub_params !== [] ? '?' . http_build_query($jobs_hub_params) : '');
+
 $page_title = defined('SITE_NAME') && defined('SITE_REGION_SHORT') ? 'Explore Covai | ' . SITE_NAME : 'Explore Covai | MyCovai';
 $page_description = 'Explore the Coimbatore directory: schools, IT companies, banks, hospitals, restaurants, hostels, coworking spaces and more in Covai.';
 $page_keywords = 'Coimbatore, Covai, directory, listings, schools, IT companies, banks, hospitals, restaurants, Tamil Nadu';
@@ -24,76 +55,71 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
 <body class="bg-gray-50">
     <?php include $_SERVER['DOCUMENT_ROOT'].'/components/main-nav.php'; ?>
     <main class="container mx-auto px-4 py-8" style="max-width: 1280px;">
-        <section class="text-center mb-12">
+        <section class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-bold text-green-800 mb-4">Explore Coimbatore</h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-6">Find everything you need in Covai: schools, IT companies, banks, hospitals, restaurants, hostels, coworking spaces, and more. Click a category to explore detailed listings.</p>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-6">Find everything you need in Covai: schools, IT companies, banks, hospitals, restaurants, hostels, coworking spaces, and more.</p>
+
+            <form class="max-w-4xl mx-auto mb-6 text-left bg-white rounded-xl shadow-md p-4 md:p-6 border border-gray-100" action="/directory/index.php" method="get" role="search">
+                <p class="text-sm font-semibold text-green-900 mb-3">Search the directory</p>
+                <div class="grid md:grid-cols-12 gap-3 items-end">
+                    <div class="md:col-span-4">
+                        <label for="hub-q" class="block text-xs font-medium text-gray-600 mb-1">Keywords</label>
+                        <input id="hub-q" type="text" name="q" value="<?php echo htmlspecialchars($hub_q, ENT_QUOTES, 'UTF-8'); ?>" placeholder="School name, bank, park…" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900" autocomplete="off">
+                    </div>
+                    <div class="md:col-span-4">
+                        <label for="hub-location" class="block text-xs font-medium text-gray-600 mb-1">Area</label>
+                        <input id="hub-location" type="text" name="location" value="<?php echo htmlspecialchars($hub_location, ENT_QUOTES, 'UTF-8'); ?>" placeholder="e.g. Peelamedu, RS Puram" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900" autocomplete="off">
+                    </div>
+                    <div class="md:col-span-3">
+                        <label for="hub-category" class="block text-xs font-medium text-gray-600 mb-1">Category</label>
+                        <select id="hub-category" name="category" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 bg-white">
+                            <option value="">All categories (see suggestions below)</option>
+                            <?php foreach ($home_categories as $slug => $info): ?>
+                                <option value="<?php echo htmlspecialchars($slug, ENT_QUOTES, 'UTF-8'); ?>"<?php echo $hub_category === $slug ? ' selected' : ''; ?>><?php echo htmlspecialchars($info[0], ENT_QUOTES, 'UTF-8'); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="md:col-span-1 flex md:justify-end">
+                        <button type="submit" class="w-full md:w-auto whitespace-nowrap rounded-lg bg-green-700 hover:bg-green-800 text-white font-semibold px-4 py-2">Go</button>
+                    </div>
+                </div>
+                <?php if ($invalid_category): ?>
+                    <p class="mt-3 text-sm text-red-700" role="alert">That category is not recognized. Choose a category from the list or leave it on “All categories”.</p>
+                <?php endif; ?>
+            </form>
         </section>
+
+        <?php if ($show_refine): ?>
+        <section class="mb-10 max-w-4xl mx-auto rounded-xl border border-green-100 bg-green-50/80 p-5 text-left" aria-labelledby="refine-heading">
+            <h2 id="refine-heading" class="text-lg font-semibold text-green-900 mb-2">Open your search in a listing</h2>
+            <p class="text-gray-700 text-sm mb-4">Pick a category to run the same keywords and area on the right listing page. For roles and hiring, use jobs.</p>
+            <div class="flex flex-wrap gap-2">
+                <?php foreach (directory_hub_listing_targets() as $slug => $_meta):
+                    $label = isset($home_categories[$slug][0]) ? $home_categories[$slug][0] : ucfirst(str_replace('-', ' ', $slug));
+                    $u = directory_hub_build_url($slug, $hub_q, $hub_location);
+                    if ($u === null) {
+                        continue;
+                    }
+                    ?>
+                    <a href="<?php echo htmlspecialchars($u, ENT_QUOTES, 'UTF-8'); ?>" class="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-sm font-medium text-green-900 shadow-sm ring-1 ring-green-200 hover:bg-green-100"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></a>
+                <?php endforeach; ?>
+                <a href="<?php echo htmlspecialchars($jobs_hub_url, ENT_QUOTES, 'UTF-8'); ?>" class="inline-flex items-center rounded-full bg-green-800 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-green-900">Jobs in Covai</a>
+            </div>
+        </section>
+        <?php endif; ?>
+
         <section class="grid md:grid-cols-3 gap-8 mb-12">
-            <a href="/it-parks" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-building"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">IT Parks</h3>
-                <p class="text-gray-600 text-center">Major IT parks and SEZ campuses in and around Coimbatore.</p>
+            <?php foreach ($home_categories as $slug => $info):
+                $label = $info[0];
+                $url = $info[1];
+                $icon = $info[2];
+                ?>
+            <a href="<?php echo htmlspecialchars($url, ENT_QUOTES, 'UTF-8'); ?>" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
+                <span class="text-3xl text-green-700 mb-2"><i class="<?php echo htmlspecialchars($icon, ENT_QUOTES, 'UTF-8'); ?>" aria-hidden="true"></i></span>
+                <h3 class="text-xl font-semibold mb-2 text-green-800"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></h3>
+                <p class="text-gray-600 text-center">Browse <?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?> listings across Coimbatore.</p>
             </a>
-            <a href="/directory/schools.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-school"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Schools</h3>
-                <p class="text-gray-600 text-center">Comprehensive list of schools in Coimbatore.</p>
-            </a>
-            <a href="/directory/best-schools.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-star"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Best Schools</h3>
-                <p class="text-gray-600 text-center">Top-rated schools for quality education in Covai.</p>
-            </a>
-            <a href="/directory/it-companies.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-laptop-code"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">IT Companies</h3>
-                <p class="text-gray-600 text-center">Major IT and tech companies in Coimbatore.</p>
-            </a>
-            <a href="/directory/industries.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-industry"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Industries</h3>
-                <p class="text-gray-600 text-center">Key industries and manufacturing units in Covai.</p>
-            </a>
-            <a href="/directory/restaurants.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-utensils"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Restaurants</h3>
-                <p class="text-gray-600 text-center">Popular restaurants and eateries in Coimbatore.</p>
-            </a>
-            <a href="/directory/government-offices.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-university"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Government Offices</h3>
-                <p class="text-gray-600 text-center">Important government offices and services in Covai.</p>
-            </a>
-            <a href="/directory/atms.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-credit-card"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">ATMs</h3>
-                <p class="text-gray-600 text-center">ATM locations for all major banks in Coimbatore.</p>
-            </a>
-            <a href="/directory/parks.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-tree"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Parks</h3>
-                <p class="text-gray-600 text-center">Green spaces and parks for recreation in Covai.</p>
-            </a>
-            <a href="/directory/banks.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-university"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Banks</h3>
-                <p class="text-gray-600 text-center">All major banks and branches in Coimbatore.</p>
-            </a>
-            <a href="/directory/hospitals.php" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-hospital"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Hospitals</h3>
-                <p class="text-gray-600 text-center">Hospitals and healthcare centers in the Covai region.</p>
-            </a>
-            <a href="/hostels-pgs/" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-bed"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Hostels & PGs</h3>
-                <p class="text-gray-600 text-center">Find safe and affordable accommodation in Covai for students and professionals.</p>
-            </a>
-            <a href="/coworking-spaces/" class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center hover:bg-green-50 transition">
-                <span class="text-3xl text-green-700 mb-2"><i class="fas fa-building"></i></span>
-                <h3 class="text-xl font-semibold mb-2 text-green-800">Coworking Spaces</h3>
-                <p class="text-gray-600 text-center">Discover professional workspaces, hot desks, and meeting rooms in Coimbatore.</p>
-            </a>
+            <?php endforeach; ?>
         </section>
     </main>
     <?php include $_SERVER['DOCUMENT_ROOT'].'/components/footer.php'; ?>
@@ -101,8 +127,8 @@ $canonical_url = (defined('SITE_CANONICAL_BASE') ? SITE_CANONICAL_BASE : 'https:
     <script>
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
         }
     </script>
 </body>
-</html> 
+</html>

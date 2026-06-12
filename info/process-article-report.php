@@ -1,7 +1,7 @@
 <?php
 /**
  * Article report form handler.
- * Sends report to myomrnews@gmail.com with article URL and user comments.
+ * Sends report to mycovai@gmail.com with article URL and user comments.
  */
 
 require_once __DIR__ . '/../core/email.php';
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_article'])) {
         exit;
     }
 
-    $to = 'myomrnews@gmail.com';
+    $to = defined('CONTACT_EMAIL') ? CONTACT_EMAIL : 'mycovai@gmail.com';
     $subject = 'Article Report: ' . (mb_strlen($article_title) > 50 ? mb_substr($article_title, 0, 50) . '...' : $article_title);
 
     $body = '<h2>Article Report / Inconsistency Report</h2>';

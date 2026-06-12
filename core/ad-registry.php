@@ -71,15 +71,15 @@ $covai_ads = [
         'active'     => true,
     ],
     [
-        'id'         => 'myomr',
+        'id'         => 'sister_site',
         'advertiser' => 'MyOMR.in',
         'url'        => 'https://myomr.in/',
         'slot_ids'   => ['homepage-top'],
         'sizes'      => ['card-row'],
-        'design'     => 'myomr',
+        'design'     => 'sister_site',
         'headline'   => 'MyOMR.in',
         'tagline'    => 'OMR Chennai directory — schools, jobs, events & more.',
-        'active'     => true,
+        'active'     => false,
     ],
     [
         'id'         => 'akshayam',

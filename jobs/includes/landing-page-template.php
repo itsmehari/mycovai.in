@@ -6,9 +6,9 @@
 
 // If template is included directly, set defaults
 if (!isset($page_title)) {
-    $page_title = "Jobs in OMR Chennai | MyOMR";
-    $page_description = "Find jobs in OMR Chennai";
-    $canonical_url = "https://mycovai.in/jobs-in-omr-chennai.php";
+    $page_title = "Jobs in Coimbatore | MyCovai";
+    $page_description = "Find jobs in Coimbatore";
+    $canonical_url = "https://mycovai.in/jobs-in-coimbatore.php";
 }
 
 // Get general stats
@@ -45,8 +45,11 @@ if (isset($location)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($page_description); ?>">
-    <meta name="keywords" content="<?php echo htmlspecialchars($page_keywords ?? 'jobs in OMR Chennai, OMR job portal, local jobs'); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($page_keywords ?? 'jobs in Coimbatore, Covai job portal, local jobs'); ?>">
     <link rel="canonical" href="<?php echo $canonical_url; ?>">
+    <?php if (!empty($robots_noindex)): ?>
+    <meta name="robots" content="noindex, nofollow">
+    <?php endif; ?>
     
     <!-- Open Graph -->
     <meta property="og:title" content="<?php echo htmlspecialchars($page_title); ?>">
@@ -68,8 +71,8 @@ if (isset($location)) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/core.css">
-    <link rel="stylesheet" href="../assets/job-listings-omr.css">
-    <link rel="stylesheet" href="../assets/omr-jobs-unified-design.css">
+    <link rel="stylesheet" href="../assets/job-listings-covai.css">
+    <link rel="stylesheet" href="../assets/covai-jobs-unified-design.css">
     <link rel="stylesheet" href="../../../components/footer.css">
     
     <style>
@@ -147,7 +150,7 @@ if (isset($location)) {
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "MyOMR Job Portal",
+        "name": "MyCovai Job Portal",
         "url": "<?php echo $canonical_url; ?>",
         "description": "<?php echo htmlspecialchars($page_description); ?>",
         "potentialAction": {
@@ -163,7 +166,7 @@ if (isset($location)) {
         "@type": "BreadcrumbList",
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://mycovai.in/"},
-            {"@type": "ListItem", "position": 2, "name": "Jobs in OMR", "item": "https://mycovai.in/jobs-in-omr-chennai.php"},
+            {"@type": "ListItem", "position": 2, "name": "Jobs in Coimbatore", "item": "https://mycovai.in/jobs-in-coimbatore.php"},
             {"@type": "ListItem", "position": 3, "name": "<?php echo htmlspecialchars($breadcrumb_name ?? 'Jobs'); ?>", "item": "<?php echo $canonical_url; ?>"}
         ]
     }
@@ -202,7 +205,7 @@ if (isset($location)) {
                                            id="location_field" 
                                            name="location" 
                                            class="form-control form-control-lg" 
-                                           value="<?php echo htmlspecialchars($location ?? 'OMR'); ?>"
+                                           value="<?php echo htmlspecialchars($location ?? 'Coimbatore'); ?>"
                                            placeholder="Location">
                                 </div>
                                 <div class="col-md-3">
@@ -218,7 +221,7 @@ if (isset($location)) {
                         <a href="<?php echo $filter_url; ?>" class="btn btn-light btn-lg me-2">
                             <i class="fas fa-briefcase me-2"></i> View All Jobs
                         </a>
-                        <a href="/jobs/employer-register-omr.php" class="btn btn-outline-light btn-lg">
+                        <a href="/jobs/employer-register-covai.php" class="btn btn-outline-light btn-lg">
                             <i class="fas fa-plus me-2"></i> Post a Job (Free)
                         </a>
                     </div>
@@ -294,7 +297,7 @@ if (isset($location)) {
                             </span>
                         <?php endif; ?>
                         <h5 class="mb-2">
-                            <a href="/jobs/job-detail-omr.php?id=<?php echo $job['id']; ?>" class="text-decoration-none text-dark">
+                            <a href="<?php echo htmlspecialchars(getJobDetailUrl($job['id'], $job['title'] ?? '')); ?>" class="text-decoration-none text-dark">
                                 <?php echo htmlspecialchars($job['title']); ?>
                             </a>
                         </h5>
@@ -303,7 +306,7 @@ if (isset($location)) {
                         </p>
                         <p class="text-muted small mb-2">
                             <i class="fas fa-map-marker-alt me-1"></i>
-                            <?php echo htmlspecialchars($job['location'] ?? 'OMR'); ?>
+                            <?php echo htmlspecialchars($job['location'] ?? 'Coimbatore'); ?>
                         </p>
                         <div class="mb-3">
                             <span class="badge bg-light text-dark me-1">
@@ -320,7 +323,7 @@ if (isset($location)) {
                                 </span>
                             <?php endif; ?>
                         </div>
-                        <a href="/jobs/job-detail-omr.php?id=<?php echo $job['id']; ?>" class="btn btn-success btn-sm w-100">
+                        <a href="<?php echo htmlspecialchars(getJobDetailUrl($job['id'], $job['title'] ?? '')); ?>" class="btn btn-success btn-sm w-100">
                             View Details & Apply
                         </a>
                     </div>
@@ -361,13 +364,13 @@ if (isset($location)) {
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 mx-auto text-center">
-                    <h2 class="h2 mb-4">Ready to Find Your Dream Job<?php echo isset($location) ? ' in ' . htmlspecialchars($location) : ' in OMR'; ?>?</h2>
-                    <p class="lead mb-4">Join <?php echo number_format($total_jobs); ?>+ job opportunities and <?php echo number_format($total_employers); ?>+ employers on MyOMR.in</p>
+                    <h2 class="h2 mb-4">Ready to Find Your Dream Job<?php echo isset($location) ? ' in ' . htmlspecialchars($location) : ' in Coimbatore'; ?>?</h2>
+                    <p class="lead mb-4">Join <?php echo number_format($total_jobs); ?>+ job opportunities and <?php echo number_format($total_employers); ?>+ employers on MyCovai.in</p>
                     <div class="d-flex flex-wrap justify-content-center gap-3">
                         <a href="<?php echo $filter_url; ?>" class="btn btn-light btn-lg">
                             <i class="fas fa-search me-2"></i> Search Jobs Now
                         </a>
-                        <a href="/jobs/employer-register-omr.php" class="btn btn-outline-light btn-lg">
+                        <a href="/jobs/employer-register-covai.php" class="btn btn-outline-light btn-lg">
                             <i class="fas fa-briefcase me-2"></i> Post a Job (Free)
                         </a>
                     </div>

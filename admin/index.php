@@ -2,7 +2,7 @@
 require_once __DIR__ . '/_bootstrap.php';
 requireAdmin();
 
-$navSections = require __DIR__ . '/config/navigation.php';
+$navSections = admin_filter_navigation(require __DIR__ . '/config/navigation.php');
 $modules = require __DIR__ . '/modules.php';
 
 $totalModules = count($modules);
@@ -207,7 +207,7 @@ include __DIR__ . '/layout/header.php';
 
 <div class="admin-dashboard-shell">
   <section class="admin-dashboard-hero">
-    <h1>Manage the MyOMR Platform</h1>
+    <h1>Manage the MyCovai Platform</h1>
     <p>Access every CMS module, directory, and operational tool in one command center. Use filters to jump straight to the area you need.</p>
     <div class="admin-dashboard-metrics">
       <div class="admin-dashboard-metric">
