@@ -37,7 +37,7 @@
 
 | Priority | Work | Doc |
 |----------|------|-----|
-| P3 | **Live deploy + E2E on production** | `docs/inbox/E2E-TEST-CHECKLIST.md` |
+| P3 | **Live deploy + E2E on production** | **Pushed `201f7e9`** — cPanel Deploy HEAD + cleanup script pending; see `docs/deployment/DEPLOY-SPRINT-STATUS.md` |
 | P3 | **GSC sitemap resubmit** after deploy | `docs/inbox/SEO-MIGRATION-GSC.md` |
 | P3 | Rotate production secrets | `docs/deployment/MYCOVAI-DEPLOYMENT-NOTES.md` |
 | P3 | Hide legacy admin “News Bulletin” from non–super_admin | ✅ `navigation.php`, `dashboard.php`, `news-*.php` |
