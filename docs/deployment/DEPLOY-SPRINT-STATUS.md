@@ -23,16 +23,16 @@ Git push does **not** update the live docroot until you deploy in cPanel.
 3. Click **Pull or Deploy** → **Deploy HEAD Commit**
 4. Confirm docroot: `/home3/metap8ok/mycovai.in` (see `.cpanel.yml`)
 
-### Step 2 — Remove orphaned folders (rsync does not delete)
+### Step 2 — Orphan cleanup (automatic on deploy)
 
-cPanel → **Terminal**:
+`.cpanel.yml` now runs `dev-tools/post-deploy-cpanel-cleanup.sh` after rsync. On manual deploy you can also run:
 
 ```bash
 cd /home3/metap8ok/mycovai.in
 bash dev-tools/post-deploy-cpanel-cleanup.sh
 ```
 
-This removes `pentahive/`, `listings/`, `events/`, `free-ads-chennai/`, and retired PHP files still on disk.
+Removes `pentahive/`, `listings/`, `events/`, `free-ads-chennai/`, `election-blo-details/`, `test-website/`, and retired PHP files still on disk.
 
 ### Step 3 — Verify from your PC
 

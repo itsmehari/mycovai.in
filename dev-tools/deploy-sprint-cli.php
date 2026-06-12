@@ -90,6 +90,10 @@ if ($mode === 'pre') {
         'weblog/create-tables-remote.php',
         'pentahive',
         'events/index.php',
+        'free-ads-chennai',
+        'test-website',
+        'election-blo-details',
+        'omr-election-blo',
     ];
     foreach ($mustNotExist as $rel) {
         sprint_ok(!file_exists($root . '/' . $rel), "removed $rel");
