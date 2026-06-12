@@ -288,6 +288,7 @@ private-*.md
 # Old connection test files
 conn-test*.php
 db-conn*.php
+core/db-secrets.local.php
 
 # Alternate theme (Black-Pearl) – not used in production
 *-Black-Pearl*

@@ -115,7 +115,15 @@ if ($checkLive) {
         }
         foreach (extract_sitemap_locs($liveBody) as $sub) {
             [$subCode] = fetch_status($sub);
-            gsc_ok($subCode === 200, "live sub-sitemap $sub → $subCode");
+            $subBody = $subCode === 200 ? (string) @file_get_contents($sub) : '';
+            $urlCount = substr_count($subBody, '<url>');
+            $label = "live sub-sitemap $sub → $subCode";
+            if ($subCode === 200) {
+                $label .= " ($urlCount URLs)";
+                gsc_ok($urlCount > 0, "$label — empty child sitemap");
+            } else {
+                gsc_ok(false, $label);
+            }
         }
     }
 

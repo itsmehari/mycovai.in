@@ -49,6 +49,7 @@ Then GSC: remove stale sitemaps (`pentahive`, `election-blo-details`), submit `s
 2. **Env vars** (cPanel → PHP / `.htaccess` / `core/env.php`):
    - `MYCOVAI_ENV=production`
    - `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME` (never commit credentials)
+   - **Or** copy `core/db-secrets.local.php.example` → `core/db-secrets.local.php` on the server only (gitignored) and fill DB password
    - `ADMIN_PASSWORD_HASH` or rotated admin credentials per Phase 1
 3. **Remote MySQL** — developer machine IP allowed if running CLI scripts against live.
 4. **Writable dirs** — `logs/`, `logs/cache/` (homepage count cache), upload folders for articles/events.
