@@ -148,6 +148,10 @@ if ($checkLive) {
         gsc_ok($ok, "redirect $url → $locNeedle ($code)");
     }
 
+    [$jobsCode] = fetch_status('https://mycovai.in/jobs/sitemap.xml');
+    $jobsBody = $jobsCode === 200 ? (string) @file_get_contents('https://mycovai.in/jobs/sitemap.xml') : '';
+    gsc_ok($jobsCode === 200 && strpos($jobsBody, '<urlset') !== false, 'live jobs sitemap returns valid XML');
+
     $indexUrls = [
         'https://mycovai.in/',
         'https://mycovai.in/directory/',

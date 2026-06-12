@@ -45,6 +45,8 @@ Google read the **sitemap index** but could not count URLs from **child sitemaps
 | Stale index lists `pentahive`, `election-blo-details` | Dead children → 404/500 |
 | Missing `pages-sitemap.xml` | ~38 hub URLs not in index |
 | `directory` / `jobs` / `local-news` sitemaps → **500** | Main URL sets missing (DB) |
+| **`/jobs/sitemap.xml` returns plain text not XML** | GSC "Couldn't fetch" — fixed in `jobs/generate-sitemap.php` (deploy required) |
+| `pentahive/sitemap.xml` returns HTML homepage | "1 error" — remove from index + 404 rule |
 | Homepage → **500** | Crawlers blocked until DB fixed |
 | `robots.txt` → **404** | Sitemap line not served |
 

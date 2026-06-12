@@ -99,6 +99,8 @@ RewriteRule ^coimbatore-elections-2026/sitemap\.xml$ coimbatore-elections-2026/g
 RewriteRule ^listings/.*$ /directory/ [R=301,L]
 
 # Retired Pentahive OMR marketing microsite
+RewriteRule ^pentahive/sitemap\.xml$ - [R=404,L]
+RewriteRule ^election-blo-details/sitemap\.xml$ - [R=404,L]
 RewriteRule ^pentahive(?:/.*)?$ / [R=301,L]
 
 # Retired Chennai AC BLO search (OMR-era)
