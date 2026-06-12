@@ -57,7 +57,7 @@
         </section>
         <section class="text-center bg-blue-50 rounded-lg p-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">Back to Onboarding</h2>
-            <a href="/info/onboarding/overview.php" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+            <a href="/discover/overview.php" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
                 Overview
             </a>
         </section>
@@ -73,16 +73,16 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="/info/onboarding/overview.php" class="text-gray-400 hover:text-white">Overview</a></li>
-                        <li><a href="/info/onboarding/getting-started.php" class="text-gray-400 hover:text-white">Getting Started</a></li>
-                        <li><a href="/info/onboarding/features.php" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="/discover/overview.php" class="text-gray-400 hover:text-white">Overview</a></li>
+                        <li><a href="/discover/getting-started.php" class="text-gray-400 hover:text-white">Getting Started</a></li>
+                        <li><a href="/discover/features.php" class="text-gray-400 hover:text-white">Features</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Resources</h4>
                     <ul class="space-y-2">
-                        <li><a href="/info/onboarding/community.php" class="text-gray-400 hover:text-white">Community</a></li>
-                        <li><a href="/info/onboarding/support.php" class="text-gray-400 hover:text-white">Support</a></li>
+                        <li><a href="/discover/community.php" class="text-gray-400 hover:text-white">Community</a></li>
+                        <li><a href="/discover/support.php" class="text-gray-400 hover:text-white">Support</a></li>
                         <li><a href="//privacy-policy.php" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
                     </ul>
                 </div>
@@ -111,11 +111,11 @@
                 </button>
             </div>
             <nav class="space-y-4">
-                <a href="/info/onboarding/overview.php" class="block text-gray-600">Overview</a>
-                <a href="/info/onboarding/getting-started.php" class="block text-gray-600">Getting Started</a>
-                <a href="/info/onboarding/features.php" class="block text-gray-600">Features</a>
-                <a href="/info/onboarding/community.php" class="block text-gray-600">Community</a>
-                <a href="/info/onboarding/support.php" class="block text-blue-600 font-medium">Support</a>
+                <a href="/discover/overview.php" class="block text-gray-600">Overview</a>
+                <a href="/discover/getting-started.php" class="block text-gray-600">Getting Started</a>
+                <a href="/discover/features.php" class="block text-gray-600">Features</a>
+                <a href="/discover/community.php" class="block text-gray-600">Community</a>
+                <a href="/discover/support.php" class="block text-blue-600 font-medium">Support</a>
             </nav>
         </div>
     </div>

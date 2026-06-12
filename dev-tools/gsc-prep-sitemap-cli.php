@@ -20,6 +20,24 @@ function gsc_ok(bool $ok, string $label): void
     }
 }
 
+function fetch_redirect(string $url): array
+{
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_TIMEOUT => 20,
+        CURLOPT_NOBODY => true,
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_USERAGENT => 'MyCovai-GSC-Prep/1.0',
+    ]);
+    curl_exec($ch);
+    $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $loc = (string) curl_getinfo($ch, CURLINFO_REDIRECT_URL);
+    curl_close($ch);
+    return [$code, $loc];
+}
+
 function fetch_status(string $url): array
 {
     $ch = curl_init($url);
@@ -103,6 +121,38 @@ if ($checkLive) {
 
     [$robotsCode] = fetch_status('https://mycovai.in/robots.txt');
     gsc_ok($robotsCode === 200, "live robots.txt returns 200 (got $robotsCode)");
+
+    echo str_repeat('-', 55) . "\n";
+    echo "Live redirect checks (retired OMR URLs)\n";
+    echo str_repeat('-', 55) . "\n";
+    $redirectChecks = [
+        ['https://mycovai.in/pentahive/', 301, 'mycovai.in/'],
+        ['https://mycovai.in/listings/schools', 301, 'directory'],
+        ['https://mycovai.in/jobs-in-omr-chennai.php', 301, 'coimbatore'],
+        ['https://mycovai.in/events/', 301, 'local-events'],
+        ['https://mycovai.in/info/onboarding/getting-started.php', 301, 'discover'],
+        ['https://mycovai.in/info/onboarding/overview.php', 301, 'discover/overview'],
+        ['https://mycovai.in/omr-listings/schools.php', 301, 'directory'],
+    ];
+    foreach ($redirectChecks as [$url, $expectCode, $locNeedle]) {
+        [$code, $loc] = fetch_redirect($url);
+        $ok = $code === $expectCode && stripos($loc, $locNeedle) !== false;
+        gsc_ok($ok, "redirect $url → $locNeedle ($code)");
+    }
+
+    $indexUrls = [
+        'https://mycovai.in/',
+        'https://mycovai.in/directory/',
+        'https://mycovai.in/jobs/',
+        'https://mycovai.in/coimbatore-news.php',
+    ];
+    echo str_repeat('-', 55) . "\n";
+    echo "Priority pages for GSC indexing request\n";
+    echo str_repeat('-', 55) . "\n";
+    foreach ($indexUrls as $url) {
+        [$code] = fetch_status($url);
+        gsc_ok($code === 200, "index candidate $url → $code");
+    }
 }
 
 echo str_repeat('-', 55) . "\n";

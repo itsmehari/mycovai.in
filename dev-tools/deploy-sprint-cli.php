@@ -116,6 +116,7 @@ if ($mode === 'pre') {
         ['https://mycovai.in/jobs-in-omr-chennai.php', 301, 'coimbatore'],
         ['https://mycovai.in/events/', 301, 'local-events'],
         ['https://mycovai.in/info/onboarding/getting-started.php', 301, 'discover'],
+        ['https://mycovai.in/info/onboarding/overview.php', 301, 'discover/overview'],
         ['https://mycovai.in/free-ads-chennai/', 301, '/'],
     ];
     foreach ($redirects as [$url, $code, $loc]) {

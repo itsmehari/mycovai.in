@@ -47,6 +47,7 @@ $pages = [
     ['loc' => '/local-events/', 'priority' => '0.8', 'changefreq' => 'daily'],
     ['loc' => '/hostels-pgs/', 'priority' => '0.8', 'changefreq' => 'weekly'],
     ['loc' => '/coworking-spaces/', 'priority' => '0.8', 'changefreq' => 'weekly'],
+    ['loc' => '/discover/overview.php', 'priority' => '0.7', 'changefreq' => 'monthly'],
     ['loc' => '/discover/getting-started.php', 'priority' => '0.7', 'changefreq' => 'monthly'],
     ['loc' => '/discover/features.php', 'priority' => '0.7', 'changefreq' => 'monthly'],
     ['loc' => '/discover/community.php', 'priority' => '0.7', 'changefreq' => 'monthly'],

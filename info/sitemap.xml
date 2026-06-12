@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- MyCovai info section — replaces legacy myomr.in sitemap -->
+  <!-- MyCovai discover / legal — canonical /discover/* URLs -->
   <url>
-    <loc>https://mycovai.in/info/onboarding/overview.php</loc>
+    <loc>https://mycovai.in/discover/overview.php</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mycovai.in/info/onboarding/support.php</loc>
+    <loc>https://mycovai.in/discover/support.php</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

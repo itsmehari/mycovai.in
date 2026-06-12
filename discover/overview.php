@@ -124,7 +124,7 @@ $discover_label = defined('MYCOVAI_CONFIG_LOADED') ? 'Discover ' . $site_name : 
                         <li><a href="/discover/community.php" class="text-gray-400 hover:text-white">Community</a></li>
                         <li><a href="/discover/support.php" class="text-gray-400 hover:text-white">Support</a></li>
                         <li><a href="/it-parks" class="text-gray-400 hover:text-white">IT Parks in Covai</a></li>
-                        <li><a href="//privacy-policy.php" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="/privacy-policy.php" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div>

@@ -30,9 +30,9 @@ $site = covai_site_name();
           <i class="fas fa-user-plus mr-1"></i>Onboarding
         </a>
         <div class="dropdown-menu shadow rounded" aria-labelledby="onboardingDropdown">
-          <a class="dropdown-item" href="/info/onboarding/overview.php"><i class="fas fa-eye mr-1"></i>Overview</a>
-          <a class="dropdown-item" href="/info/onboarding/getting-started.php"><i class="fas fa-rocket mr-1"></i>Getting Started</a>
-          <a class="dropdown-item" href="/info/onboarding/features.php"><i class="fas fa-star mr-1"></i>Features</a>
+          <a class="dropdown-item" href="/discover/overview.php"><i class="fas fa-eye mr-1"></i>Overview</a>
+          <a class="dropdown-item" href="/discover/getting-started.php"><i class="fas fa-rocket mr-1"></i>Getting Started</a>
+          <a class="dropdown-item" href="/discover/features.php"><i class="fas fa-star mr-1"></i>Features</a>
         </div>
       </li>
     </ul>

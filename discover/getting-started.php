@@ -120,11 +120,11 @@ $discover_label = defined('MYCOVAI_CONFIG_LOADED') ? 'Discover ' . $site_name : 
                     </button>
                 </div>
                 <nav class="space-y-4">
-                    <a href="/info/onboarding/overview.php" class="block text-blue-600 font-medium">Overview</a>
-                    <a href="/info/onboarding/getting-started.php" class="block text-gray-600">Getting Started</a>
-                    <a href="/info/onboarding/features.php" class="block text-gray-600">Features</a>
-                    <a href="/info/onboarding/community.php" class="block text-gray-600">Community</a>
-                    <a href="/info/onboarding/support.php" class="block text-gray-600">Support</a>
+                    <a href="/discover/overview.php" class="block text-blue-600 font-medium">Overview</a>
+                    <a href="/discover/getting-started.php" class="block text-gray-600">Getting Started</a>
+                    <a href="/discover/features.php" class="block text-gray-600">Features</a>
+                    <a href="/discover/community.php" class="block text-gray-600">Community</a>
+                    <a href="/discover/support.php" class="block text-gray-600">Support</a>
                 </nav>
             </div>
         </div>
